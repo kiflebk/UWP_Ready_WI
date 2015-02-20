@@ -24,8 +24,10 @@
         android:layout_height="wrap_content"
         android:text="New RadioButton"
         android:id="@+id/radioButton"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/button"
         android:layout_toRightOf="@+id/button"
-        android:layout_toEndOf="@+id/button" />
+        android:layout_toEndOf="@+id/button"
+        android:layout_marginLeft="47dp"
+        android:layout_marginStart="47dp" />
 
 </RelativeLayout>
