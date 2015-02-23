@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Ready_Wisc.iml" filepath="$PROJECT_DIR$/Ready_Wisc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UWP_Ready_WI.iml" filepath="$PROJECT_DIR$/UWP_Ready_WI.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

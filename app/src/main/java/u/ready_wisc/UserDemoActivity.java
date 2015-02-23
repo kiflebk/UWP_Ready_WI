@@ -15,12 +15,10 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
-import u.ready_wisc.R;
 
+public class UserDemoActivity extends ActionBarActivity {
 
-public class MainActivity extends ActionBarActivity {
-
-    private static MyDatabaseHelper mDatabaseHelper;
+    private static u.ready_wisc.MyDatabaseHelper mDatabaseHelper;
     private Button DisplayButton, UpdateButton, getDBButton;
     static Context ctx;
 
@@ -53,9 +51,9 @@ public class MainActivity extends ActionBarActivity {
         DisplayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cursor c = mDatabaseHelper.query(MyDatabaseHelper.TABLE_USERS, MyDatabaseHelper.COL_NAME);
+                Cursor c = mDatabaseHelper.query(u.ready_wisc.MyDatabaseHelper.TABLE_USERS, u.ready_wisc.MyDatabaseHelper.COL_NAME);
 
-                String[] from = new String[]{MyDatabaseHelper.COL_NAME, MyDatabaseHelper.COL_EMAIL};
+                String[] from = new String[]{u.ready_wisc.MyDatabaseHelper.COL_NAME, u.ready_wisc.MyDatabaseHelper.COL_EMAIL};
 
                 int[] to = { android.R.id.text1, android.R.id.text2 };
 
@@ -93,17 +91,17 @@ public class MainActivity extends ActionBarActivity {
 
         ContentValues values = new ContentValues();
 
-        values.put(MyDatabaseHelper.COL_NAME, name);
+        values.put(u.ready_wisc.MyDatabaseHelper.COL_NAME, name);
 
         if (email != null) {
 
-            values.put(MyDatabaseHelper.COL_EMAIL, email);
+            values.put(u.ready_wisc.MyDatabaseHelper.COL_EMAIL, email);
 
         }
 
         if (dateOfBirthMillis != 0) {
 
-            values.put(MyDatabaseHelper.COL_DOB, dateOfBirthMillis);
+            values.put(u.ready_wisc.MyDatabaseHelper.COL_DOB, dateOfBirthMillis);
 
         }
 
@@ -111,7 +109,7 @@ public class MainActivity extends ActionBarActivity {
 
             mDatabaseHelper.insert(MyDatabaseHelper.TABLE_USERS, values);
 
-        } catch (MyDatabaseHelper.NotValidException e) {
+        } catch (u.ready_wisc.MyDatabaseHelper.NotValidException e) {
 
             Log.e("DB Error:", "Unable to insert into DB.");
 
