@@ -27,12 +27,12 @@
         android:id="@+id/UpdateButton"
         android:layout_gravity="center_horizontal" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Update from Web"
-        android:id="@+id/getDBButton"
-        android:layout_gravity="center_horizontal" />
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Update from Web"-->
+        <!--android:id="@+id/getDBButton"-->
+        <!--android:layout_gravity="center_horizontal" />-->
 
     <Button
         android:layout_width="wrap_content"

@@ -15,12 +15,10 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
-import u.ready_wisc.R;
-
 
 public class MainActivity extends ActionBarActivity {
 
-    private static MyDatabaseHelper mDatabaseHelper;
+    static MyDatabaseHelper mDatabaseHelper;
     private Button DisplayButton, UpdateButton, getDBButton;
     static Context ctx;
 
@@ -31,7 +29,7 @@ public class MainActivity extends ActionBarActivity {
         mDatabaseHelper = new MyDatabaseHelper(this);
         UpdateButton = (Button) findViewById(R.id.UpdateButton);
         DisplayButton = (Button) findViewById(R.id.DisplayButton);
-        getDBButton = (Button) findViewById(R.id.getDBButton);
+        //getDBButton = (Button) findViewById(R.id.getDBButton);
         final EditText name = (EditText) findViewById(R.id.editText);
         final EditText email = (EditText) findViewById(R.id.editText2);
 
@@ -68,24 +66,24 @@ public class MainActivity extends ActionBarActivity {
         });
 
         //click listener for the new button to update from the web database
-        getDBButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //this string can be dynamically allocated later, I hardcoded just for the proof of concept
-                //String[][] webNames = new String[3][3];
-
-                /*new runnable object used to pull the data from the web.
-                android will only let you do json calls from a thread other
-                than the main
-                 */
-
-                DBUpdateFromWeb foo = new DBUpdateFromWeb();
-                Thread t = new Thread(foo);
-                t.start();
-                Toast.makeText(ctx, "Local DB Updated", Toast.LENGTH_SHORT);
-            }
-        });
+//        getDBButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                //this string can be dynamically allocated later, I hardcoded just for the proof of concept
+//                //String[][] webNames = new String[3][3];
+//
+//                /*new runnable object used to pull the data from the web.
+//                android will only let you do json calls from a thread other
+//                than the main
+//                 */
+//
+//                DBUpdateFromWeb foo = new DBUpdateFromWeb();
+//                Thread t = new Thread(foo);
+//                t.start();
+//                Toast.makeText(ctx, "Local DB Updated", Toast.LENGTH_SHORT);
+//            }
+//        });
     }
 
 
@@ -109,7 +107,7 @@ public class MainActivity extends ActionBarActivity {
 
         try {
 
-            mDatabaseHelper.insert(MyDatabaseHelper.TABLE_USERS, values);
+            mDatabaseHelper.insert(mDatabaseHelper.TABLE_USERS, values);
 
         } catch (MyDatabaseHelper.NotValidException e) {
 

@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 public class UserDemoActivity extends ActionBarActivity {
 
-    private static u.ready_wisc.MyDatabaseHelper mDatabaseHelper;
+    private static MyDatabaseHelper mDatabaseHelper;
     private Button DisplayButton, UpdateButton, getDBButton;
     static Context ctx;
 
@@ -27,9 +27,10 @@ public class UserDemoActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mDatabaseHelper = new MyDatabaseHelper(this);
+        Log.i("Null Check",mDatabaseHelper.TABLE_USERS);
         UpdateButton = (Button) findViewById(R.id.UpdateButton);
         DisplayButton = (Button) findViewById(R.id.DisplayButton);
-        getDBButton = (Button) findViewById(R.id.getDBButton);
+        //getDBButton = (Button) findViewById(R.id.getDBButton);
         final EditText name = (EditText) findViewById(R.id.editText);
         final EditText email = (EditText) findViewById(R.id.editText2);
 
@@ -107,7 +108,7 @@ public class UserDemoActivity extends ActionBarActivity {
 
         try {
 
-            mDatabaseHelper.insert(MyDatabaseHelper.TABLE_USERS, values);
+                mDatabaseHelper.insert(MyDatabaseHelper.TABLE_USERS, values);
 
         } catch (u.ready_wisc.MyDatabaseHelper.NotValidException e) {
 
