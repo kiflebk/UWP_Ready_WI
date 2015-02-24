@@ -23,7 +23,6 @@ public class MenuActivity extends ActionBarActivity {
             public void onClick(View v) {
                 Intent i = new Intent(MenuActivity.this, MainActivity.class);
                 MenuActivity.this.startActivity(i);
-                MenuActivity.this.finish();
             }
         });
     }
