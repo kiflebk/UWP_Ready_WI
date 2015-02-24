@@ -1,6 +1,8 @@
 package u.ready_wisc;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -92,7 +94,7 @@ public class DBUpdateFromWeb implements Runnable{
                 ct_name[i][1] = json_data.getString("email"); //gets the email column
 
                 // inserts data into the local database
-                UserDemoActivity.addUser(ct_name[i][0], ct_name[i][1], 0);
+                MainActivity.addUser(ct_name[i][0], ct_name[i][1], 0);
             }
         } catch (JSONException e1) {
                 Log.e("IDK","Database Problem");
