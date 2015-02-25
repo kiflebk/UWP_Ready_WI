@@ -31,4 +31,34 @@
     <string name="submit">Submit Report</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="title_activity_checklist">Checklist</string>
+    <string name="title_activity_checklist__item_list_view">CheckList Items</string>
+    <string name="title_activity_checklist__item__create">Create Item</string>
+    <string name="title_activity_checklist__item__detail">Item Detail</string>
+    <string name="title_activity_checklist__kit__create">Create A Kit</string>
+    <string name="activity_checklist_item_create_name_textview">Name:</string>
+    <string name="activity_checklist_item_create_qty_textview">QTY:</string>
+    <string name="activity_checklist_item_create_priority_textview">Priority:</string>
+    <string name="activity_checklist_item_create_description_textview">Description</string>
+    <string name="activity_checklist_item_create_cancel_button">Cancel</string>
+    <string name="activity_checklist_item_create_save_button">Save</string>
+    <string name="activity_checklist_item_detail_name_textview">Name:</string>
+    <string name="activity_checklist_item_detail_qty_textview">QTY:</string>
+    <string name="activity_checklist_item_detail_priority_textview">Priority:</string>
+    <string name="activity_checklist_item_detail_description_textview">Description</string>
+    <string name="activity_checklist_item_detail_cancel_button">Cancel</string>
+    <string name="activity_checklist_item_detail_update_button">Update</string>
+    <string name="activity_checklist_create_title_textview">Title:</string>
+    <string name="activity_checklist_create_items_textview">Items:</string>
+    <string name="activity_checklist_create_add_button">+</string>
+    <string name="activity_checklist_create_cancel_button">Cancel</string>
+    <string name="activity_checklist_create_save_button">Save</string>
+    <string name="checklist_item_listview_row_textview">Empty</string>
+    <string name="activity_checklist_row_textview">Empty</string>
+    <string name="activity_checklist_create_row_textview">Empty</string>
+    <string name="title_activity_checklist__create__item__add">Checklist_Create_Item_Add</string>
+    <string name="menu_checklist_edit">Edit Mode</string>
+
+
 </resources>

@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="DB Demo"
+        android:text="Disaster Resources"
         android:id="@+id/disasterResourcesText"
         android:gravity="center_vertical"
         android:layout_alignBottom="@+id/disasterResourcesButton"

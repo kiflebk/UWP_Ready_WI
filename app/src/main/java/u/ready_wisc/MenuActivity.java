@@ -11,12 +11,12 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-
-import u.ready_wisc.R;
+import edu.parkside.cs.*;
+import edu.parkside.cs.checklist.Checklist;
 
 public class MenuActivity extends ActionBarActivity {
     ImageButton resourcesbutton;
-    ImageButton reportButton;
+    ImageButton reportButton, checklistButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +25,9 @@ public class MenuActivity extends ActionBarActivity {
 
         resourcesbutton = (ImageButton) findViewById(R.id.disasterResourcesButton);
         reportButton = (ImageButton) findViewById(R.id.reportDamageButton);
+        checklistButton = (ImageButton) findViewById(R.id.prepareButton);
 
-        resourcesbutton.setOnClickListener(new View.OnClickListener() {
+        checklistButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MenuActivity.this, MainActivity.class);
@@ -41,6 +42,7 @@ public class MenuActivity extends ActionBarActivity {
                 MenuActivity.this.startActivity(i);
             }
         });
+
     }
 
 
@@ -66,13 +68,4 @@ public class MenuActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void damageReport(){
-        Intent i = new Intent(this, DamageReports.class);
-        startActivity(i);
-    }
-
-    public void DBDemo(){
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
-    }
 }
