@@ -32,6 +32,16 @@
             android:name=".MenuActivity"
             android:label="@string/app_name" >
         </activity>
+
+        <activity
+            android:name=".DamageReports"
+            android:label="@string/app_name"
+            android:parentActivityName=".MenuActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="u.ready_wisc.MenuActivity" />
+        </activity>
+
     </application>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 

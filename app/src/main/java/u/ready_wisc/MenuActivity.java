@@ -1,27 +1,43 @@
 package u.ready_wisc;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 import u.ready_wisc.R;
 
 public class MenuActivity extends ActionBarActivity {
     ImageButton resourcesbutton;
+    ImageButton reportButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainmenu);
-        ImageButton resourcesbutton = (ImageButton) findViewById(R.id.disasterResourcesButton);
-        resourcesbutton.setOnClickListener(new ImageButton.OnClickListener() {
+
+        resourcesbutton = (ImageButton) findViewById(R.id.disasterResourcesButton);
+        reportButton = (ImageButton) findViewById(R.id.reportDamageButton);
+
+        resourcesbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MenuActivity.this, MainActivity.class);
+                MenuActivity.this.startActivity(i);
+            }
+        });
+
+        reportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MenuActivity.this, DamageReports.class);
                 MenuActivity.this.startActivity(i);
             }
         });
@@ -48,5 +64,15 @@ public class MenuActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void damageReport(){
+        Intent i = new Intent(this, DamageReports.class);
+        startActivity(i);
+    }
+
+    public void DBDemo(){
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
     }
 }

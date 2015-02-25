@@ -1,6 +1,34 @@
 <resources>
     <string name="app_name">Ready_Wisc</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="dateof">Date of Occurrence</string>
+    <string name="type">Type of Occurrence</string>
+    <string name="name">Name</string>
+    <string name="address">Address</string>
+    <string name="city">City</string>
+    <string name="state">State</string>
+    <string name="zip">Zip Code</string>
+    <string name="phone">Daytime Contact Phone</string>
+    <string name="rento">Own or Rent</string>
+    <string name="loss">Estimate of Damage Loss</string>
+    <string name="percent">Percent of Loss Covered by Your Insurance</string>
+    <string name="habitable">Is Residence Habitable?</string>
+    <string name="water">Is There Water in Basement?</string>
+    <string name="yeswater">If Yes, How Much in Inches</string>
+    <string name="family">Does a Family Member Permanently Live and Sleep in the Basement?</string>
+    <string name="description">Describe the Property Damage</string>
+
+    <string name="flood">Flood</string>
+    <string name="svr">Severe Storm</string>
+    <string name="sewer">Sewer Backup</string>
+    <string name="other">Other</string>
+    <string name="own">Own</string>
+    <string name="rent">Rent</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <string name="photoButton">Photograph Damage</string>
+    <string name="submit">Submit Report</string>
+
     <string name="action_settings">Settings</string>
 </resources>

@@ -59,7 +59,7 @@
         android:minWidth="50dp"
         android:layout_below="@+id/prepareButton"
         android:layout_alignLeft="@+id/prepareButton"
-        android:layout_alignStart="@+id/prepareButton" />
+        android:layout_alignStart="@+id/prepareButton"/>
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -69,7 +69,7 @@
         android:minWidth="50dp"
         android:layout_below="@+id/reportDamageButton"
         android:layout_alignLeft="@+id/reportDamageButton"
-        android:layout_alignStart="@+id/reportDamageButton" />
+        android:layout_alignStart="@+id/reportDamageButton"/>
 
     <TextView
         android:layout_width="wrap_content"
