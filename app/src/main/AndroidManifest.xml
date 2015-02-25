@@ -42,6 +42,53 @@
                 android:value="u.ready_wisc.MenuActivity" />
         </activity>
 
+        <activity
+            android:name="edu.parkside.cs.checklist.Checklist"
+            android:label="@string/title_activity_checklist"
+            android:parentActivityName="u.ready_wisc.MenuActivity">
+        </activity>
+        <activity
+            android:name="edu.parkside.cs.checklist.Checklist_Item_ListView"
+            android:label="@string/title_activity_checklist__item_list_view"
+            android:parentActivityName="edu.parkside.cs.checklist.Checklist" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.parkside.cs.checklist.Checklist" />
+        </activity>
+        <activity
+            android:name="edu.parkside.cs.checklist.Checklist_Item_Create"
+            android:label="@string/title_activity_checklist__item__create"
+            android:parentActivityName="edu.parkside.cs.checklist.Checklist_Item_ListView" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.parkside.cs.checklist.Checklist_Item_ListView" />
+        </activity>
+        <activity
+            android:name="edu.parkside.cs.checklist.Checklist_Item_Detail"
+            android:label="@string/title_activity_checklist__item__detail"
+            android:parentActivityName="edu.parkside.cs.checklist.Checklist_Item_ListView" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.parkside.cs.checklist.Checklist_Item_ListView" />
+        </activity>
+        <activity
+            android:name="edu.parkside.cs.checklist.Checklist_Create"
+            android:label="@string/title_activity_checklist__kit__create"
+            android:parentActivityName="edu.parkside.cs.checklist.Checklist" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.parkside.cs.checklist.Checklist" />
+        </activity>
+        <activity
+            android:name="edu.parkside.cs.checklist.Checklist_Create_Item_Add"
+            android:label="@string/title_activity_checklist__create__item__add"
+            android:parentActivityName="edu.parkside.cs.checklist.Checklist_Create" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.parkside.cs.checklist.Checklist_Create" />
+        </activity>
+
+
     </application>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 

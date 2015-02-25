@@ -27,7 +27,7 @@ public class MenuActivity extends ActionBarActivity {
         reportButton = (ImageButton) findViewById(R.id.reportDamageButton);
         checklistButton = (ImageButton) findViewById(R.id.prepareButton);
 
-        checklistButton.setOnClickListener(new View.OnClickListener() {
+        resourcesbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MenuActivity.this, MainActivity.class);
@@ -43,6 +43,13 @@ public class MenuActivity extends ActionBarActivity {
             }
         });
 
+        checklistButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MenuActivity.this, Checklist.class);
+                startActivity(i);
+            }
+        });
     }
 
 

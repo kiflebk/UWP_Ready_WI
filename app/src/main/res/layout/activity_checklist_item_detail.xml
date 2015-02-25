@@ -1,0 +1,104 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="edu.parkside.cs.checklist.Checklist_Item_Detail">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_checklist_item_detail_name_textview"
+        android:id="@+id/activity_checklist_item_detail_name_textview"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:layout_alignBottom="@+id/activity_checklist_item_detail_name_edittext"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/activity_checklist_item_detail_name_edittext"
+        android:layout_toRightOf="@+id/activity_checklist_item_detail_name_textview"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textAlignment="center"
+        android:onClick="editTextViewHasBeenSelected" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_checklist_item_detail_qty_textview"
+        android:id="@+id/activity_checklist_item_detail_qty_textview"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/activity_checklist_item_detail_name_textview"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/activity_checklist_item_detail_qty_edittext"
+        android:layout_alignBottom="@+id/activity_checklist_item_detail_qty_textview"
+        android:layout_toRightOf="@+id/activity_checklist_item_detail_qty_textview"
+        android:layout_alignRight="@+id/activity_checklist_item_detail_name_edittext"
+        android:layout_alignEnd="@+id/activity_checklist_item_detail_name_edittext"
+        android:textAlignment="center"
+        android:onClick="editTextViewHasBeenSelected" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/activity_checklist_item_detail_decription_edittext"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/activity_checklist_item_detail_cancel_button"
+        android:layout_below="@+id/activity_checklist_item_detail_description_textview"
+        android:gravity="left|top"
+        android:onClick="editTextViewHasBeenSelected" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_checklist_item_detail_description_textview"
+        android:id="@+id/activity_checklist_item_detail_description_textview"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:layout_marginTop="36dp"
+        android:layout_below="@+id/activity_checklist_item_detail_qty_edittext"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_checklist_item_detail_cancel_button"
+        android:id="@+id/activity_checklist_item_detail_cancel_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="cancelButtonPressed" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_checklist_item_detail_update_button"
+        android:id="@+id/activity_checklist_item_detail_update_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="updateButtonPressed" />
+
+</RelativeLayout>
