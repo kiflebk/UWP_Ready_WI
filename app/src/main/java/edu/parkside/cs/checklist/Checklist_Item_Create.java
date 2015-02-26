@@ -124,7 +124,7 @@ public class Checklist_Item_Create extends ActionBarActivity {
         // If successful return to previous activity.
         if (status == Checklist_Contract_Db_Helper.FAILURE)
         {
-            // Notify user of error.
+            /* Notify user of error. */
         }
         else
         {
