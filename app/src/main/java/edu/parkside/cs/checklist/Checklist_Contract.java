@@ -94,6 +94,12 @@ public final class Checklist_Contract {
             return query;
         }
 
+        public static final String fetchItems(Checklist_Row checklist){
+            String query = "SELECT * FROM " + Item.TABLE_NAME +
+                    " WHERE " + Item.COLUMN_NAME_CHECKLIST_ID + " = " + "\'" + checklist.getEntryid() +"\'";
+            return query;
+        }
+
         public static final String insertItem(Checklist_Item_Row item){
             String query = "INSERT INTO " + Item.TABLE_NAME + " (" +
                     Item._ID + ", " +Item.COLUMN_NAME_NAME + ", " +
@@ -107,11 +113,7 @@ public final class Checklist_Contract {
             return query;
         }
 
-        public static final String fetchItems(Checklist_Row checklist){
-            String query = "SELECT * FROM " + Item.TABLE_NAME +
-                    " WHERE " + Item.COLUMN_NAME_CHECKLIST_ID + " = " + "\'" + checklist.getEntryid() +"\'";
-            return query;
-        }
+
 
         public static final String updateItem(Checklist_Item_Row item){
             String query = "UPDATE " + Item.TABLE_NAME +
@@ -122,14 +124,14 @@ public final class Checklist_Contract {
             return query;
         }
 
-        public static final String deleteItem(Checklist_Item_Row item){
+        public static final String[] deleteItem(Checklist_Item_Row item){
 
             String query = Checklist_Description_Qureries.deleteDescription(item);
 
             String itemPropertiesQuery = "DELETE FROM " + Item.TABLE_NAME +
                     "WHERE " + Item._ID + " = " + "\'" + item.getEntryid() + "\'";
 
-            return query;
+            return new String[] {query, itemPropertiesQuery};
         }
     }
 

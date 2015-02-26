@@ -10,6 +10,15 @@ import u.ready_wisc.R;
 
 import java.util.ArrayList;
 
+/**
+ /**
+ * @author David Krawchuk
+ * @email krawchukdavid@gmail.com
+ * @date 02/25/2014
+ *
+ * Description:
+ *  The controller for displaying the contents of a checklist.
+ */
 public class Checklist_Item_ListView extends ActionBarActivity {
 
     /* INSTANCE VARIABLE BLOCK BEGIN */

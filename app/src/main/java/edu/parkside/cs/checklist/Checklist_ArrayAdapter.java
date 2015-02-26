@@ -87,7 +87,7 @@ public class Checklist_ArrayAdapter extends ArrayAdapter {
      *   condition allows for selection or deletion of checklist rows.
      *
      *   @TODO Error condition needs to be implemented!
-     *   @TODO Replace string compairsons with index or Object type.
+     *   @TODO Replace string comparisons with index or Object type.
      *
      * @param position
      * @param convertView

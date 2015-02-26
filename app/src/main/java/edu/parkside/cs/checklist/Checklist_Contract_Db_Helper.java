@@ -352,6 +352,11 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
         try {
             database.beginTransaction();
             database.execSQL(Checklist_Contract.Checklist_Queries.deleteChecklist(checklist_row));
+
+            ArrayList<Checklist_Item_Row> rowsToBeDeleted = new ArrayList<Checklist_Item_Row>();
+            populateListWithChecklistItemRow(database.rawQuery(Checklist_Contract.Checklist_Item_Queries.fetchItems(checklist_row), null), rowsToBeDeleted);
+            deleteItems((Checklist_Item_Row [])rowsToBeDeleted.toArray());
+
             database.setTransactionSuccessful();
             database.endTransaction();
         }
@@ -610,28 +615,38 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
      * @date 02/20/2014
      *
      * Description:
-     *  Deletes the item and its attributes in the Item table, as well as, the description table
+     *  Deletes the items and their attributes in the Item table, as well as, the description table
      *  and it's attributes. Upon completion of the transaction the method will return the
      *  condition code.
      *
-     * @param item
+     * @param items
      * @return
      */
-    public int deleteItem(Checklist_Item_Row item){
+    public int deleteItems(Checklist_Item_Row [] items){
         boolean transaction_success = true;
 
         SQLiteDatabase database = this.getWritableDatabase();
 
         try{
-            // Begin database interaction.
-            database.beginTransaction();
+            for(Checklist_Item_Row item : items){
+                // Begin database interaction.
+                database.beginTransaction();
 
-            String query = Checklist_Contract.Checklist_Item_Queries.deleteItem(item);
-            database.execSQL(query);
+                // Deletes the item and description.
+                String [] queries = Checklist_Contract.Checklist_Item_Queries.deleteItem(item);
 
-            // End database interaction.
-            database.setTransactionSuccessful();
-            database.endTransaction();
+                // Loop through the array of queries and execute them.
+                for(String query : queries) {
+                    database.beginTransaction();
+                    database.execSQL(query);
+                    database.endTransaction();
+                }
+
+                // End database interaction.
+                database.setTransactionSuccessful();
+                database.endTransaction();
+            }
+
         }
         catch (SQLiteException e){
             transaction_success = false;

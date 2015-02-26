@@ -5,34 +5,27 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import u.ready_wisc.R;
-
 import java.util.ArrayList;
+
+import u.ready_wisc.R;
 
 /**
  * @author David Krawchuk
  * @email krawchukdavid@gmail.com
- * @date 02/20/2014
+ * @date 02/25/2014
  *
  * Description:
- *  Provides the mapping between the checklist_item_row.xml and checklist_item_row objects.
+ *
  */
-public class Checklist_Item_ArrayAdapter extends ArrayAdapter<Checklist_Item_Row> {
-
-    /* INSTANCE VARIABLE BLOCK BEGIN */
-    ArrayList<Checklist_Item_Row> checklist_item_rowArrayList;
-    Context context;
-    int resourceID;
-    /* INSTANCE VARIABLE BLOCK END */
+public class Checklist_Create_Item_Adapter extends Checklist_Item_ArrayAdapter {
 
     /**
      * @author David Krawchuk
      * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
+     * @date 02/25/2014
      *
      * Description:
      *
@@ -40,29 +33,23 @@ public class Checklist_Item_ArrayAdapter extends ArrayAdapter<Checklist_Item_Row
      * @param context
      * @param resource
      */
-    public Checklist_Item_ArrayAdapter(Context context, int resource) {
+    public Checklist_Create_Item_Adapter(Context context, int resource) {
         super(context, resource);
-        this.context = context;
-        this.resourceID = resource;
     }
 
     /**
      * @author David Krawchuk
      * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
+     * @date 02/25/2014
      *
      * Description:
-     *  Default constructor.
      *
      * @param context
      * @param resource
      * @param objects
      */
-    public Checklist_Item_ArrayAdapter(Context context, int resource, ArrayList<Checklist_Item_Row> objects) {
+    public Checklist_Create_Item_Adapter(Context context, int resource, ArrayList<Checklist_Item_Row> objects) {
         super(context, resource, objects);
-        this.checklist_item_rowArrayList = objects;
-        this.context = context;
-        this.resourceID = resource;
     }
 
     /**
@@ -70,27 +57,11 @@ public class Checklist_Item_ArrayAdapter extends ArrayAdapter<Checklist_Item_Row
      * @email krawchukdavid@gmail.com
      * @date 02/20/2014
      *
-     * Description:
-     *  Setter.
-     *
-     * @param arrayList
-     */
-    public void setList(ArrayList<Checklist_Item_Row> arrayList)
-    {
-        this.checklist_item_rowArrayList = arrayList;
-    }
-
-
-    /**
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
+     * @TODO Implement delete mechanism when checkbox is selected.
+     * @TODO Send description to detail activity.
      *
      * Description:
-     *  Returns the inflated row filled with the Checklist_Item_Row attributes. Givin the current editing
-     *   condition allows for selection or deletion of checklist item rows.
      *
-     * @TODO Error condition needs to be implemented!
      *
      * @param position
      * @param convertView
@@ -98,7 +69,7 @@ public class Checklist_Item_ArrayAdapter extends ArrayAdapter<Checklist_Item_Row
      * @return
      */
     @Override
-    public View getView(final int position, final View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View rowView = inflater.inflate(R.layout.activity_checklist_item_listview_row, parent, false);
@@ -107,12 +78,11 @@ public class Checklist_Item_ArrayAdapter extends ArrayAdapter<Checklist_Item_Row
         final CheckBox checkBox = (CheckBox)rowView.findViewById(R.id.checklist_item_listview_row_checkbox);
 
         itemName.setText(this.checklist_item_rowArrayList.get(position).getName());
-        checkBox.setChecked(this.checklist_item_rowArrayList.get(position).isChecked());
 
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checklist_item_rowArrayList.get(position).setChecked();
+                // Maybe delete the row when the user clicks?
             }
         });
 
@@ -141,15 +111,14 @@ public class Checklist_Item_ArrayAdapter extends ArrayAdapter<Checklist_Item_Row
 
                 }
                 else if (checklist_item_rowArrayList.get(position).getName().contains("Add Item")){
-                    Intent intent = new Intent(context, Checklist_Item_Create.class);
-                    intent.putExtra(Checklist_Item_ListView.EXTRA_MESSAGE,
-                            ((Checklist_Item_ListView)context).passedChecklist);
-                    context.startActivity(intent);
+                    Intent intent = new Intent(context, Checklist_Create_Item_Add.class);
+                    ((Checklist_Create)context).startActivityForResult(intent, Checklist_Create.REQUEST);
                 }
                 else {
                     Intent intent = new Intent(context, Checklist_Item_Detail.class);
-                    intent.putExtra(Checklist_Item_ListView.EXTRA_MESSAGE, checklist_item_rowArrayList.get(position));
-                    context.startActivity(intent);
+                    intent.putExtra(Checklist_Create.EXTRA_MESSAGE, checklist_item_rowArrayList.get(position));
+                    // Send description.
+                    ((Checklist_Create)context).startActivityForResult(intent, Checklist_Create.REQUEST);
                 }
 
             }
@@ -157,4 +126,5 @@ public class Checklist_Item_ArrayAdapter extends ArrayAdapter<Checklist_Item_Row
 
         return rowView;
     }
+
 }
