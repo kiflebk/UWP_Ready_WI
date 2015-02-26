@@ -128,8 +128,6 @@ public class Checklist_Item_ListView extends ActionBarActivity {
         super.onResume();
         // The activity has become visible (it is now "resumed").
 
-        getChecklist_item_arrayAdapter().clear();
-
         // Repopulate the listView with the contents of the Checklist table.
         new Runnable() {
             @Override
@@ -168,7 +166,8 @@ public class Checklist_Item_ListView extends ActionBarActivity {
         getChecklist_item_arrayAdapter().clear();
 
         // Repopulate the adapter contents.
-        getChecklist_item_arrayAdapter().addAll(Checklist_Contract_Db_Helper.getDb_helper(this).returnChecklistItemRows(null));
+        String [] query_of_items = {Checklist_Contract.Checklist_Item_Queries.fetchItems(passedChecklist)};
+        getChecklist_item_arrayAdapter().addAll(Checklist_Contract_Db_Helper.getDb_helper(this).returnChecklistItemRows(query_of_items));
 
         // Notify clients that contents of the adapter have changed and they should update their state.
         getChecklist_item_arrayAdapter().notifyDataSetChanged();

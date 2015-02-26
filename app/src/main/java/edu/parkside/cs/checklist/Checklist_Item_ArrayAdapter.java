@@ -119,7 +119,7 @@ public class Checklist_Item_ArrayAdapter extends ArrayAdapter<Checklist_Item_Row
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (((Checklist)context).isInEditMode)
+                if (((Checklist_Item_ListView)context).isInEditMode)
                 {
                     // If the item is not the Add Checklist row, allow removal.
                     if (position != checklist_item_rowArrayList.size() - 1)

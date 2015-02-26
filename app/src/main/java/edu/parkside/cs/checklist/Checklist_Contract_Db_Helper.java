@@ -246,7 +246,6 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
             {
                 cursor = database.rawQuery(Checklist_Contract.Checklist_Queries.ALL_ITEMS, null);
                 populateListWithChecklist(cursor, rowList);
-                rowList.add(new Checklist_Row("Add Checklist", 0));
             }
             else
             {
@@ -256,6 +255,7 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
                     populateListWithChecklist(cursor, rowList);
                 }
             }
+            rowList.add(new Checklist_Row("Add Checklist", 0));
 
             // End database interaction.
             database.setTransactionSuccessful();
@@ -486,7 +486,6 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
         {
             cursor = database.rawQuery(Checklist_Contract.Checklist_Item_Queries.ALL_ITEMS, null);
             populateListWithChecklistItemRow(cursor, rowList);
-            rowList.add(new Checklist_Item_Row("Add Item", false));
         }
         else
         {
@@ -496,6 +495,7 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
                 populateListWithChecklistItemRow(cursor, rowList);
             }
         }
+        rowList.add(new Checklist_Item_Row("Add Item", false));
 
         // End interaction with database.
         database.setTransactionSuccessful();
@@ -582,7 +582,7 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
             database.beginTransaction();
 
             // Update Item.
-            query = Checklist_Contract.Checklist_Item_Queries.updateItem(item, description);
+            query = Checklist_Contract.Checklist_Item_Queries.updateItem(item);
             database.execSQL(query);
 
             // Update description item.

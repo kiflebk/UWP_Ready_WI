@@ -87,6 +87,7 @@ public class Checklist_ArrayAdapter extends ArrayAdapter {
      *   condition allows for selection or deletion of checklist rows.
      *
      *   @TODO Error condition needs to be implemented!
+     *   @TODO Replace string compairsons with index or Object type.
      *
      * @param position
      * @param convertView
@@ -130,6 +131,8 @@ public class Checklist_ArrayAdapter extends ArrayAdapter {
 
 
                 }
+                // Should use last list index, or some object type instead of string,
+                // bad idea if we end up using localized strings.
                 else if (list.get(position).getTitle().contains("Add Checklist")){
                         Intent intent = new Intent(context, Checklist_Create.class);
                         context.startActivity(intent);

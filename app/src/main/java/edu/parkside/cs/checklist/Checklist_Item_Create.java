@@ -115,6 +115,7 @@ public class Checklist_Item_Create extends ActionBarActivity {
         Checklist_Item_Row item = new Checklist_Item_Row();
         item.setName(name.getText().toString());
         item.setQty(new Integer(qty.getText().toString()).intValue());
+        item.setChecklist_entryid(checklist_row.getEntryid());
 
 
         int status = Checklist_Contract_Db_Helper.getDb_helper(this).insertItem(item, description.getText().toString());

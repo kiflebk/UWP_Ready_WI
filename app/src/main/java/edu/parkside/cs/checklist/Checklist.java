@@ -65,7 +65,8 @@ public class Checklist extends ActionBarActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Checklist_Contract_Db_Helper.getDb_helper(this).addChecklist(new Checklist_Row("Summer", 34));
+        //Checklist_Contract_Db_Helper.getDb_helper(this).addChecklist(new Checklist_Row("Summer", 34));
+        //Checklist_Contract_Db_Helper.getDb_helper(this).addChecklist(new Checklist_Row("Winter", 75));
 
     }
 
