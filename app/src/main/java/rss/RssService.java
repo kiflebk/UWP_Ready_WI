@@ -18,13 +18,14 @@ import java.util.List;
 
 /**
  * Created by piela_000 on 3/1/2015.
+ * RssService class extends IntenctService to read from url in seperate thread
  */
-public class RssService extends IntentService{
+public class RssService extends IntentService {
 
     private static final String RSS_LINK = "http://www.pcworld.com/index.rss";
     public static final String ITEMS = "items";
     public static final String RECEIVER = "receiver";
-    public static Intent passIntent = new Intent();
+
 
     public RssService() {
         super("RssService");
@@ -45,7 +46,7 @@ public class RssService extends IntentService{
         }
         Bundle bundle = new Bundle();
         bundle.putSerializable(ITEMS, (Serializable) rssItems);
-        ResultReceiver receiver = passIntent.getParcelableExtra(RECEIVER);
+        ResultReceiver receiver = intent.getParcelableExtra(RECEIVER);
         receiver.send(0, bundle);
     }
 

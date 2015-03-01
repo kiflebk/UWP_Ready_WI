@@ -30,7 +30,6 @@ public class MenuActivity extends ActionBarActivity {
         reportButton = (ImageButton) findViewById(R.id.reportDamageButton);
         checklistButton = (ImageButton) findViewById(R.id.prepareButton);
 
-        //rssList();
 
         resourcesbutton.setOnClickListener(new View.OnClickListener() {
             @Override

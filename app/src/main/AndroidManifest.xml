@@ -9,6 +9,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
+        <service android:name="rss.RssService" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -89,6 +92,7 @@
         </activity>
 
     </application>
+
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
 </manifest>
