@@ -1,18 +1,17 @@
 package u.ready_wisc;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import edu.parkside.cs.*;
+
 import edu.parkside.cs.checklist.Checklist;
+import rss.RssFragment;
 
 public class MenuActivity extends ActionBarActivity {
     ImageButton resourcesbutton;
@@ -23,9 +22,15 @@ public class MenuActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainmenu);
 
+        if (savedInstanceState == null) {
+            addRssFragment();
+        }
+
         resourcesbutton = (ImageButton) findViewById(R.id.disasterResourcesButton);
         reportButton = (ImageButton) findViewById(R.id.reportDamageButton);
         checklistButton = (ImageButton) findViewById(R.id.prepareButton);
+
+        //rssList();
 
         resourcesbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,5 +79,21 @@ public class MenuActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void addRssFragment() {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        RssFragment fragment = new RssFragment();
+        transaction.add(R.id.fragment_container, fragment);
+        transaction.commit();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("fragment_added", true);
+    }
+
+
 
 }

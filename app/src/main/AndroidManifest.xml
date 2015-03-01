@@ -88,7 +88,6 @@
                 android:value="edu.parkside.cs.checklist.Checklist_Create" />
         </activity>
 
-
     </application>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
