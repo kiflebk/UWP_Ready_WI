@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingTop="16dp">
             <ImageButton
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -42,15 +42,14 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Prepare"
                 android:id="@+id/prepareText"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="30dp"
                 />
 
             <TextView
@@ -60,16 +59,25 @@
                 android:text="Report Damage"
                 android:id="@+id/damageReportText"
                 android:gravity="center_vertical"
-                android:layout_marginTop="20dp"/>
-
+                android:layout_marginTop="23dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Disaster Resources"
                 android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/disasterResourcesText"
+                android:layout_marginTop="24dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="25dp"
                 android:text="Alerts and Warnings"
                 android:id="@+id/awText"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="25dp"/>
+
+
 
             </LinearLayout>
 
