@@ -56,6 +56,10 @@ public class RssParser {
                     title = null;
                     link = null;
                 }
+                else{
+                    title = null;
+                    link = null;
+                }
             }
         }
         return items;
