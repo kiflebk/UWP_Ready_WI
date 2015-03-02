@@ -49,7 +49,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Prepare"
                 android:id="@+id/prepareText"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="26dp"
                 />
 
             <TextView
@@ -59,7 +59,7 @@
                 android:text="Report Damage"
                 android:id="@+id/damageReportText"
                 android:gravity="center_vertical"
-                android:layout_marginTop="23dp"/>
+                android:layout_marginTop="20dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -67,7 +67,7 @@
                 android:text="Disaster Resources"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/disasterResourcesText"
-                android:layout_marginTop="24dp"/>
+                android:layout_marginTop="20dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
