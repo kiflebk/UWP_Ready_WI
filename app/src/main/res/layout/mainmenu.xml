@@ -1,108 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:paddingLeft="25dp"
     android:paddingRight="25dp"
-    android:paddingTop="25dp">
+    android:paddingTop="25dp"
+    android:orientation="vertical">
 
-    <ImageButton
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/prepareButton"
-        android:minHeight="50dp"
-        android:minWidth="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:baselineAligned="false">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Prepare"
-        android:id="@+id/prepareText"
-        android:layout_alignTop="@+id/prepareButton"
-        android:layout_toRightOf="@+id/prepareButton"
-        android:layout_toEndOf="@+id/prepareButton"
-        android:layout_alignBottom="@+id/prepareButton"
-        android:gravity="center_vertical" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+            <ImageButton
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/prepareButton"
+                android:minHeight="50dp"
+                android:minWidth="50dp"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/reportDamageButton"
+                android:minHeight="50dp"
+                android:minWidth="50dp"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/disasterResourcesButton"
+                android:minHeight="50dp"
+                android:minWidth="50dp"/>
+        </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Report Damage"
-        android:id="@+id/damageReportText"
-        android:gravity="center_vertical"
-        android:layout_toRightOf="@+id/reportDamageButton"
-        android:layout_toEndOf="@+id/reportDamageButton"
-        android:layout_below="@+id/prepareButton"
-        android:layout_above="@+id/disasterResourcesText" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Prepare"
+                android:id="@+id/prepareText"
+                android:layout_marginTop="16dp"
+                />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Disaster Resources"
-        android:id="@+id/disasterResourcesText"
-        android:gravity="center_vertical"
-        android:layout_alignBottom="@+id/disasterResourcesButton"
-        android:layout_toRightOf="@+id/disasterResourcesButton"
-        android:layout_toEndOf="@+id/disasterResourcesButton"
-        android:layout_below="@+id/reportDamageButton" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Report Damage"
+                android:id="@+id/damageReportText"
+                android:gravity="center_vertical"
+                android:layout_marginTop="20dp"/>
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/reportDamageButton"
-        android:minHeight="50dp"
-        android:minWidth="50dp"
-        android:layout_below="@+id/prepareButton"
-        android:layout_alignLeft="@+id/prepareButton"
-        android:layout_alignStart="@+id/prepareButton"/>
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/disasterResourcesButton"
-        android:minHeight="50dp"
-        android:minWidth="50dp"
-        android:layout_below="@+id/reportDamageButton"
-        android:layout_alignLeft="@+id/reportDamageButton"
-        android:layout_alignStart="@+id/reportDamageButton"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Alerts and Warnings"
+                android:id="@+id/awText"
+                android:layout_marginTop="20dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Alerts and Warnings"
-        android:id="@+id/awText"
-        android:layout_below="@+id/disasterResourcesText"
-        android:layout_alignLeft="@+id/disasterResourcesButton"
-        android:layout_alignStart="@+id/disasterResourcesButton"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:gravity="center_horizontal"
-        android:textSize="25dp" />
+            </LinearLayout>
 
+    </LinearLayout>
 
     <!--frame to hold the fragment for the rss listview-->
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:id="@+id/fragment_container"
-        android:layout_height="fill_parent" />
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+    </FrameLayout>
 
     <!--listview from original layout, replaced with the fragment above-->
     <!--<ListView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/postListView"-->
-        <!--android:layout_below="@+id/awText"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_alignParentEnd="true" />-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/postListView"-->
+    <!--android:layout_below="@+id/awText"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--android:layout_alignParentStart="true"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_alignParentEnd="true" />-->
 
-</RelativeLayout>
+</LinearLayout>
 
