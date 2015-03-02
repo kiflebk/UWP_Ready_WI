@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class RssService extends IntentService {
 
-    private static final String RSS_LINK = "http://www.pcworld.com/index.rss";
+    private static final String RSS_LINK = "http://feedmix.novaclic.com/atom2rss.php?source=http%3A%2F%2Falerts.weather.gov%2Fcap%2Fwi.atom";
     public static final String ITEMS = "items";
     public static final String RECEIVER = "receiver";
 
