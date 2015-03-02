@@ -43,6 +43,7 @@ public class RssParser {
                 continue;
             }
             String name = parser.getName();
+
             if (name.equals("title")) {
                 title = readTitle(parser);
             } else if (name.equals("link")) {
@@ -50,9 +51,11 @@ public class RssParser {
             }
             if (title != null && link != null) {
                 RssItem item = new RssItem(title, link);
-                items.add(item);
-                title = null;
-                link = null;
+                if( !(item.getTitle().contains("Watches, Warnings and Advisories"))) {
+                    items.add(item);
+                    title = null;
+                    link = null;
+                }
             }
         }
         return items;
