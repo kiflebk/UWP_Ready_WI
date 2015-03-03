@@ -8,10 +8,12 @@ public class RssItem {
 
     private final String title;
     private final String link;
+    private final String desc;
 
-    public RssItem(String title, String link) {
+    public RssItem(String title, String link, String desc) {
         this.title = title;
         this.link = link;
+        this.desc = desc;
     }
 
     public String getTitle() {
@@ -21,4 +23,6 @@ public class RssItem {
     public String getLink() {
         return link;
     }
+
+    public String getDesc() {return desc;}
 }

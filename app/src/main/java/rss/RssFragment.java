@@ -6,18 +6,22 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
 import android.os.Handler;
 
+import u.ready_wisc.MenuActivity;
 import u.ready_wisc.R;
+import u.ready_wisc.RssActivity;
 
 /**
  * Created by piela_000 on 3/1/2015.
@@ -27,6 +31,7 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
     private ProgressBar progressBar;
     private ListView listView;
     private View view;
+    public static String weatherDesc;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,8 +88,14 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         RssAdapter adapter = (RssAdapter) parent.getAdapter();
         RssItem item = (RssItem) adapter.getItem(position);
-        Uri uri = Uri.parse(item.getLink());
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+
+        weatherDesc = item.getDesc();
+        Log.i("Fragment Debug",weatherDesc);
+//        Uri uri = Uri.parse(item.getLink());
+//        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//        startActivity(intent);
+
+        Intent intent = new Intent(getActivity(), RssActivity.class);
         startActivity(intent);
     }
 }

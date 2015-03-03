@@ -34,9 +34,10 @@ public class RssParser {
     }
 
     private List<RssItem> readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
-        parser.require(XmlPullParser.START_TAG, null, "rss");
+        parser.require(XmlPullParser.START_TAG, null, "feed");
         String title = null;
         String link = null;
+        String desc = null;
         List<RssItem> items = new ArrayList<RssItem>();
         while (parser.next() != XmlPullParser.END_DOCUMENT) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
@@ -49,16 +50,21 @@ public class RssParser {
             } else if (name.equals("link")) {
                 link = readLink(parser);
             }
-            if (title != null && link != null) {
-                RssItem item = new RssItem(title, link);
+              else if (name.equals("summary")){
+                desc = readDesc(parser);
+            }
+            if (title != null && link != null && desc != null) {
+                RssItem item = new RssItem(title, link, desc);
                 if( !(item.getTitle().contains("Watches, Warnings and Advisories"))) {
                     items.add(item);
                     title = null;
                     link = null;
+                    desc = null;
                 }
                 else{
                     title = null;
                     link = null;
+                    desc = null;
                 }
             }
         }
@@ -87,5 +93,12 @@ public class RssParser {
             parser.nextTag();
         }
         return result;
+    }
+
+    private String readDesc(XmlPullParser parser) throws XmlPullParserException, IOException {
+        parser.require(XmlPullParser.START_TAG, ns, "summary");
+        String desc = readText(parser);
+        parser.require(XmlPullParser.END_TAG, ns, "summary");
+        return desc;
     }
 }
