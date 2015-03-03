@@ -32,6 +32,7 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
     private ListView listView;
     private View view;
     public static String weatherDesc;
+    public static String weatherLink;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,8 +90,9 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
         RssAdapter adapter = (RssAdapter) parent.getAdapter();
         RssItem item = (RssItem) adapter.getItem(position);
 
+        weatherLink = item.getLink();
         weatherDesc = item.getDesc();
-        Log.i("Fragment Debug",weatherDesc);
+
 //        Uri uri = Uri.parse(item.getLink());
 //        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 //        startActivity(intent);

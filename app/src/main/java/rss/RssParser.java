@@ -47,7 +47,7 @@ public class RssParser {
 
             if (name.equals("title")) {
                 title = readTitle(parser);
-            } else if (name.equals("link")) {
+            } else if (name.equals("id")) {
                 link = readLink(parser);
             }
               else if (name.equals("summary")){
@@ -72,9 +72,9 @@ public class RssParser {
     }
 
     private String readLink(XmlPullParser parser) throws XmlPullParserException, IOException {
-        parser.require(XmlPullParser.START_TAG, ns, "link");
+        parser.require(XmlPullParser.START_TAG, ns, "id");
         String link = readText(parser);
-        parser.require(XmlPullParser.END_TAG, ns, "link");
+        parser.require(XmlPullParser.END_TAG, ns, "id");
         return link;
     }
 
