@@ -1,9 +1,11 @@
 package u.ready_wisc;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -13,21 +15,35 @@ import u.ready_wisc.R;
 public class SplashActivity extends ActionBarActivity {
 
     private final int time = 2997;
+    static MyDatabaseHelper mDatabaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mDatabaseHelper = new MyDatabaseHelper(this);
+
+        mDatabaseHelper.onUpgrade(mDatabaseHelper.getReadableDatabase(),0,1);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
+
+        DBUpdateFromWeb foo = new DBUpdateFromWeb();
+        Thread t = new Thread(foo);
+
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
                 Intent mainIntent = new Intent(SplashActivity.this, MenuActivity.class);
                 SplashActivity.this.startActivity(mainIntent);
                 SplashActivity.this.finish();
             }
         }, time);
+
     }
 
 
@@ -51,5 +67,37 @@ public class SplashActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    protected static void addUser(String name, String email, long dateOfBirthMillis) {
+
+        //mDatabaseHelper.onUpgrade(mDatabaseHelper.getReadableDatabase(), 0, 1);
+
+        ContentValues values = new ContentValues();
+
+        values.put(MyDatabaseHelper.COL_NAME, name);
+
+        if (email != null) {
+
+            values.put(MyDatabaseHelper.COL_EMAIL, email);
+
+        }
+
+        if (dateOfBirthMillis != 0) {
+
+            values.put(MyDatabaseHelper.COL_DOB, dateOfBirthMillis);
+
+        }
+
+        try {
+
+            mDatabaseHelper.insert(mDatabaseHelper.TABLE_USERS, values);
+
+        } catch (MyDatabaseHelper.NotValidException e) {
+
+            Log.e("DB Error:", "Unable to insert into DB.");
+
+        }
+
     }
 }

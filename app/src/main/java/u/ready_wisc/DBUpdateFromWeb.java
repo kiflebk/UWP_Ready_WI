@@ -94,7 +94,7 @@ public class DBUpdateFromWeb implements Runnable{
                 ct_name[i][1] = json_data.getString("email"); //gets the email column
 
                 // inserts data into the local database
-                MainActivity.addUser(ct_name[i][0], ct_name[i][1], 0);
+                SplashActivity.addUser(ct_name[i][0], ct_name[i][1], 0);
             }
         } catch (JSONException e1) {
                 Log.e("IDK","Database Problem");
