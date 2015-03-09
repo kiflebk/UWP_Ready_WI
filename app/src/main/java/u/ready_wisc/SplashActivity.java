@@ -16,7 +16,7 @@ import u.ready_wisc.R;
 
 public class SplashActivity extends ActionBarActivity {
 
-    private final int time = 5997;
+    private final int time = 3000;
     static MyDatabaseHelper mDatabaseHelper;
 
     @Override
@@ -39,9 +39,13 @@ public class SplashActivity extends ActionBarActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent mainIntent = new Intent(SplashActivity.this, MenuActivity.class);
-                SplashActivity.this.startActivity(mainIntent);
+                Intent intent = new Intent(SplashActivity.this,CountyPicker.class);
+                SplashActivity.this.startActivity(intent);
                 SplashActivity.this.finish();
+
+//                Intent mainIntent = new Intent(SplashActivity.this, MenuActivity.class);
+//                SplashActivity.this.startActivity(mainIntent);
+//                SplashActivity.this.finish();
             }
         }, time);
 

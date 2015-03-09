@@ -145,8 +145,6 @@
         </activity>
 
 
-
-
         <receiver
             android:name="com.pushbots.google.gcm.GCMBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
