@@ -212,6 +212,15 @@ public class DamageReports extends ActionBarActivity {
                             }
                         });
             }
+            else{
+                builder.setMessage("Location has not been set.");
+                builder.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // FIRE ZE MISSILES!
+                        locationManager.removeUpdates(locationListener);
+                    }
+                });
+            }
             // Create the AlertDialog object and return it
             return builder.create();
         }
