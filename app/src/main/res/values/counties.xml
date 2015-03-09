@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="county">
+        <item>Kenosha</item>
+        <item>Racine</item>
+        <item>Milwaukee</item>
+        <item>Janesville</item>
+        <item>Madison</item>
+        <item>Baraboo</item>
+
+    </string-array>
+
+
+</resources>

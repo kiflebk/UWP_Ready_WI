@@ -137,6 +137,13 @@
                 android:value="u.ready_wisc.MenuActivity" />
         </activity>
 
+        <activity
+            android:name=".CountyPicker"
+            android:label="@string/title_activity_county_picker"
+            android:theme="@android:style/Theme.Holo.Dialog"
+            >
+        </activity>
+
 
 
 
