@@ -9,22 +9,23 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+//import com.pushbots.push.Pushbots;
+
 import u.ready_wisc.MenuActivity;
 import u.ready_wisc.R;
 
 public class SplashActivity extends ActionBarActivity {
 
-    private final int time = 2997;
+    private final int time = 5997;
     static MyDatabaseHelper mDatabaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mDatabaseHelper = new MyDatabaseHelper(this);
-
         mDatabaseHelper.onUpgrade(mDatabaseHelper.getReadableDatabase(),0,1);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
-
+       // Pushbots.sharedInstance().init(this);
         DBUpdateFromWeb foo = new DBUpdateFromWeb();
         Thread t = new Thread(foo);
 

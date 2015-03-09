@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.pushbots.push.Pushbots;
+
 import edu.parkside.cs.checklist.Checklist;
 import rss.RssFragment;
 
@@ -21,7 +23,7 @@ public class MenuActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainmenu);
-
+        Pushbots.sharedInstance().init(this); // was added for pushbots
         if (savedInstanceState == null) {
             addRssFragment();
         }
