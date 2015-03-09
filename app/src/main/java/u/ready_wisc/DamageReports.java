@@ -123,9 +123,12 @@ public class DamageReports extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        // added check so app does not crash if camera is exited before picture is taken
         if(requestCode == CAM_REQUEST){
-            Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-            imgTakenPhoto.setImageBitmap(thumbnail);
+            if (RESULT_OK == resultCode){
+                Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+                imgTakenPhoto.setImageBitmap(thumbnail);
+            }
         }
     }
 
@@ -189,24 +192,26 @@ public class DamageReports extends ActionBarActivity {
             // Use the Builder class for convenient dialog construction
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-            //Variables that will get lat and long from the Location object.
-            double lat = loc.getLatitude();
-            double longit = loc.getLongitude();
+            if (loc != null) {
+                //Variables that will get lat and long from the Location object.
+                double lat = loc.getLatitude();
+                double longit = loc.getLongitude();
 
-            //Setting the builder to have a message and options for "okay" and "cancel".
-            builder.setMessage("Latitude: " + Double.toString(lat) + " \nLongitude: " + Double.toString(longit))
-                    .setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // FIRE ZE MISSILES!
-                            locationManager.removeUpdates(locationListener);
-                        }
-                    })
-                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // User cancelled the dialog
-                            locationManager.removeUpdates(locationListener);
-                        }
-                    });
+                //Setting the builder to have a message and options for "okay" and "cancel".
+                builder.setMessage("Latitude: " + Double.toString(lat) + " \nLongitude: " + Double.toString(longit))
+                        .setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // FIRE ZE MISSILES!
+                                locationManager.removeUpdates(locationListener);
+                            }
+                        })
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                                locationManager.removeUpdates(locationListener);
+                            }
+                        });
+            }
             // Create the AlertDialog object and return it
             return builder.create();
         }
