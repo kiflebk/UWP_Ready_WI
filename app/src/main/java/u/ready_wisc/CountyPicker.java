@@ -40,11 +40,12 @@ public class CountyPicker extends Activity implements AdapterViewCompat.OnItemSe
 
     public void startUI(View v){
 
-        Intent intent = new Intent(getApplication(), MenuActivity.class);
+        Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
         intent.putExtra("county",counties.getSelectedItem().toString());
 
         startActivity(intent);
         finish();
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

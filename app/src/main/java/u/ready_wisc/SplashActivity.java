@@ -16,8 +16,9 @@ import u.ready_wisc.R;
 
 public class SplashActivity extends ActionBarActivity {
 
-    private final int time = 3000;
+    private final int time = 2000;
     static MyDatabaseHelper mDatabaseHelper;
+    boolean splashClose = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +42,19 @@ public class SplashActivity extends ActionBarActivity {
             public void run() {
                 Intent intent = new Intent(SplashActivity.this,CountyPicker.class);
                 SplashActivity.this.startActivity(intent);
-                SplashActivity.this.finish();
-
+                splashClose = true;
 //                Intent mainIntent = new Intent(SplashActivity.this, MenuActivity.class);
 //                SplashActivity.this.startActivity(mainIntent);
 //                SplashActivity.this.finish();
             }
         }, time);
 
+    }
+
+    protected void onResume(){
+        super.onResume();
+        if (splashClose)
+        SplashActivity.this.finish();
     }
 
 
