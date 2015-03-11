@@ -8,7 +8,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
 
 import com.pushbots.push.Pushbots;
 
@@ -16,8 +16,7 @@ import edu.parkside.cs.checklist.Checklist;
 import rss.RssFragment;
 
 public class MenuActivity extends ActionBarActivity {
-    ImageButton resourcesbutton;
-    ImageButton reportButton, checklistButton;
+    Button resourcesbutton, reportButton, checklistButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +27,9 @@ public class MenuActivity extends ActionBarActivity {
             addRssFragment();
         }
 
-        resourcesbutton = (ImageButton) findViewById(R.id.disasterResourcesButton);
-        reportButton = (ImageButton) findViewById(R.id.reportDamageButton);
-        checklistButton = (ImageButton) findViewById(R.id.prepareButton);
+        resourcesbutton = (Button) findViewById(R.id.disasterResourcesButton);
+        reportButton = (Button) findViewById(R.id.reportDamageButton);
+        checklistButton = (Button) findViewById(R.id.prepareButton);
 
 
         resourcesbutton.setOnClickListener(new View.OnClickListener() {

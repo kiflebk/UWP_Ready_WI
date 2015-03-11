@@ -2,82 +2,69 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="25dp"
-    android:paddingRight="25dp"
-    android:paddingTop="25dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    style="@style/ReadyWI">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="16dp">
-            <ImageButton
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/prepareButton"
-                android:minHeight="50dp"
-                android:minWidth="50dp"/>
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/reportDamageButton"
-                android:minHeight="50dp"
-                android:minWidth="50dp"/>
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/disasterResourcesButton"
-                android:minHeight="50dp"
-                android:minWidth="50dp"/>
-        </LinearLayout>
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
+            <Button
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Prepare"
-                android:id="@+id/prepareText"
-                android:layout_marginTop="26dp"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/prepareButton"
+                android:minHeight="50dp"
+                android:minWidth="50dp"
+                android:background="#ff801727"
+                android:text="Get A Kit"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="16dp" />
+            <Button
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Report Damage"
-                android:id="@+id/damageReportText"
-                android:gravity="center_vertical"
-                android:layout_marginTop="20dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/reportDamageButton"
+                android:minHeight="50dp"
+                android:minWidth="50dp"
+                android:background="#ff20802b"
+                android:text="Send Damage Report"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="16dp" />
+            <Button
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/disasterResourcesButton"
+                android:minHeight="50dp"
+                android:minWidth="50dp"
+                android:background="#ff34457f"
                 android:text="Disaster Resources"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/disasterResourcesText"
-                android:layout_marginTop="20dp"/>
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textSize="25dp"
-                android:text="Alerts and Warnings"
+                android:text=" Alerts and Warnings"
                 android:id="@+id/awText"
-                android:layout_marginTop="25dp"/>
+                android:background="#666666"/>
             </LinearLayout>
 
     </LinearLayout>
+
 
     <!--frame to hold the fragment for the rss listview-->
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
