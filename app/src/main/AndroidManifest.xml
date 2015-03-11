@@ -41,7 +41,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
+            android:label="Disaster Resources"
             android:parentActivityName=".MenuActivity"
             android:screenOrientation="portrait" >
             <meta-data
@@ -51,7 +51,7 @@
         </activity>
         <activity
             android:name=".SplashActivity"
-            android:label="@string/app_name"
+            android:label="Ready WI"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -61,7 +61,7 @@
         </activity>
         <activity
             android:name=".MenuActivity"
-            android:label="@string/app_name"
+            android:label="Ready WI"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="u.ready_wisc.MESSAGE" />
@@ -70,7 +70,7 @@
         </activity>
         <activity
             android:name=".DamageReports"
-            android:label="@string/app_name"
+            android:label="Damage Reports"
             android:parentActivityName=".MenuActivity"
             android:screenOrientation="portrait" >
             <meta-data
