@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:id="@+id/rel">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/resourceIcon"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:maxHeight="75dp"
+        android:maxWidth="75dp"
+        android:minHeight="75dp"
+        android:minWidth="75dp"
+        android:src="@drawable/rw"
+        android:paddingRight="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Name"
+        android:id="@+id/resourceName"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/resourceIcon"
+        android:layout_toEndOf="@+id/resourceIcon"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Address"
+        android:id="@+id/resourceAddress"
+        android:layout_below="@+id/resourceName"
+        android:layout_toRightOf="@+id/resourceIcon"
+        android:layout_toEndOf="@+id/resourceIcon"
+        android:textSize="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Phone"
+        android:id="@+id/resourcePhone"
+        android:layout_below="@+id/resourceAddress"
+        android:layout_toRightOf="@+id/resourceIcon"
+        android:layout_toEndOf="@+id/resourceIcon"
+        android:textSize="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Other"
+        android:id="@+id/resourceOther"
+        android:layout_below="@+id/resourcePhone"
+        android:layout_toRightOf="@+id/resourceIcon"
+        android:layout_toEndOf="@+id/resourceIcon"
+        android:textSize="15dp" />
+
+</RelativeLayout>
