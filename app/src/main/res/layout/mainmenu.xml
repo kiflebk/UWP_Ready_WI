@@ -60,7 +60,9 @@
                 android:textSize="25dp"
                 android:text=" Alerts and Warnings"
                 android:id="@+id/awText"
-                android:background="#666666"/>
+                android:background="@drawable/gradient_grey"
+                android:textColor="#fffffff0"
+                android:textStyle="bold" />
             </LinearLayout>
 
     </LinearLayout>
