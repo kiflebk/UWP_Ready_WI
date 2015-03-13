@@ -49,6 +49,8 @@
                 android:value="u.ready_wisc.MenuActivity" />
 
         </activity>
+
+
         <activity
             android:name=".SplashActivity"
             android:label="Ready WI"
@@ -76,6 +78,15 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="u.ready_wisc.MenuActivity" />
+        </activity>
+        <activity
+            android:name=".DisastersTypes"
+            android:label="Disaster Info"
+            android:parentActivityName=".MenuActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="u.ready_wisc.MenuActivity"/>
         </activity>
         <activity
             android:name="edu.parkside.cs.checklist.Checklist"

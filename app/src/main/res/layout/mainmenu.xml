@@ -20,8 +20,8 @@
                 android:id="@+id/prepareButton"
                 android:minHeight="50dp"
                 android:minWidth="50dp"
-                android:background="@drawable/gradient_red"
-                android:text="Get A Kit"
+                android:background="@drawable/gradient_green"
+                android:text="Be Prepared"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
                 android:textSize="16dp" />
@@ -31,8 +31,8 @@
                 android:id="@+id/reportDamageButton"
                 android:minHeight="50dp"
                 android:minWidth="50dp"
-                android:background="@drawable/gradient_green"
-                android:text="Send Damage Report"
+                android:background="@drawable/gradient_red"
+                android:text="Emergency"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
                 android:textSize="16dp" />
@@ -46,6 +46,17 @@
                 android:text="Disaster Resources"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
+                android:textSize="16dp" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Types of Disasters"
+                android:id="@+id/typeDisasterButton"
+                android:layout_gravity="center_horizontal"
+                android:textStyle="bold"
+                android:background="#F44336"
+                android:textColor="#FFFFFF"
                 android:textSize="16dp" />
 
         </LinearLayout>
