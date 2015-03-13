@@ -84,7 +84,20 @@
             android:name="edu.parkside.cs.checklist.Checklist"
             android:label="@string/title_activity_checklist"
             android:parentActivityName=".MenuActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".DisastersType"
+            android:label="Types Of Disasters"
+            android:parentActivityName=".MenuActivity"
+            android:screenOrientation="portrait">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
+        </activity>
+
+
         <activity
             android:name="edu.parkside.cs.checklist.Checklist_Item_ListView"
             android:label="@string/title_activity_checklist__item_list_view"
