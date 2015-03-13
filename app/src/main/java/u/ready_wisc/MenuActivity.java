@@ -16,7 +16,7 @@ import edu.parkside.cs.checklist.Checklist;
 import rss.RssFragment;
 
 public class MenuActivity extends ActionBarActivity {
-    Button resourcesbutton, reportButton, checklistButton;
+    Button resourcesbutton, reportButton, checklistButton, disasterButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class MenuActivity extends ActionBarActivity {
         if (savedInstanceState == null) {
             addRssFragment();
         }
-
+        disasterButton = (Button) findViewById(R.id.typeDisasterButton);
         resourcesbutton = (Button) findViewById(R.id.disasterResourcesButton);
         reportButton = (Button) findViewById(R.id.reportDamageButton);
         checklistButton = (Button) findViewById(R.id.prepareButton);
@@ -48,6 +48,14 @@ public class MenuActivity extends ActionBarActivity {
             }
         });
 
+        disasterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MenuActivity.this, DisastersType.class);
+                MenuActivity.this.startActivity(i);
+            }
+        });
+
         checklistButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,6 +63,7 @@ public class MenuActivity extends ActionBarActivity {
                 startActivity(i);
             }
         });
+
     }
 
 
