@@ -83,7 +83,7 @@
         <!--This activity is for Tornadoes when user selects tornado-->
         <activity
             android:name=".Tornado"
-            android:label="Tornados are BAD"
+            android:label="Tornadoes"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
