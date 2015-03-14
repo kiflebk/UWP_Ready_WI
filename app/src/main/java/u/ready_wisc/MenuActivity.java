@@ -35,7 +35,7 @@ public class MenuActivity extends ActionBarActivity {
         resourcesbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MenuActivity.this, MainActivity.class);
+                Intent i = new Intent(MenuActivity.this, ResourcesActivity.class);
                 MenuActivity.this.startActivity(i);
             }
         });
