@@ -20,7 +20,7 @@ public class DisastersType extends ActionBarActivity {
         setContentView(R.layout.activity_disaster_info_layout);
 
 
-        String[] disasterList = {"Tornado", "Winter Storm", "Flood", "Power Outage", "Public Health Emergency", "Terrorism", "Bomb Threats"};
+        String[] disasterList = {"Tornado", "Winter Storm", "Flood", "Fire/Wildfire", "Power Outage", "Public Health Emergency", "Terrorism", "Bomb Threats"};
 
         final ListAdapter disasterAdapt = new myAdapter(this, disasterList);
 

@@ -41,6 +41,20 @@ public class myAdapter extends ArrayAdapter<String> {
 
         if (disaster == "Tornado") {
             theImageView.setImageResource(R.mipmap.ic_launcher);
+        } else if (disaster == "Winter Storm") {
+            theImageView.setImageResource(R.mipmap.ic_storm);
+        } else if (disaster == "Fire/Wildfire") {
+            theImageView.setImageResource(R.mipmap.ic_fire);
+        } else if (disaster == "Flood") {
+            theImageView.setImageResource(R.mipmap.flood_ic);
+        } else if (disaster == "Power Outage") {
+            theImageView.setImageResource(R.mipmap.ic_power_loss);
+        } else if (disaster == "Public Health Emergency") {
+            theImageView.setImageResource(R.mipmap.phe_ic);
+        } else if (disaster == "Terrorism") {
+            theImageView.setImageResource(R.mipmap.ic_terrorism);
+        } else if (disaster == "Bomb Threats") {
+            theImageView.setImageResource(R.mipmap.ic_bomb);
         } else {
             //This is where you can set the imageview.
             theImageView.setImageResource(R.drawable.rw);
