@@ -7,7 +7,7 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/scrollView2"
+        android:id="@+id/scrollViewBombThreat"
         android:measureAllChildren="true"
         android:focusableInTouchMode="true"
         android:layout_alignParentRight="true"
@@ -18,8 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Tornado Watch"
-            android:id="@+id/textViewTornado"
+            android:text="BombThreat"
+            android:id="@+id/textViewBombThreat"
             android:padding="10dp" />
     </ScrollView>
 

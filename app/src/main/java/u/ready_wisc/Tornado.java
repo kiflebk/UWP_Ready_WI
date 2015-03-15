@@ -13,7 +13,6 @@ import android.widget.TextView;
  */
 public class Tornado extends ActionBarActivity {
     TextView t;
-    ExpandableListView x;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

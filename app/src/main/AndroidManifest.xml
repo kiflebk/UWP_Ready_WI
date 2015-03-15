@@ -90,6 +90,96 @@
                 android:value=".DisastersType" />
         </activity>
 
+        <!--This activity is for Winter Storms when user selects tornado-->
+        <activity
+            android:name=".WinterStorm"
+            android:label="Winter Storms"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DisastersType" />
+        </activity>
+
+        <!--This activity is for Terrorism when user selects tornado-->
+        <activity
+            android:name=".Terrorism"
+            android:label="Terrorism"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DisastersType" />
+        </activity>
+
+        <!--This activity is for Pendemic when user selects tornado-->
+        <activity
+            android:name=".PublicHealthEmergency"
+            android:label="Public Health Emergency"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DisastersType" />
+        </activity>
+
+        <!--This activity is for Power Loss when user selects tornado-->
+        <activity
+            android:name=".PowerOutage"
+            android:label="Power Outage"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DisastersType" />
+        </activity>
+
+        <!--This activity is for Floods when user selects tornado-->
+        <activity
+            android:name=".Flood"
+            android:label="Flood"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DisastersType" />
+        </activity>
+
+        <!--This activity is for Fire/WildFIre when user selects tornado-->
+        <activity
+            android:name=".Fire"
+            android:label="Fire/Wild Fire"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DisastersType" />
+        </activity>
+
+        <!--This activity is for Thunder storms when user selects tornado-->
+        <activity
+            android:name=".ThunderStorm"
+            android:label="Thunder Storms"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DisastersType" />
+        </activity>
+
+        <!--This activity is for Exteme Heat when user selects tornado-->
+        <activity
+            android:name=".ExtremeHeat"
+            android:label="Extreme Heat"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DisastersType" />
+        </activity>
+
+        <!--This activity is for Bomb Threat when user selects tornado-->
+        <activity
+            android:name=".BombThreat"
+            android:label="Thunder Storms"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DisastersType" />
+        </activity>
+
 
         <!--THis activity is for damage reports-->
         <activity

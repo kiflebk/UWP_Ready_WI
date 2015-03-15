@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 /**
  * Created by OZAN on 3/13/2015.
- *
+ * <p/>
  * This class takes a string array and calls myAdapter class to provide a layout of a listview with
  * icons next to each list item as well as enable each item to be clickable.
  */
@@ -24,7 +24,7 @@ public class DisastersType extends ActionBarActivity {
         setContentView(R.layout.activity_disaster_info_layout);
 
 
-        String[] disasterList = {"Tornado", "Winter Storm", "Flood", "Fire/Wildfire", "Power Outage", "Public Health Emergency", "Terrorism", "Bomb Threats"};
+        String[] disasterList = {"Tornado", "Thunderstorms", "Winter Storm", "Extreme Heat", "Flood", "Fire/Wildfire", "Power Outage", "Public Health Emergency", "Terrorism", "Bomb Threats"};
 
         final ListAdapter disasterAdapt = new myAdapter(this, disasterList);
 
@@ -43,35 +43,43 @@ public class DisastersType extends ActionBarActivity {
                     //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     Intent i = new Intent(DisastersType.this, Tornado.class);
                     DisastersType.this.startActivity(i);
-                }//else if(x == "Winter Storm"){
-//                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//                    Intent i = new Intent(DisastersType.this, WinterStorm.class);
-//                    DisastersType.this.startActivity(i);
-//                }else if(x == "Flood"){
-//                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//                    Intent i = new Intent(DisastersType.this, Flood.class);
-//                    DisastersType.this.startActivity(i);
-//                }else if(x == "Fire/Wildfire"){
-//                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//                    Intent i = new Intent(DisastersType.this, Fire.class);
-//                    DisastersType.this.startActivity(i);
-//                }else if(x == "Power Outage"){
-//                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//                    Intent i = new Intent(DisastersType.this, PowerOutage.class);
-//                    DisastersType.this.startActivity(i);
-//                }else if(x == "Public Health Emergency"){
-//                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//                    Intent i = new Intent(DisastersType.this, PublicHealthEmergency.class);
-//                    DisastersType.this.startActivity(i);
-//                }else if(x == "Bomb Threats"){
-//                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//                    Intent i = new Intent(DisastersType.this, BombThreat.class);
-//                    DisastersType.this.startActivity(i);
-//                }else if(x == "Terrorism"){
-//                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//                    Intent i = new Intent(DisastersType.this, Terrorism.class);
-//                    DisastersType.this.startActivity(i);
-//                }
+                } else if (x == "Winter Storm") {
+                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    Intent i = new Intent(DisastersType.this, WinterStorm.class);
+                    DisastersType.this.startActivity(i);
+                } else if (x == "Flood") {
+                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    Intent i = new Intent(DisastersType.this, Flood.class);
+                    DisastersType.this.startActivity(i);
+                } else if (x == "Fire/Wildfire") {
+                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    Intent i = new Intent(DisastersType.this, Fire.class);
+                    DisastersType.this.startActivity(i);
+                } else if (x == "Power Outage") {
+                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    Intent i = new Intent(DisastersType.this, PowerOutage.class);
+                    DisastersType.this.startActivity(i);
+                } else if (x == "Public Health Emergency") {
+                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    Intent i = new Intent(DisastersType.this, PublicHealthEmergency.class);
+                    DisastersType.this.startActivity(i);
+                } else if (x == "Bomb Threats") {
+                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    Intent i = new Intent(DisastersType.this, BombThreat.class);
+                    DisastersType.this.startActivity(i);
+                } else if (x == "Terrorism") {
+                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    Intent i = new Intent(DisastersType.this, Terrorism.class);
+                    DisastersType.this.startActivity(i);
+                } else if (x == "Thunderstorms") {
+                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    Intent i = new Intent(DisastersType.this, ThunderStorm.class);
+                    DisastersType.this.startActivity(i);
+                } else if (x == "Extreme Heat") {
+                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    Intent i = new Intent(DisastersType.this, ExtremeHeat.class);
+                    DisastersType.this.startActivity(i);
+                }
 
 
             }
