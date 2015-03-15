@@ -59,7 +59,7 @@
     <string name="activity_checklist_create_row_textview">Empty</string>
     <string name="title_activity_checklist__create__item__add">Checklist_Create_Item_Add</string>
     <string name="menu_checklist_edit">Edit Mode</string>
-    <string name="title_activity_rss">RssActivity</string>
+    <string name="title_activity_rss">Alerts and Warnings</string>
     <string name="title_activity_county_picker">CountyPicker</string>
 
     <string name="hello_world">Hello world!</string>
