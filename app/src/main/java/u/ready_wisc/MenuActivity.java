@@ -14,6 +14,8 @@ import com.pushbots.push.Pushbots;
 
 import edu.parkside.cs.checklist.Checklist;
 import rss.RssFragment;
+import u.ready_wisc.Emergency.DamageReports;
+import u.ready_wisc.disasterTypes.DisastersType;
 
 public class MenuActivity extends ActionBarActivity {
     Button resourcesbutton, reportButton, checklistButton, disasterButton;
@@ -102,7 +104,6 @@ public class MenuActivity extends ActionBarActivity {
         super.onSaveInstanceState(outState);
         outState.putBoolean("fragment_added", true);
     }
-
 
 
 }

@@ -1,4 +1,4 @@
-package u.ready_wisc;
+package u.ready_wisc.disasterTypes;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -7,8 +7,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import u.ready_wisc.R;
+
 /**
  * Created by OZAN on 3/14/2015.
+ * Info about PHE
  */
 public class PublicHealthEmergency extends ActionBarActivity {
     TextView t;

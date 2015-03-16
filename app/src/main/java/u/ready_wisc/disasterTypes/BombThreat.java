@@ -1,4 +1,4 @@
-package u.ready_wisc;
+package u.ready_wisc.disasterTypes;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -7,16 +7,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import u.ready_wisc.R;
+
 /**
  * Created by OZAN on 3/14/2015.
+ *
+ * Info about BombThreats
  */
-public class PowerOutage extends ActionBarActivity {
+public class BombThreat extends ActionBarActivity {
     TextView t;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_poweroutage_info);
-        t = (TextView) findViewById(R.id.textViewPowerLoss);
+        setContentView(R.layout.activity_bombthreat_info);
+        t = (TextView) findViewById(R.id.textViewBombThreat);
         t.setText(Html.fromHtml("<body>  </body>"));
     }
 

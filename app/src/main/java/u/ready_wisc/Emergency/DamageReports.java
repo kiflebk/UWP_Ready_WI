@@ -1,6 +1,5 @@
-package u.ready_wisc;
+package u.ready_wisc.Emergency;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -23,13 +22,10 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.SimpleAdapter;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentActivity;
+
+import u.ready_wisc.R;
 
 public class DamageReports extends ActionBarActivity {
 
@@ -91,10 +87,10 @@ public class DamageReports extends ActionBarActivity {
 
     }
 
-    //Method that would use the location every time it is changed.
-    public void makeUseOfNewLocation(Location location){
-
-    }
+//    //Method that would use the location every time it is changed.
+//    public void makeUseOfNewLocation(Location location) {
+//
+//    }
 
 
     @Override
@@ -124,8 +120,8 @@ public class DamageReports extends ActionBarActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         // added check so app does not crash if camera is exited before picture is taken
-        if(requestCode == CAM_REQUEST){
-            if (RESULT_OK == resultCode){
+        if (requestCode == CAM_REQUEST) {
+            if (RESULT_OK == resultCode) {
                 Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
                 imgTakenPhoto.setImageBitmap(thumbnail);
             }
@@ -133,18 +129,18 @@ public class DamageReports extends ActionBarActivity {
     }
 
     /*Class for button click of the "submit" button.*/
-    class btnSubmit implements Button.OnClickListener{
+    class btnSubmit implements Button.OnClickListener {
 
         //Show the lat and long dialog fragment.
         @Override
-        public void onClick(View v){
+        public void onClick(View v) {
             DialogFragment newFragment = new ShowLocationFragment();
             newFragment.show(getFragmentManager(), "location");
         }
     }
 
     /*Class for button click of the "take photo" button.*/
-    class btnTakenPhotoClicker implements Button.OnClickListener{
+    class btnTakenPhotoClicker implements Button.OnClickListener {
 
         //What to do on click.
         @Override
@@ -161,7 +157,7 @@ public class DamageReports extends ActionBarActivity {
     }
 
     /*Class to create a date picker fragment.*/
-    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
+    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
         //Method that sets default date on creation of the date picker.
         @Override
@@ -179,16 +175,16 @@ public class DamageReports extends ActionBarActivity {
         //Method to set the text field for date to the user picked date.
         @Override
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            DamageReports.text9.setText(month+1 + "/" + day + "/" + year);
+            DamageReports.text9.setText(month + 1 + "/" + day + "/" + year);
         }
     }
 
     /*Class to show the dialog on press of the submit button.*/
-    public static class ShowLocationFragment extends DialogFragment{
+    public static class ShowLocationFragment extends DialogFragment {
 
         //Method that will make everything upon creation of the fragment.
         @Override
-        public Dialog onCreateDialog (Bundle savedInstanceState){
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the Builder class for convenient dialog construction
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
@@ -211,8 +207,7 @@ public class DamageReports extends ActionBarActivity {
                                 locationManager.removeUpdates(locationListener);
                             }
                         });
-            }
-            else{
+            } else {
                 builder.setMessage("Location has not been set.");
                 builder.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
