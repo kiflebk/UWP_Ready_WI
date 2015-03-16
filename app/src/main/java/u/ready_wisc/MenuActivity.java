@@ -14,7 +14,8 @@ import com.pushbots.push.Pushbots;
 
 import edu.parkside.cs.checklist.Checklist;
 import rss.RssFragment;
-import u.ready_wisc.Emergency.DamageReports;
+import u.ready_wisc.BePrepared.Prep_Main;
+import u.ready_wisc.Emergency_Main.Emergency;
 import u.ready_wisc.disasterTypes.DisastersType;
 
 public class MenuActivity extends ActionBarActivity {
@@ -45,7 +46,7 @@ public class MenuActivity extends ActionBarActivity {
         reportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MenuActivity.this, DamageReports.class);
+                Intent i = new Intent(MenuActivity.this, Emergency.class);
                 MenuActivity.this.startActivity(i);
             }
         });
@@ -61,7 +62,7 @@ public class MenuActivity extends ActionBarActivity {
         checklistButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MenuActivity.this, Checklist.class);
+                Intent i = new Intent(MenuActivity.this, Prep_Main.class);
                 startActivity(i);
             }
         });

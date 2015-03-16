@@ -160,7 +160,7 @@
                 android:value=".disasterTypes.DisastersType" />
         </activity>
 
-        <!--This activity is for Exteme Heat when user selects tornado-->
+        <!--This activity is for Extreme Heat when user selects tornado-->
         <activity
             android:name=".disasterTypes.ExtremeHeat"
             android:label="Extreme Heat"
@@ -180,16 +180,23 @@
                 android:value=".disasterTypes.DisastersType" />
         </activity>
 
-
-        <!--THis activity is for damage reports-->
         <activity
-            android:name=".Emergency.DamageReports"
-            android:label="Damage Reports"
-            android:parentActivityName=".MenuActivity"
+            android:name=".Emergency_Main.Emergency"
+            android:label="Emergency"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="u.ready_wisc.MenuActivity" />
+                android:value=".MenuActivity" />
+        </activity>
+
+        <!--THis activity is for damage reports-->
+        <activity
+            android:name=".Emergency_Main.DamageReports"
+            android:label="Damage Reports"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="u.ready_wisc.Emergency_Main.Emergency" />
         </activity>
 
         <!--This is for when disaster resources is clicked in menu activity-->
@@ -229,10 +236,19 @@
         <!--All of this Checklist crap is broken an app crashes...I will build a better way to this-->
 
         <!--This is the be prepared activity aka checklists-->
+
+        <activity
+            android:name=".BePrepared.Prep_Main"
+            android:label="Prepare Now Rather Than Later"
+            android:parentActivityName=".MenuActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
+        </activity>
         <activity
             android:name="edu.parkside.cs.checklist.Checklist"
             android:label="@string/title_activity_checklist"
-            android:parentActivityName=".MenuActivity"
+            android:parentActivityName=".BePrepared.Prep_Main"
             android:screenOrientation="portrait" />
 
         <!--This activity shows listview of lists-->

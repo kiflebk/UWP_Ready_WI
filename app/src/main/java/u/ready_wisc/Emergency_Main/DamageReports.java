@@ -1,4 +1,4 @@
-package u.ready_wisc.Emergency;
+package u.ready_wisc.Emergency_Main;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
