@@ -11,23 +11,21 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import edu.parkside.cs.checklist.Checklist;
 import u.ready_wisc.Emergency_Main.Volunteer;
 import u.ready_wisc.R;
 import u.ready_wisc.myAdapter;
 
 /**
  * Created by OZAN on 3/15/2015.
- *
- * hhljl
+ * kjhlk
  */
-public class Prep_Main extends ActionBarActivity {
+public class Plan extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disaster_info_layout);
 
 
-        String[] disasterList = {"Build A Kit", "Make A Plan", "Volunteer", "Custom List"};
+        String[] disasterList = {"Meeting Places", "Family Communications", "Seniors", "Functional Needs", "Pets", "Evacuation Plan", "Shelter In Place"};
 
         final ListAdapter disasterAdapt = new myAdapter(this, disasterList);
 
@@ -40,25 +38,26 @@ public class Prep_Main extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String x = String.valueOf(parent.getItemAtPosition(position));
                 String disasterPicked = "You selected " + x;
-                Toast.makeText(Prep_Main.this, disasterPicked, Toast.LENGTH_SHORT).show();
+                Toast.makeText(Plan.this, disasterPicked, Toast.LENGTH_SHORT).show();
 
-                if (x.equals("Custom List")) {
-                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    Intent i = new Intent(Prep_Main.this, Checklist.class);
-                    Prep_Main.this.startActivity(i);
-                } else if (x.equals("Make A Plan")) {
-                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    Intent i = new Intent(Prep_Main.this, Plan.class);
-                    Prep_Main.this.startActivity(i);
-                } else if (x.equals("Volunteer")) {
-                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    Intent i = new Intent(Prep_Main.this, Volunteer.class);
-                    Prep_Main.this.startActivity(i);
-                } else if (x.equals("Build A Kit")) {
-                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    Intent i = new Intent(Prep_Main.this, Build_Kits.class);
-                    Prep_Main.this.startActivity(i);
-                }// else if (x.equals("Emergency Map")) {
+//                if (x.equals("Custom List")) {
+//                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//                    Intent i = new Intent(Prep_Main.this, Checklist.class);
+//                    Prep_Main.this.startActivity(i);
+//                }
+//                else if (x.equals("Make A Plan")) {
+//                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//                    Intent i = new Intent(Prep_Main.this, Plan.class);
+//                    Prep_Main.this.startActivity(i);
+//                } else if (x.equals("Volunteer")) {
+//                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//                    Intent i = new Intent(Prep_Main.this, Volunteer.class);
+//                    Prep_Main.this.startActivity(i);
+//                } else if (x.equals("Build A Kit")) {
+//                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//                    Intent i = new Intent(Prep_Main.this, Build_Kits.class);
+//                    Prep_Main.this.startActivity(i);
+//                }// else if (x.equals("Emergency Map")) {
 //                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //                    Intent i = new Intent(Emergency.this, Emergency_Map.class);
 //                    Emergency.this.startActivity(i);
@@ -96,6 +95,5 @@ public class Prep_Main extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 }
+

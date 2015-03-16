@@ -246,6 +246,22 @@
                 android:value=".MenuActivity" />
         </activity>
         <activity
+            android:name=".BePrepared.Build_Kits"
+            android:label="Prepare Now Rather Than Later"
+            android:parentActivityName=".BePrepared.Prep_Main">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".BePrepared.Prep_Main" />
+        </activity>
+        <activity
+            android:name=".BePrepared.Plan"
+            android:label="Prepare Now Rather Than Later"
+            android:parentActivityName=".BePrepared.Prep_Main">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".BePrepared.Prep_Main" />
+        </activity>
+        <activity
             android:name="edu.parkside.cs.checklist.Checklist"
             android:label="@string/title_activity_checklist"
             android:parentActivityName=".BePrepared.Prep_Main"
