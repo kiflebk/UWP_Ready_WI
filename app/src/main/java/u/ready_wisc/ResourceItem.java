@@ -59,6 +59,9 @@ public class ResourceItem {
         this.type = type;
     }
 
+    public ResourceItem() {
+    }
+
     public ResourceItem(String name, String address, String phone, String other, String county, String type) {
         this.name = name;
         this.address = address;
