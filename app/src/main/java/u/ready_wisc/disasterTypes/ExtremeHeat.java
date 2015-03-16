@@ -1,12 +1,17 @@
 package u.ready_wisc.disasterTypes;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
+import rss.RssFragment;
 import u.ready_wisc.R;
 
 /**
@@ -127,6 +132,7 @@ public class ExtremeHeat extends ActionBarActivity {
                 "                    <strong>For additional information about heat awareness, contact your local public health\n" +
                 "                    department or county emergency management director.</strong>\n" +
                 "                </div>\n </body>"));
+
     }
 
     @Override

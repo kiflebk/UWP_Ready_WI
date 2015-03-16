@@ -40,25 +40,43 @@ public class myAdapter extends ArrayAdapter<String> {
         ImageView theImageView = (ImageView) theView.findViewById(R.id.imageview1);
 
         if (disaster == "Tornado") {
-            theImageView.setImageResource(R.mipmap.ic_launcher);
+            theImageView.setImageResource(R.drawable.ic_launcher);
         } else if (disaster == "Winter Storm") {
-            theImageView.setImageResource(R.mipmap.ic_storm);
+            theImageView.setImageResource(R.drawable.ic_storm);
         } else if (disaster == "Fire/Wildfire") {
-            theImageView.setImageResource(R.mipmap.ic_fire);
+            theImageView.setImageResource(R.drawable.ic_fire);
         } else if (disaster == "Flood") {
-            theImageView.setImageResource(R.mipmap.flood_ic);
+            theImageView.setImageResource(R.drawable.ic_flood);
         } else if (disaster == "Power Outage") {
-            theImageView.setImageResource(R.mipmap.ic_power_loss);
+            theImageView.setImageResource(R.drawable.ic_power_loss);
         } else if (disaster == "Public Health Emergency") {
-            theImageView.setImageResource(R.mipmap.phe_ic);
+            theImageView.setImageResource(R.drawable.phe_ic);
         } else if (disaster == "Terrorism") {
-            theImageView.setImageResource(R.mipmap.ic_terrorism);
+            theImageView.setImageResource(R.drawable.ic_terrorism);
         } else if (disaster == "Bomb Threats") {
-            theImageView.setImageResource(R.mipmap.ic_bomb);
+            theImageView.setImageResource(R.drawable.ic_bomb);
         } else if (disaster == "Thunderstorms") {
-            theImageView.setImageResource(R.mipmap.ic_thunderstorm);
+            theImageView.setImageResource(R.drawable.ic_thunderstorm);
         } else if (disaster == "Extreme Heat") {
             theImageView.setImageResource(R.drawable.heat_wave);
+        } else if (disaster == "Build A Kit") {
+            theImageView.setImageResource(R.drawable.build_icon);
+        } else if (disaster == "Make A Plan") {
+            theImageView.setImageResource(R.drawable.list_icon);
+        } else if (disaster == "Volunteer") {
+            theImageView.setImageResource(R.drawable.volunteer_icon);
+        } else if (disaster == "Custom List") {
+            theImageView.setImageResource(R.drawable.custom_icon);
+        } else if (disaster == "Emergency Map") {
+            theImageView.setImageResource(R.drawable.map_icon);
+        } else if (disaster == "Shelters") {
+            theImageView.setImageResource(R.drawable.shelter_icon);
+        } else if (disaster == "Disaster Info") {
+            theImageView.setImageResource(R.drawable.disaster_icon);
+        } else if (disaster == "Report Damage") {
+            theImageView.setImageResource(R.drawable.list_icon);
+        } else if (disaster == "Social Media") {
+            theImageView.setImageResource(R.drawable.social_icon);
         } else {
             //This is where you can set the imageview.
             theImageView.setImageResource(R.drawable.rw);
