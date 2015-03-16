@@ -25,7 +25,7 @@ public class Build_Kits extends ActionBarActivity {
         setContentView(R.layout.activity_disaster_info_layout);
 
 
-        String[] disasterList = {"Basic Supplies", "Sanitation Supplies", "Safty Supplies", "Pet Supplies", "Personal Items"};
+        String[] disasterList = {"Basic Supplies", "Sanitation Supplies", "Safety Supplies", "Pet Supplies", "Personal Items"};
 
         final ListAdapter disasterAdapt = new myAdapter(this, disasterList);
 
