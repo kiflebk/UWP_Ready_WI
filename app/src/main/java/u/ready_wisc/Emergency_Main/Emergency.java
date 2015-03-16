@@ -17,6 +17,8 @@ import u.ready_wisc.myAdapter;
 
 /**
  * Created by OZAN on 3/15/2015.
+ *
+ * kjljl
  */
 public class Emergency extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
