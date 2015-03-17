@@ -1,10 +1,14 @@
 package u.ready_wisc.disasterTypes;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import u.ready_wisc.R;
@@ -71,6 +75,21 @@ public class ThunderStorm extends ActionBarActivity {
                 "                        <li> 3. Isolated sheds or other small structures in open areas.</li><br />\n" +
                 "                        <li> 4. Anything metal&#151;tractors, farm equipment, motorcycles, golf carts, golf clubs, and bicycles. </li><br />\n" +
                 "                    </ul>  </body>"));
+
+        Button getDesc = (Button) findViewById(R.id.thunderDesc);
+        //Intent intent = getIntent();
+        final String link = "http://readywisconsin.wi.gov/media/pdf/Thunderstorms.pdf";
+
+        //setContentView(textView);
+
+        getDesc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse(link);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

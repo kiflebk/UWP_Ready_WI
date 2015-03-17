@@ -1,10 +1,14 @@
 package u.ready_wisc.disasterTypes;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import u.ready_wisc.R;
@@ -212,6 +216,20 @@ public class WinterStorm extends ActionBarActivity {
                 "                        </ul>\n" +
                 "                    </ul>\n" +
                 "                </div>\n </body>"));
+        Button getDesc = (Button) findViewById(R.id.winterDesc);
+        //Intent intent = getIntent();
+        final String link = "http://readywisconsin.wi.gov/media/pdf/Winter_Handout.pdf";
+
+        //setContentView(textView);
+
+        getDesc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse(link);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

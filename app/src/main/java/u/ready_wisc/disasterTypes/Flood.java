@@ -1,10 +1,14 @@
 package u.ready_wisc.disasterTypes;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import u.ready_wisc.R;
@@ -72,6 +76,21 @@ public class Flood extends ActionBarActivity {
                 "                        <li> 3. Two feet of rushing water can carry away most vehicles including sport utility vehicles (SUV&#146;s) and pick-ups. </li><br />\n" +
                 "                    </ul>\n" +
                 "                </div> </body>"));
+
+        Button getDesc = (Button) findViewById(R.id.floodDesc);
+        //Intent intent = getIntent();
+        final String link = "http://readywisconsin.wi.gov/media/pdf/Flooding.pdf";
+
+        //setContentView(textView);
+
+        getDesc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse(link);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
