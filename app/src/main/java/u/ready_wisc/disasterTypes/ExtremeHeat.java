@@ -133,6 +133,21 @@ public class ExtremeHeat extends ActionBarActivity {
                 "                    department or county emergency management director.</strong>\n" +
                 "                </div>\n </body>"));
 
+        Button getDesc = (Button) findViewById(R.id.heatDesc);
+        //Intent intent = getIntent();
+        final String link = "http://readywisconsin.wi.gov/media/pdf/Extreme_Heat.pdf";
+
+        //setContentView(textView);
+
+        getDesc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse(link);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
