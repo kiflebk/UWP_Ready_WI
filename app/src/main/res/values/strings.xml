@@ -63,6 +63,7 @@
     <string name="title_activity_county_picker">CountyPicker</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="supplyType">Supply Type</string>
 
     <string name="cancel">Cancel</string>
     <string name="okay">Okay</string>

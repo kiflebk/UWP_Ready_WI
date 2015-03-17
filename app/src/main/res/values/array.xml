@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="buildList">
+        <item>Basic Supplies</item>
+        <item>Sanitation Supplies</item>
+        <item>Safety Supplies</item>
+        <item>Pet Supplies</item>
+        <item>Personal Items</item>
+    </array>
+    <array name="planList">
+        <item>Meeting Places</item>
+        <item>Family Communications</item>
+        <item>Seniors</item>
+        <item>Functional Needs</item>
+        <item>Pets</item>
+        <item>Evacuation Plan</item>
+        <item>Shelter In Place</item>
+    </array>
+</resources>

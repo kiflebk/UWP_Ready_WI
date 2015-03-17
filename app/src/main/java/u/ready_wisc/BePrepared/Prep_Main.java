@@ -1,5 +1,8 @@
 package u.ready_wisc.BePrepared;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -48,16 +51,20 @@ public class Prep_Main extends ActionBarActivity {
                     Prep_Main.this.startActivity(i);
                 } else if (x.equals("Make A Plan")) {
                     //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    Intent i = new Intent(Prep_Main.this, Plan.class);
-                    Prep_Main.this.startActivity(i);
+//                    Intent i = new Intent(Prep_Main.this, Plan.class);
+//                    Prep_Main.this.startActivity(i);
+                    AlertDialog dialog = buildDialog(x);
+                    dialog.show();
                 } else if (x.equals("Volunteer")) {
                     //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     Intent i = new Intent(Prep_Main.this, Volunteer.class);
                     Prep_Main.this.startActivity(i);
                 } else if (x.equals("Build A Kit")) {
                     //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    Intent i = new Intent(Prep_Main.this, Build_Kits.class);
-                    Prep_Main.this.startActivity(i);
+//                    Intent i = new Intent(Prep_Main.this, Build_Kits.class);
+//                    Prep_Main.this.startActivity(i);
+                    AlertDialog dialog = buildDialog(x);
+                    dialog.show();
                 }// else if (x.equals("Emergency Map")) {
 //                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //                    Intent i = new Intent(Emergency.this, Emergency_Map.class);
@@ -73,6 +80,23 @@ public class Prep_Main extends ActionBarActivity {
         });
 
 
+    }
+
+    private AlertDialog buildDialog(String type){
+        int list = 0, length = 0;
+        if (type.equals("Build A Kit"))
+            list = R.array.buildList;
+        else if (type.equals("Make A Plan"))
+            list = R.array.planList;
+        AlertDialog.Builder builder = new AlertDialog.Builder(Prep_Main.this);
+        builder.setTitle(R.string.supplyType)
+                .setItems(list, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(Prep_Main.this, "You chose " + which, Toast.LENGTH_SHORT).show();
+                    }
+                });
+        return builder.create();
     }
 
     @Override
