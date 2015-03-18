@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -62,6 +63,10 @@ public class Emergency extends ActionBarActivity {
                     Emergency.this.startActivity(i);
                 }
 
+                if (x.equals("SOS Tone")){
+                    final MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.sos_sound);
+                    mp.start();
+                }
                 if (x.equals("Flashlight")){
 
                     if(!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
