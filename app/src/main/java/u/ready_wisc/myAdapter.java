@@ -79,6 +79,8 @@ public class myAdapter extends ArrayAdapter<String> {
             theImageView.setImageResource(R.drawable.social_icon);
         } else if (disaster == "Flashlight") {
             theImageView.setImageResource(R.drawable.flashlight_ic);
+        } else if (disaster == "SOS Tone") {
+            theImageView.setImageResource(R.drawable.sos_icon);
         } else {
             //This is where you can set the imageview.
             theImageView.setImageResource(R.drawable.rw);

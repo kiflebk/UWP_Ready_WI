@@ -14,9 +14,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import java.util.logging.Logger;
 
 import u.ready_wisc.R;
 import u.ready_wisc.myAdapter;
@@ -30,10 +27,10 @@ public class Emergency extends ActionBarActivity {
 
     //Set boolean flag when torch is turned on/off
     private boolean isFlashOn = false;
+    //Set boolean to false when SOS starts
+    private boolean sosTone = false;
     //Create camera object to access flahslight
     private Camera camera = null;
-    //Torch button
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,11 +45,16 @@ public class Emergency extends ActionBarActivity {
 
         theListView.setAdapter(disasterAdapt);
 
+        // create media player object to play sos tone
+        final MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.sos_sound);
+
         theListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String x = String.valueOf(parent.getItemAtPosition(position));
                 String disasterPicked = "You selected " + x;
+
+                //toast to show what was selected, redundant
                 //Toast.makeText(Emergency.this, disasterPicked, Toast.LENGTH_SHORT).show();
                 Context context = getApplicationContext();
                 PackageManager pm = context.getPackageManager();
@@ -63,20 +65,40 @@ public class Emergency extends ActionBarActivity {
                     Emergency.this.startActivity(i);
                 }
 
+                //if sos tone button is pressed play sound, if sound is playing pause sound
+                //sound will play until button is pressed again, even if app is in background
                 if (x.equals("SOS Tone")){
-                    final MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.sos_sound);
-                    mp.start();
+                    if (sosTone == false) {
+                        mp.setLooping(true);
+                        sosTone = true;
+                        mp.start();
+                    }
+                    else{
+                        Log.d("Sound test","Stopping sound");
+                        mp.setLooping(false);
+                        mp.pause();
+                        sosTone = false;
+                    }
+
+
                 }
+
+                //flashlight toggles on off as pressed
                 if (x.equals("Flashlight")){
 
+                    //check to see if device has a camera with flash
                     if(!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
 
                         Log.e("err", "Device has no camera!");
                         //Return from the method, do nothing after this code block
                         return;
                     }
-                    //try{
-                        if(isFlashOn == false) {
+                    // if camera has flash toggle on and off
+                    else {
+                        // boolean to check status of camera flash
+                        if (isFlashOn == false) {
+
+                            //if flash is off, toggle boolean to on and turn on flash
                             isFlashOn = true;
                             camera = Camera.open();
                             Camera.Parameters parameters = camera.getParameters();
@@ -85,14 +107,15 @@ public class Emergency extends ActionBarActivity {
                             camera.startPreview();
 
                         } else {
+
+                            //if flash is on turn boolean to false and turn off flash
                             isFlashOn = false;
                             camera.stopPreview();
                             camera.release();
                             camera = null;
 
-                       }
-                    //}catch(Exception e) {
-                    //   Log.e("Error", ""+e);}
+                        }
+                    }
                 }
 //                 else if (x.equals("Shelters")) {
 //                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
