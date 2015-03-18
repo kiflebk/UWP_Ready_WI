@@ -187,7 +187,7 @@
  *        same "printed page" as the copyright notice for easier
  *        identification within third-party archives.
  *
- *        Copyright 2015 University of Wisconsin Parkside
+ *        Copyright 2015 David Krawchuk
  *
  *        Licensed under the Apache License, Version 2.0 (the "License");
  *        you may not use this file except in compliance with the License.
@@ -419,7 +419,7 @@ public class Checklist_Item_Detail extends ActionBarActivity {
         }
 
         if (nameTextFieldHasBeenEdited && qtyTextFieldHasBeenEdited && descriptionTextFieldHasBeenEdited) {
-            ((Button) findViewById(R.id.activity_checklist_item_create_save_button)).setEnabled(true);
+            ((Button) findViewById(R.id.activity_checklist_item_detail_update_button)).setEnabled(true);
         }
     }
 
@@ -429,7 +429,8 @@ public class Checklist_Item_Detail extends ActionBarActivity {
      * @date 02/20/2014
      * <p/>
      * Description:
-     * Attaches text watchers to the editText views.
+     * Attaches text watchers to the editText views. When all three fields have been edited. The
+     * Save button is enabled.
      */
     private void attachTextListenersToTextViews() {
         final TextView nameField = ((TextView) this.findViewById(R.id.activity_checklist_item_detail_name_edittext));

@@ -1,7 +1,3 @@
-package edu.parkside.cs.checklist;
-
-import android.provider.BaseColumns;
-
 /**
  *             Apache License
  *        Version 2.0, January 2004
@@ -206,6 +202,11 @@ import android.provider.BaseColumns;
  *        limitations under the License.
  */
 
+package edu.parkside.cs.checklist;
+
+import android.provider.BaseColumns;
+
+
 /**
  * Created by krawchukd on 2/14/15.
  * <p/>
@@ -271,16 +272,16 @@ public final class Checklist_Contract {
             return query;
         }
 
-        public static final String CREATE_CHECKLIST_TABLE = "CREATE TABLE " + Checklist_Contract.Checklist.TABLE_NAME +
-                "(" + Checklist_Contract.Checklist._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                Checklist_Contract.Checklist.COLUMN_NAME_TITLE + " TEXT, " +
-                Checklist_Contract.Checklist.COLUMN_NAME_PROGRESS + " INTEGER)";
-
         public static final String deleteChecklist(Checklist_Row checklist_row) {
             String query = "DELETE FROM " + Checklist.TABLE_NAME +
                     " WHERE " + Checklist._ID + " = " + "\'" + checklist_row.getEntryid() + "\'";
             return query;
         }
+
+        public static final String CREATE_CHECKLIST_TABLE = "CREATE TABLE " + Checklist_Contract.Checklist.TABLE_NAME +
+                "(" + Checklist_Contract.Checklist._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                Checklist_Contract.Checklist.COLUMN_NAME_TITLE + " TEXT, " +
+                Checklist_Contract.Checklist.COLUMN_NAME_PROGRESS + " INTEGER)";
 
 
         public static final String ALL_ITEMS = "SELECT * FROM " +

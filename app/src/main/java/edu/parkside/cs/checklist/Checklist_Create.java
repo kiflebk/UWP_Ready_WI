@@ -187,7 +187,7 @@
  *        same "printed page" as the copyright notice for easier
  *        identification within third-party archives.
  *
- *        Copyright 2015 University of Wisconsin Parkside
+ *        Copyright 2015 David Krawchuk
  *
  *        Licensed under the Apache License, Version 2.0 (the "License");
  *        you may not use this file except in compliance with the License.
@@ -233,7 +233,8 @@ public class Checklist_Create extends ActionBarActivity {
 
     public static final String EXTRA_MESSAGE = "edu.parkside.cs.checklist_create";
     // The request code required by the returning activity callback.
-    static final int REQUEST = 1;
+    static final int NEW = 1;
+    static final int UPDATE = 2;
     static final int SUCCESS = 0;
     static final int CHECKLIST_INSERT_ERROR = 1;
     static final int CHECKLIST_ROW_INSERT_ERROR = 2;
@@ -314,10 +315,10 @@ public class Checklist_Create extends ActionBarActivity {
     }
 
     /**
-     * @return
      * @author David Krawchuk
      * @email krawchukdavid@gmail.com
-     * @date 02/20/2015
+     * @date 02/20/2015\
+     * <p/>
      * <p/>
      * Description:
      * Creates a new adapter if one doesn't exist and attaches it to the listview within the activity.
@@ -442,7 +443,7 @@ public class Checklist_Create extends ActionBarActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
-        if (requestCode == REQUEST) {
+        if (requestCode == NEW) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 // Fetch results from the returned Intent parameter and add the contents to the proper
@@ -452,6 +453,21 @@ public class Checklist_Create extends ActionBarActivity {
 
                 getAddedItems().add(item);
                 getAddedDescriptions().add(description);
+            }
+        } else if (requestCode == UPDATE) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                // Fetch results from the returned Intent parameter and add the contents to the proper
+                //  arraylist.
+                Checklist_Item_Row item = data.getParcelableExtra(Checklist_Create_Item_Add.EXTRA_MESSAGE_ITEM);
+                String description = data.getStringExtra(Checklist_Create_Item_Add.EXTRA_MESSAGE_DESC);
+
+                // Retrieve index if the object exists in the array and replace the item and description.
+                int item_index = getAddedItems().indexOf(item);
+                if (item_index != -1) {
+                    getAddedItems().set(item_index, item);
+                    getAddedDescriptions().set(item_index, description);
+                }
             }
         }
     }
@@ -483,7 +499,7 @@ public class Checklist_Create extends ActionBarActivity {
      */
     public void addButtonPressed(View button) {
         Intent intent = new Intent(this, Checklist_Create_Item_Add.class);
-        startActivityForResult(intent, REQUEST);
+        startActivityForResult(intent, NEW);
     }
 
     /**
@@ -558,7 +574,7 @@ public class Checklist_Create extends ActionBarActivity {
         Checklist_Row firstReturnedChecklist = returnedArrayOfChecklistRows.get(0);
 
 
-        // Itterate through the array of items added items and insert them into the database.
+        // Iterate through the array of items added items and insert them into the database.
         //  If a failure occurs return an error code.
         for (int i = 0; i < getAddedItems().size(); i++) {
             // Get the checklist item and set its checklist_id property.

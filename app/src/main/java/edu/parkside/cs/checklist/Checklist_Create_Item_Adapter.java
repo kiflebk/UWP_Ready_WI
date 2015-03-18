@@ -187,7 +187,7 @@
  *        same "printed page" as the copyright notice for easier
  *        identification within third-party archives.
  *
- *        Copyright 2015 University of Wisconsin Parkside
+ *        Copyright 2015 David Krawchuk
  *
  *        Licensed under the Apache License, Version 2.0 (the "License");
  *        you may not use this file except in compliance with the License.
@@ -303,10 +303,11 @@ public class Checklist_Create_Item_Adapter extends Checklist_Item_ArrayAdapter {
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, Checklist_Item_Detail.class);
-                intent.putExtra(Checklist_Create.EXTRA_MESSAGE, checklist_item_rowArrayList.get(position));
+                Intent intent = new Intent(context, Checklist_Create_Item_Add.class);
+                intent.putExtra(Checklist_Create_Item_Add.EXTRA_MESSAGE_ITEM, checklist_item_rowArrayList.get(position));
+                intent.putExtra(Checklist_Create_Item_Add.EXTRA_MESSAGE_DESC, arrayOfDescriptions.get(position));
                 // Send description.
-                ((Checklist_Create) context).startActivityForResult(intent, Checklist_Create.REQUEST);
+                ((Checklist_Create) context).startActivityForResult(intent, Checklist_Create.UPDATE);
             }
         });
 

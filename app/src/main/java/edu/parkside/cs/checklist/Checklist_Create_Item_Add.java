@@ -187,7 +187,7 @@
  *        same "printed page" as the copyright notice for easier
  *        identification within third-party archives.
  *
- *        Copyright 2015 University of Wisconsin Parkside
+ *        Copyright 2015 David Krawchuk
  *
  *        Licensed under the Apache License, Version 2.0 (the "License");
  *        you may not use this file except in compliance with the License.
@@ -227,13 +227,14 @@ import u.ready_wisc.R;
  */
 public class Checklist_Create_Item_Add extends Checklist_Item_Create {
 
+    /* Instance Variable Block Begin */
     public static final String EXTRA_MESSAGE_ITEM = "edu.parkside.cs.checklist_create_item_add_item";
     public static final String EXTRA_MESSAGE_DESC = "edu.parkside.cs.checklist_create_item_add_desc";
 
     boolean nameTextFieldHasBeenEdited;
     boolean qtyTextFieldHasBeenEdited;
     boolean descriptionTextFieldHasBeenEdited;
-
+    /* Instance Variable Block End */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -243,8 +244,27 @@ public class Checklist_Create_Item_Add extends Checklist_Item_Create {
         // Set button default status.
         ((Button) findViewById(R.id.activity_checklist_item_create_save_button)).setEnabled(false);
 
+        // Populate text fields if data has been passed through the message mechanism.
+        Checklist_Item_Row item = this.getIntent().getParcelableExtra(this.EXTRA_MESSAGE_ITEM);
+        String desc = this.getIntent().getStringExtra(this.EXTRA_MESSAGE_DESC);
+
+        if (item != null && desc != null) {
+            // Retrieve fields from layout.
+            EditText name_editText = (EditText) findViewById(R.id.activity_checklist_item_create_name_edittext);
+            EditText qty_editText = (EditText) findViewById(R.id.activity_checklist_item_create_qty_edittext);
+            EditText description_editText = (EditText) findViewById(R.id.activity_checklist_item_create_description_edittext);
+
+            name_editText.setText(item.getName());
+            qty_editText.setText("" + item.getQty());
+            description_editText.setText(desc);
+
+            // Set button default status.
+            ((Button) findViewById(R.id.activity_checklist_item_create_save_button)).setEnabled(true);
+        }
+
         // Attach listeners.
         attachTextListenersToTextViews();
+
     }
 
     /**
