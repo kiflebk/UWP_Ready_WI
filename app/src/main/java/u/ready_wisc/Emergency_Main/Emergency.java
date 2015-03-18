@@ -1,6 +1,8 @@
 package u.ready_wisc.Emergency_Main;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -26,7 +28,7 @@ public class Emergency extends ActionBarActivity {
         setContentView(R.layout.activity_disaster_info_layout);
 
 
-        String[] disasterList = {"Emergency Map", "Shelters", "Disaster Info", "Volunteer", "Report Damage", "Social Media"};
+        String[] disasterList = {"Emergency Map", "Shelters", "Disaster Info", "Volunteer", "Report Damage", "Social Media", "Flashlight", "SOS Tone"};
 
         final ListAdapter disasterAdapt = new myAdapter(this, disasterList);
 
@@ -39,12 +41,23 @@ public class Emergency extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String x = String.valueOf(parent.getItemAtPosition(position));
                 String disasterPicked = "You selected " + x;
-                Toast.makeText(Emergency.this, disasterPicked, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Emergency.this, disasterPicked, Toast.LENGTH_SHORT).show();
 
                 if (x.equals("Report Damage")) {
                     //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     Intent i = new Intent(Emergency.this, DamageReports.class);
                     Emergency.this.startActivity(i);
+                }
+
+                if (x.equals("Flashlight")){
+
+                    if ( getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
+                        Camera cam = Camera.open();
+                        Camera.Parameters p = cam.getParameters();
+                        p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                        cam.setParameters(p);
+                        cam.startPreview();
+                    }
                 }
 //                 else if (x.equals("Shelters")) {
 //                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
