@@ -1,10 +1,12 @@
 package u.ready_wisc.Emergency_Main;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,8 +15,9 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.logging.Logger;
+
 import u.ready_wisc.R;
-import u.ready_wisc.RssActivity;
 import u.ready_wisc.myAdapter;
 
 /**
@@ -23,6 +26,14 @@ import u.ready_wisc.myAdapter;
  * kjljl
  */
 public class Emergency extends ActionBarActivity {
+
+    //Set boolean flag when torch is turned on/off
+    private boolean isFlashOn = false;
+    //Create camera object to access flahslight
+    private Camera camera = null;
+    //Torch button
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disaster_info_layout);
@@ -42,6 +53,8 @@ public class Emergency extends ActionBarActivity {
                 String x = String.valueOf(parent.getItemAtPosition(position));
                 String disasterPicked = "You selected " + x;
                 //Toast.makeText(Emergency.this, disasterPicked, Toast.LENGTH_SHORT).show();
+                Context context = getApplicationContext();
+                PackageManager pm = context.getPackageManager();
 
                 if (x.equals("Report Damage")) {
                     //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -51,13 +64,30 @@ public class Emergency extends ActionBarActivity {
 
                 if (x.equals("Flashlight")){
 
-                    if ( getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
-                        Camera cam = Camera.open();
-                        Camera.Parameters p = cam.getParameters();
-                        p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-                        cam.setParameters(p);
-                        cam.startPreview();
+                    if(!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+
+                        Log.e("err", "Device has no camera!");
+                        //Return from the method, do nothing after this code block
+                        return;
                     }
+                    //try{
+                        if(isFlashOn == false) {
+                            isFlashOn = true;
+                            camera = Camera.open();
+                            Camera.Parameters parameters = camera.getParameters();
+                            parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                            camera.setParameters(parameters);
+                            camera.startPreview();
+
+                        } else {
+                            isFlashOn = false;
+                            camera.stopPreview();
+                            camera.release();
+                            camera = null;
+
+                       }
+                    //}catch(Exception e) {
+                    //   Log.e("Error", ""+e);}
                 }
 //                 else if (x.equals("Shelters")) {
 //                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
