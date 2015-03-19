@@ -218,12 +218,11 @@ import android.widget.TextView;
 import u.ready_wisc.R;
 
 /**
- * @author David Krawchuk
- * @email krawchukdavid@gmail.com
- * @date 02/20/2014
- * <p/>
- * Description:
  * Class represents the controller for the Checklist Item Creation Activity.
+ *
+ * @author David Krawchuk
+ * @version 1.0v Build * March 18 2015
+ * @email krawchukdavid@gmail.com
  */
 public class Checklist_Item_Create extends ActionBarActivity {
 
@@ -302,12 +301,9 @@ public class Checklist_Item_Create extends ActionBarActivity {
     }
 
     /**
+     * Called by the activity when the user presses the save button.
+     *
      * @param view
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * @todo Update the Checklist progress value.
      * @todo Notify user when database error occurs.
      */
@@ -336,26 +332,18 @@ public class Checklist_Item_Create extends ActionBarActivity {
     }
 
     /**
-     * @param view
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Finish activity and navigate to source controller.
+     *
+     * @param view
      */
     public void cancelButtonPressed(View view) {
         finish();
     }
 
     /**
-     * @param view
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Called when the edit text views focus has changed.
+     *
+     * @param view
      */
     private void editTextViewHasBeenSelected(View view) {
 

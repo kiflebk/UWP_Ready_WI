@@ -214,6 +214,15 @@ import java.util.ArrayList;
 
 import u.ready_wisc.R;
 
+/**
+ * The checklist activity is the initial point for selection, creatioin, and deletion of
+ * user created checklists.
+ * <p/>
+ * In the terms of this project checklists are also known as "ready-kits" and "go-kits".
+ *
+ * @author David Krawchuk
+ * @version 1.0v Build * March 18 2015
+ */
 public class Checklist extends ActionBarActivity {
 
     /* INSTANCE VARIABLE BLOCK BEGIN */
@@ -224,13 +233,9 @@ public class Checklist extends ActionBarActivity {
     /* INSTANCE VARIABLE BLOCK END */
 
     /**
-     * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2015
-     * <p/>
-     * Description:
      * Returns a valid listview object as referenced in the layout file.
+     *
+     * @return
      */
     private ListView getChecklistListView() {
         if (checklistListView == null) {
@@ -241,12 +246,6 @@ public class Checklist extends ActionBarActivity {
     }
 
     /**
-     * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2015
-     * <p/>
-     * Description:
      * Returns the ArrayAdapter in a valid state by creating an empty Arraylist and attaching it to
      * the ListView.
      */
@@ -290,11 +289,6 @@ public class Checklist extends ActionBarActivity {
     }
 
     /**
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2015
-     * <p/>
-     * Description:
      * Before the activity is visible to the user the list is populated.
      */
     @Override
@@ -311,11 +305,6 @@ public class Checklist extends ActionBarActivity {
     }
 
     /**
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2015
-     * <p/>
-     * Description:
      * When the activity has resumed from some inactive state. Clear and repopulate the list.
      */
     @Override
@@ -355,11 +344,6 @@ public class Checklist extends ActionBarActivity {
     }
 
     /**
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2015
-     * <p/>
-     * Description:
      * Populates the list view object with the contents of the Checklist table.
      */
     private void populateListView() {
@@ -376,13 +360,9 @@ public class Checklist extends ActionBarActivity {
     }
 
     /**
-     * @param menuItem
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2015
-     * <p/>
-     * Description:
      * When called changes the editMode boolean instance variable.
+     *
+     * @param menuItem
      */
     public void menuEditButtonPressed(MenuItem menuItem) {
         isInEditMode = (isInEditMode == true) ? false : true;

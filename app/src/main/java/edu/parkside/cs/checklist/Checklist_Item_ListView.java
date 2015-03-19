@@ -215,14 +215,11 @@ import java.util.ArrayList;
 import u.ready_wisc.R;
 
 /**
- * /**
+ * The controller for displaying the contents of a checklist.
  *
  * @author David Krawchuk
+ * @version 1.0v Build * March 18 2015
  * @email krawchukdavid@gmail.com
- * @date 02/25/2014
- * <p/>
- * Description:
- * The controller for displaying the contents of a checklist.
  */
 public class Checklist_Item_ListView extends ActionBarActivity {
 
@@ -236,13 +233,9 @@ public class Checklist_Item_ListView extends ActionBarActivity {
     /* INSTANCE VARIABLE BLOCK END */
 
     /**
+     * Getter. Obtains a reference to the item listview from the xml resource file.
+     *
      * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
-     * Getter.
      */
     private ListView getChecklist_item_listView() {
         if (checklist_item_listView == null) {
@@ -252,13 +245,9 @@ public class Checklist_Item_ListView extends ActionBarActivity {
     }
 
     /**
-     * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Creates a new adapter if one doesn't exist and attaches it to the listview within the activity.
+     *
+     * @return
      */
     private Checklist_Item_ArrayAdapter getChecklist_item_arrayAdapter() {
         if (checklist_item_arrayAdapter == null) {
@@ -271,12 +260,10 @@ public class Checklist_Item_ListView extends ActionBarActivity {
     }
 
     /**
+     * Called when the activity view is created. After calling the super class retrieves the
+     * passed checklist object from the passed message.
+     *
      * @param savedInstanceState
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * @todo Known error occurs when user presses back button in the navigation bar instead of cancel.
      */
     @Override
@@ -312,11 +299,7 @@ public class Checklist_Item_ListView extends ActionBarActivity {
     }
 
     /**
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
+     *
      */
     @Override
     protected void onStart() {
@@ -325,9 +308,7 @@ public class Checklist_Item_ListView extends ActionBarActivity {
     }
 
     /**
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
+     * On activity resume, reloads the listview with the contents of the appropriate database.
      */
     @Override
     protected void onResume() {
@@ -362,11 +343,9 @@ public class Checklist_Item_ListView extends ActionBarActivity {
     }
 
     /**
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
+     * Populates the array adapter with the contents of the appropriate database table.
+     * Notifies the listview that the contents have changed so the listview can update the appropriate
+     * views.
      */
     public void populateListView() {
         // Clear the adapter contents.
@@ -381,13 +360,10 @@ public class Checklist_Item_ListView extends ActionBarActivity {
     }
 
     /**
-     * @param menuItem
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * When called changes the editMode boolean instance variable.
+     *
+     * @param menuItem
+     * @todo Update the user of the mode change in some visual mannor.
      */
     public void menuEditButtonPressed(MenuItem menuItem) {
         isInEditMode = (isInEditMode == true) ? false : true;

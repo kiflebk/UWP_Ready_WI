@@ -219,13 +219,13 @@ import u.ready_wisc.R;
 
 /**
  * @author David Krawchuk
+ * @version 1.0v Build * March 18 2015 *
+ *          <p/>
+ *          Description:
+ *          The data source for the checklist create item listview.
+ *          Provides the listeners for displaying item details and deletion upon clicking
+ *          the checkbox.
  * @email krawchukdavid@gmail.com
- * @date 02/25/2014
- * <p/>
- * Description:
- * The data source for the checklist create item listview.
- * Provides the listeners for displaying item details and deletion upon clicking
- * the checkbox.
  */
 public class Checklist_Create_Item_Adapter extends Checklist_Item_ArrayAdapter {
     /* Instance variable block. */
@@ -233,13 +233,10 @@ public class Checklist_Create_Item_Adapter extends Checklist_Item_ArrayAdapter {
     /* Instance variable block. */
 
     /**
+     * Constructor.
+     *
      * @param context
      * @param resource
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/25/2014
-     * <p/>
-     * Description:
      * @see edu.parkside.cs.checklist.Checklist_Item_ArrayAdapter
      */
     public Checklist_Create_Item_Adapter(Context context, int resource) {
@@ -247,15 +244,12 @@ public class Checklist_Create_Item_Adapter extends Checklist_Item_ArrayAdapter {
     }
 
     /**
+     * Constructor.
+     *
      * @param context
      * @param resource
      * @param objects
      * @param arrayOfDescriptions
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/25/2014
-     * <p/>
-     * Description:
      * @see edu.parkside.cs.checklist.Checklist_Item_ArrayAdapter
      */
     public Checklist_Create_Item_Adapter(Context context, int resource, ArrayList<Checklist_Item_Row> objects, ArrayList<String> arrayOfDescriptions) {
@@ -264,19 +258,14 @@ public class Checklist_Create_Item_Adapter extends Checklist_Item_ArrayAdapter {
     }
 
     /**
+     * Provides the data to the source listview that requests the data.
+     * Attaches onclick listeners to the items in order to view item details or delete items when
+     * item checkbox is clicked.
+     *
      * @param position
      * @param convertView
      * @param parent
      * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * <p/>
-     * Description:
-     * Provides the data to the source listview that requests the data.
-     * Attaches onclick listeners to the items in order to view item details or delete items when
-     * item checkbox is clicked.
      */
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {

@@ -218,12 +218,11 @@ import java.util.ArrayList;
 import u.ready_wisc.R;
 
 /**
- * @author David Krawchuk
- * @email krawchukdavid@gmail.com
- * @date 02/20/2015
- * <p/>
- * Description:
  * Maps the activity_checklist.xml to the Checklist_Row objects.
+ *
+ * @author David Krawchuk
+ * @version 1.0v Build * March 18 2015
+ * @email krawchukdavid@gmail.com
  */
 public class Checklist_ArrayAdapter extends ArrayAdapter {
 
@@ -233,14 +232,10 @@ public class Checklist_ArrayAdapter extends ArrayAdapter {
     /* INSTANCE VARIABLE BLOCK END */
 
     /**
+     * Constructor
+     *
      * @param context
      * @param resource
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2015
-     * <p/>
-     * Description:
-     * Alternative constructor.
      */
     public Checklist_ArrayAdapter(Context context, int resource) {
         super(context, resource);
@@ -248,15 +243,11 @@ public class Checklist_ArrayAdapter extends ArrayAdapter {
     }
 
     /**
+     * Constructor.
+     *
      * @param context
      * @param resource
      * @param objects
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2015
-     * <p/>
-     * Description:
-     * Default constructor.
      */
     public Checklist_ArrayAdapter(Context context, int resource, ArrayList<Checklist_Row> objects) {
         super(context, resource, objects);
@@ -265,13 +256,9 @@ public class Checklist_ArrayAdapter extends ArrayAdapter {
     }
 
     /**
-     * @param list
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2015
-     * <p/>
-     * Description:
      * Resets the lists contents and notifies the listener that the adapter's contents have changed.
+     *
+     * @param list
      */
     public void setList(ArrayList<Checklist_Row> list) {
         this.list = list;
@@ -279,17 +266,13 @@ public class Checklist_ArrayAdapter extends ArrayAdapter {
     }
 
     /**
+     * Returns the inflated row filled with the Checklist_Row attributes. Given the current editing
+     * condition allows for selection or deletion of checklist rows.
+     *
      * @param position
      * @param convertView
      * @param parent
      * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2015
-     * <p/>
-     * Description:
-     * Returns the inflated row filled with the Checklist_Row attributes. Given the current editing
-     * condition allows for selection or deletion of checklist rows.
      * @TODO Error condition needs to be implemented!
      * @TODO Replace string comparisons with index or Object type.
      */

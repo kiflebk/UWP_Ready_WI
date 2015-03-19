@@ -222,15 +222,14 @@ import java.util.ArrayList;
 import u.ready_wisc.R;
 
 /**
- * @author David Krawchuk
- * @email krawchukdavid@gmail.com
- * @date 02/20/2015
- * <p/>
- * Description:
  * Class represents the Checklist creation activity.
+ *
+ * @author David Krawchuk
+ * @version 1.0v Build * March 18 2015 *
+ * @email krawchukdavid@gmail.com
  */
 public class Checklist_Create extends ActionBarActivity {
-
+    /* INSTANCE VARIABLE BLOCK BEGIN */
     public static final String EXTRA_MESSAGE = "edu.parkside.cs.checklist_create";
     // The request code required by the returning activity callback.
     static final int NEW = 1;
@@ -240,7 +239,6 @@ public class Checklist_Create extends ActionBarActivity {
     static final int CHECKLIST_ROW_INSERT_ERROR = 2;
     static final int CHECKLIST_DESCRIPTION_ERROR = 3;
 
-    /* INSTANCE VARIABLE BLOCK BEGIN */
     Checklist_Row checklist_row;
     ArrayList<Checklist_Item_Row> added_items;
     ArrayList<String> added_descriptions;
@@ -251,13 +249,9 @@ public class Checklist_Create extends ActionBarActivity {
     /* INSTANCE VARIABLE BLOCK END */
 
     /**
+     * Getter. Creates new Arraylist if reference is null.
+     *
      * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 03/12/2015
-     * <p/>
-     * Description:
-     * Getter.
      */
     public ArrayList<Checklist_Item_Row> getAddedItems() {
         if (added_items == null) {
@@ -267,13 +261,9 @@ public class Checklist_Create extends ActionBarActivity {
     }
 
     /**
+     * Getter. Creates new Arraylist if reference is null.
+     *
      * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2015
-     * <p/>
-     * Description:
-     * Getter.
      */
     public ArrayList<String> getAddedDescriptions() {
         if (added_descriptions == null) {
@@ -283,13 +273,9 @@ public class Checklist_Create extends ActionBarActivity {
     }
 
     /**
+     * Getter. Creates an empty checklist row if reference is empty.
+     *
      * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2015
-     * <p/>
-     * Description:
-     * Getter.
      */
     Checklist_Row getChecklistRow() {
         if (checklist_row == null) {
@@ -299,13 +285,9 @@ public class Checklist_Create extends ActionBarActivity {
     }
 
     /**
+     * Getter. Retrieves resouce from xml resource file if reference is null.
+     *
      * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2015
-     * <p/>
-     * Description:
-     * Getter.
      */
     private ListView getChecklistItemListView() {
         if (checklist_item_listView == null) {
@@ -314,14 +296,11 @@ public class Checklist_Create extends ActionBarActivity {
         return checklist_item_listView;
     }
 
+
     /**
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2015\
-     * <p/>
-     * <p/>
-     * Description:
      * Creates a new adapter if one doesn't exist and attaches it to the listview within the activity.
+     *
+     * @return
      */
     private Checklist_Item_ArrayAdapter getChecklistCreateItemAdapter() {
         if (checklist_create_item_adapter == null) {
@@ -375,11 +354,6 @@ public class Checklist_Create extends ActionBarActivity {
     }
 
     /**
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2015
-     * <p/>
-     * Description:
      * Called when the activity returns from some state other than active. Populates the list
      * with the contents of the added items.
      */
@@ -416,11 +390,7 @@ public class Checklist_Create extends ActionBarActivity {
     }
 
     /**
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2015
-     * <p/>
-     * Description:
+     * Populates the list view with the contents of the create_checklist_item_array_adapter.
      */
     public void populateListView() {
         // Notify clients that contents of the adapter have changed and they should update their state.
@@ -428,17 +398,12 @@ public class Checklist_Create extends ActionBarActivity {
     }
 
     /**
+     * Callback method called when the Checklist_Create_Item_Add activity returns. Called prior to
+     * onResume().
+     *
      * @param requestCode
      * @param resultCode
      * @param data
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2015
-     * @TODO Add case to handle return from detail view.
-     * <p/>
-     * Description:
-     * Callback method called when the Checklist_Create_Item_Add activity returns. Called prior to
-     * onResume().
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -472,15 +437,12 @@ public class Checklist_Create extends ActionBarActivity {
         }
     }
 
+
     /**
-     * @param menuItem
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2015
-     * @TODO Change the visual state of the application to indicate edit mode.
-     * <p/>
-     * Description:
      * When called changes the editMode boolean instance variable.
+     *
+     * @param menuItem
+     * @TODO Change the visual state of the application to indicate edit mode.
      */
     public void menuEditButtonPressed(MenuItem menuItem) {
         isInEditMode = (isInEditMode == true) ? false : true;
@@ -490,12 +452,9 @@ public class Checklist_Create extends ActionBarActivity {
     }
 
     /**
+     * Called when the add button has been pressed to create a new checklist.
+     *
      * @param button
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2015
-     * <p/>
-     * Description:
      */
     public void addButtonPressed(View button) {
         Intent intent = new Intent(this, Checklist_Create_Item_Add.class);
@@ -503,25 +462,20 @@ public class Checklist_Create extends ActionBarActivity {
     }
 
     /**
+     * Called when the cancel button has been pressed by the user. Returns to the previous activity.
+     *
      * @param button
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/25/2015
-     * <p/>
-     * Description:
      */
     public void cancelButtonPressed(View button) {
         finish();
     }
 
+
     /**
+     * Called when the user presses the save button.
+     *
      * @param button
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/25/2015
      * @TODO Implement Error handling / AlertViews.
-     * <p/>
-     * Description:
      */
     public void saveButtonPressed(View button) {
 
@@ -537,13 +491,9 @@ public class Checklist_Create extends ActionBarActivity {
     }
 
     /**
-     * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/25/2015
-     * <p/>
-     * Description:
      * Inserts the checklist into the database. Must be called prior to createCheclistRows().
+     *
+     * @return
      */
     public int createChecklist() {
         EditText name_editText = (EditText) findViewById(R.id.activity_checklist_create_edittext);
@@ -555,13 +505,9 @@ public class Checklist_Create extends ActionBarActivity {
     }
 
     /**
-     * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2015
-     * <p/>
-     * Description:
      * Inserts all of the items in the array of items and thier descriptions into the database.
+     *
+     * @return
      */
     public int createChecklistRows() {
         EditText name_editText = (EditText) findViewById(R.id.activity_checklist_create_edittext);
@@ -591,13 +537,9 @@ public class Checklist_Create extends ActionBarActivity {
 
 
     /**
-     * @param view
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Called when the edit text views focus has changed.
+     *
+     * @param view
      */
     private void editTextViewHasBeenSelected(View view) {
 
@@ -614,11 +556,6 @@ public class Checklist_Create extends ActionBarActivity {
     }
 
     /**
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Attaches text watchers to the editText views.
      */
     private void attachTextListenersToTextViews() {

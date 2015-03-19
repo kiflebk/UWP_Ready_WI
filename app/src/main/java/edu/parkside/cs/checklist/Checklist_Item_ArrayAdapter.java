@@ -218,12 +218,11 @@ import java.util.ArrayList;
 import u.ready_wisc.R;
 
 /**
- * @author David Krawchuk
- * @email krawchukdavid@gmail.com
- * @date 02/20/2015
- * <p/>
- * Description:
  * Provides the mapping between the checklist_item_row.xml and checklist_item_row objects.
+ *
+ * @author David Krawchuk
+ * @version 1.0v Build * March 18 2015
+ * @email krawchukdavid@gmail.com
  */
 public class Checklist_Item_ArrayAdapter extends ArrayAdapter<Checklist_Item_Row> {
 
@@ -234,13 +233,10 @@ public class Checklist_Item_ArrayAdapter extends ArrayAdapter<Checklist_Item_Row
     /* INSTANCE VARIABLE BLOCK END */
 
     /**
+     * Constructor.
+     *
      * @param context
      * @param resource
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2015
-     * <p/>
-     * Description:
      */
     public Checklist_Item_ArrayAdapter(Context context, int resource) {
         super(context, resource);
@@ -249,15 +245,11 @@ public class Checklist_Item_ArrayAdapter extends ArrayAdapter<Checklist_Item_Row
     }
 
     /**
+     * Constructor.
+     *
      * @param context
      * @param resource
      * @param objects
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2015
-     * <p/>
-     * Description:
-     * Default constructor.
      */
     public Checklist_Item_ArrayAdapter(Context context, int resource, ArrayList<Checklist_Item_Row> objects) {
         super(context, resource, objects);
@@ -267,13 +259,9 @@ public class Checklist_Item_ArrayAdapter extends ArrayAdapter<Checklist_Item_Row
     }
 
     /**
-     * @param arrayList
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2015
-     * <p/>
-     * Description:
      * Setter.
+     *
+     * @param arrayList
      */
     public void setList(ArrayList<Checklist_Item_Row> arrayList) {
         this.checklist_item_rowArrayList = arrayList;
@@ -281,17 +269,13 @@ public class Checklist_Item_ArrayAdapter extends ArrayAdapter<Checklist_Item_Row
 
 
     /**
+     * Returns the inflated row filled with the Checklist_Item_Row attributes. Givin the current editing
+     * condition allows for selection or deletion of checklist item rows.
+     *
      * @param position
      * @param convertView
      * @param parent
      * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2015
-     * <p/>
-     * Description:
-     * Returns the inflated row filled with the Checklist_Item_Row attributes. Givin the current editing
-     * condition allows for selection or deletion of checklist item rows.
      * @TODO Error condition needs to be implemented!
      */
     @Override
@@ -365,13 +349,9 @@ public class Checklist_Item_ArrayAdapter extends ArrayAdapter<Checklist_Item_Row
     }
 
     /**
-     * @param context
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 03/15/2015
-     * <p/>
-     * Description:
      * Updates the checklist percentage attribute.
+     *
+     * @param context
      * @todo Add alert dialog to notify user of error.
      */
     public void updateChecklistCompletePercentage(Context context) {

@@ -214,13 +214,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 
 /**
- * @author David Krawchuk
- * @email krawchukdavid@gmail.com
- * @date 02/20/2014
- * <p/>
- * Description:
  * Helper class maps operations between the application and database using the checklist_contract
  * as a template.
+ *
+ * @author David Krawchuk
+ * @version 1.0v Build * March 18 2015
+ * @email krawchukdavid@gmail.com
  */
 public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
     /* Instance variable block begin */
@@ -269,13 +268,10 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
     }
 
     /**
+     * Creates and returns a new instance of the databaseHelper even if one exists.
+     *
      * @param context
      * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * Descrtiption :
-     * Creates and returns a new instance of the databaseHelper even if one exists.
      */
     public static Checklist_Contract_Db_Helper getDb_helper(Context context) {
         if (db_helper == null) {
@@ -286,14 +282,10 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
 
 
     /**
-     * @param db The database.
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Called when the database is created for the first time. This is where the
      * creation of tables and the initial population of the tables should happen.
+     *
+     * @param db
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -349,13 +341,9 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
     }
 
     /**
-     * @param database
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Creates the initial Checklist table.
+     *
+     * @param database
      */
     private void createChecklistTable(SQLiteDatabase database) {
 
@@ -363,13 +351,9 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
     }
 
     /**
-     * @param database
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Called to create the initial Item Table.
+     *
+     * @param database
      */
     private void createItemTable(SQLiteDatabase database) {
 
@@ -377,13 +361,9 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
     }
 
     /**
-     * @param database
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Called to create the initial Checklist Table.
+     *
+     * @param database
      */
     private void createDescriptionTable(SQLiteDatabase database) {
 
@@ -393,16 +373,12 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
     /* Checklist Block Begin */
 
     /**
-     * @param cursor
-     * @param list
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Populates the passed ArrayList with the contents of the cursor.
      * Note: Any changes to the Checklist Object and table must be reflected in this
      * method as well.
+     *
+     * @param cursor
+     * @param list
      */
     private void populateListWithChecklist(Cursor cursor, ArrayList<Checklist_Row> list) {
 
@@ -425,15 +401,11 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
     }
 
     /**
-     * @param args
-     * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Takes an array of queries. If the input parameter is null, all results are returned.
      * Upon an sql exception, the method returns a null value.
+     *
+     * @param args
+     * @return
      */
     public ArrayList<Checklist_Row> returnChecklistRows(String[] args) {
 
@@ -467,13 +439,10 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
     }
 
     /**
-     * @param checklist_row
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * When passed a Checklist Row object inserts that object into the Checklist table.
+     *
+     * @param checklist_row
+     * @return
      */
     public int addChecklist(Checklist_Row checklist_row) {
 
@@ -494,15 +463,11 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
     }
 
     /**
-     * @param checklist_row
-     * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Updates the Checklist table with the values of the Checklist Row object. Upon completion
      * the method returns the status of the transaction.
+     *
+     * @param checklist_row
+     * @return
      */
     public int updateChecklist(Checklist_Row checklist_row) {
 
@@ -522,15 +487,11 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
     }
 
     /**
-     * @param checklist_row
-     * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Removes the provided checklist row from the Checklist table. Upon completion the method
      * returns the status of the transaction.
+     *
+     * @param checklist_row
+     * @return
      */
     public int deleteChecklist(Checklist_Row checklist_row) {
 
@@ -567,15 +528,11 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
     /* Checklist Item Block Begin */
 
     /**
-     * @param item
-     * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Returns the description referenced in the item parameter. If an exception occurs a null value
      * is returned.
+     *
+     * @param item
+     * @return
      * @todo Finish exception handling. Should return null if error occurs.
      */
     public String returnDescriptionFromItem(Checklist_Item_Row item) {
@@ -612,16 +569,12 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
     }
 
     /**
-     * @param cursor
-     * @param rowList
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Populates the passed ArrayList with the contents of the cursor.
      * Note: Any changes to the Checklist Item Object and table must be reflected in this
      * method as well.
+     *
+     * @param cursor
+     * @param rowList
      */
     public void populateListWithChecklistItemRow(Cursor cursor, ArrayList<Checklist_Item_Row> rowList) {
         if (cursor.moveToFirst()) {
@@ -650,16 +603,12 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
     }
 
     /**
-     * @param args
-     * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Returns an array list of Checklist_Item_Rows. If the args parameter is null, all items of
      * a Checklist are return. Given an array of query strings the method returns an ArrayList of
      * the combined queries.
+     *
+     * @param args
+     * @return
      */
     public ArrayList<Checklist_Item_Row> returnChecklistItemRows(String[] args) {
 
@@ -690,17 +639,13 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
     }
 
     /**
-     * @param item
-     * @param description
-     * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Inserts an item from a checklist into the Item table. Retrieves that newly inserted item
      * for use as a reference to insert the description into the description table. Upon completion
      * of the transaction the method returns the condition code.
+     *
+     * @param item
+     * @param description
+     * @return
      */
     public int insertItem(Checklist_Item_Row item, String description) {
 
@@ -738,17 +683,13 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
     }
 
     /**
-     * @param item
-     * @param description
-     * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Updates the item and its attributes in the Item table, as well as, the description table
      * and it's attributes. Upon completion of the transaction the method will return the
      * condition code.
+     *
+     * @param item
+     * @param description
+     * @return
      */
     public int updateItem(Checklist_Item_Row item, String description) {
 
@@ -787,16 +728,12 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
     }
 
     /**
-     * @param items
-     * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Deletes the items and their attributes in the Item table, as well as, the description table
      * and it's attributes. Upon completion of the transaction the method will return the
      * condition code.
+     *
+     * @param items
+     * @return
      */
     public int deleteItems(ArrayList<Checklist_Item_Row> items) {
         boolean transaction_success = false;

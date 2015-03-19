@@ -208,11 +208,12 @@ import android.provider.BaseColumns;
 
 
 /**
- * Created by krawchukd on 2/14/15.
- * <p/>
- * Description :
  * The Checklist_Contract Class provides an interface for the sqlHelper class. All sql statements
  * that the Checklist subsection of the application will need are centralized here.
+ *
+ * @author David Krawchuk
+ * @version 1.0v Build * March 18 2015
+ * @email krawchukdavid@gmail.com
  */
 public final class Checklist_Contract {
 

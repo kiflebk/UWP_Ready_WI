@@ -208,16 +208,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by krawchukd on 2/15/15.
+ * Checklist_Row class represents the checklist and its storable contents.
+ *
+ * @author David Krawchuk
+ * @version 1.0v Build * March 18 2015
+ * @email krawchukdavid@gmail.com
  */
 public class Checklist_Row implements Parcelable {
-
     /**
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Parcelable creator method.
      */
     public static final Parcelable.Creator<Checklist_Row> CREATOR
@@ -237,25 +235,16 @@ public class Checklist_Row implements Parcelable {
     private int progress;
 
     /**
-     * @param in
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Constructs a Checklist_Row object from a Parcel object.
+     *
+     * @param in
      */
     public Checklist_Row(Parcel in) {
         readFromParcel(in);
     }
 
     /**
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
-     * Default constructor.
+     * Constructor.
      */
     public Checklist_Row() {
         title = "Empty";
@@ -263,14 +252,10 @@ public class Checklist_Row implements Parcelable {
     }
 
     /**
+     * Constructor.
+     *
      * @param title
      * @param progress
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
-     * Constructor
      */
     public Checklist_Row(String title, int progress) {
         this.title = title;
@@ -278,15 +263,11 @@ public class Checklist_Row implements Parcelable {
     }
 
     /**
+     * Constructor.
+     *
      * @param entryid
      * @param title
      * @param progress
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
-     * Constructor.
      */
     public Checklist_Row(int entryid, String title, int progress) {
         this.entryid = entryid;
@@ -295,24 +276,18 @@ public class Checklist_Row implements Parcelable {
     }
 
     /**
+     * Title getter
+     *
      * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description: Title getter
      */
     public String getTitle() {
         return this.title;
     }
 
     /**
+     * Title setter.
+     *
      * @param title
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description: Title setter.
      */
     public void setTitle(String title) {
         // 1. Check string length.
@@ -323,25 +298,15 @@ public class Checklist_Row implements Parcelable {
     }
 
     /**
-     * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Progress getter.
+     *
+     * @return
      */
     public int getProgress() {
         return this.progress;
     }
 
     /**
-     * @param progress
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Progress setter.
      */
     public void setProgress(int progress) {
@@ -353,26 +318,18 @@ public class Checklist_Row implements Parcelable {
     }
 
     /**
-     * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Entry getter.
+     *
+     * @return
      */
     public int getEntryid() {
         return entryid;
     }
 
     /**
-     * @param entryid
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Entry setter.
+     *
+     * @param entryid
      */
     public void setEntryid(int entryid) {
         this.entryid = entryid;
@@ -384,14 +341,10 @@ public class Checklist_Row implements Parcelable {
     }
 
     /**
+     * Translates Checklist_Row object into parcel.
+     *
      * @param dest
      * @param flags
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
-     * Translates Checklist_Row object into parcel.
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -401,13 +354,9 @@ public class Checklist_Row implements Parcelable {
     }
 
     /**
-     * @param source
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Translates parcel to Checklist_Row object.
+     *
+     * @param source
      */
     private void readFromParcel(Parcel source) {
         this.entryid = source.readInt();

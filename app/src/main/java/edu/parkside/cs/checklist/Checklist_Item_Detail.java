@@ -218,12 +218,12 @@ import android.widget.TextView;
 import u.ready_wisc.R;
 
 /**
+ * Provides the detailed view of the selected item within the item table.
+ *
  * @author David Krawchuk
+ * @version 1.0v Build * March 18 2015
  * @email krawchukdavid@gmail.com
  * @date 02/20/2014
- * <p/>
- * Description:
- * Provides the detailed view of the selected item within the item table.
  */
 public class Checklist_Item_Detail extends ActionBarActivity {
 
@@ -237,11 +237,6 @@ public class Checklist_Item_Detail extends ActionBarActivity {
 
     /**
      * @param savedInstanceState
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -320,11 +315,6 @@ public class Checklist_Item_Detail extends ActionBarActivity {
     }
 
     /**
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Populate the text fields with data supplied by the selected item from the source activity.
      */
     private void populateWidgets() {
@@ -345,12 +335,8 @@ public class Checklist_Item_Detail extends ActionBarActivity {
     }
 
     /**
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Retrieve the description text from the database and populate the description text view.
+     *
      * @todo Alert user if error occurs.
      */
     private void populateDescriptionTextField() {
@@ -365,12 +351,10 @@ public class Checklist_Item_Detail extends ActionBarActivity {
     }
 
     /**
+     * Called by the activity when the user presses the update button.
+     * Saves the item and detail information to the application local database.
+     *
      * @param view
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * @todo Alert user if error occurs.
      */
     public void updateButtonPressed(View view) {
@@ -389,18 +373,20 @@ public class Checklist_Item_Detail extends ActionBarActivity {
             finish();
     }
 
+    /**
+     * Called by the activity when the user presses the cancel button.
+     * The user is returned to the previous activity on the activity stack.
+     *
+     * @param view
+     */
     public void cancelButtonPressed(View view) {
         finish();
     }
 
     /**
-     * @param view
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Called when the edit text views focus has changed.
+     *
+     * @param view
      */
     private void editTextViewHasBeenSelected(View view) {
 
@@ -424,11 +410,6 @@ public class Checklist_Item_Detail extends ActionBarActivity {
     }
 
     /**
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Attaches text watchers to the editText views. When all three fields have been edited. The
      * Save button is enabled.
      */

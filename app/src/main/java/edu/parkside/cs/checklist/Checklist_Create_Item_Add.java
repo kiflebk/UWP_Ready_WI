@@ -217,13 +217,12 @@ import android.widget.TextView;
 import u.ready_wisc.R;
 
 /**
- * @author David Krawchuk
- * @email krawchukdavid@gmail.com
- * @date 02/20/2014
- * <p/>
- * Description:
  * The controller for the Checklist_Create_Item_Add.xml layout.
  * Class is meant to be used as a helper class to the Checklist Create Activity.
+ *
+ * @author David Krawchuk
+ * @version 1.0v Build * March 18 2015
+ * @email krawchukdavid@gmail.com
  */
 public class Checklist_Create_Item_Add extends Checklist_Item_Create {
 
@@ -269,11 +268,6 @@ public class Checklist_Create_Item_Add extends Checklist_Item_Create {
 
     /**
      * @param view
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/25/2014
-     * <p/>
-     * Description:
      */
     @Override
     public void saveButtonPressed(View view) {
@@ -298,13 +292,9 @@ public class Checklist_Create_Item_Add extends Checklist_Item_Create {
     }
 
     /**
-     * @param view
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Called when the edit text views focus has changed.
+     *
+     * @param view
      */
     private void editTextViewHasBeenSelected(View view) {
 
@@ -328,11 +318,6 @@ public class Checklist_Create_Item_Add extends Checklist_Item_Create {
     }
 
     /**
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Attaches text watchers to the editText views.
      */
     private void attachTextListenersToTextViews() {

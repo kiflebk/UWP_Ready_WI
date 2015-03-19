@@ -208,24 +208,17 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * @author David Krawchuk
- * @email krawchukdavid@gmail.com
- * @date 02/20/2014
- * <p/>
- * Description:
  * Provides the physical support for the Checklist Items.
  * <p/>
- * Note: This class implements Parcelable for performance considerations. Parceable allows the object
+ * Note: This class implements Parcelable for performance considerations. Parcelable allows the object
  * to be passed between activities.
+ *
+ * @author David Krawchuk
+ * @version 1.0v Build * March 18 2015
+ * @email krawchukdavid@gmail.com
  */
 public class Checklist_Item_Row implements Parcelable {
-
     /**
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Required creator method for the parcelable implementation.
      */
     public static final Parcelable.Creator<Checklist_Item_Row> CREATOR
@@ -247,24 +240,16 @@ public class Checklist_Item_Row implements Parcelable {
     private int checklist_entryid;
 
     /**
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description: Default constructor.
+     * Constructor.
      */
     public Checklist_Item_Row() {
     }
 
     /**
+     * Constructor.
+     *
      * @param title
      * @param isChecked
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
-     * Constructor.
      */
     public Checklist_Item_Row(String title, boolean isChecked) {
         this.name = title;
@@ -274,26 +259,18 @@ public class Checklist_Item_Row implements Parcelable {
     ;
 
     /**
+     * Parcel constructor.
+     *
      * @param in
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
-     * Parcelable constructor.
      */
     public Checklist_Item_Row(Parcel in) {
         readFromParcel(in);
     }
 
     /**
+     * Getter. If the reference is null, the a string is returned with the contents of "Empty".
+     *
      * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
-     * Getter.
      */
     public String getName() {
         if (name == null) {
@@ -303,13 +280,9 @@ public class Checklist_Item_Row implements Parcelable {
     }
 
     /**
-     * @param name
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Setter.
+     *
+     * @param name
      * @todo Verify input.
      */
     public void setName(String name) {
@@ -320,25 +293,17 @@ public class Checklist_Item_Row implements Parcelable {
     }
 
     /**
-     * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Getter.
+     *
+     * @return
      */
     public boolean isChecked() {
         return isChecked;
     }
 
     /**
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Setter.
+     *
      * @todo Verify input.
      */
     public void setChecked() {
@@ -350,12 +315,6 @@ public class Checklist_Item_Row implements Parcelable {
     }
 
     /**
-     * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Getter. Converts internal implementation and returns an int.
      */
     public int getChecked() {
@@ -363,13 +322,8 @@ public class Checklist_Item_Row implements Parcelable {
     }
 
     /**
-     * @param condition
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Setter.
+     *
      * @todo Verify input.
      */
     public void setChecked(int condition) {
@@ -380,12 +334,6 @@ public class Checklist_Item_Row implements Parcelable {
     }
 
     /**
-     * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Getter.
      */
     public int getEntryid() {
@@ -393,13 +341,9 @@ public class Checklist_Item_Row implements Parcelable {
     }
 
     /**
-     * @param entryid
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Setter.
+     *
+     * @param entryid
      * @todo Verify input values.
      */
     public void setEntryid(int entryid) {
@@ -407,52 +351,36 @@ public class Checklist_Item_Row implements Parcelable {
     }
 
     /**
-     * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Getter.
+     *
+     * @return
      */
     public int getQty() {
         return qty;
     }
 
     /**
-     * @param qty
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Setter.
+     *
+     * @param qty
      */
     public void setQty(int qty) {
         this.qty = qty;
     }
 
     /**
-     * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Getter.
+     *
+     * @return
      */
     public int getChecklist_entryid() {
         return checklist_entryid;
     }
 
     /**
-     * @param checklist_entryid
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Setter.
+     *
+     * @param checklist_entryid
      * @todo Verify input.
      */
     public void setChecklist_entryid(int checklist_entryid) {
@@ -460,13 +388,9 @@ public class Checklist_Item_Row implements Parcelable {
     }
 
     /**
-     * @return
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Required method for the parcelable implementation.
+     *
+     * @return
      */
     @Override
     public int describeContents() {
@@ -474,14 +398,10 @@ public class Checklist_Item_Row implements Parcelable {
     }
 
     /**
+     * Translates the object attributes into parcel elements.
+     *
      * @param dest
      * @param flags
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
-     * Translates the object attributes into parcel elements.
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -493,13 +413,9 @@ public class Checklist_Item_Row implements Parcelable {
     }
 
     /**
-     * @param source
-     * @author David Krawchuk
-     * @email krawchukdavid@gmail.com
-     * @date 02/20/2014
-     * <p/>
-     * Description:
      * Translates the parcel elements into object attributes.
+     *
+     * @param source
      */
     private void readFromParcel(Parcel source) {
         setEntryid(source.readInt());
