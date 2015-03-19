@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -69,11 +70,23 @@ public class Emergency extends ActionBarActivity {
                 //sound will play until button is pressed again, even if app is in background
                 if (x.equals("SOS Tone")){
                     if (sosTone == false) {
+
+                        //sets device volume to maximum
+                        AudioManager am =
+                                (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+                        am.setStreamVolume(
+                                AudioManager.STREAM_MUSIC,
+                                am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+                                0);
+
+                        //begins looping tone
                         mp.setLooping(true);
                         sosTone = true;
                         mp.start();
                     }
                     else{
+
+                        //stops looping sound
                         Log.d("Sound test","Stopping sound");
                         mp.setLooping(false);
                         mp.pause();
