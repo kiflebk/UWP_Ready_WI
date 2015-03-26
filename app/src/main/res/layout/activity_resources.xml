@@ -64,23 +64,10 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Back"
-            android:id="@+id/backButton"
-            android:gravity="left" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="911"
             android:id="@+id/callButton"
             android:gravity="center_horizontal" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Change County"
-            android:id="@+id/changeButton"
-            android:gravity="right" />
     </LinearLayout>
 
 </RelativeLayout>

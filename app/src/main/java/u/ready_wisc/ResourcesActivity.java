@@ -19,33 +19,22 @@ import java.util.List;
 
 
 public class ResourcesActivity extends ActionBarActivity {
-    Button backButton;
     String county;
     ArrayList<ResourceItem> resourceList;
     ListView resourcesListView;
     Spinner countySpinner;
     Button callButton;
-    Button changeButton;
 
     //For Ben:
-    //db.execSQL("CREATE TABLE resources (county TEXT, name TEXT PRIMARY KEY, address TEXT, phone TEXT, other TEXT, type TEXT");
+    //db.execSQL("CREATE TABLE resources (county VARCHAR(20), name VARCHAR(50) PRIMARY KEY, address VARCHAR(20), phone INTEGER, other VARCHAR(50), type VARCHAR(10)");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resources);
-        Button backButton = (Button) findViewById(R.id.backButton);
         final ListView resourcesListView = (ListView) findViewById(R.id.resourcesListView);
         final Spinner countySpinner = (Spinner) findViewById(R.id.countySpinner);
         Intent i = getIntent();
         county = i.getStringExtra("county");
-        backButton.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(ResourcesActivity.this, MenuActivity.class);
-                ResourcesActivity.this.startActivity(i);
-                ResourcesActivity.this.finish();
-            }
-        });
         Button callButton = (Button) findViewById(R.id.callButton);
         callButton.setOnClickListener(new View.OnClickListener() {
             @Override
