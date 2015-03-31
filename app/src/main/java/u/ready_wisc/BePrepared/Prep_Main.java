@@ -74,12 +74,8 @@ public class Prep_Main extends ActionBarActivity {
 //                    Intent i = new Intent(Emergency.this, Social_Media.class);
 //                    Emergency.this.startActivity(i);
 //                }
-
-
             }
         });
-
-
     }
 
     private AlertDialog buildDialog(String type){
