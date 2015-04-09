@@ -204,8 +204,8 @@
 
 package edu.parkside.cs.checklist;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -215,7 +215,7 @@ import java.util.ArrayList;
 import u.ready_wisc.R;
 
 /**
- * The checklist activity is the initial point for selection, creatioin, and deletion of
+ * The checklist activity is the initial point for selection, creation, and deletion of
  * user created checklists.
  * <p/>
  * In the terms of this project checklists are also known as "ready-kits" and "go-kits".
@@ -223,12 +223,12 @@ import u.ready_wisc.R;
  * @author David Krawchuk
  * @version 1.0v Build * March 18 2015
  */
-public class Checklist extends ActionBarActivity {
+public class Checklist extends Activity {
 
     /* INSTANCE VARIABLE BLOCK BEGIN */
     public final static String EXTRA_MESSAGE = "edu.parkside.cs.checklist.checklist";
     protected boolean isInEditMode = false;
-    private Checklist_ArrayAdapter arrayAdapter;
+    private ChecklistArrayAdapter arrayAdapter;
     private ListView checklistListView;
     /* INSTANCE VARIABLE BLOCK END */
 
@@ -249,9 +249,9 @@ public class Checklist extends ActionBarActivity {
      * Returns the ArrayAdapter in a valid state by creating an empty Arraylist and attaching it to
      * the ListView.
      */
-    private Checklist_ArrayAdapter getArrayAdapter() {
+    protected ChecklistArrayAdapter getArrayAdapter() {
         if (arrayAdapter == null) {
-            arrayAdapter = new Checklist_ArrayAdapter(this, R.layout.activity_checklist_row, new ArrayList<Checklist_Row>());
+            arrayAdapter = new ChecklistArrayAdapter(this, R.layout.activity_checklist_row, new ArrayList<ChecklistRow>());
             getChecklistListView().setAdapter(arrayAdapter);
         }
         return arrayAdapter;
@@ -261,9 +261,6 @@ public class Checklist extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checklist);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     }
 
     @Override
@@ -346,13 +343,13 @@ public class Checklist extends ActionBarActivity {
     /**
      * Populates the list view object with the contents of the Checklist table.
      */
-    private void populateListView() {
+    protected void populateListView() {
 
         // Set the adapter to default state.
         getArrayAdapter().clear();
 
         // Get the array adapter and add the feched results to the adapter.
-        getArrayAdapter().addAll(Checklist_Contract_Db_Helper.getDb_helper(this).returnChecklistRows(null));
+        getArrayAdapter().addAll(ChecklistContractDBHelper.getDb_helper(this).returnChecklistRows(null));
 
         // Notify the listview that the data within the adapter has changed and the view needs to
         //  be redrawn to reflect this change.

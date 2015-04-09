@@ -204,224 +204,124 @@
 
 package edu.parkside.cs.checklist;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import android.content.Context;
+import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+
+import u.ready_wisc.R;
 
 /**
- * Provides the physical support for the Checklist Items.
- * <p/>
- * Note: This class implements Parcelable for performance considerations. Parcelable allows the object
- * to be passed between activities.
+ * Maps the activity_checklist.xml to the ChecklistRow objects.
  *
  * @author David Krawchuk
  * @version 1.0v Build * March 18 2015
  * @email krawchukdavid@gmail.com
  */
-public class Checklist_Item_Row implements Parcelable {
-    /**
-     * Required creator method for the parcelable implementation.
-     */
-    public static final Parcelable.Creator<Checklist_Item_Row> CREATOR
-            = new Parcelable.Creator<Checklist_Item_Row>() {
-        public Checklist_Item_Row createFromParcel(Parcel in) {
-            return new Checklist_Item_Row(in);
-        }
+public class ChecklistArrayAdapter extends ArrayAdapter {
 
-        public Checklist_Item_Row[] newArray(int size) {
-            return new Checklist_Item_Row[size];
-        }
-    };
-    /* INSTANCE VARIABLE BLOCK BEGIN */
-    private int entryid;
-    private String name;
-    private int qty;
-    private boolean isChecked;
+    /* INSTANCE VARIABLE BLOCK START */
+    Context context;
+    ArrayList<ChecklistRow> list;
     /* INSTANCE VARIABLE BLOCK END */
-    private int checklist_entryid;
+
+    /**
+     * Constructor
+     *
+     * @param context
+     * @param resource
+     */
+    public ChecklistArrayAdapter(Context context, int resource) {
+        super(context, resource);
+        this.context = context;
+    }
 
     /**
      * Constructor.
+     *
+     * @param context
+     * @param resource
+     * @param objects
      */
-    public Checklist_Item_Row() {
+    public ChecklistArrayAdapter(Context context, int resource, ArrayList<ChecklistRow> objects) {
+        super(context, resource, objects);
+        this.context = context;
+        this.list = objects;
     }
 
     /**
-     * Constructor.
+     * Resets the lists contents and notifies the listener that the adapter's contents have changed.
      *
-     * @param title
-     * @param isChecked
+     * @param list
      */
-    public Checklist_Item_Row(String title, boolean isChecked) {
-        this.name = title;
-        this.isChecked = isChecked;
-    }
-
-    ;
-
-    /**
-     * Parcel constructor.
-     *
-     * @param in
-     */
-    public Checklist_Item_Row(Parcel in) {
-        readFromParcel(in);
+    public void setList(ArrayList<ChecklistRow> list) {
+        this.list = list;
+        notifyDataSetChanged();
     }
 
     /**
-     * Getter. If the reference is null, the a string is returned with the contents of "Empty".
+     * Returns the inflated row filled with the ChecklistRow attributes. Given the current editing
+     * condition allows for selection or deletion of checklist rows.
      *
+     * @param position
+     * @param convertView
+     * @param parent
      * @return
-     */
-    public String getName() {
-        if (name == null) {
-            name = "Empty";
-        }
-        return name;
-    }
-
-    /**
-     * Setter.
-     *
-     * @param name
-     * @todo Verify input.
-     */
-    public void setName(String name) {
-        // 1. Check for valid input.
-        // 2. Is the new setting reasonable?
-        // 3. If so then set name.
-        this.name = name;
-    }
-
-    /**
-     * Getter.
-     *
-     * @return
-     */
-    public boolean isChecked() {
-        return isChecked;
-    }
-
-    /**
-     * Setter.
-     *
-     * @todo Verify input.
-     */
-    public void setChecked() {
-        // 1. Check for valid input.
-        // 2. Is the new setting reasonable?
-        // 3. If so then set checked.
-
-        this.isChecked = (this.isChecked == true) ? false : true;
-    }
-
-    /**
-     * Getter. Converts internal implementation and returns an int.
-     */
-    public int getChecked() {
-        return (isChecked == true) ? 1 : 0;
-    }
-
-    /**
-     * Setter.
-     *
-     * @todo Verify input.
-     */
-    public void setChecked(int condition) {
-        // 1. Check for valid input.
-        // 2. Is the new setting reasonable?
-        // 3. If so then set checked.
-        this.isChecked = (condition == 1) ? true : false;
-    }
-
-    /**
-     * Getter.
-     */
-    public int getEntryid() {
-        return entryid;
-    }
-
-    /**
-     * Setter.
-     *
-     * @param entryid
-     * @todo Verify input values.
-     */
-    public void setEntryid(int entryid) {
-        this.entryid = entryid;
-    }
-
-    /**
-     * Getter.
-     *
-     * @return
-     */
-    public int getQty() {
-        return qty;
-    }
-
-    /**
-     * Setter.
-     *
-     * @param qty
-     */
-    public void setQty(int qty) {
-        this.qty = qty;
-    }
-
-    /**
-     * Getter.
-     *
-     * @return
-     */
-    public int getChecklist_entryid() {
-        return checklist_entryid;
-    }
-
-    /**
-     * Setter.
-     *
-     * @param checklist_entryid
-     * @todo Verify input.
-     */
-    public void setChecklist_entryid(int checklist_entryid) {
-        this.checklist_entryid = checklist_entryid;
-    }
-
-    /**
-     * Required method for the parcelable implementation.
-     *
-     * @return
+     * @TODO Error condition needs to be implemented!
+     * @TODO Replace string comparisons with index or Object type.
      */
     @Override
-    public int describeContents() {
-        return 0;
-    }
+    public View getView(final int position, final View convertView, final ViewGroup parent) {
+        final LayoutInflater inflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-    /**
-     * Translates the object attributes into parcel elements.
-     *
-     * @param dest
-     * @param flags
-     */
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(getEntryid());
-        dest.writeString(getName());
-        dest.writeInt(getQty());
-        dest.writeInt(getChecked());
-        dest.writeInt(getChecklist_entryid());
-    }
+        // Layout references.
+        final View rowView = inflater.inflate(R.layout.activity_checklist_row, parent, false);
+        TextView title = (TextView) rowView.findViewById(R.id.activity_checklist_row_textview);
+        ProgressBar progressBar = (ProgressBar) rowView.findViewById(R.id.activity_checklist_row_progressbar);
 
-    /**
-     * Translates the parcel elements into object attributes.
-     *
-     * @param source
-     */
-    private void readFromParcel(Parcel source) {
-        setEntryid(source.readInt());
-        setName(source.readString());
-        setQty(source.readInt());
-        setChecked(source.readInt());
-        setChecklist_entryid(source.readInt());
+        // Apply layout attributes.
+        title.setText(this.list.get(position).getTitle());
+        progressBar.setProgress(this.list.get(position).getProgress());
+
+        rowView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (((Checklist) context).isInEditMode) {
+                    // If the item is not the Add Checklist row, allow removal.
+                    if (position != list.size() - 1) {
+                        int status = ChecklistContractDBHelper.getDb_helper(context).deleteChecklist(list.get(position));
+                        if (status == ChecklistContractDBHelper.FAILURE) {
+                            // Handle error. Possible display an alertView to notify user.
+                        } else {
+                            // Remove row and notify listeners that the adapter contents have changed.
+                            list.remove(position);
+                            notifyDataSetChanged();
+                        }
+                    }
+
+
+                }
+                // Should use last list index, or some object type instead of string,
+                // bad idea if we end up using localized strings.
+                else if (list.get(position).getTitle().contains("Add Checklist")) {
+                    Intent intent = new Intent(context, ChecklistCreate.class);
+                    context.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(context, ChecklistItemListView.class);
+                    intent.putExtra(Checklist.EXTRA_MESSAGE, list.get(position));
+                    context.startActivity(intent);
+                }
+            }
+        });
+
+        return rowView;
     }
 }

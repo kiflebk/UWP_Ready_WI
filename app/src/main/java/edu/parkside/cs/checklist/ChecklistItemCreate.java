@@ -1,4 +1,4 @@
-/**
+/*
  *             Apache License
  *        Version 2.0, January 2004
  *        http://www.apache.org/licenses/
@@ -218,54 +218,40 @@ import android.widget.TextView;
 import u.ready_wisc.R;
 
 /**
- * Provides the detailed view of the selected item within the item table.
+ * Class represents the controller for the Checklist Item Creation Activity.
  *
  * @author David Krawchuk
  * @version 1.0v Build * March 18 2015
  * @email krawchukdavid@gmail.com
- * @date 02/20/2014
  */
-public class Checklist_Item_Detail extends ActionBarActivity {
+public class ChecklistItemCreate extends ActionBarActivity {
 
     /* INSTANCE VARIABLE BLOCK BEGIN */
-    Checklist_Item_Row passedItem;
+    ChecklistRow checklist_row;
     boolean nameTextFieldHasBeenEdited;
     boolean qtyTextFieldHasBeenEdited;
     boolean descriptionTextFieldHasBeenEdited;
     /* INSTANCE VARIABLE BLOCK END */
 
-
-    /**
-     * @param savedInstanceState
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_checklist_item_detail);
+        setContentView(R.layout.activity_checklist_item_create);
 
-        // Set button default status.
-        ((Button) findViewById(R.id.activity_checklist_item_detail_update_button)).setEnabled(false);
+        // Retrieved the passed checklist item
+        checklist_row = getIntent().getParcelableExtra(ChecklistItemListView.EXTRA_MESSAGE);
 
-        // Receive selected item.
-        passedItem = this.getIntent().getParcelableExtra(Checklist_Item_ListView.EXTRA_MESSAGE);
+        // Set save button to default state.
+        ((Button) findViewById(R.id.activity_checklist_item_create_save_button)).setEnabled(false);
 
-        // Attach listeners.
         attachTextListenersToTextViews();
-
-        // Populate the views.
-        new Runnable() {
-            @Override
-            public void run() {
-                populateWidgets();
-            }
-        }.run();
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_checklist__item__detail, menu);
+        getMenuInflater().inflate(R.menu.menu_checklist__item__create, menu);
         return true;
     }
 
@@ -315,67 +301,38 @@ public class Checklist_Item_Detail extends ActionBarActivity {
     }
 
     /**
-     * Populate the text fields with data supplied by the selected item from the source activity.
-     */
-    private void populateWidgets() {
-
-        // Retrieve the text and fill the description text field.
-        new Runnable() {
-            @Override
-            public void run() {
-                populateDescriptionTextField();
-            }
-        }.run();
-
-        EditText nameTextField = (EditText) findViewById(R.id.activity_checklist_item_detail_name_edittext);
-        EditText qtyTextField = (EditText) findViewById(R.id.activity_checklist_item_detail_qty_edittext);
-
-        nameTextField.setText(passedItem.getName());
-        qtyTextField.setText("" + passedItem.getQty());
-    }
-
-    /**
-     * Retrieve the description text from the database and populate the description text view.
-     *
-     * @todo Alert user if error occurs.
-     */
-    private void populateDescriptionTextField() {
-        EditText descriptionTextField = (EditText) findViewById(R.id.activity_checklist_item_detail_decription_edittext);
-        String description = Checklist_Contract_Db_Helper.getDb_helper(this).returnDescriptionFromItem(passedItem);
-
-        if (description != null) {
-            descriptionTextField.setText(description);
-
-        }
-
-    }
-
-    /**
-     * Called by the activity when the user presses the update button.
-     * Saves the item and detail information to the application local database.
+     * Called by the activity when the user presses the save button.
      *
      * @param view
-     * @todo Alert user if error occurs.
+     * @todo Update the Checklist progress value.
+     * @todo Notify user when database error occurs.
      */
-    public void updateButtonPressed(View view) {
-        EditText nameTextField = (EditText) findViewById(R.id.activity_checklist_item_detail_name_edittext);
-        EditText qtyTextField = (EditText) findViewById(R.id.activity_checklist_item_detail_qty_edittext);
+    public void saveButtonPressed(View view) {
+        // Retrieve input values from editText fields.
+        EditText name = (EditText) findViewById(R.id.activity_checklist_item_create_name_edittext);
+        EditText qty = (EditText) findViewById(R.id.activity_checklist_item_create_qty_edittext);
+        EditText description = (EditText) findViewById(R.id.activity_checklist_item_create_description_edittext);
 
-        passedItem.setName(nameTextField.getText().toString());
-        passedItem.setQty(new Integer(qtyTextField.getText().toString()).intValue());
+        // Create item from editText fields.
+        ChecklistItemRow item = new ChecklistItemRow();
+        item.setName(name.getText().toString());
+        item.setQty(new Integer(qty.getText().toString()).intValue());
+        item.setChecklist_entryid(checklist_row.getEntryid());
 
-        int status = Checklist_Contract_Db_Helper.getDb_helper(this).updateItem(passedItem,
-                ((EditText) findViewById(R.id.activity_checklist_item_detail_decription_edittext)).getText().toString());
 
-        if (status == Checklist_Contract_Db_Helper.FAILURE) {
+        int status = ChecklistContractDBHelper.getDb_helper(this).insertItem(item, description.getText().toString());
 
-        } else
+        // Check status and update user.
+        // If successful return to previous activity.
+        if (status == ChecklistContractDBHelper.FAILURE) {
+            /* Notify user of error. */
+        } else {
             finish();
+        }
     }
 
     /**
-     * Called by the activity when the user presses the cancel button.
-     * The user is returned to the previous activity on the activity stack.
+     * Finish activity and navigate to source controller.
      *
      * @param view
      */
@@ -392,31 +349,35 @@ public class Checklist_Item_Detail extends ActionBarActivity {
 
 
         switch (view.getId()) {
-            case (R.id.activity_checklist_item_detail_name_edittext):
+            case (R.id.activity_checklist_item_create_name_edittext):
                 nameTextFieldHasBeenEdited = true;
                 break;
 
-            case (R.id.activity_checklist_item_detail_qty_edittext):
+            case (R.id.activity_checklist_item_create_qty_edittext):
                 qtyTextFieldHasBeenEdited = true;
                 break;
 
-            case (R.id.activity_checklist_item_detail_decription_edittext):
+            case (R.id.activity_checklist_item_create_description_edittext):
                 descriptionTextFieldHasBeenEdited = true;
         }
 
         if (nameTextFieldHasBeenEdited && qtyTextFieldHasBeenEdited && descriptionTextFieldHasBeenEdited) {
-            ((Button) findViewById(R.id.activity_checklist_item_detail_update_button)).setEnabled(true);
+            ((Button) findViewById(R.id.activity_checklist_item_create_save_button)).setEnabled(true);
         }
     }
 
     /**
-     * Attaches text watchers to the editText views. When all three fields have been edited. The
-     * Save button is enabled.
+     * @author David Krawchuk
+     * @email krawchukdavid@gmail.com
+     * @date 02/20/2014
+     * <p/>
+     * Description:
+     * Attaches text watchers to the editText views.
      */
     private void attachTextListenersToTextViews() {
-        final TextView nameField = ((TextView) this.findViewById(R.id.activity_checklist_item_detail_name_edittext));
-        final TextView qtyField = ((TextView) this.findViewById(R.id.activity_checklist_item_detail_qty_edittext));
-        final TextView descriptionField = ((TextView) this.findViewById(R.id.activity_checklist_item_detail_decription_edittext));
+        final TextView nameField = ((TextView) this.findViewById(R.id.activity_checklist_item_create_name_edittext));
+        final TextView qtyField = ((TextView) this.findViewById(R.id.activity_checklist_item_create_qty_edittext));
+        final TextView descriptionField = ((TextView) this.findViewById(R.id.activity_checklist_item_create_description_edittext));
 
         nameField.addTextChangedListener(new TextWatcher() {
             @Override

@@ -217,14 +217,14 @@ import android.widget.TextView;
 import u.ready_wisc.R;
 
 /**
- * The controller for the Checklist_Create_Item_Add.xml layout.
+ * The controller for the ChecklistCreateItemAdd.xml layout.
  * Class is meant to be used as a helper class to the Checklist Create Activity.
  *
  * @author David Krawchuk
  * @version 1.0v Build * March 18 2015
  * @email krawchukdavid@gmail.com
  */
-public class Checklist_Create_Item_Add extends Checklist_Item_Create {
+public class ChecklistCreateItemAdd extends ChecklistItemCreate {
 
     /* Instance Variable Block Begin */
     public static final String EXTRA_MESSAGE_ITEM = "edu.parkside.cs.checklist_create_item_add_item";
@@ -244,7 +244,7 @@ public class Checklist_Create_Item_Add extends Checklist_Item_Create {
         ((Button) findViewById(R.id.activity_checklist_item_create_save_button)).setEnabled(false);
 
         // Populate text fields if data has been passed through the message mechanism.
-        Checklist_Item_Row item = this.getIntent().getParcelableExtra(this.EXTRA_MESSAGE_ITEM);
+        ChecklistItemRow item = this.getIntent().getParcelableExtra(this.EXTRA_MESSAGE_ITEM);
         String desc = this.getIntent().getStringExtra(this.EXTRA_MESSAGE_DESC);
 
         if (item != null && desc != null) {
@@ -278,7 +278,7 @@ public class Checklist_Create_Item_Add extends Checklist_Item_Create {
         EditText description_editText = (EditText) findViewById(R.id.activity_checklist_item_create_description_edittext);
 
         // Create and populate item.
-        Checklist_Item_Row item_row = new Checklist_Item_Row();
+        ChecklistItemRow item_row = new ChecklistItemRow();
         item_row.setName(name_editText.getText().toString());
         item_row.setQty(new Integer(qty_editText.getText().toString()));
 

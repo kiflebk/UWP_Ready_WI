@@ -1,4 +1,4 @@
-/*
+/**
  *             Apache License
  *        Version 2.0, January 2004
  *        http://www.apache.org/licenses/
@@ -204,131 +204,82 @@
 
 package edu.parkside.cs.checklist;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import u.ready_wisc.R;
 
 /**
- * Class represents the Checklist creation activity.
+ * The controller for displaying the contents of a checklist.
  *
  * @author David Krawchuk
- * @version 1.0v Build * March 18 2015 *
+ * @version 1.0v Build * March 18 2015
  * @email krawchukdavid@gmail.com
  */
-public class Checklist_Create extends ActionBarActivity {
-    /* INSTANCE VARIABLE BLOCK BEGIN */
-    public static final String EXTRA_MESSAGE = "edu.parkside.cs.checklist_create";
-    // The request code required by the returning activity callback.
-    static final int NEW = 1;
-    static final int UPDATE = 2;
-    static final int SUCCESS = 0;
-    static final int CHECKLIST_INSERT_ERROR = 1;
-    static final int CHECKLIST_ROW_INSERT_ERROR = 2;
-    static final int CHECKLIST_DESCRIPTION_ERROR = 3;
+public class ChecklistItemListView extends ActionBarActivity {
 
-    Checklist_Row checklist_row;
-    ArrayList<Checklist_Item_Row> added_items;
-    ArrayList<String> added_descriptions;
-    Checklist_Create_Item_Adapter checklist_create_item_adapter;
+    /* INSTANCE VARIABLE BLOCK BEGIN */
+    public static final String EXTRA_MESSAGE = "edu.parkside.cs.checklist_item_listview";
+
+    ChecklistItemArrayAdapter checklist_item_arrayAdapter;
     ListView checklist_item_listView;
+    ChecklistRow passedChecklist;
     boolean isInEditMode = false;
-    boolean nameTextFieldHasBeenEdited;
     /* INSTANCE VARIABLE BLOCK END */
 
     /**
-     * Getter. Creates new Arraylist if reference is null.
+     * Getter. Obtains a reference to the item listview from the xml resource file.
      *
      * @return
      */
-    public ArrayList<Checklist_Item_Row> getAddedItems() {
-        if (added_items == null) {
-            added_items = new ArrayList<>();
-        }
-        return added_items;
-    }
-
-    /**
-     * Getter. Creates new Arraylist if reference is null.
-     *
-     * @return
-     */
-    public ArrayList<String> getAddedDescriptions() {
-        if (added_descriptions == null) {
-            added_descriptions = new ArrayList<>();
-        }
-        return added_descriptions;
-    }
-
-    /**
-     * Getter. Creates an empty checklist row if reference is empty.
-     *
-     * @return
-     */
-    Checklist_Row getChecklistRow() {
-        if (checklist_row == null) {
-            checklist_row = new Checklist_Row(0, "Empty", 0);
-        }
-        return checklist_row;
-    }
-
-    /**
-     * Getter. Retrieves resouce from xml resource file if reference is null.
-     *
-     * @return
-     */
-    private ListView getChecklistItemListView() {
+    private ListView getChecklist_item_listView() {
         if (checklist_item_listView == null) {
-            checklist_item_listView = (ListView) findViewById(R.id.activity_checklist_create_item_listView);
+            checklist_item_listView = (ListView) findViewById(R.id.activity_checklist_item_listview);
         }
         return checklist_item_listView;
     }
-
 
     /**
      * Creates a new adapter if one doesn't exist and attaches it to the listview within the activity.
      *
      * @return
      */
-    private Checklist_Item_ArrayAdapter getChecklistCreateItemAdapter() {
-        if (checklist_create_item_adapter == null) {
-            checklist_create_item_adapter =
-                    new Checklist_Create_Item_Adapter(this, R.layout.activity_checklist_item_listview_row, getAddedItems(), getAddedDescriptions());
+    private ChecklistItemArrayAdapter getChecklist_item_arrayAdapter() {
+        if (checklist_item_arrayAdapter == null) {
+            checklist_item_arrayAdapter =
+                    new ChecklistItemArrayAdapter(this, R.layout.activity_checklist_item_listview_row, new ArrayList<ChecklistItemRow>());
 
-            getChecklistItemListView().setAdapter(checklist_create_item_adapter);
+            getChecklist_item_listView().setAdapter(checklist_item_arrayAdapter);
         }
-        return checklist_create_item_adapter;
+        return checklist_item_arrayAdapter;
     }
 
+    /**
+     * Called when the activity view is created. After calling the super class retrieves the
+     * passed checklist object from the passed message.
+     *
+     * @param savedInstanceState
+     * @todo Known error occurs when user presses back button in the navigation bar instead of cancel.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_checklist_create);
+        setContentView(R.layout.activity_checklist_item_listview);
 
-        // Set button default status.
-        ((Button) findViewById(R.id.activity_checklist_create_save_button)).setEnabled(false);
-
-        // Attach listeners.
-        attachTextListenersToTextViews();
+        // Retrieve the passed checklist.
+        passedChecklist = getIntent().getParcelableExtra(Checklist.EXTRA_MESSAGE);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_checklist__kit__create, menu);
+        getMenuInflater().inflate(R.menu.menu_checklist__item_list_view, menu);
         return true;
     }
 
@@ -347,6 +298,9 @@ public class Checklist_Create extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     *
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -354,15 +308,14 @@ public class Checklist_Create extends ActionBarActivity {
     }
 
     /**
-     * Called when the activity returns from some state other than active. Populates the list
-     * with the contents of the added items.
+     * On activity resume, reloads the listview with the contents of the appropriate database.
      */
     @Override
     protected void onResume() {
         super.onResume();
         // The activity has become visible (it is now "resumed").
 
-        // Repopulate the listView with the contents of the
+        // Repopulate the listView with the contents of the Checklist table.
         new Runnable() {
             @Override
             public void run() {
@@ -390,192 +343,32 @@ public class Checklist_Create extends ActionBarActivity {
     }
 
     /**
-     * Populates the list view with the contents of the create_checklist_item_array_adapter.
+     * Populates the array adapter with the contents of the appropriate database table.
+     * Notifies the listview that the contents have changed so the listview can update the appropriate
+     * views.
      */
     public void populateListView() {
+        // Clear the adapter contents.
+        getChecklist_item_arrayAdapter().clear();
+
+        // Repopulate the adapter contents.
+        String[] query_of_items = {Checklist_Contract.Checklist_Item_Queries.fetchItems(passedChecklist)};
+        getChecklist_item_arrayAdapter().addAll(ChecklistContractDBHelper.getDb_helper(this).returnChecklistItemRows(query_of_items));
+
         // Notify clients that contents of the adapter have changed and they should update their state.
-        getChecklistCreateItemAdapter().notifyDataSetChanged();
+        getChecklist_item_arrayAdapter().notifyDataSetChanged();
     }
-
-    /**
-     * Callback method called when the Checklist_Create_Item_Add activity returns. Called prior to
-     * onResume().
-     *
-     * @param requestCode
-     * @param resultCode
-     * @param data
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Check which request we're responding to
-        if (requestCode == NEW) {
-            // Make sure the request was successful
-            if (resultCode == RESULT_OK) {
-                // Fetch results from the returned Intent parameter and add the contents to the proper
-                //  arraylist.
-                Checklist_Item_Row item = data.getParcelableExtra(Checklist_Create_Item_Add.EXTRA_MESSAGE_ITEM);
-                String description = data.getStringExtra(Checklist_Create_Item_Add.EXTRA_MESSAGE_DESC);
-
-                getAddedItems().add(item);
-                getAddedDescriptions().add(description);
-            }
-        } else if (requestCode == UPDATE) {
-            // Make sure the request was successful
-            if (resultCode == RESULT_OK) {
-                // Fetch results from the returned Intent parameter and add the contents to the proper
-                //  arraylist.
-                Checklist_Item_Row item = data.getParcelableExtra(Checklist_Create_Item_Add.EXTRA_MESSAGE_ITEM);
-                String description = data.getStringExtra(Checklist_Create_Item_Add.EXTRA_MESSAGE_DESC);
-
-                // Retrieve index if the object exists in the array and replace the item and description.
-                int item_index = getAddedItems().indexOf(item);
-                if (item_index != -1) {
-                    getAddedItems().set(item_index, item);
-                    getAddedDescriptions().set(item_index, description);
-                }
-            }
-        }
-    }
-
 
     /**
      * When called changes the editMode boolean instance variable.
      *
      * @param menuItem
-     * @TODO Change the visual state of the application to indicate edit mode.
+     * @todo Update the user of the mode change in some visual mannor.
      */
     public void menuEditButtonPressed(MenuItem menuItem) {
         isInEditMode = (isInEditMode == true) ? false : true;
 
         // Change the visual state of the application to indicate edit mode.
 
-    }
-
-    /**
-     * Called when the add button has been pressed to create a new checklist.
-     *
-     * @param button
-     */
-    public void addButtonPressed(View button) {
-        Intent intent = new Intent(this, Checklist_Create_Item_Add.class);
-        startActivityForResult(intent, NEW);
-    }
-
-    /**
-     * Called when the cancel button has been pressed by the user. Returns to the previous activity.
-     *
-     * @param button
-     */
-    public void cancelButtonPressed(View button) {
-        finish();
-    }
-
-
-    /**
-     * Called when the user presses the save button.
-     *
-     * @param button
-     * @TODO Implement Error handling / AlertViews.
-     */
-    public void saveButtonPressed(View button) {
-
-        if (createChecklist() == CHECKLIST_INSERT_ERROR) {
-            // alert user of error and break on some condition.
-        }
-        if (createChecklistRows() == CHECKLIST_ROW_INSERT_ERROR) {
-            // alert user of error and break on some condition.
-        }
-
-        // If control reaches this point all is ok. Return.
-        finish();
-    }
-
-    /**
-     * Inserts the checklist into the database. Must be called prior to createCheclistRows().
-     *
-     * @return
-     */
-    public int createChecklist() {
-        EditText name_editText = (EditText) findViewById(R.id.activity_checklist_create_edittext);
-
-        int status =
-                Checklist_Contract_Db_Helper.getDb_helper(this).addChecklist(new Checklist_Row(name_editText.getText().toString(), 0));
-
-        return (status == Checklist_Contract_Db_Helper.SUCCESS) ? SUCCESS : CHECKLIST_INSERT_ERROR;
-    }
-
-    /**
-     * Inserts all of the items in the array of items and thier descriptions into the database.
-     *
-     * @return
-     */
-    public int createChecklistRows() {
-        EditText name_editText = (EditText) findViewById(R.id.activity_checklist_create_edittext);
-
-        // Retrieve Checklist from returned array.
-        ArrayList<Checklist_Row> returnedArrayOfChecklistRows =
-                Checklist_Contract_Db_Helper.getDb_helper(this)
-                        .returnChecklistRows(new String[]{Checklist_Contract.Checklist_Queries.fetchChecklist(new Checklist_Row(name_editText.getText().toString(), 0))});
-
-        Checklist_Row firstReturnedChecklist = returnedArrayOfChecklistRows.get(0);
-
-
-        // Iterate through the array of items added items and insert them into the database.
-        //  If a failure occurs return an error code.
-        for (int i = 0; i < getAddedItems().size(); i++) {
-            // Get the checklist item and set its checklist_id property.
-            Checklist_Item_Row checklist_item_row = getAddedItems().get(i);
-            checklist_item_row.setChecklist_entryid(firstReturnedChecklist.getEntryid());
-
-            if (Checklist_Contract_Db_Helper.getDb_helper(this).insertItem(checklist_item_row, getAddedDescriptions().get(i))
-                    == Checklist_Contract_Db_Helper.FAILURE) {
-                return Checklist_Contract_Db_Helper.FAILURE;
-            }
-        }
-        return SUCCESS;
-    }
-
-
-    /**
-     * Called when the edit text views focus has changed.
-     *
-     * @param view
-     */
-    private void editTextViewHasBeenSelected(View view) {
-
-
-        switch (view.getId()) {
-            case (R.id.activity_checklist_create_edittext):
-                nameTextFieldHasBeenEdited = true;
-                break;
-        }
-
-        if (nameTextFieldHasBeenEdited) {
-            ((Button) findViewById(R.id.activity_checklist_create_save_button)).setEnabled(true);
-        }
-    }
-
-    /**
-     * Attaches text watchers to the editText views.
-     */
-    private void attachTextListenersToTextViews() {
-        final TextView nameField = ((TextView) this.findViewById(R.id.activity_checklist_create_edittext));
-
-        nameField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                editTextViewHasBeenSelected(nameField);
-            }
-        });
     }
 }
