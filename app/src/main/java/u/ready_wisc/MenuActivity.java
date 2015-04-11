@@ -6,6 +6,8 @@ import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -29,7 +31,7 @@ import u.ready_wisc.disasterTypes.DisastersType;
 
 public class MenuActivity extends ActionBarActivity implements View.OnClickListener{
     Button resourcesbutton, reportButton, checklistButton, disasterButton;
-    ImageButton prepareMenuButton, emergMenuButton, sosMenuButton, resourceMenuButton;
+    ImageButton prepareMenuButton, emergMenuButton, sosMenuButton, flashlightButton;
     private boolean sosTone = false;
     private boolean isFlashOn = false;
     private Camera camera = null;
@@ -42,9 +44,12 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainmenu);
         Pushbots.sharedInstance().init(this); // was added for pushbots
-        if (savedInstanceState == null) {
+
+        // RSS activity isn't called if device has no network connection
+        if ((savedInstanceState == null) && isOnline()) {
             addRssFragment();
         }
+
         context = getApplicationContext();
         pm = context.getPackageManager();
         mp = MediaPlayer.create(context, R.raw.sos_sound);
@@ -54,56 +59,57 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
         checklistButton = (Button) findViewById(R.id.prepareButton);
         prepareMenuButton = (ImageButton) findViewById(R.id.prepareMenuButton);
         emergMenuButton = (ImageButton) findViewById(R.id.emergencyMenuButton);
-        resourceMenuButton = (ImageButton) findViewById(R.id.disasterMenuButton);
         sosMenuButton = (ImageButton) findViewById(R.id.SOSMenubutton);
+        flashlightButton = (ImageButton) findViewById(R.id.FlashlightMenuButton);
+
 
 
         disasterButton.setOnClickListener(this);
-        resourcesbutton.setOnClickListener(this);
+        flashlightButton.setOnClickListener(this);
         reportButton.setOnClickListener(this);
         checklistButton.setOnClickListener(this);
         prepareMenuButton.setOnClickListener(this);
         emergMenuButton.setOnClickListener(this);
-        resourceMenuButton.setOnClickListener(this);
         sosMenuButton.setOnClickListener(this);
 
-//        resourcesbutton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(MenuActivity.this, ResourcesActivity.class);
-//                MenuActivity.this.startActivity(i);
-//            }
-//        });
-//
-//        reportButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(MenuActivity.this, Emergency.class);
-//                MenuActivity.this.startActivity(i);
-//            }
-//        });
-//
-//        disasterButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(MenuActivity.this, DisastersType.class);
-//                MenuActivity.this.startActivity(i);
-//            }
-//        });
-//
-//        checklistButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(MenuActivity.this, Prep_Main.class);
-//                startActivity(i);
-//            }
-//        });
+        resourcesbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MenuActivity.this, ResourcesActivity.class);
+                MenuActivity.this.startActivity(i);
+            }
+        });
+
+        reportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MenuActivity.this, Emergency.class);
+                MenuActivity.this.startActivity(i);
+            }
+        });
+
+        disasterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MenuActivity.this, DisastersType.class);
+                MenuActivity.this.startActivity(i);
+            }
+        });
+
+        checklistButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MenuActivity.this, Prep_Main.class);
+                startActivity(i);
+            }
+        });
 
     }
 
     @Override
     public void onClick(View v)
     {
+        //TODO fix action bar or disable completely
         if ((v.getId() == (R.id.prepareButton)) || (v.getId() == (R.id.prepareMenuButton))) {
             Intent i = new Intent(MenuActivity.this, Prep_Main.class);
             startActivity(i);
@@ -132,17 +138,56 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
                 sosTone = true;
                 mp.start();
             }
-            else{
 
-                //stops looping sound
-                Log.d("Sound test", "Stopping sound");
-                mp.setLooping(false);
-                mp.pause();
-                sosTone = false;
+        } else if (v.getId() == (R.id.FlashlightMenuButton)) {
+            //check to see if device has a camera with flash
+            if(!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+
+                Log.e("err", "Device has no camera!");
+                //Return from the method, do nothing after this code block
+                return;
             }
+            // if camera has flash toggle on and off
+            else {
+                // boolean to check status of camera flash
+                if (!isFlashOn) {
+
+                    //if flash is off, toggle boolean to on and turn on flash
+                    isFlashOn = true;
+                    camera = Camera.open();
+                    Camera.Parameters parameters = camera.getParameters();
+                    parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                    camera.setParameters(parameters);
+                    camera.startPreview();
+
+                } else {
+
+                    //if flash is on turn boolean to false and turn off flash
+                    isFlashOn = false;
+                    camera.stopPreview();
+                    camera.release();
+                    camera = null;
+
+                }
+            }
+        }
+        else{
+
+            //stops looping sound
+            Log.d("Sound test", "Stopping sound");
+            mp.setLooping(false);
+            mp.pause();
+            sosTone = false;
         }
     }
 
+    // returns true or false based on if device has an internet connection.
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

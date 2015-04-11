@@ -126,7 +126,7 @@
         <ImageButton
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:id="@+id/disasterMenuButton"
+            android:id="@+id/FlashlightMenuButton"
             android:layout_weight="1"
             android:adjustViewBounds="true"
             android:src="@drawable/flashlight_ic"

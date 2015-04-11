@@ -57,8 +57,9 @@ public class Prep_Main extends ActionBarActivity {
                     dialog.show();
                 } else if (x.equals("Volunteer")) {
                     //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    Intent i = new Intent(Prep_Main.this, Volunteer.class);
-                    Prep_Main.this.startActivity(i);
+//TODO Add volunteer activity
+//                    Intent i = new Intent(Prep_Main.this, Volunteer.class);
+//                    Prep_Main.this.startActivity(i);
                 } else if (x.equals("Build A Kit")) {
                     //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //                    Intent i = new Intent(Prep_Main.this, Build_Kits.class);
