@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="ReadyWI"
+        android:text="Ready Badger"
         android:id="@+id/textView"
         android:layout_weight="0.15"
         android:textSize="50dp"
@@ -24,7 +24,10 @@
         android:layout_height="287dp"
         android:id="@+id/imageView"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/wem1" />
+        android:src="@drawable/alt_wi" />
+
+    <!--TODO ask client about logo trademarks and add original WEM back in
+    android:src="@drawable/wem1"-->
 
     <ProgressBar
         android:id="@+id/progressBar"

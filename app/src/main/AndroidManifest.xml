@@ -42,16 +42,19 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_rw2"
+        android:icon="@drawable/alt_wi"
         android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
         <service android:name="rss.RssService" />
 
+        <!-- TODO replaced line, need to ask client if original logo is okay
+                android:icon="@mipmap/ic_rw2" -->
+
         <!--THis activity is the first screen when app is launched -->
         <activity
             android:name=".SplashActivity"
-            android:label="Ready WI"
+            android:label="Ready Badger"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -68,7 +71,7 @@
         <!--This is are REAL MAIN ACTIVITY EVERYONE -->
         <activity
             android:name=".MenuActivity"
-            android:label="Ready WI"
+            android:label="Ready Badger"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="u.ready_wisc.MESSAGE" />
