@@ -1,13 +1,10 @@
 package edu.parkside.cs.checklist;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.test.ActivityUnitTestCase;
 import android.test.suitebuilder.annotation.MediumTest;
-import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import u.ready_wisc.R;
 
@@ -41,73 +38,20 @@ public class ChecklistUnitTest extends ActivityUnitTestCase<Checklist> {
         assertNotNull("checklistListView is null", checklistListView);
     }
 
-
     @MediumTest
-    public void testNextActivityWasLaunchedWithIntent() {
-
+    public void testChecklistListViewContents(){
         startActivity(intent, null, null);
 
-        // Retain reference to activity.
-        Checklist checklistActivity = (Checklist)getActivity();
-        checklistActivity.populateListView();
+        getInstrumentation().callActivityOnCreate(getActivity(), null);
+        getInstrumentation().callActivityOnStart(getActivity());
+        getActivity().onResume();
 
-        // Get the index of the last object which is assumed always to be the creation view.
-        final int addChecklistIndex = checklistActivity.getArrayAdapter().list.size() - 1;
+        ListView listView = (ListView) getActivity().findViewById(R.id.checklist_listview);
+        listView.setVisibility(ListView.VISIBLE);
+        int viewcount = listView.getChildCount();
+        int isVisible = listView.getVisibility();
+        int count = listView.getCount();
 
-        // Retrieve ListView
-        ListView checklistListView = (ListView) getActivity().findViewById(R.id.checklist_listview);
 
-        // Perform click on the add checklist.
-        checklistListView.getChildAt(addChecklistIndex);
-
-        // Get the intent for the next started activity
-        final Intent launchIntent = getStartedActivityIntent();
-        //Verify the intent was not null.
-        assertNotNull("Intent was null", launchIntent);
-        //Verify that LaunchActivity was finished after button click
-        assertTrue(isFinishCalled());
-
-        final String payload =
-            launchIntent.getStringExtra(Checklist.EXTRA_MESSAGE);
-        assertEquals("Payload is empty. As it should be.", null, null);
-    }
-
-    @MediumTest
-    public void testAddChecklistTextIsPresentInListViewRow(){
-
-        // Retrieve last row with index.
-        final View row = fetchChecklistAddListViewRow();
-
-        try {
-            runTestOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    TextView title = (TextView)row.findViewById(R.id.checklist_item_listview_row_textview);
-
-                    assertEquals("Add Checklist", title.getText());
-                }
-            });
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
-
-    }
-
-    protected View fetchChecklistAddListViewRow(){
-
-        startActivity(intent, null, null);
-
-        // Retain reference to activity.
-        Checklist checklistActivity = (Checklist)getActivity();
-        checklistActivity.populateListView();
-
-        // Get the index of the last object which is assumed always to be the creation view.
-        final int addChecklistIndex = checklistActivity.getArrayAdapter().list.size() - 1;
-
-        // Retrieve ListView
-        final ListView checklistListView = (ListView) getActivity().findViewById(R.id.checklist_listview);
-
-        // Retrieve last row with index.
-        return checklistListView.getChildAt(addChecklistIndex);
     }
 }

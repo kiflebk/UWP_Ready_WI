@@ -204,6 +204,7 @@
 
 package edu.parkside.cs.checklist;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
@@ -225,7 +226,7 @@ import u.ready_wisc.R;
  * @email krawchukdavid@gmail.com
  * @date 02/20/2014
  */
-public class ChecklistItemDetail extends ActionBarActivity {
+public class ChecklistItemDetail extends Activity {
 
     /* INSTANCE VARIABLE BLOCK BEGIN */
     ChecklistItemRow passedItem;
@@ -253,12 +254,14 @@ public class ChecklistItemDetail extends ActionBarActivity {
         attachTextListenersToTextViews();
 
         // Populate the views.
-        new Runnable() {
-            @Override
-            public void run() {
-                populateWidgets();
-            }
-        }.run();
+        if (passedItem != null) {
+            new Runnable() {
+                @Override
+                public void run() {
+                    populateWidgets();
+                }
+            }.run();
+        }
     }
 
 
