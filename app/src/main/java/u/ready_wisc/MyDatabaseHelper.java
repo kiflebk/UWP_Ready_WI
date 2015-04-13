@@ -13,15 +13,21 @@ import android.provider.BaseColumns;
 public class MyDatabaseHelper extends SQLiteOpenHelper {
     // components of the table which can be changed later to join up with other team later on
 
-    public static final String TABLE_USERS = "users";
+    ////// Local Resources : county name addr phone email type
+
+    public static final String TABLE_RES = "resources";
 
     public static final String COL_ID = BaseColumns._ID;
 
     public static final String COL_NAME = "name";
 
+    public static final String COL_ADDR = "address";
+
+    public static final String COL_PHONE = "phone";
+
     public static final String COL_EMAIL = "email";
 
-    public static final String COL_DOB = "date_of_birth";
+    public static final String COL_TYPE = "restype";
 
     private static final String DATABASE_NAME = "my_app.db";
 
@@ -37,15 +43,19 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL("CREATE TABLE " + TABLE_USERS + " ("
+        db.execSQL("CREATE TABLE " + TABLE_RES + " ("
 
                 + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
 
                 + COL_NAME + " TEXT NOT NULL,"
 
+                + COL_ADDR +  " TEXT,"
+
+                + COL_PHONE +  " TEXT,"
+
                 + COL_EMAIL + " TEXT,"
 
-                + COL_DOB + " INTEGER"
+                + COL_TYPE + " TEXT "
 
                 + ");");
 
@@ -56,7 +66,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
 
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS + ";");
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RES + ";");
 
         onCreate(db);
 
@@ -114,7 +124,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor query(String tableName, String orderedBy) {
 
-        String[] projection = {COL_ID, COL_NAME, COL_EMAIL, COL_DOB};
+        String[] projection = {COL_ID, COL_NAME, COL_EMAIL, COL_TYPE};
 
         return getReadableDatabase().query(tableName, projection, null, null, null, null, orderedBy);
 
