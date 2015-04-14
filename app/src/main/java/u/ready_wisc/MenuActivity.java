@@ -53,12 +53,13 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
             addRssFragment();
         }
 
+        context = getApplicationContext();
+
         // checks to see if the media player object exists
         // if it does exist a new object is not created
         if (!isSosToneOn)
             mp = MediaPlayer.create(context, R.raw.sos_sound);
 
-        context = getApplicationContext();
         pm = context.getPackageManager();
         disasterButton = (Button) findViewById(R.id.typeDisasterButton);
         resourcesbutton = (Button) findViewById(R.id.disasterResourcesButton);
