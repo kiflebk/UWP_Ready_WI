@@ -221,13 +221,13 @@ import java.util.ArrayList;
  * @version 1.0v Build * March 18 2015
  * @email krawchukdavid@gmail.com
  */
-public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
+public class ChecklistContractDBHelper extends SQLiteOpenHelper {
     /* Instance variable block begin */
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "ChecklistContract.db";
     public static final int SUCCESS = 0;
     public static final int FAILURE = 1;
-    private static Checklist_Contract_Db_Helper db_helper;
+    private static ChecklistContractDBHelper db_helper;
     /* Instance variable block end */
 
     /**
@@ -243,7 +243,7 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
      *                {@link #onUpgrade} will be used to upgrade the database; if the database is
      *                newer, {@link #onDowngrade} will be used to downgrade the database
      */
-    public Checklist_Contract_Db_Helper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public ChecklistContractDBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
@@ -263,7 +263,7 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
      *                     newer, {@link #onDowngrade} will be used to downgrade the database
      * @param errorHandler the {@link android.database.DatabaseErrorHandler} to be used when sqlite reports database
      */
-    public Checklist_Contract_Db_Helper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, DatabaseErrorHandler errorHandler) {
+    public ChecklistContractDBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, DatabaseErrorHandler errorHandler) {
         super(context, name, factory, version, errorHandler);
     }
 
@@ -273,9 +273,9 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
      * @param context
      * @return
      */
-    public static Checklist_Contract_Db_Helper getDb_helper(Context context) {
+    public static ChecklistContractDBHelper getDb_helper(Context context) {
         if (db_helper == null) {
-            db_helper = new Checklist_Contract_Db_Helper(context, DATABASE_NAME, null, DATABASE_VERSION);
+            db_helper = new ChecklistContractDBHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
         return db_helper;
     }
@@ -380,12 +380,12 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
      * @param cursor
      * @param list
      */
-    private void populateListWithChecklist(Cursor cursor, ArrayList<Checklist_Row> list) {
+    private void populateListWithChecklist(Cursor cursor, ArrayList<ChecklistRow> list) {
 
         if (cursor.moveToFirst()) {
             cursor.moveToFirst();
             do {
-                Checklist_Row checklist_row = new Checklist_Row();
+                ChecklistRow checklist_row = new ChecklistRow();
                 int entryid_index = cursor.getColumnIndex((Checklist_Contract.Checklist._ID));
                 int titleIndex = cursor.getColumnIndex(Checklist_Contract.Checklist.COLUMN_NAME_TITLE);
                 int progressIndex = cursor.getColumnIndex(Checklist_Contract.Checklist.COLUMN_NAME_PROGRESS);
@@ -407,9 +407,9 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
      * @param args
      * @return
      */
-    public ArrayList<Checklist_Row> returnChecklistRows(String[] args) {
+    public ArrayList<ChecklistRow> returnChecklistRows(String[] args) {
 
-        ArrayList<Checklist_Row> rowList = new ArrayList();
+        ArrayList<ChecklistRow> rowList = new ArrayList();
         Cursor cursor;
         SQLiteDatabase database = this.getReadableDatabase();
 
@@ -426,7 +426,7 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
                     populateListWithChecklist(cursor, rowList);
                 }
             }
-            rowList.add(new Checklist_Row("Add Checklist", 0));
+            rowList.add(new ChecklistRow("Add Checklist", 0));
 
             // End database interaction.
             database.setTransactionSuccessful();
@@ -444,7 +444,7 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
      * @param checklist_row
      * @return
      */
-    public int addChecklist(Checklist_Row checklist_row) {
+    public int addChecklist(ChecklistRow checklist_row) {
 
         boolean transaction_success = false;
         SQLiteDatabase database = this.getWritableDatabase();
@@ -469,7 +469,7 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
      * @param checklist_row
      * @return
      */
-    public int updateChecklist(Checklist_Row checklist_row) {
+    public int updateChecklist(ChecklistRow checklist_row) {
 
         boolean transaction_success = true;
         SQLiteDatabase database = this.getWritableDatabase();
@@ -493,7 +493,7 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
      * @param checklist_row
      * @return
      */
-    public int deleteChecklist(Checklist_Row checklist_row) {
+    public int deleteChecklist(ChecklistRow checklist_row) {
 
         boolean transaction_success = false;
         SQLiteDatabase database = this.getWritableDatabase();
@@ -504,7 +504,7 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
             database.setTransactionSuccessful();
             database.endTransaction();
 
-            ArrayList<Checklist_Item_Row> rowsToBeDeleted = new ArrayList();
+            ArrayList<ChecklistItemRow> rowsToBeDeleted = new ArrayList();
             populateListWithChecklistItemRow(database.rawQuery(Checklist_Contract.Checklist_Item_Queries.fetchItems(checklist_row), null), rowsToBeDeleted);
 
             database.beginTransaction();
@@ -535,7 +535,7 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
      * @return
      * @todo Finish exception handling. Should return null if error occurs.
      */
-    public String returnDescriptionFromItem(Checklist_Item_Row item) {
+    public String returnDescriptionFromItem(ChecklistItemRow item) {
 
         String descriptionText = null;
         Cursor cursor;
@@ -576,11 +576,11 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
      * @param cursor
      * @param rowList
      */
-    public void populateListWithChecklistItemRow(Cursor cursor, ArrayList<Checklist_Item_Row> rowList) {
+    public void populateListWithChecklistItemRow(Cursor cursor, ArrayList<ChecklistItemRow> rowList) {
         if (cursor.moveToFirst()) {
             cursor.moveToFirst();
             do {
-                Checklist_Item_Row checklist_item_row = new Checklist_Item_Row();
+                ChecklistItemRow checklist_item_row = new ChecklistItemRow();
                 /* Get the indexes of the columns within the cursor to reference, matching
                  *  the Item table. Note if table column order changes this will not effect
                  *  the method.
@@ -610,9 +610,9 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
      * @param args
      * @return
      */
-    public ArrayList<Checklist_Item_Row> returnChecklistItemRows(String[] args) {
+    public ArrayList<ChecklistItemRow> returnChecklistItemRows(String[] args) {
 
-        ArrayList<Checklist_Item_Row> rowList = new ArrayList<Checklist_Item_Row>();
+        ArrayList<ChecklistItemRow> rowList = new ArrayList<ChecklistItemRow>();
         Cursor cursor;
 
         SQLiteDatabase database = this.getReadableDatabase();
@@ -629,7 +629,7 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
                 populateListWithChecklistItemRow(cursor, rowList);
             }
         }
-        rowList.add(new Checklist_Item_Row("Add Item", false));
+        rowList.add(new ChecklistItemRow("Add Item", false));
 
         // End interaction with database.
         database.setTransactionSuccessful();
@@ -647,7 +647,7 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
      * @param description
      * @return
      */
-    public int insertItem(Checklist_Item_Row item, String description) {
+    public int insertItem(ChecklistItemRow item, String description) {
 
         boolean transaction_success = true;
 
@@ -664,7 +664,7 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
 
             // Fetch updated item with valid attributes.
             query = Checklist_Contract.Checklist_Item_Queries.fetchItem(item);
-            ArrayList<Checklist_Item_Row> updated_item = returnChecklistItemRows(new String[]{query});
+            ArrayList<ChecklistItemRow> updated_item = returnChecklistItemRows(new String[]{query});
 
             // Insert description into description table.
             query = Checklist_Contract.Checklist_Description_Qureries.insertDescription(updated_item.remove(0), description);
@@ -691,7 +691,7 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
      * @param description
      * @return
      */
-    public int updateItem(Checklist_Item_Row item, String description) {
+    public int updateItem(ChecklistItemRow item, String description) {
 
         boolean transaction_success = true;
 
@@ -709,7 +709,7 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
 
             if (!(description == null)) {
                 // Update description item.
-                ArrayList<Checklist_Item_Row> updatedItem =
+                ArrayList<ChecklistItemRow> updatedItem =
                         returnChecklistItemRows(new String[]{Checklist_Contract.Checklist_Item_Queries.fetchItem(item)});
                 query = Checklist_Contract.Checklist_Description_Qureries.updateDescription(updatedItem.remove(0), description);
                 database.execSQL(query);
@@ -735,13 +735,13 @@ public class Checklist_Contract_Db_Helper extends SQLiteOpenHelper {
      * @param items
      * @return
      */
-    public int deleteItems(ArrayList<Checklist_Item_Row> items) {
+    public int deleteItems(ArrayList<ChecklistItemRow> items) {
         boolean transaction_success = false;
 
         SQLiteDatabase database = this.getWritableDatabase();
 
         try {
-            for (Checklist_Item_Row item : items) {
+            for (ChecklistItemRow item : items) {
                 // Begin database interaction.
                 database.beginTransaction();
 

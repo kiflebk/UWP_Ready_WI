@@ -224,10 +224,10 @@ import u.ready_wisc.R;
  * @version 1.0v Build * March 18 2015
  * @email krawchukdavid@gmail.com
  */
-public class Checklist_Item_ArrayAdapter extends ArrayAdapter<Checklist_Item_Row> {
+public class ChecklistItemArrayAdapter extends ArrayAdapter<ChecklistItemRow> {
 
     /* INSTANCE VARIABLE BLOCK BEGIN */
-    ArrayList<Checklist_Item_Row> checklist_item_rowArrayList;
+    ArrayList<ChecklistItemRow> checklist_item_rowArrayList;
     Context context;
     int resourceID;
     /* INSTANCE VARIABLE BLOCK END */
@@ -238,7 +238,7 @@ public class Checklist_Item_ArrayAdapter extends ArrayAdapter<Checklist_Item_Row
      * @param context
      * @param resource
      */
-    public Checklist_Item_ArrayAdapter(Context context, int resource) {
+    public ChecklistItemArrayAdapter(Context context, int resource) {
         super(context, resource);
         this.context = context;
         this.resourceID = resource;
@@ -251,7 +251,7 @@ public class Checklist_Item_ArrayAdapter extends ArrayAdapter<Checklist_Item_Row
      * @param resource
      * @param objects
      */
-    public Checklist_Item_ArrayAdapter(Context context, int resource, ArrayList<Checklist_Item_Row> objects) {
+    public ChecklistItemArrayAdapter(Context context, int resource, ArrayList<ChecklistItemRow> objects) {
         super(context, resource, objects);
         this.checklist_item_rowArrayList = objects;
         this.context = context;
@@ -263,13 +263,13 @@ public class Checklist_Item_ArrayAdapter extends ArrayAdapter<Checklist_Item_Row
      *
      * @param arrayList
      */
-    public void setList(ArrayList<Checklist_Item_Row> arrayList) {
+    public void setList(ArrayList<ChecklistItemRow> arrayList) {
         this.checklist_item_rowArrayList = arrayList;
     }
 
 
     /**
-     * Returns the inflated row filled with the Checklist_Item_Row attributes. Givin the current editing
+     * Returns the inflated row filled with the ChecklistItemRow attributes. Givin the current editing
      * condition allows for selection or deletion of checklist item rows.
      *
      * @param position
@@ -297,7 +297,7 @@ public class Checklist_Item_ArrayAdapter extends ArrayAdapter<Checklist_Item_Row
                 checklist_item_rowArrayList.get(position).setChecked();
 
                 // Set checked attribute of the item in the item table.
-                Checklist_Contract_Db_Helper.getDb_helper(context).updateItem(checklist_item_rowArrayList.get(position), null);
+                ChecklistContractDBHelper.getDb_helper(context).updateItem(checklist_item_rowArrayList.get(position), null);
 
                 // Update checklist complete percentage.
                 updateChecklistCompletePercentage(context);
@@ -307,16 +307,16 @@ public class Checklist_Item_ArrayAdapter extends ArrayAdapter<Checklist_Item_Row
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (((Checklist_Item_ListView) context).isInEditMode) {
+                if (((ChecklistItemListView) context).isInEditMode) {
                     // If the item is not the Add Checklist row, allow removal.
                     if (position != checklist_item_rowArrayList.size() - 1) {
                         // Create list of items to delete.
-                        ArrayList<Checklist_Item_Row> itemToBeInserted = new ArrayList<Checklist_Item_Row>(1);
+                        ArrayList<ChecklistItemRow> itemToBeInserted = new ArrayList<ChecklistItemRow>(1);
                         itemToBeInserted.add(checklist_item_rowArrayList.get(position));
 
-                        int status = Checklist_Contract_Db_Helper.getDb_helper(context)
+                        int status = ChecklistContractDBHelper.getDb_helper(context)
                                 .deleteItems(itemToBeInserted);
-                        if (status == Checklist_Contract_Db_Helper.FAILURE) {
+                        if (status == ChecklistContractDBHelper.FAILURE) {
                             // Handle error. Possible display an alertView to notify user.
                         } else {
 
@@ -332,13 +332,13 @@ public class Checklist_Item_ArrayAdapter extends ArrayAdapter<Checklist_Item_Row
 
 
                 } else if (checklist_item_rowArrayList.get(position).getName().contains("Add Item")) {
-                    Intent intent = new Intent(context, Checklist_Item_Create.class);
-                    intent.putExtra(Checklist_Item_ListView.EXTRA_MESSAGE,
-                            ((Checklist_Item_ListView) context).passedChecklist);
+                    Intent intent = new Intent(context, ChecklistItemCreate.class);
+                    intent.putExtra(ChecklistItemListView.EXTRA_MESSAGE,
+                            ((ChecklistItemListView) context).passedChecklist);
                     context.startActivity(intent);
                 } else {
-                    Intent intent = new Intent(context, Checklist_Item_Detail.class);
-                    intent.putExtra(Checklist_Item_ListView.EXTRA_MESSAGE, checklist_item_rowArrayList.get(position));
+                    Intent intent = new Intent(context, ChecklistItemDetail.class);
+                    intent.putExtra(ChecklistItemListView.EXTRA_MESSAGE, checklist_item_rowArrayList.get(position));
                     context.startActivity(intent);
                 }
 
@@ -356,12 +356,12 @@ public class Checklist_Item_ArrayAdapter extends ArrayAdapter<Checklist_Item_Row
      */
     public void updateChecklistCompletePercentage(Context context) {
         // Retrieve Checklist from context.
-        Checklist_Row checklist_row = ((Checklist_Item_ListView) context).passedChecklist;
+        ChecklistRow checklist_row = ((ChecklistItemListView) context).passedChecklist;
 
         double numberOfItemsChecked = 0;
 
         // Count completed items.
-        for (Checklist_Item_Row row : checklist_item_rowArrayList) {
+        for (ChecklistItemRow row : checklist_item_rowArrayList) {
             if (row.isChecked())
                 numberOfItemsChecked++;
         }
@@ -374,10 +374,10 @@ public class Checklist_Item_ArrayAdapter extends ArrayAdapter<Checklist_Item_Row
         checklist_row.setProgress(percentComplete);
 
         //Update database
-        int returnStatus = Checklist_Contract_Db_Helper.getDb_helper(context).updateChecklist(checklist_row);
+        int returnStatus = ChecklistContractDBHelper.getDb_helper(context).updateChecklist(checklist_row);
 
         // If an error occurs in the transaction notify the user.
-        if (returnStatus == Checklist_Contract_Db_Helper.FAILURE) {
+        if (returnStatus == ChecklistContractDBHelper.FAILURE) {
             //Insert Alert Dialog
         }
     }

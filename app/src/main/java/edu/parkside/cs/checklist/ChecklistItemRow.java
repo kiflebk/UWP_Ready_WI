@@ -202,105 +202,226 @@
  *        limitations under the License.
  */
 
-
 package edu.parkside.cs.checklist;
 
-import android.content.Context;
-import android.content.Intent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-
-import u.ready_wisc.R;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
+ * Provides the physical support for the Checklist Items.
+ * <p/>
+ * Note: This class implements Parcelable for performance considerations. Parcelable allows the object
+ * to be passed between activities.
+ *
  * @author David Krawchuk
- * @version 1.0v Build * March 18 2015 *
- *          <p/>
- *          Description:
- *          The data source for the checklist create item listview.
- *          Provides the listeners for displaying item details and deletion upon clicking
- *          the checkbox.
+ * @version 1.0v Build * March 18 2015
  * @email krawchukdavid@gmail.com
  */
-public class Checklist_Create_Item_Adapter extends Checklist_Item_ArrayAdapter {
-    /* Instance variable block. */
-    ArrayList<String> arrayOfDescriptions = null;
-    /* Instance variable block. */
+public class ChecklistItemRow implements Parcelable {
+    /**
+     * Required creator method for the parcelable implementation.
+     */
+    public static final Parcelable.Creator<ChecklistItemRow> CREATOR
+            = new Parcelable.Creator<ChecklistItemRow>() {
+        public ChecklistItemRow createFromParcel(Parcel in) {
+            return new ChecklistItemRow(in);
+        }
+
+        public ChecklistItemRow[] newArray(int size) {
+            return new ChecklistItemRow[size];
+        }
+    };
+    /* INSTANCE VARIABLE BLOCK BEGIN */
+    private int entryid;
+    private String name;
+    private int qty;
+    private boolean isChecked;
+    /* INSTANCE VARIABLE BLOCK END */
+    private int checklist_entryid;
 
     /**
      * Constructor.
-     *
-     * @param context
-     * @param resource
-     * @see edu.parkside.cs.checklist.Checklist_Item_ArrayAdapter
      */
-    public Checklist_Create_Item_Adapter(Context context, int resource) {
-        super(context, resource);
+    public ChecklistItemRow() {
     }
 
     /**
      * Constructor.
      *
-     * @param context
-     * @param resource
-     * @param objects
-     * @param arrayOfDescriptions
-     * @see edu.parkside.cs.checklist.Checklist_Item_ArrayAdapter
+     * @param title
+     * @param isChecked
      */
-    public Checklist_Create_Item_Adapter(Context context, int resource, ArrayList<Checklist_Item_Row> objects, ArrayList<String> arrayOfDescriptions) {
-        super(context, resource, objects);
-        this.arrayOfDescriptions = arrayOfDescriptions;
+    public ChecklistItemRow(String title, boolean isChecked) {
+        this.name = title;
+        this.isChecked = isChecked;
+    }
+
+    ;
+
+    /**
+     * Parcel constructor.
+     *
+     * @param in
+     */
+    public ChecklistItemRow(Parcel in) {
+        readFromParcel(in);
     }
 
     /**
-     * Provides the data to the source listview that requests the data.
-     * Attaches onclick listeners to the items in order to view item details or delete items when
-     * item checkbox is clicked.
+     * Getter. If the reference is null, the a string is returned with the contents of "Empty".
      *
-     * @param position
-     * @param convertView
-     * @param parent
+     * @return
+     */
+    public String getName() {
+        if (name == null) {
+            name = "Empty";
+        }
+        return name;
+    }
+
+    /**
+     * Setter.
+     *
+     * @param name
+     * @todo Verify input.
+     */
+    public void setName(String name) {
+        // 1. Check for valid input.
+        // 2. Is the new setting reasonable?
+        // 3. If so then set name.
+        this.name = name;
+    }
+
+    /**
+     * Getter.
+     *
+     * @return
+     */
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    /**
+     * Setter.
+     *
+     * @todo Verify input.
+     */
+    public void setChecked() {
+        // 1. Check for valid input.
+        // 2. Is the new setting reasonable?
+        // 3. If so then set checked.
+
+        this.isChecked = (this.isChecked == true) ? false : true;
+    }
+
+    /**
+     * Getter. Converts internal implementation and returns an int.
+     */
+    public int getChecked() {
+        return (isChecked == true) ? 1 : 0;
+    }
+
+    /**
+     * Setter.
+     *
+     * @todo Verify input.
+     */
+    public void setChecked(int condition) {
+        // 1. Check for valid input.
+        // 2. Is the new setting reasonable?
+        // 3. If so then set checked.
+        this.isChecked = (condition == 1) ? true : false;
+    }
+
+    /**
+     * Getter.
+     */
+    public int getEntryid() {
+        return entryid;
+    }
+
+    /**
+     * Setter.
+     *
+     * @param entryid
+     * @todo Verify input values.
+     */
+    public void setEntryid(int entryid) {
+        this.entryid = entryid;
+    }
+
+    /**
+     * Getter.
+     *
+     * @return
+     */
+    public int getQty() {
+        return qty;
+    }
+
+    /**
+     * Setter.
+     *
+     * @param qty
+     */
+    public void setQty(int qty) {
+        this.qty = qty;
+    }
+
+    /**
+     * Getter.
+     *
+     * @return
+     */
+    public int getChecklist_entryid() {
+        return checklist_entryid;
+    }
+
+    /**
+     * Setter.
+     *
+     * @param checklist_entryid
+     * @todo Verify input.
+     */
+    public void setChecklist_entryid(int checklist_entryid) {
+        this.checklist_entryid = checklist_entryid;
+    }
+
+    /**
+     * Required method for the parcelable implementation.
+     *
      * @return
      */
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        View rowView = inflater.inflate(R.layout.activity_checklist_item_listview_row, parent, false);
-
-        TextView itemName = (TextView) rowView.findViewById(R.id.checklist_item_listview_row_textview);
-        final CheckBox checkBox = (CheckBox) rowView.findViewById(R.id.checklist_item_listview_row_checkbox);
-
-        itemName.setText(this.checklist_item_rowArrayList.get(position).getName());
-
-        checkBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 1. Remove checklist item and description.
-                // 2. Update listview.
-                checklist_item_rowArrayList.remove(position);
-                arrayOfDescriptions.remove(position);
-                notifyDataSetChanged();
-            }
-        });
-
-        rowView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, Checklist_Create_Item_Add.class);
-                intent.putExtra(Checklist_Create_Item_Add.EXTRA_MESSAGE_ITEM, checklist_item_rowArrayList.get(position));
-                intent.putExtra(Checklist_Create_Item_Add.EXTRA_MESSAGE_DESC, arrayOfDescriptions.get(position));
-                // Send description.
-                ((Checklist_Create) context).startActivityForResult(intent, Checklist_Create.UPDATE);
-            }
-        });
-
-        return rowView;
+    public int describeContents() {
+        return 0;
     }
 
+    /**
+     * Translates the object attributes into parcel elements.
+     *
+     * @param dest
+     * @param flags
+     */
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(getEntryid());
+        dest.writeString(getName());
+        dest.writeInt(getQty());
+        dest.writeInt(getChecked());
+        dest.writeInt(getChecklist_entryid());
+    }
+
+    /**
+     * Translates the parcel elements into object attributes.
+     *
+     * @param source
+     */
+    private void readFromParcel(Parcel source) {
+        setEntryid(source.readInt());
+        setName(source.readString());
+        setQty(source.readInt());
+        setChecked(source.readInt());
+        setChecklist_entryid(source.readInt());
+    }
 }
