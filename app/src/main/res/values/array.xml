@@ -16,4 +16,10 @@
         <item>Evacuation Plan</item>
         <item>Shelter In Place</item>
     </array>
+    <array name="resourceList">
+        <item>Hospital</item>
+        <item>Sheriff</item>
+        <item>Fire</item>
+        <item>Shelter</item>
+    </array>
 </resources>
