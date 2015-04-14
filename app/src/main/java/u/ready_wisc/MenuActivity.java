@@ -41,6 +41,8 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
     PackageManager pm;
 
     @Override
+
+    //testing new branch
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainmenu);
