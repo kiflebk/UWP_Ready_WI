@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -16,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import u.ready_wisc.MenuActivity;
 import u.ready_wisc.R;
 import u.ready_wisc.myAdapter;
 
@@ -28,15 +28,12 @@ public class Emergency extends ActionBarActivity {
 
     //Set boolean flag when torch is turned on/off
     private boolean isFlashOn = false;
-    //Set boolean to false when SOS starts
-    private boolean sosTone = false;
     //Create camera object to access flashlight
     private Camera camera = null;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disaster_info_layout);
-
 
         String[] disasterList = {"Emergency Map", "Shelters", "Disaster Info", "Volunteer", "Report Damage", "Social Media", "Flashlight", "SOS Tone"};
 
@@ -46,17 +43,12 @@ public class Emergency extends ActionBarActivity {
 
         theListView.setAdapter(disasterAdapt);
 
-        // create media player object to play sos tone
-        final MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.sos_sound);
 
         theListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String x = String.valueOf(parent.getItemAtPosition(position));
-                String disasterPicked = "You selected " + x;
 
-                //toast to show what was selected, redundant
-                //Toast.makeText(Emergency.this, disasterPicked, Toast.LENGTH_SHORT).show();
                 Context context = getApplicationContext();
                 PackageManager pm = context.getPackageManager();
 
@@ -69,7 +61,8 @@ public class Emergency extends ActionBarActivity {
                 //if sos tone button is pressed play sound, if sound is playing pause sound
                 //sound will play until button is pressed again, even if app is in background
                 if (x.equals("SOS Tone")){
-                    if (!sosTone) {
+
+                    if (!MenuActivity.isSosToneOn) {
 
                         //sets device volume to maximum
                         AudioManager am =
@@ -80,20 +73,18 @@ public class Emergency extends ActionBarActivity {
                                 0);
 
                         //begins looping tone
-                        mp.setLooping(true);
-                        sosTone = true;
-                        mp.start();
+                        MenuActivity.mp.setLooping(true);
+                        MenuActivity.isSosToneOn = true;
+                        MenuActivity.mp.start();
                     }
                     else{
 
                         //stops looping sound
                         Log.d("Sound test","Stopping sound");
-                        mp.setLooping(false);
-                        mp.pause();
-                        sosTone = false;
+                        MenuActivity.mp.setLooping(false);
+                        MenuActivity.mp.pause();
+                        MenuActivity.isSosToneOn = false;
                     }
-
-
                 }
 
                 //flashlight toggles on off as pressed

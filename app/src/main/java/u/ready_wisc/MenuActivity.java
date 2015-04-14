@@ -29,14 +29,15 @@ import u.ready_wisc.BePrepared.Prep_Main;
 import u.ready_wisc.Emergency_Main.Emergency;
 import u.ready_wisc.disasterTypes.DisastersType;
 
+
 public class MenuActivity extends ActionBarActivity implements View.OnClickListener{
     Button resourcesbutton, reportButton, checklistButton, disasterButton;
     ImageButton prepareMenuButton, emergMenuButton, sosMenuButton, flashlightButton;
-    private boolean sosTone = false;
+    public static boolean isSosToneOn = false;
     private boolean isFlashOn = false;
     private Camera camera = null;
     Context context;
-    MediaPlayer mp;
+    public static MediaPlayer mp;
     PackageManager pm;
 
     @Override
@@ -50,9 +51,13 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
             addRssFragment();
         }
 
+        // checks to see if the media player object exists
+        // if it does exist a new object is not created
+        if (!isSosToneOn)
+            mp = MediaPlayer.create(context, R.raw.sos_sound);
+
         context = getApplicationContext();
         pm = context.getPackageManager();
-        mp = MediaPlayer.create(context, R.raw.sos_sound);
         disasterButton = (Button) findViewById(R.id.typeDisasterButton);
         resourcesbutton = (Button) findViewById(R.id.disasterResourcesButton);
         reportButton = (Button) findViewById(R.id.reportDamageButton);
@@ -61,7 +66,6 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
         emergMenuButton = (ImageButton) findViewById(R.id.emergencyMenuButton);
         sosMenuButton = (ImageButton) findViewById(R.id.SOSMenubutton);
         flashlightButton = (ImageButton) findViewById(R.id.FlashlightMenuButton);
-
 
 
         disasterButton.setOnClickListener(this);
@@ -123,7 +127,7 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
             Intent i = new Intent(MenuActivity.this, DisastersType.class);
             MenuActivity.this.startActivity(i);
         } else if (v.getId() == (R.id.SOSMenubutton)) {
-            if (!sosTone) {
+            if (!isSosToneOn) {
 
                 //sets device volume to maximum
                 AudioManager am =
@@ -135,8 +139,15 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
 
                 //begins looping tone
                 mp.setLooping(true);
-                sosTone = true;
+                isSosToneOn = true;
                 mp.start();
+            } else{
+
+                //stops looping sound
+                Log.d("Sound test","Stopping sound");
+                mp.setLooping(false);
+                mp.pause();
+                isSosToneOn = false;
             }
 
         } else if (v.getId() == (R.id.FlashlightMenuButton)) {
@@ -170,14 +181,6 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
 
                 }
             }
-        }
-        else{
-
-            //stops looping sound
-            Log.d("Sound test", "Stopping sound");
-            mp.setLooping(false);
-            mp.pause();
-            sosTone = false;
         }
     }
 
