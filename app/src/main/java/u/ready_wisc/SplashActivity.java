@@ -46,8 +46,15 @@ public class SplashActivity extends ActionBarActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this,CountyPicker.class);
-                SplashActivity.this.startActivity(intent);
+
+                if (CountyPicker.countyIdCode != null) {
+                    Intent intent = new Intent(SplashActivity.this, MenuActivity.class);
+                    SplashActivity.this.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(SplashActivity.this, CountyPicker.class);
+                    SplashActivity.this.startActivity(intent);
+                }
+
                 splashClose = true;
 //                Intent mainIntent = new Intent(SplashActivity.this, MenuActivity.class);
 //                SplashActivity.this.startActivity(mainIntent);

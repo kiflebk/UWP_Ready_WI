@@ -53,7 +53,10 @@ public class RssParser {
               else if (name.equals("summary")){
                 desc = readDesc(parser);
             }
-            if (title != null && link != null && desc != null) {
+            if (title != null && link != null) {
+                if (desc == null){
+                    desc = "No current weather warnings/advisories.";
+                }
                 RssItem item = new RssItem(title, link, desc);
                 if( !(item.getTitle().contains("Watches, Warnings and Advisories"))) {
                     items.add(item);

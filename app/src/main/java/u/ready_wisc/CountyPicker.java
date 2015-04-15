@@ -4,10 +4,11 @@ package u.ready_wisc;
  * Created by kiflebk on 3/9/15.
  */
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.internal.widget.AdapterViewCompat;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,14 +20,15 @@ import android.widget.Spinner;
 public class CountyPicker extends Activity implements AdapterViewCompat.OnItemSelectedListener {
 
 
-    //kdkdkdkdkdkdkdkdkdkdkdk
     Spinner counties;
     Button pick;
+    public static String countyIdCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_county_picker);
+
 
         counties = (Spinner) findViewById(R.id.spinner);
         pick = (Button) findViewById(R.id.button);
@@ -36,6 +38,28 @@ public class CountyPicker extends Activity implements AdapterViewCompat.OnItemSe
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         counties.setAdapter(adapter);
+
+
+        pick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int countyInt = counties.getSelectedItemPosition();
+
+                if (countyInt == 0)
+                    countyIdCode = "WIC059&y=0";
+                else if (countyInt == 1)
+                    countyIdCode = "WIC101&y=0";
+                else if (countyInt == 2)
+                    countyIdCode = "WIC079&y=0";
+                else if (countyInt == 3)
+                    countyIdCode = "WIC105&y=0";
+                else if (countyInt == 4)
+                    countyIdCode = "WIC025&y=0";
+                else if (countyInt == 5)
+                    countyIdCode = "WIC111&y=0";
+                startUI(getCurrentFocus());
+            }
+        });
 
     }
 

@@ -16,6 +16,8 @@ import java.io.Serializable;
 import java.net.URL;
 import java.util.List;
 
+import u.ready_wisc.CountyPicker;
+
 /**
  * Created by piela_000 on 3/1/2015.
  * RssService class extends IntenctService to read from url in seperate thread
@@ -23,7 +25,8 @@ import java.util.List;
 public class RssService extends IntentService {
 
     //private static final String RSS_LINK = "http://feedmix.novaclic.com/atom2rss.php?source=http://alerts.weather.gov/cap/wi.atom";
-    private static final String RSS_LINK = "http://alerts.weather.gov/cap/wi.atom";
+    //private static final String RSS_LINK = "http://alerts.weather.gov/cap/wi.atom";
+    private static final String RSS_LINK = "https://alerts.weather.gov/cap/wwaatmget.php?x=" + CountyPicker.countyIdCode;
     public static final String ITEMS = "items";
     public static final String RECEIVER = "receiver";
 
@@ -37,6 +40,7 @@ public class RssService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         Log.d(SyncStateContract.Constants.DATA, "Service started");
         List<RssItem> rssItems = null;
+        Log.d("RSS Link", RSS_LINK);
         try {
             RssParser parser = new RssParser();
             rssItems = parser.parse(getInputStream(RSS_LINK));
