@@ -13,25 +13,30 @@ import android.provider.BaseColumns;
 public class MyDatabaseHelper extends SQLiteOpenHelper {
     // components of the table which can be changed later to join up with other team later on
 
-    ////// Local Resources : county name addr phone email type
-
-    public static final String TABLE_RES = "resources";
+    public static final String TABLE_USERS = "users";
 
     public static final String COL_ID = BaseColumns._ID;
 
     public static final String COL_NAME = "name";
 
-    public static final String COL_ADDR = "address";
-
-    public static final String COL_PHONE = "phone";
-
     public static final String COL_EMAIL = "email";
 
-    public static final String COL_TYPE = "restype";
+    public static final String COL_DOB = "date_of_birth";
 
     private static final String DATABASE_NAME = "my_app.db";
 
     private static final int DATABASE_VERSION = 1;
+
+    public static final String TABLE_RESOURCES = "resourcs";
+
+    private static final String COL_CNTY = "county";
+
+    private static final String COL_ADDR = "address";
+
+    private static final String COL_PHONE = "phone";
+
+    private static final String COL_TYPE = "coltype";
+
 
     public MyDatabaseHelper(Context context) {
 
@@ -43,21 +48,38 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL("CREATE TABLE " + TABLE_RES + " ("
+        db.execSQL("CREATE TABLE " + TABLE_USERS + " ("
 
                 + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
 
                 + COL_NAME + " TEXT NOT NULL,"
 
-                + COL_ADDR +  " TEXT,"
-
-                + COL_PHONE +  " TEXT,"
-
                 + COL_EMAIL + " TEXT,"
 
-                + COL_TYPE + " TEXT "
+                + COL_DOB + " INTEGER"
 
                 + ");");
+
+
+//        db.execSQL("CREATE TABLE " + TABLE_RESOURCES + " ("
+//
+//                + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+//
+//                //XXX  + county home addr phone otherInfo type
+//
+//                + COL_CNTY + " TEXT NOT NULL,"
+//
+//                + COL_NAME + " TEXT, "
+//
+//                + COL_ADDR + " TEXT, "
+//
+//                + COL_PHONE + " TEXT, "
+//
+//                + COL_EMAIL + " TEXT,"
+//
+//                + COL_TYPE + " TEXT "
+//
+//                + ");");
 
     }
 
@@ -66,7 +88,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
 
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RES + ";");
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS + ";");
 
         onCreate(db);
 
@@ -124,9 +146,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor query(String tableName, String orderedBy) {
 
-        String[] projection = {COL_ID, COL_NAME, COL_EMAIL, COL_TYPE};
+        String[] projection = {COL_ID, COL_NAME, COL_EMAIL, COL_DOB};
 
         return getReadableDatabase().query(tableName, projection, null, null, null, null, orderedBy);
 
     }
 }
+

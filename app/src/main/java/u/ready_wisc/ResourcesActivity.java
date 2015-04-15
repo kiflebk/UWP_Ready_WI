@@ -34,13 +34,18 @@ public class ResourcesActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resources);
-        Button backButton = (Button) findViewById(R.id.backButton);
+
+
+        //Button backButton = (Button) findViewById(R.id.backButton);
         final ListView resourcesListView = (ListView) findViewById(R.id.resourcesListView);
         final Spinner countySpinner = (Spinner) findViewById(R.id.countySpinner);
         final Spinner resourceSpinner = (Spinner) findViewById(R.id.resourceSpinner);
+
         Intent i = getIntent();
         county = i.getStringExtra("county");
         resource = "";
+
+
         Button callButton = (Button) findViewById(R.id.callButton);
         callButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +55,45 @@ public class ResourcesActivity extends ActionBarActivity {
                 startActivity(i);
             }
         });
+
+
+        // This is only used for testing the layout
+        //===========================================================
+
+        ResourceItem parkside0 = new ResourceItem("Uw-Parkside",
+                                                "900 Wood road",
+                                                "262-595-2020",
+                                                "",
+                                                "Kenosha",
+                                                "Shelter");
+
+        ResourceItem parkside1 = new ResourceItem("Uw-Parkside",
+                "900 Wood road",
+                "262-595-2020",
+                "",
+                "Kenosha",
+                "Shelter");
+
+        ResourceItem parkside2 = new ResourceItem("Uw-Parkside",
+                "900 Wood road",
+                "262-595-2020",
+                "",
+                "Kenosha",
+                "Shelter");
+
+        ArrayList<ResourceItem> resources = new ArrayList();
+
+        resources.add(parkside0);
+        resources.add(parkside1);
+        resources.add(parkside2);
+
+        ResourceAdapter adapter = new ResourceAdapter(this, resources);
+        resourcesListView.setAdapter(adapter);
+
+        //==============================================================
+
+
+
 //        //Database query to populate listview
 //        //Need local DB + working activity
 //        SQLiteDatabase resourceDB = this.getReadableDatabase();
@@ -66,6 +110,8 @@ public class ResourcesActivity extends ActionBarActivity {
 //                resourceList.add(item);
 //            } while (result.moveToFirst());
 //        }
+
+
 //        ResourceAdapter adapter = new ResourceAdapter(this, resourceList);
 //        resourcesListView.setAdapter(adapter);
 //        countySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
