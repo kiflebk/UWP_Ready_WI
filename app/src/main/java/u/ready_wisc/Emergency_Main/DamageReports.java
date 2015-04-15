@@ -89,6 +89,7 @@ public class DamageReports extends ActionBarActivity {
     EditText water_depth;
     RadioButton basement_resident;
     EditText damage_desc;
+    int disasterType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -227,13 +228,25 @@ public class DamageReports extends ActionBarActivity {
 
             //Insert damage report fields into JSONObject.
             //(Key,value)
+
+            if (checked(floodBox) == 0)
+                disasterType = 0;
+            else if (checked(severeBox) == 0)
+                disasterType = 1;
+            else if (checked(sewerBox) == 0)
+                disasterType = 2;
+            else
+                disasterType = 3;
+
+
             try {
 
                 obj.put("deviceid", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
-                obj.put("flood", checked(floodBox));
-                obj.put("severe_storm", checked(severeBox));
-                obj.put("sewer", checked(sewerBox));
-                obj.put("other", checked(otherBox));
+//                obj.put("flood", checked(floodBox));
+//                obj.put("severe_storm", checked(severeBox));
+//                obj.put("sewer", checked(sewerBox));
+//                obj.put("other", checked(otherBox));
+                obj.put("type", disasterType);
                 obj.put("date",  date.getText().toString());
                 obj.put("name",name.getText().toString() );
                 obj.put("address", address.getText().toString());
@@ -278,13 +291,12 @@ public class DamageReports extends ActionBarActivity {
 
             request.setEntity(entity);
 
-            HttpResponse response =null;
+            HttpResponse response = null;
 
 
             HttpConnectionParams.setSoTimeout(httpclient.getParams(),   10000);
             HttpConnectionParams.setConnectionTimeout(httpclient.getParams(), 10000);
             try{
-
 
                 response = httpclient.execute(request);
             }
