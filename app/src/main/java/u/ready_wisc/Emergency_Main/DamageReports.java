@@ -82,7 +82,7 @@ public class DamageReports extends ActionBarActivity {
     EditText zip;
     RadioButton own;
     RadioButton rent;
-    EditText damage;
+    EditText damageCost;
     EditText loss_percent;
     RadioButton habitable;
     RadioButton basement_water;
@@ -90,6 +90,7 @@ public class DamageReports extends ActionBarActivity {
     RadioButton basement_resident;
     EditText damage_desc;
     int disasterType;
+    int rentOrOwned;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +114,7 @@ public class DamageReports extends ActionBarActivity {
         zip = (EditText)findViewById(R.id.zipEdit);
         own = (RadioButton)findViewById(R.id.ownBox);
         rent = (RadioButton)findViewById(R.id.rentBox);
-        damage = (EditText)findViewById(R.id.lossEdit);
+        damageCost = (EditText)findViewById(R.id.lossEdit);
         loss_percent = (EditText)findViewById(R.id.percentEdit);
         habitable = (RadioButton)findViewById(R.id.habitBoxYes);
         basement_water = (RadioButton)findViewById(R.id.waterBoxYes);
@@ -202,7 +203,7 @@ public class DamageReports extends ActionBarActivity {
         public void onClick(View v){
 
             try {
-                String rep = putDataToServer("www.joshuaolufs.com/bridge/drSubmit.php", createJObject());
+                String rep = putDataToServer("http://joshuaolufs.com//php/query_damageReports_insert.php", createJObject());
 
                 Toast.makeText(getApplicationContext(), rep, Toast.LENGTH_LONG).show();
             }
@@ -238,6 +239,10 @@ public class DamageReports extends ActionBarActivity {
             else
                 disasterType = 3;
 
+            if (checked(own) == 0)
+                rentOrOwned = 0;
+            else if(checked(rent) == 0)
+                rentOrOwned = 1;
 
             try {
 
@@ -246,16 +251,17 @@ public class DamageReports extends ActionBarActivity {
 //                obj.put("severe_storm", checked(severeBox));
 //                obj.put("sewer", checked(sewerBox));
 //                obj.put("other", checked(otherBox));
-                obj.put("type", disasterType);
+                obj.put("type_of_occurrence", disasterType);
                 obj.put("date",  date.getText().toString());
                 obj.put("name",name.getText().toString() );
                 obj.put("address", address.getText().toString());
                 obj.put("city", city.getText().toString());
                 obj.put("add_state", state.getText().toString());
                 obj.put("zip", zip.getText().toString());
-                obj.put("own", checked(own));
-                obj.put("rent", checked(rent));
-                obj.put("damage", damage.getText().toString());
+//                obj.put("own", checked(own));
+//                obj.put("rent", checked(rent));
+                obj.put("own_or_rent", rentOrOwned);
+                obj.put("damage_cost", damageCost.getText().toString());
                 obj.put("loss_percent", loss_percent.getText().toString() );
                 obj.put("habitable", checked(habitable));
                 obj.put("basement_water", checked(basement_water));
@@ -297,7 +303,7 @@ public class DamageReports extends ActionBarActivity {
             HttpConnectionParams.setSoTimeout(httpclient.getParams(),   10000);
             HttpConnectionParams.setConnectionTimeout(httpclient.getParams(), 10000);
             try{
-
+                Log.d("Sending report", url);
                 response = httpclient.execute(request);
             }
             catch(SocketException se)
