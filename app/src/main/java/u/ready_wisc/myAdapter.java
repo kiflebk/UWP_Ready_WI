@@ -39,51 +39,74 @@ public class myAdapter extends ArrayAdapter<String> {
         //get the imageView in the layout
         ImageView theImageView = (ImageView) theView.findViewById(R.id.imageview1);
 
-        if (disaster == "Tornado") {
-            theImageView.setImageResource(R.drawable.ic_launcher);
-        } else if (disaster == "Winter Storm") {
-            theImageView.setImageResource(R.drawable.ic_storm);
-        } else if (disaster == "Fire/Wildfire") {
-            theImageView.setImageResource(R.drawable.ic_fire);
-        } else if (disaster == "Flood") {
-            theImageView.setImageResource(R.drawable.ic_flood);
-        } else if (disaster == "Power Outage") {
-            theImageView.setImageResource(R.drawable.ic_power_loss);
-        } else if (disaster == "Public Health Emergency") {
-            theImageView.setImageResource(R.drawable.phe_ic);
-        } else if (disaster == "Terrorism") {
-            theImageView.setImageResource(R.drawable.ic_terrorism);
-        } else if (disaster == "Bomb Threats") {
-            theImageView.setImageResource(R.drawable.ic_bomb);
-        } else if (disaster == "Thunderstorms") {
-            theImageView.setImageResource(R.drawable.ic_thunderstorm);
-        } else if (disaster == "Extreme Heat") {
-            theImageView.setImageResource(R.drawable.heat_wave);
-        } else if (disaster == "Build A Kit") {
-            theImageView.setImageResource(R.drawable.build_icon);
-        } else if (disaster == "Make A Plan") {
-            theImageView.setImageResource(R.drawable.list_icon);
-        } else if (disaster == "Volunteer") {
-            theImageView.setImageResource(R.drawable.volunteer_icon);
-        } else if (disaster == "Custom List") {
-            theImageView.setImageResource(R.drawable.custom_icon);
-        } else if (disaster == "Emergency Map") {
-            theImageView.setImageResource(R.drawable.map_icon);
-        } else if (disaster == "Shelters") {
-            theImageView.setImageResource(R.drawable.shelter_icon);
-        } else if (disaster == "Disaster Info") {
-            theImageView.setImageResource(R.drawable.disaster_icon);
-        } else if (disaster == "Report Damage") {
-            theImageView.setImageResource(R.drawable.list_icon);
-        } else if (disaster == "Social Media") {
-            theImageView.setImageResource(R.drawable.social_icon);
-        } else if (disaster == "Flashlight") {
-            theImageView.setImageResource(R.drawable.flashlight_ic);
-        } else if (disaster == "SOS Tone") {
-            theImageView.setImageResource(R.drawable.sos_icon);
-        } else {
-            //This is where you can set the imageview.
-            theImageView.setImageResource(R.drawable.rw);
+        switch (disaster) {
+            case "Tornado":
+                theImageView.setImageResource(R.drawable.ic_launcher);
+                break;
+            case "Winter Storm":
+                theImageView.setImageResource(R.drawable.ic_storm);
+                break;
+            case "Fire/Wildfire":
+                theImageView.setImageResource(R.drawable.ic_fire);
+                break;
+            case "Flood":
+                theImageView.setImageResource(R.drawable.ic_flood);
+                break;
+            case "Power Outage":
+                theImageView.setImageResource(R.drawable.ic_power_loss);
+                break;
+            case "Public Health Emergency":
+                theImageView.setImageResource(R.drawable.phe_ic);
+                break;
+            case "Terrorism":
+                theImageView.setImageResource(R.drawable.ic_terrorism);
+                break;
+            case "Bomb Threats":
+                theImageView.setImageResource(R.drawable.ic_bomb);
+                break;
+            case "Thunderstorms":
+                theImageView.setImageResource(R.drawable.ic_thunderstorm);
+                break;
+            case "Extreme Heat":
+                theImageView.setImageResource(R.drawable.heat_wave);
+                break;
+            case "Build A Kit":
+                theImageView.setImageResource(R.drawable.build_icon);
+                break;
+            case "Make A Plan":
+                theImageView.setImageResource(R.drawable.list_icon);
+                break;
+            case "Volunteer":
+                theImageView.setImageResource(R.drawable.volunteer_icon);
+                break;
+            case "Custom List":
+                theImageView.setImageResource(R.drawable.custom_icon);
+                break;
+            case "Emergency Map":
+                theImageView.setImageResource(R.drawable.map_icon);
+                break;
+            case "Shelters":
+                theImageView.setImageResource(R.drawable.shelter_icon);
+                break;
+            case "Disaster Info":
+                theImageView.setImageResource(R.drawable.disaster_icon);
+                break;
+            case "Report Damage":
+                theImageView.setImageResource(R.drawable.list_icon);
+                break;
+            case "Social Media":
+                theImageView.setImageResource(R.drawable.social_icon);
+                break;
+            case "Flashlight":
+                theImageView.setImageResource(R.drawable.flashlight_ic);
+                break;
+            case "SOS Tone":
+                theImageView.setImageResource(R.drawable.sos_icon);
+                break;
+            default:
+                //This is where you can set the imageview.
+                theImageView.setImageResource(R.drawable.rw);
+                break;
         }
         return theView;
     }
