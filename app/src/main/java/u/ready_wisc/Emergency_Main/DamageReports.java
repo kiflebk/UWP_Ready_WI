@@ -56,6 +56,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONStringer;
 
+import u.ready_wisc.Config;
 import u.ready_wisc.R;
 
 public class DamageReports extends ActionBarActivity {
@@ -207,7 +208,11 @@ public class DamageReports extends ActionBarActivity {
         public void onClick(View v){
 
             try {
-                String rep = putDataToServer("http://joshuaolufs.com//php/query_damageReports_insert.php", createJObject());
+
+                JSONObject jObject = createJObject();
+
+                // URL located in config file
+                String rep = putDataToServer(Config.URL_REPORT, jObject);
 
                 Toast.makeText(getApplicationContext(), rep, Toast.LENGTH_LONG).show();
             }

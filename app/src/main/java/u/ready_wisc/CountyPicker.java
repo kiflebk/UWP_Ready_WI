@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import u.ready_wisc.Config;
 
 
 public class CountyPicker extends Activity implements AdapterViewCompat.OnItemSelectedListener {
@@ -45,18 +46,20 @@ public class CountyPicker extends Activity implements AdapterViewCompat.OnItemSe
             public void onClick(View v) {
                 int countyInt = counties.getSelectedItemPosition();
 
+                // County codes are located in config file for
+                // easy updating and additions
                 if (countyInt == 0)
-                    countyIdCode = "WIC059&y=0";
+                    countyIdCode = Config.RSS_KENOSHA;
                 else if (countyInt == 1)
-                    countyIdCode = "WIC101&y=0";
+                    countyIdCode = Config.RSS_RACINE;
                 else if (countyInt == 2)
-                    countyIdCode = "WIC079&y=0";
+                    countyIdCode = Config.RSS_MILWAUKEE;
                 else if (countyInt == 3)
-                    countyIdCode = "WIC105&y=0";
+                    countyIdCode = Config.RSS_ROCK;
                 else if (countyInt == 4)
-                    countyIdCode = "WIC025&y=0";
+                    countyIdCode = Config.RSS_DANE;
                 else if (countyInt == 5)
-                    countyIdCode = "WIC111&y=0";
+                    countyIdCode = Config.RSS_SAUK;
                 startUI(getCurrentFocus());
             }
         });
