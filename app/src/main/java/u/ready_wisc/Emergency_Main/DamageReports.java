@@ -256,7 +256,7 @@ public class DamageReports extends ActionBarActivity {
                 rentOrOwned = 1;
 
             //If amount is left blank assume there is no insurance
-            if (insurDeductAmt.getText().toString() == null) {
+            if (insurDeductAmt.getText() == null) {
                 insurDeductAmt.setText("0.00");
             }
 
