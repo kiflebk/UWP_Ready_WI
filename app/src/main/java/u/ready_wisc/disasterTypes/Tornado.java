@@ -35,20 +35,6 @@ public class Tornado extends ActionBarActivity {
                 "                    </ul>\n" +
                 "                    \n" +
                 "                    <h4> 9 Tornado Facts</h4>\n" +
-//                "                    \n" +
-//                "                    Tornadoes are nature&#146;s most violent storms. Spawned from powerful thunderstorms, tornadoes can cause \n" +
-//                "                    fatalities and devastate a neighborhood in seconds. A tornado appears as a rotating, funnel-shaped cloud that \n" +
-//                "                    extends from a thunderstorm to the ground with whirling winds that can reach 300 miles per hour. Damage \n" +
-//                "                    paths can be in excess of one mile wide and 50 miles long. Every state is at some risk from this hazard.\n" +
-//                "                    <br /><br />\n" +
-//                "                    Some tornadoes are clearly visible, while rain or nearby low-hanging clouds obscure others. Occasionally, \n" +
-//                "                    tornadoes develop so rapidly that little, if any, advance warning is possible.\n" +
-//                "                    <br /><br />\n" +
-//                "                    Before a tornado hits, the wind may die down and the air may become very still. A cloud of debris can mark \n" +
-//                "                    the location of a tornado even if a funnel is not visible. Tornadoes generally occur near the trailing edge \n" +
-//                "                    of a thunderstorm. It is not uncommon to see clear, sunlit skies behind a tornado.\n" +
-//                "                    <br /><br />\n" +
-//                "                    The following are facts about tornadoes:\n" +
                 "\n" +
                 "                    <ul>\n" +
                 "                        <li> 1. Wisconsin averages 23 tornadoes a year.<br /li><br></br>\n" +
