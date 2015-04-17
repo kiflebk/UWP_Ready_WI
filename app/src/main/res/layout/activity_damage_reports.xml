@@ -215,11 +215,12 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
+                android:inputType="number|numberDecimal"
                 android:ems="10"
                 android:id="@+id/insurDeductAmt"
                 android:hint="Put 0.00 if not Insured"
-                android:editable="false" />
+                android:editable="false"
+                android:numeric="decimal" />
 
             <Space
                 android:layout_width="match_parent"
@@ -236,7 +237,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:inputType="numberDecimal"
+                android:inputType="number|numberDecimal"
                 android:hint="14000.43"
                 android:ems="10"
                 android:id="@+id/lossEdit"
