@@ -45,49 +45,43 @@ public class Prep_Main extends ActionBarActivity {
                 String disasterPicked = "You selected " + x;
                 Toast.makeText(Prep_Main.this, disasterPicked, Toast.LENGTH_SHORT).show();
 
-                if (x.equals("Custom List")) {
-                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    Intent i = new Intent(Prep_Main.this, Checklist.class);
-                    Prep_Main.this.startActivity(i);
-                } else if (x.equals("Make A Plan")) {
-                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//                    Intent i = new Intent(Prep_Main.this, Plan.class);
-//                    Prep_Main.this.startActivity(i);
-                    AlertDialog dialog = buildDialog(x);
-                    dialog.show();
-                } else if (x.equals("Volunteer")) {
-                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                switch (x) {
+                    case "Custom List":
+                        Intent i = new Intent(Prep_Main.this, Checklist.class);
+                        Prep_Main.this.startActivity(i);
+                        break;
+                    case "Make A Plan": {
+                        AlertDialog dialog = buildDialog(x);
+                        dialog.show();
+                        break;
+                    }
+                    case "Volunteer":
+                        //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //TODO Add volunteer activity
 //                    Intent i = new Intent(Prep_Main.this, Volunteer.class);
 //                    Prep_Main.this.startActivity(i);
-                } else if (x.equals("Build A Kit")) {
-                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//                    Intent i = new Intent(Prep_Main.this, Build_Kits.class);
-//                    Prep_Main.this.startActivity(i);
-                    AlertDialog dialog = buildDialog(x);
-                    dialog.show();
-                }// else if (x.equals("Emergency Map")) {
-//                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//                    Intent i = new Intent(Emergency.this, Emergency_Map.class);
-//                    Emergency.this.startActivity(i);
-//                } else if(x.equals("Social Media")){
-//                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//                    Intent i = new Intent(Emergency.this, Social_Media.class);
-//                    Emergency.this.startActivity(i);
-//                }
+                        break;
+                    case "Build A Kit": {
+                        AlertDialog dialog = buildDialog(x);
+                        dialog.show();
+                        break;
+                    }
+                }
             }
         });
     }
 
     private AlertDialog buildDialog(String type){
-        int list = 0, length = 0;
-        if (type.equals("Build A Kit"))
-            list = R.array.buildList;
-        else if (type.equals("Make A Plan"))
-            list = R.array.planList;
+        int list = 0;
         AlertDialog.Builder builder = new AlertDialog.Builder(Prep_Main.this);
-        builder.setTitle(R.string.supplyType)
-                .setItems(list, new DialogInterface.OnClickListener() {
+        if (type.equals("Build A Kit")) {
+            list = R.array.buildList;
+            builder.setTitle(R.string.supplyType);
+        } else if (type.equals("Make A Plan")) {
+            list = R.array.planList;
+            builder.setTitle(R.string.DisasterPlan);
+        }
+        builder.setItems(list, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(Prep_Main.this, "You chose " + which, Toast.LENGTH_SHORT).show();
