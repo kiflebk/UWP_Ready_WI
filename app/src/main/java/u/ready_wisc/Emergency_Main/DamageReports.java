@@ -70,6 +70,7 @@ public class DamageReports extends ActionBarActivity {
     static Location loc;
     static LocationListener locationListener;
     private AlertDialog.Builder alert;
+    RadioButton fireButton;
     RadioButton floodBox;
     RadioButton severeBox;
     RadioButton sewerBox;
@@ -89,6 +90,7 @@ public class DamageReports extends ActionBarActivity {
     EditText water_depth;
     RadioButton basement_resident;
     EditText damage_desc;
+    EditText insurDeductAmt;
     int disasterType;
     int rentOrOwned;
 
@@ -102,6 +104,7 @@ public class DamageReports extends ActionBarActivity {
         imgTakenPhoto = (ImageView) findViewById(R.id.imageview1);
         text9 = (EditText) findViewById(R.id.dateEdit);
         btnSubmit = (Button) findViewById(R.id.submitbutton);
+        fireButton = (RadioButton) findViewById(R.id.fireButton);
         floodBox = (RadioButton)findViewById(R.id.floodBox);
         severeBox = (RadioButton)findViewById(R.id.severeBox);
         sewerBox = (RadioButton)findViewById(R.id.sewerBox);
@@ -123,6 +126,7 @@ public class DamageReports extends ActionBarActivity {
         damage_desc = (EditText)findViewById(R.id.damageEdit);
         btnTakePhoto.setOnClickListener(new btnTakenPhotoClicker());
         btnSubmit.setOnClickListener(new btnSubmit());
+        insurDeductAmt = (EditText) findViewById(R.id.insurDeductAmt);
 
 
         //This line is used to hide keyboard on startup.
@@ -236,13 +240,21 @@ public class DamageReports extends ActionBarActivity {
                 disasterType = 1;
             else if (checked(sewerBox) == 0)
                 disasterType = 2;
-            else
+            else if (checked(fireButton) == 0)
                 disasterType = 3;
+            else
+                disasterType = 4;
 
             if (checked(own) == 0)
                 rentOrOwned = 0;
             else if(checked(rent) == 0)
                 rentOrOwned = 1;
+
+            //If amount is left blank assume there is no insurance
+            if (insurDeductAmt.getText().toString() == null) {
+                insurDeductAmt.setText("0.00");
+            }
+
 
             try {
 
@@ -261,6 +273,7 @@ public class DamageReports extends ActionBarActivity {
 //                obj.put("own", checked(own));
 //                obj.put("rent", checked(rent));
                 obj.put("own_or_rent", rentOrOwned);
+                obj.put("Insurance Deductible", insurDeductAmt);
                 obj.put("damage_cost", damageCost.getText().toString());
                 obj.put("loss_percent", loss_percent.getText().toString() );
                 obj.put("habitable", checked(habitable));
