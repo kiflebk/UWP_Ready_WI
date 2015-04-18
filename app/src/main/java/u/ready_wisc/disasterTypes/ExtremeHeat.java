@@ -11,12 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import rss.RssFragment;
 import u.ready_wisc.R;
 
 /**
  * Created by OZAN on 3/14/2015.
- *
+ * <p/>
  * EXTREME HEAT INFO
  */
 public class ExtremeHeat extends ActionBarActivity {
@@ -134,10 +133,7 @@ public class ExtremeHeat extends ActionBarActivity {
                 "                </div>\n </body>"));
 
         Button getDesc = (Button) findViewById(R.id.heatDesc);
-        //Intent intent = getIntent();
         final String link = "http://readywisconsin.wi.gov/media/pdf/Extreme_Heat.pdf";
-
-        //setContentView(textView);
 
         getDesc.setOnClickListener(new View.OnClickListener() {
             @Override
