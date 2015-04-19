@@ -18,6 +18,7 @@ import u.ready_wisc.myAdapter;
 /**
  * Created by OZAN on 3/15/2015.
  * Its called let get this shit done son!
+ * "It's called let's get this shit done son!" - You're welcome.
  */
 public class Build_Kits extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
