@@ -17,8 +17,10 @@ import u.ready_wisc.myAdapter;
 
 /**
  * Created by OZAN on 3/15/2015.
- * Its called let get this shit done son!
- * "It's called let's get this shit done son!" - You're welcome.
+ * Activity that displays a list of options to prepare for emergencies.
+ *
+ * Each list item is clickable resulting in a pop up for that category.
+ * From there you are able to select a specific List an see the items
  */
 public class Build_Kits extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {

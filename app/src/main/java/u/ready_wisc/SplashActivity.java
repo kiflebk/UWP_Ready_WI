@@ -26,10 +26,10 @@ public class SplashActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mDatabaseHelper = new MyDatabaseHelper(this);
-        mDatabaseHelper.onUpgrade(mDatabaseHelper.getReadableDatabase(),0,1);
+        mDatabaseHelper.onUpgrade(mDatabaseHelper.getReadableDatabase(), 0, 1);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
-       // Pushbots.sharedInstance().init(this);
+
 
         if (isOnline()) {
             DBUpdateFromWeb foo = new DBUpdateFromWeb();
@@ -46,21 +46,25 @@ public class SplashActivity extends ActionBarActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this,CountyPicker.class);
-                SplashActivity.this.startActivity(intent);
+
+                if (CountyPicker.countyIdCode != null) {
+                    Intent intent = new Intent(SplashActivity.this, MenuActivity.class);
+                    SplashActivity.this.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(SplashActivity.this, CountyPicker.class);
+                    SplashActivity.this.startActivity(intent);
+                }
+
                 splashClose = true;
-//                Intent mainIntent = new Intent(SplashActivity.this, MenuActivity.class);
-//                SplashActivity.this.startActivity(mainIntent);
-//                SplashActivity.this.finish();
             }
         }, time);
 
     }
 
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         if (splashClose)
-        SplashActivity.this.finish();
+            SplashActivity.this.finish();
     }
 
     // returns true or false based on if device has an internet connection.

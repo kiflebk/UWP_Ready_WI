@@ -31,48 +31,46 @@
                 android:id="@+id/occuranceLabel"
                 android:layout_weight="1" />
 
-            <GridLayout
-                android:layout_width="fill_parent"
+            <RadioGroup
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1">
 
-                <CheckBox
+                <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/flood"
                     android:id="@+id/floodBox"
-                    android:layout_row="0"
-                    android:layout_column="0"
                     android:checked="false" />
 
-                <CheckBox
+                <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/svr"
                     android:id="@+id/severeBox"
-                    android:layout_row="0"
-                    android:layout_column="1"
                     android:checked="false" />
 
-                <CheckBox
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fire"
+                    android:id="@+id/fireButton" />
+
+                <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/sewer"
                     android:id="@+id/sewerBox"
-                    android:layout_row="1"
-                    android:layout_column="0"
                     android:checked="false" />
 
-                <CheckBox
+                <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/other"
                     android:id="@+id/otherBox"
-                    android:layout_row="1"
-                    android:layout_column="1"
                     android:checked="false" />
 
-            </GridLayout>
+            </RadioGroup>
 
             <Space
                 android:layout_width="match_parent"
@@ -181,31 +179,48 @@
                 android:id="@+id/rentLabel"
                 android:layout_weight="1" />
 
-            <GridLayout
+            <RadioGroup
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-                <CheckBox
+                <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/own"
                     android:id="@+id/ownBox"
-                    android:layout_row="0"
-                    android:layout_column="0"
-                    android:checked="false"
-                    android:layout_columnSpan="2" />
+                    android:checked="false" />
 
-                <CheckBox
+                <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/rent"
                     android:id="@+id/rentBox"
-                    android:layout_row="0"
-                    android:layout_column="2"
                     android:checked="false" />
 
-            </GridLayout>
+            </RadioGroup>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="@string/RuInsured"
+                android:id="@+id/insuranceDeduct"
+                android:layout_weight="1" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number|numberDecimal"
+                android:ems="10"
+                android:id="@+id/insurDeductAmt"
+                android:hint="Put 0.00 if not Insured"
+                android:editable="false"
+                android:numeric="decimal" />
 
             <Space
                 android:layout_width="match_parent"
@@ -222,7 +237,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:inputType="numberDecimal"
+                android:inputType="number|numberDecimal"
                 android:hint="14000.43"
                 android:ems="10"
                 android:id="@+id/lossEdit"
@@ -249,28 +264,25 @@
                 android:text="@string/habitable"
                 android:id="@+id/habitLabel" />
 
-            <GridLayout
+            <RadioGroup
                 android:layout_width="match_parent"
-                android:layout_height="34dp">
+                android:layout_height="34dp"
+                android:orientation="horizontal">
 
-                <CheckBox
+                <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/yes"
                     android:id="@+id/habitBoxYes"
-                    android:layout_row="0"
-                    android:layout_column="0"
                     android:checked="false" />
 
-                <CheckBox
+                <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/no"
                     android:id="@+id/habitBoxNo"
-                    android:layout_row="0"
-                    android:layout_column="1"
                     android:checked="false" />
-            </GridLayout>
+            </RadioGroup>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -278,28 +290,25 @@
                 android:text="@string/water"
                 android:id="@+id/waterLabel" />
 
-            <GridLayout
+            <RadioGroup
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                <CheckBox
+                <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/yes"
                     android:id="@+id/waterBoxYes"
-                    android:layout_row="0"
-                    android:layout_column="0"
                     android:checked="false" />
 
-                <CheckBox
+                <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/no"
                     android:id="@+id/waterBoxNo"
-                    android:layout_row="0"
-                    android:layout_column="1"
                     android:checked="false" />
-            </GridLayout>
+            </RadioGroup>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -321,28 +330,25 @@
                 android:text="@string/family"
                 android:id="@+id/familyLabel" />
 
-            <GridLayout
+            <RadioGroup
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-                <CheckBox
+                <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/yes"
                     android:id="@+id/familyBoxYes"
-                    android:layout_row="0"
-                    android:layout_column="0"
                     android:checked="false" />
 
-                <CheckBox
+                <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/no"
                     android:id="@+id/familyBoxNo"
-                    android:layout_row="0"
-                    android:layout_column="1"
                     android:checked="false" />
-            </GridLayout>
+            </RadioGroup>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -366,9 +372,10 @@
 
             <ImageView
                 android:id="@+id/imageview1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="centerCrop" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                />
 
             <Button
                 android:id="@+id/submitbutton"

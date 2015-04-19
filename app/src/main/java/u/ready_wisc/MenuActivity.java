@@ -21,9 +21,6 @@ import android.widget.ImageButton;
 
 import com.pushbots.push.Pushbots;
 
-import java.io.IOException;
-
-import edu.parkside.cs.checklist.Checklist;
 import rss.RssFragment;
 import u.ready_wisc.BePrepared.Prep_Main;
 import u.ready_wisc.Emergency_Main.Emergency;
@@ -41,6 +38,8 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
     PackageManager pm;
 
     @Override
+
+    //testing new branch
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainmenu);
@@ -51,12 +50,13 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
             addRssFragment();
         }
 
+        context = getApplicationContext();
+
         // checks to see if the media player object exists
         // if it does exist a new object is not created
         if (!isSosToneOn)
             mp = MediaPlayer.create(context, R.raw.sos_sound);
 
-        context = getApplicationContext();
         pm = context.getPackageManager();
         disasterButton = (Button) findViewById(R.id.typeDisasterButton);
         resourcesbutton = (Button) findViewById(R.id.disasterResourcesButton);

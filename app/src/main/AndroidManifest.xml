@@ -33,9 +33,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus"/>
 
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
 
     <!--Above are all permissions for the app -->
@@ -100,7 +100,7 @@
                 android:value=".disasterTypes.DisastersType" />
         </activity>
 
-        <!--This activity is for Winter Storms when user selects tornado-->
+        <!--This activity is for Winter Storms when user selects-->
         <activity
             android:name=".disasterTypes.WinterStorm"
             android:label="Winter Storms"
@@ -110,7 +110,7 @@
                 android:value=".disasterTypes.DisastersType" />
         </activity>
 
-        <!--This activity is for Terrorism when user selects tornado-->
+        <!--This activity is for Terrorism when user selects -->
         <activity
             android:name=".disasterTypes.Terrorism"
             android:label="Terrorism"
@@ -120,7 +120,7 @@
                 android:value=".disasterTypes.DisastersType" />
         </activity>
 
-        <!--This activity is for Pendemic when user selects tornado-->
+        <!--This activity is for Pendemic when user selects -->
         <activity
             android:name=".disasterTypes.PublicHealthEmergency"
             android:label="Public Health Emergency"
@@ -130,7 +130,7 @@
                 android:value=".disasterTypes.DisastersType" />
         </activity>
 
-        <!--This activity is for Power Loss when user selects tornado-->
+        <!--This activity is for Power Loss when user selects -->
         <activity
             android:name=".disasterTypes.PowerOutage"
             android:label="Power Outage"
@@ -140,7 +140,7 @@
                 android:value=".disasterTypes.DisastersType" />
         </activity>
 
-        <!--This activity is for Floods when user selects tornado-->
+        <!--This activity is for Floods when user selects -->
         <activity
             android:name=".disasterTypes.Flood"
             android:label="Flood"
@@ -150,7 +150,7 @@
                 android:value=".disasterTypes.DisastersType" />
         </activity>
 
-        <!--This activity is for Fire/WildFIre when user selects tornado-->
+        <!--This activity is for Fire/WildFIre when user selects -->
         <activity
             android:name=".disasterTypes.Fire"
             android:label="Fire/Wild Fire"
@@ -160,7 +160,7 @@
                 android:value=".disasterTypes.DisastersType" />
         </activity>
 
-        <!--This activity is for Thunder storms when user selects tornado-->
+        <!--This activity is for Thunder storms when user selects -->
         <activity
             android:name=".disasterTypes.ThunderStorm"
             android:label="Thunder Storms"
@@ -170,7 +170,7 @@
                 android:value=".disasterTypes.DisastersType" />
         </activity>
 
-        <!--This activity is for Extreme Heat when user selects tornado-->
+        <!--This activity is for Extreme Heat when user selects -->
         <activity
             android:name=".disasterTypes.ExtremeHeat"
             android:label="Extreme Heat"
@@ -180,10 +180,10 @@
                 android:value=".disasterTypes.DisastersType" />
         </activity>
 
-        <!--This activity is for Bomb Threat when user selects tornado-->
+        <!--This activity is for Bomb Threat when user selects-->
         <activity
             android:name=".disasterTypes.BombThreat"
-            android:label="Thunder Storms"
+            android:label="Bomb Threats"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -220,7 +220,7 @@
                 android:value="u.ready_wisc.MenuActivity" />
         </activity>
 
-        <!--This activity I don't know what hell its for -->
+        <!--This activity I don't know what  its for -->
         <activity
             android:name=".MainActivity"
             android:label="Disaster Resources1221"
@@ -249,7 +249,7 @@
 
         <activity
             android:name=".BePrepared.Prep_Main"
-            android:label="Prepare Now Rather Than Later"
+            android:label="Prepare Now"
             android:parentActivityName=".MenuActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
