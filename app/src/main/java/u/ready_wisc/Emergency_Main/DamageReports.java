@@ -40,6 +40,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Locale;
+
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentActivity;
 import android.widget.TextView;
@@ -106,25 +107,25 @@ public class DamageReports extends ActionBarActivity {
         text9 = (EditText) findViewById(R.id.dateEdit);
         btnSubmit = (Button) findViewById(R.id.submitbutton);
         fireButton = (RadioButton) findViewById(R.id.fireButton);
-        floodBox = (RadioButton)findViewById(R.id.floodBox);
-        severeBox = (RadioButton)findViewById(R.id.severeBox);
-        sewerBox = (RadioButton)findViewById(R.id.sewerBox);
-        otherBox = (RadioButton)findViewById(R.id.otherBox);
+        floodBox = (RadioButton) findViewById(R.id.floodBox);
+        severeBox = (RadioButton) findViewById(R.id.severeBox);
+        sewerBox = (RadioButton) findViewById(R.id.sewerBox);
+        otherBox = (RadioButton) findViewById(R.id.otherBox);
         date = (EditText) findViewById(R.id.dateEdit);
-        name = (EditText)findViewById(R.id.nameEdit);
-        address = (EditText)findViewById(R.id.addressEdit);
-        city = (EditText)findViewById(R.id.cityEdit);
-        state = (EditText)findViewById(R.id.stateEdit);
-        zip = (EditText)findViewById(R.id.zipEdit);
-        own = (RadioButton)findViewById(R.id.ownBox);
-        rent = (RadioButton)findViewById(R.id.rentBox);
-        damageCost = (EditText)findViewById(R.id.lossEdit);
-        loss_percent = (EditText)findViewById(R.id.percentEdit);
-        habitable = (RadioButton)findViewById(R.id.habitBoxYes);
-        basement_water = (RadioButton)findViewById(R.id.waterBoxYes);
-        water_depth = (EditText)findViewById(R.id.yesWaterEdit);
-        basement_resident = (RadioButton)findViewById(R.id.familyBoxYes);
-        damage_desc = (EditText)findViewById(R.id.damageEdit);
+        name = (EditText) findViewById(R.id.nameEdit);
+        address = (EditText) findViewById(R.id.addressEdit);
+        city = (EditText) findViewById(R.id.cityEdit);
+        state = (EditText) findViewById(R.id.stateEdit);
+        zip = (EditText) findViewById(R.id.zipEdit);
+        own = (RadioButton) findViewById(R.id.ownBox);
+        rent = (RadioButton) findViewById(R.id.rentBox);
+        damageCost = (EditText) findViewById(R.id.lossEdit);
+        loss_percent = (EditText) findViewById(R.id.percentEdit);
+        habitable = (RadioButton) findViewById(R.id.habitBoxYes);
+        basement_water = (RadioButton) findViewById(R.id.waterBoxYes);
+        water_depth = (EditText) findViewById(R.id.yesWaterEdit);
+        basement_resident = (RadioButton) findViewById(R.id.familyBoxYes);
+        damage_desc = (EditText) findViewById(R.id.damageEdit);
         btnTakePhoto.setOnClickListener(new btnTakenPhotoClicker());
         btnSubmit.setOnClickListener(new btnSubmit());
         insurDeductAmt = (EditText) findViewById(R.id.insurDeductAmt);
@@ -165,7 +166,7 @@ public class DamageReports extends ActionBarActivity {
     }
 
     //Method that would use the location every time it is changed.
-    public void makeUseOfNewLocation(Location location){
+    public void makeUseOfNewLocation(Location location) {
 
     }
 
@@ -196,16 +197,16 @@ public class DamageReports extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == CAM_REQUEST){
+        if (requestCode == CAM_REQUEST) {
             Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
             imgTakenPhoto.setImageBitmap(thumbnail);
         }
     }
 
     /*Class for button click of the "submit" button.*/
-    class btnSubmit implements Button.OnClickListener{
+    class btnSubmit implements Button.OnClickListener {
 
-        public void onClick(View v){
+        public void onClick(View v) {
 
             try {
 
@@ -215,25 +216,25 @@ public class DamageReports extends ActionBarActivity {
                 String rep = putDataToServer(Config.URL_REPORT, jObject);
 
                 Toast.makeText(getApplicationContext(), rep, Toast.LENGTH_LONG).show();
-            }
-            catch (Throwable e){
+            } catch (Throwable e) {
 
             }
 
         }
 
         //method to check if radio boxes are checked.
-        public int checked(RadioButton r){
+        public int checked(RadioButton r) {
             //return 1 if not checked.
             int checked = 1;
             //return 0 if checked.
-            if(r.isChecked())
+            if (r.isChecked())
                 checked = 0;
 
             return checked;
         }
+
         //Method to create a JSONObject that holds the contents of the form
-        public JSONObject createJObject(){
+        public JSONObject createJObject() {
             JSONObject obj = new JSONObject();
 
             //Insert damage report fields into JSONObject.
@@ -252,7 +253,7 @@ public class DamageReports extends ActionBarActivity {
 
             if (checked(own) == 0)
                 rentOrOwned = 0;
-            else if(checked(rent) == 0)
+            else if (checked(rent) == 0)
                 rentOrOwned = 1;
 
             //If amount is left blank assume there is no insurance
@@ -264,27 +265,21 @@ public class DamageReports extends ActionBarActivity {
             try {
 
                 obj.put("deviceid", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
-//                obj.put("flood", checked(floodBox));
-//                obj.put("severe_storm", checked(severeBox));
-//                obj.put("sewer", checked(sewerBox));
-//                obj.put("other", checked(otherBox));
                 obj.put("type_of_occurrence", disasterType);
-                obj.put("date",  date.getText().toString());
-                obj.put("name",name.getText().toString() );
+                obj.put("date", date.getText().toString());
+                obj.put("name", name.getText().toString());
                 obj.put("address", address.getText().toString());
                 obj.put("city", city.getText().toString());
                 obj.put("add_state", state.getText().toString());
                 obj.put("zip", zip.getText().toString());
-//                obj.put("own", checked(own));
-//                obj.put("rent", checked(rent));
                 obj.put("own_or_rent", rentOrOwned);
                 obj.put("Insurance Deductible", insurDeductAmt);
                 obj.put("damage_cost", damageCost.getText().toString());
-                obj.put("loss_percent", loss_percent.getText().toString() );
+                obj.put("loss_percent", loss_percent.getText().toString());
                 obj.put("habitable", checked(habitable));
                 obj.put("basement_water", checked(basement_water));
                 obj.put("water_depth", water_depth.getText().toString());
-                obj.put("basement_resident", checked(basement_resident) );
+                obj.put("basement_resident", checked(basement_resident));
                 obj.put("damage_desc", damage_desc.getText().toString());
                 obj.put("longitude", loc.getLongitude());
                 obj.put("latitude", loc.getLatitude());
@@ -292,12 +287,11 @@ public class DamageReports extends ActionBarActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            return  obj;
+            return obj;
         }
 
         //Method to send data to server via HTTP Post
-        public  String putDataToServer(String url,JSONObject json) throws Throwable
-        {
+        public String putDataToServer(String url, JSONObject json) throws Throwable {
 
 
             DefaultHttpClient httpclient = new DefaultHttpClient();
@@ -309,8 +303,7 @@ public class DamageReports extends ActionBarActivity {
             StringEntity entity = new StringEntity(json.toString());
 
             entity.setContentType("application/json;charset=UTF-8");
-            entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE,"application/json;charset=UTF-8"));
-
+            entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
 
 
             request.setEntity(entity);
@@ -318,15 +311,13 @@ public class DamageReports extends ActionBarActivity {
             HttpResponse response = null;
 
 
-            HttpConnectionParams.setSoTimeout(httpclient.getParams(),   10000);
+            HttpConnectionParams.setSoTimeout(httpclient.getParams(), 10000);
             HttpConnectionParams.setConnectionTimeout(httpclient.getParams(), 10000);
-            try{
+            try {
                 Log.d("Sending report", url);
                 response = httpclient.execute(request);
-            }
-            catch(SocketException se)
-            {
-                Log.e("SocketException", se+"");
+            } catch (SocketException se) {
+                Log.e("SocketException", se + "");
                 throw se;
             }
 
@@ -334,7 +325,7 @@ public class DamageReports extends ActionBarActivity {
             InputStream in = response.getEntity().getContent();
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             String line = null;
-            while((line = reader.readLine()) != null){
+            while ((line = reader.readLine()) != null) {
                 sb.append(line);
 
             }
@@ -345,7 +336,7 @@ public class DamageReports extends ActionBarActivity {
     }
 
     /*Class for button click of the "take photo" button.*/
-    class btnTakenPhotoClicker implements Button.OnClickListener{
+    class btnTakenPhotoClicker implements Button.OnClickListener {
 
         //What to do on click.
         @Override
@@ -362,7 +353,7 @@ public class DamageReports extends ActionBarActivity {
     }
 
     /*Class to create a date picker fragment.*/
-    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
+    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
         //Method that sets default date on creation of the date picker.
         @Override
@@ -380,16 +371,16 @@ public class DamageReports extends ActionBarActivity {
         //Method to set the text field for date to the user picked date.
         @Override
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            DamageReports.text9.setText(month+1 + "/" + day + "/" + year);
+            DamageReports.text9.setText(month + 1 + "/" + day + "/" + year);
         }
     }
 
     /*Class to show the dialog on press of the submit button.*/
-    public static class ShowLocationFragment extends DialogFragment{
+    public static class ShowLocationFragment extends DialogFragment {
 
         //Method that will make everything upon creation of the fragment.
         @Override
-        public Dialog onCreateDialog (Bundle savedInstanceState){
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the Builder class for convenient dialog construction
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
