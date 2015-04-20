@@ -25,23 +25,23 @@ public class SplashActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mDatabaseHelper = new MyDatabaseHelper(this);
-        mDatabaseHelper.onUpgrade(mDatabaseHelper.getReadableDatabase(), 0, 1);
+        //mDatabaseHelper = new MyDatabaseHelper(this);
+        //mDatabaseHelper.onUpgrade(mDatabaseHelper.getReadableDatabase(), 0, 1);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
-
-        if (isOnline()) {
-            DBUpdateFromWeb foo = new DBUpdateFromWeb();
-            Thread t = new Thread(foo);
-
-            t.start();
-            try {
-                t.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+//TODO implement database update feature
+//        if (isOnline()) {
+//            DBUpdateFromWeb foo = new DBUpdateFromWeb();
+//            Thread t = new Thread(foo);
+//
+//            t.start();
+//            try {
+//                t.join();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
         new Handler().postDelayed(new Runnable() {
             @Override
