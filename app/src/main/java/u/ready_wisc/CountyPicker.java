@@ -49,17 +49,27 @@ public class CountyPicker extends Activity implements AdapterViewCompat.OnItemSe
                 // County codes are located in config file for
                 // easy updating and additions
                 if (countyInt == 0)
-                    countyIdCode = Config.RSS_KENOSHA;
-                else if (countyInt == 1)
-                    countyIdCode = Config.RSS_RACINE;
-                else if (countyInt == 2)
-                    countyIdCode = Config.RSS_MILWAUKEE;
-                else if (countyInt == 3)
-                    countyIdCode = Config.RSS_ROCK;
-                else if (countyInt == 4)
                     countyIdCode = Config.RSS_DANE;
+                else if (countyInt == 1)
+                    countyIdCode = Config.RSS_JEFFERSON;
+                else if (countyInt == 2)
+                    countyIdCode = Config.RSS_KENOSHA;
+                else if (countyInt == 3)
+                    countyIdCode = Config.RSS_MILWAUKEE;
+                else if (countyInt == 4)
+                    countyIdCode = Config.RSS_OZAUKEE;
                 else if (countyInt == 5)
+                    countyIdCode = Config.RSS_RACINE;
+                else if (countyInt == 6)
+                    countyIdCode = Config.RSS_ROCK;
+                else if (countyInt == 7)
                     countyIdCode = Config.RSS_SAUK;
+                else if (countyInt == 8)
+                    countyIdCode = Config.RSS_WALWORTH;
+                else if (countyInt == 9)
+                    countyIdCode = Config.RSS_WASHINGTON;
+                else if (countyInt == 10)
+                    countyIdCode = Config.RSS_WAUKESHA;
                 startUI(getCurrentFocus());
             }
         });
