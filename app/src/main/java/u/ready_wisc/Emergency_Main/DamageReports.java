@@ -60,7 +60,7 @@ import org.json.JSONStringer;
 import u.ready_wisc.Config;
 import u.ready_wisc.R;
 
-public class DamageReports extends ActionBarActivity {
+    public class DamageReports extends ActionBarActivity {
 
     //Variable declare.
     private static EditText text9;
