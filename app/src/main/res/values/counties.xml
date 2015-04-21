@@ -2,12 +2,17 @@
 <resources>
 
     <string-array name="county">
-        <item>Kenosha</item>
-        <item>Racine</item>
-        <item>Milwaukee</item>
-        <item>Rock</item>
         <item>Dane</item>
+        <item>Jefferson</item>
+        <item>Kenosha</item>
+        <item>Milwaukee</item>
+        <item>Ozaukee</item>
+        <item>Racine</item>
+        <item>Rock</item>
         <item>Sauk</item>
+        <item>Walworth</item>
+        <item>Washington</item>
+        <item>Waukesha</item>
 
     </string-array>
 

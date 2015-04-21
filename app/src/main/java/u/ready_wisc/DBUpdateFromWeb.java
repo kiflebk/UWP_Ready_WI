@@ -57,7 +57,7 @@ public class DBUpdateFromWeb implements Runnable{
                 asking for the info we need.  The url listed will display
                 the results in JSON format for java to read.
              */
-            HttpPost httppost = new HttpPost("http://piela.co/database/");
+            HttpPost httppost = new HttpPost("http://joshuaolufs.com/");
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             HttpResponse response = httpclient.execute(httppost);
             HttpEntity entity = response.getEntity();
