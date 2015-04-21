@@ -167,10 +167,6 @@ public class DamageReports extends ActionBarActivity {
 
     }
 
-    //Method that would use the location every time it is changed.
-    // public void makeUseOfNewLocation(Location location) {
-//
-    //}
 
 
     @Override
@@ -213,10 +209,8 @@ public class DamageReports extends ActionBarActivity {
             try {
 
                 JSONObject jObject = createJObject();
-                Toast.makeText(getApplicationContext(), "This is a test:   " + Config.URL_REPORT +
-                        "                                  " + (jObject.toString()), Toast.LENGTH_LONG).show();
-                Log.d("String URL", Config.URL_REPORT + (jObject.toString()));
-
+                Log.d("String URL:   ", Config.URL_REPORT);
+                Log.d("JSON OBJ:   ", jObject.toString());
                 // Something is wrong with putDataToServer method... this is why teh toast will not work.
                 // URL located in config file
                 String rep = (putDataToServer(Config.URL_REPORT, jObject));
@@ -272,7 +266,7 @@ public class DamageReports extends ActionBarActivity {
 
                 obj.put("deviceid", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
                 obj.put("type_of_occurrence", disasterType);
-                obj.put("date", text9.getText().toString());
+                obj.put("date", String.valueOf(text9.getText()));
                 obj.put("name", name.getText().toString());
                 obj.put("address", address.getText().toString());
                 obj.put("city", city.getText().toString());
