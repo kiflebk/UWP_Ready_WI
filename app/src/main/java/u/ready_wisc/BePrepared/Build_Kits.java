@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import u.ready_wisc.Emergency_Main.Volunteer;
+import u.ready_wisc.MenuActivity;
 import u.ready_wisc.R;
 import u.ready_wisc.myAdapter;
 
@@ -22,11 +23,12 @@ import u.ready_wisc.myAdapter;
  * Each list item is clickable resulting in a pop up for that category.
  * From there you are able to select a specific List an see the items
  */
+
 public class Build_Kits extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disaster_info_layout);
-
 
         String[] disasterList = {"Basic Supplies", "Sanitation Supplies", "Safety Supplies", "Pet Supplies", "Personal Items"};
 
@@ -39,16 +41,16 @@ public class Build_Kits extends ActionBarActivity {
         theListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String x = String.valueOf(parent.getItemAtPosition(position));
-                String disasterPicked = "You selected " + x;
-                Toast.makeText(Build_Kits.this, disasterPicked, Toast.LENGTH_SHORT).show();
+//                String x = String.valueOf(parent.getItemAtPosition(position));
+//                String disasterPicked = "You selected " + x;
+//                Toast.makeText(Build_Kits.this, disasterPicked, Toast.LENGTH_SHORT).show();
 
-//                if (x.equals("Custom List")) {
+//                if (x.equals("Basic Supplies")) {
 //                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//                    Intent i = new Intent(Prep_Main.this, Checklist.class);
-//                    Prep_Main.this.startActivity(i);
-//                }
-//                else if (x.equals("Make A Plan")) {
+//                     Intent i = new Intent(Build_Kits.this, MenuActivity.class);
+//                Build_Kits.this.startActivity(i);
+//            }
+//                elseif (x.equals("Make A Plan")) {
 //                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //                    Intent i = new Intent(Prep_Main.this, Plan.class);
 //                    Prep_Main.this.startActivity(i);

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="u.ready_wisc">
+    package="u.ready_wisc" >
 
     <uses-sdk android:minSdkVersion="11" />
 
-    <!--Below are all permissions for the App-->
+    <!-- Below are all permissions for the App -->
+
 
     <!-- GCM connects to Google Services. -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -17,10 +18,11 @@
     <permission
         android:name="u.ready_wisc.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="u.ready_wisc.permission.C2D_MESSAGE" />
     <!-- This app has permission to register and receive dataf message. -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <!--Above is used for push notifications permissions-->
+    <!-- Above is used for push notifications permissions -->
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission
@@ -37,220 +39,221 @@
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
-
-    <!--Above are all permissions for the app -->
-
+    <!-- Above are all permissions for the app -->
     <application
         android:allowBackup="true"
         android:icon="@drawable/alt_wi"
         android:label="@string/app_name"
         android:screenOrientation="portrait"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <service android:name="rss.RssService" />
 
-        <!-- TODO replaced line, need to ask client if original logo is okay
-                android:icon="@mipmap/ic_rw2" -->
+        <!--
+             TODO replaced line, need to ask client if original logo is okay
+                android:icon="@mipmap/ic_rw2"
+        -->
 
-        <!--THis activity is the first screen when app is launched -->
+
+        <!-- THis activity is the first screen when app is launched -->
         <activity
             android:name=".SplashActivity"
             android:label="Ready Badger"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!--This mini activity pops up on splash screen to allow user to choose county-->
+        <!-- This mini activity pops up on splash screen to allow user to choose county -->
         <activity
             android:name=".CountyPicker"
             android:label="@string/title_activity_county_picker"
             android:theme="@android:style/Theme.Holo.Dialog" />
 
-        <!--This is are REAL MAIN ACTIVITY EVERYONE -->
+        <!-- This is are REAL MAIN ACTIVITY EVERYONE -->
         <activity
             android:name=".MenuActivity"
             android:label="Ready Badger"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="u.ready_wisc.MESSAGE" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
-        <!--This activity is for a list for types of disasters-->
+        <!-- This activity is for a list for types of disasters -->
         <activity
             android:name=".disasterTypes.DisastersType"
             android:label="Types Of Disasters"
             android:parentActivityName=".MenuActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
         </activity>
 
-        <!--This activity is for Tornadoes when user selects tornado-->
+        <!-- This activity is for Tornadoes when user selects tornado -->
         <activity
             android:name=".disasterTypes.Tornado"
             android:label="Tornadoes"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".disasterTypes.DisastersType" />
         </activity>
 
-        <!--This activity is for Winter Storms when user selects-->
+        <!-- This activity is for Winter Storms when user selects -->
         <activity
             android:name=".disasterTypes.WinterStorm"
             android:label="Winter Storms"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".disasterTypes.DisastersType" />
         </activity>
 
-        <!--This activity is for Terrorism when user selects -->
+        <!-- This activity is for Terrorism when user selects -->
         <activity
             android:name=".disasterTypes.Terrorism"
             android:label="Terrorism"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".disasterTypes.DisastersType" />
         </activity>
 
-        <!--This activity is for Pendemic when user selects -->
+        <!-- This activity is for Pendemic when user selects -->
         <activity
             android:name=".disasterTypes.PublicHealthEmergency"
             android:label="Public Health Emergency"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".disasterTypes.DisastersType" />
         </activity>
 
-        <!--This activity is for Power Loss when user selects -->
+        <!-- This activity is for Power Loss when user selects -->
         <activity
             android:name=".disasterTypes.PowerOutage"
             android:label="Power Outage"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".disasterTypes.DisastersType" />
         </activity>
 
-        <!--This activity is for Floods when user selects -->
+        <!-- This activity is for Floods when user selects -->
         <activity
             android:name=".disasterTypes.Flood"
             android:label="Flood"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".disasterTypes.DisastersType" />
         </activity>
 
-        <!--This activity is for Fire/WildFIre when user selects -->
+        <!-- This activity is for Fire/WildFIre when user selects -->
         <activity
             android:name=".disasterTypes.Fire"
             android:label="Fire/Wild Fire"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".disasterTypes.DisastersType" />
         </activity>
 
-        <!--This activity is for Thunder storms when user selects -->
+        <!-- This activity is for Thunder storms when user selects -->
         <activity
             android:name=".disasterTypes.ThunderStorm"
             android:label="Thunder Storms"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".disasterTypes.DisastersType" />
         </activity>
 
-        <!--This activity is for Extreme Heat when user selects -->
+        <!-- This activity is for Extreme Heat when user selects -->
         <activity
             android:name=".disasterTypes.ExtremeHeat"
             android:label="Extreme Heat"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".disasterTypes.DisastersType" />
         </activity>
 
-        <!--This activity is for Bomb Threat when user selects-->
+        <!-- This activity is for Bomb Threat when user selects -->
         <activity
             android:name=".disasterTypes.BombThreat"
             android:label="Bomb Threats"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".disasterTypes.DisastersType" />
         </activity>
-
         <activity
             android:name=".Emergency_Main.Emergency"
             android:label="Emergency"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
         </activity>
 
-        <!--THis activity is for damage reports-->
+        <!-- THis activity is for damage reports -->
         <activity
             android:name=".Emergency_Main.DamageReports"
             android:label="Damage Reports"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="u.ready_wisc.Emergency_Main.Emergency" />
         </activity>
 
-        <!--This is for when disaster resources is clicked in menu activity-->
+        <!-- This is for when disaster resources is clicked in menu activity -->
         <activity
             android:name=".ResourcesActivity"
             android:label="Disaster Resources"
             android:parentActivityName=".MenuActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="u.ready_wisc.MenuActivity" />
         </activity>
 
-        <!--This activity I don't know what  its for -->
+        <!-- This activity I don't know what  its for -->
         <activity
             android:name=".MainActivity"
             android:label="Disaster Resources1221"
             android:parentActivityName=".MenuActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="u.ready_wisc.MenuActivity" />
         </activity>
 
-
-        <!--This activity is for the RSS FEED for weather/advisory alerts!!!!!!!!!-->
+        <!-- This activity is for the RSS FEED for weather/advisory alerts!!!!!!!!! -->
         <activity
             android:name=".RssActivity"
             android:label="@string/title_activity_rss"
-            android:parentActivityName=".MenuActivity">
+            android:parentActivityName=".MenuActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="u.ready_wisc.MenuActivity" />
         </activity>
 
+        <!-- All of this Checklist crap is broken an app crashes...I will build a better way to this -->
 
-        <!--All of this Checklist crap is broken an app crashes...I will build a better way to this-->
 
-        <!--This is the be prepared activity aka checklists-->
+        <!-- This is the be prepared activity aka checklists -->
 
         <activity
             android:name=".BePrepared.Prep_Main"
             android:label="Prepare Now"
-            android:parentActivityName=".MenuActivity">
+            android:parentActivityName=".MenuActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
@@ -258,7 +261,7 @@
         <activity
             android:name=".BePrepared.Build_Kits"
             android:label="Prepare Now Rather Than Later"
-            android:parentActivityName=".BePrepared.Prep_Main">
+            android:parentActivityName=".BePrepared.Prep_Main" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BePrepared.Prep_Main" />
@@ -266,7 +269,7 @@
         <activity
             android:name=".BePrepared.Plan"
             android:label="Prepare Now Rather Than Later"
-            android:parentActivityName=".BePrepared.Prep_Main">
+            android:parentActivityName=".BePrepared.Prep_Main" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BePrepared.Prep_Main" />
@@ -277,23 +280,23 @@
             android:parentActivityName=".BePrepared.Prep_Main"
             android:screenOrientation="portrait" />
 
-        <!--This activity shows listview of lists-->
+        <!-- This activity shows listview of lists -->
         <activity
             android:name="edu.parkside.cs.checklist.ChecklistItemListView"
             android:label="@string/title_activity_checklist__item_list_view"
             android:parentActivityName="edu.parkside.cs.checklist.Checklist"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.parkside.cs.checklist.Checklist" />
         </activity>
 
-        <!--activity to create a checklist-->
+        <!-- activity to create a checklist -->
         <activity
             android:name="edu.parkside.cs.checklist.ChecklistCreate"
             android:label="@string/title_activity_checklist__kit__create"
             android:parentActivityName="edu.parkside.cs.checklist.Checklist"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.parkside.cs.checklist.Checklist" />
@@ -302,18 +305,18 @@
             android:name="edu.parkside.cs.checklist.ChecklistCreateItemAdd"
             android:label="@string/title_activity_checklist__create__item__add"
             android:parentActivityName="edu.parkside.cs.checklist.ChecklistCreate"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.parkside.cs.checklist.ChecklistCreate" />
         </activity>
 
-        <!--allows you to create a item -->
+        <!-- allows you to create a item -->
         <activity
             android:name="edu.parkside.cs.checklist.ChecklistItemCreate"
             android:label="@string/title_activity_checklist__item__create"
             android:parentActivityName="edu.parkside.cs.checklist.ChecklistItemListView"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.parkside.cs.checklist.ChecklistItemListView" />
@@ -322,22 +325,23 @@
             android:name="edu.parkside.cs.checklist.ChecklistItemDetail"
             android:label="@string/title_activity_checklist__item__detail"
             android:parentActivityName="edu.parkside.cs.checklist.ChecklistItemListView"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.parkside.cs.checklist.ChecklistItemListView" />
         </activity>
 
-
-        <!--Below is all used for push notifications-->
+        <!-- Below is all used for push notifications -->
         <receiver
             android:name="com.pushbots.google.gcm.GCMBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND">
+            android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
+
                 <!-- Receives the actual messages. -->
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <!-- Receives the registration id. -->
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
                 <category android:name="u.ready_wisc" />
             </intent-filter>
         </receiver>
@@ -346,12 +350,17 @@
         <service android:name="com.pushbots.push.GCMIntentService" />
         <service
             android:name="org.openudid.OpenUDID_service"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
                 <action android:name="org.openudid.GETUDID" />
             </intent-filter>
         </service>
-        <!--Above is all used for push notifications -->
+        <!-- Above is all used for push notifications -->
 
+        <activity
+            android:name=".BePrepared.SanitationSupp"
+            android:label="@string/title_activity_sanitation_supp" >
+        </activity>
     </application>
+
 </manifest>

@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Ready Badger</string>
 
+    <string name="app_name">Ready Badger</string>
     <string name="dateof">Date of Occurrence</string>
     <string name="type">Type of Occurrence</string>
     <string name="name">Name</string>
@@ -17,7 +18,6 @@
     <string name="yeswater">If Yes, How Much in Inches</string>
     <string name="family">Does a Family Member Permanently Live and Sleep in the Basement?</string>
     <string name="description">Describe the Property Damage</string>
-
     <string name="flood">Flood</string>
     <string name="svr">Severe Storm</string>
     <string name="sewer">Sewer Backup</string>
@@ -26,12 +26,9 @@
     <string name="rent">Rent</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-
     <string name="photoButton">Photograph Damage</string>
     <string name="submit">Submit Report</string>
-
     <string name="action_settings">Settings</string>
-
     <string name="title_activity_checklist">Checklist</string>
     <string name="title_activity_checklist__item_list_view">CheckList Items</string>
     <string name="title_activity_checklist__item__create">Create Item</string>
@@ -61,13 +58,13 @@
     <string name="menu_checklist_edit">Edit Mode</string>
     <string name="title_activity_rss">Alerts and Warnings</string>
     <string name="title_activity_county_picker">CountyPicker</string>
-
     <string name="hello_world">Hello world!</string>
     <string name="supplyType">Supply Type</string>
     <string name="DisasterPlan">Disaster Plan</string>
     <string name="cancel">Cancel</string>
     <string name="okay">Okay</string>
     <string name="RuInsured">Your Insurance Deductible</string>
-
+    <string name="title_activity_poop">Poop</string>
+    <string name="title_activity_sanitation_supp">SanitationSupp</string>
 
 </resources>

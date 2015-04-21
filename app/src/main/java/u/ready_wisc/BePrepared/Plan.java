@@ -36,9 +36,9 @@ public class Plan extends ActionBarActivity {
         theListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String x = String.valueOf(parent.getItemAtPosition(position));
-                String disasterPicked = "You selected " + x;
-                Toast.makeText(Plan.this, disasterPicked, Toast.LENGTH_SHORT).show();
+//                String x = String.valueOf(parent.getItemAtPosition(position));
+//                String disasterPicked = "You selected " + x;
+//                Toast.makeText(Plan.this, disasterPicked, Toast.LENGTH_SHORT).show();
 
 //                if (x.equals("Custom List")) {
 //                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
