@@ -336,7 +336,7 @@ public class DamageReports extends ActionBarActivity {
 
             return sb.toString();
         }
-
+//this is a test
     }
 
     /*Class for button click of the "take photo" button.*/
