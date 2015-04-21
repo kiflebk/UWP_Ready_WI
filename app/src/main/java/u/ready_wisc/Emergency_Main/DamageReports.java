@@ -215,10 +215,12 @@ public class DamageReports extends ActionBarActivity {
                 JSONObject jObject = createJObject();
                 Toast.makeText(getApplicationContext(), "This is a test:   " + Config.URL_REPORT +
                         "                                  " + (jObject.toString()), Toast.LENGTH_LONG).show();
+                Log.d("String URL", Config.URL_REPORT + (jObject.toString()));
 
                 // Something is wrong with putDataToServer method... this is why teh toast will not work.
                 // URL located in config file
                 String rep = (putDataToServer(Config.URL_REPORT, jObject));
+                Toast.makeText(getApplicationContext(), rep, Toast.LENGTH_LONG).show();
 
             } catch (Throwable e) {
 
@@ -352,11 +354,12 @@ public class DamageReports extends ActionBarActivity {
 
     //Date picker method that will show the date picker.
     public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getFragmentManager(), "datepicker");
         InputMethodManager imm = (InputMethodManager) getSystemService( //hides keyboard since its not needed
                 Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(text9.getWindowToken(), 0);
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getFragmentManager(), "datepicker");
+
     }
 
     /*Class to create a date picker fragment.*/
@@ -382,35 +385,4 @@ public class DamageReports extends ActionBarActivity {
         }
     }
 
-    /*Class to show the dialog on press of the submit button.*/
-//    public static class ShowLocationFragment extends DialogFragment{
-//
-//        //Method that will make everything upon creation of the fragment.
-//        @Override
-//        public Dialog onCreateDialog(Bundle savedInstanceState) {
-//            // Use the Builder class for convenient dialog construction
-//            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//
-//            //Variables that will get lat and long from the Location object.
-//            double lat = loc.getLatitude();
-//            double longit = loc.getLongitude();
-//
-//            //Setting the builder to have a message and options for "okay" and "cancel".
-//            builder.setMessage("Latitude: " + Double.toString(lat) + " \nLongitude: " + Double.toString(longit))
-//                    .setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int id) {
-//                            // FIRE ZE MISSILES!
-//                            locationManager.removeUpdates(locationListener);
-//                        }
-//                    })
-//                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int id) {
-//                            // User cancelled the dialog
-//                            locationManager.removeUpdates(locationListener);
-//                        }
-//                    });
-//            // Create the AlertDialog object and return it
-//            return builder.create();
-//        }
-//    }
 }
