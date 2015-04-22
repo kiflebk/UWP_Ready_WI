@@ -1,6 +1,5 @@
 package rss;
 
-import android.util.Log;
 import android.util.Xml;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -10,8 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import rss.RssItem;
 
 /**
  * Created by piela_000 on 3/1/2015.
