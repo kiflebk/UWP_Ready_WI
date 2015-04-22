@@ -10,11 +10,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import u.ready_wisc.Config;
 import u.ready_wisc.R;
 
 /**
  * Created by OZAN on 3/14/2015.
- *
+ * <p/>
  * Info about BombThreats
  */
 public class BombThreat extends ActionBarActivity {
@@ -25,32 +27,17 @@ public class BombThreat extends ActionBarActivity {
         setContentView(R.layout.activity_bombthreat_info);
 
         t = (TextView) findViewById(R.id.textViewBombThreat);
-        t.setText(Html.fromHtml("<body><strong>BOMB THREATS</strong><br />\n" +
-                "\n" +
-                "<p> Most bomb threats are received by phone. Bomb threats are serious until proven " +
-                "otherwise. Act quickly, but \n" +
-                "remain calm and obtain information with the checklist from the download link below\n" +
-                "</p><br /> \n" +
-                "<strong>WHO TO CONTACT </strong><br />\n" +
-                "• Follow your local guidelines<br />\n" +
-                "• Federal Protective Service (FPS) Police\n" +
-                " 1-877-4-FPS-411 (1-877-437-7411)<br />" +
-                "• 911<br /><br /><br />\n" +
-
-                "Information Provided by the Department Of Homeland Security<br /><br />\n" +
-                "<ul>\n" +
-                "</body>"));
+        t.setText(Html.fromHtml(Config.BOMB_THREAT));
 
 
         Button getDesc = (Button) findViewById(R.id.bombFactButton);
-        final String link = "http://emilms.fema.gov/is906/assets/ocso-bomb_threat_samepage-brochure.pdf";
 
         //setContentView(textView);
 
         getDesc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse(link);
+                Uri uri = Uri.parse(Config.BOMB_LINK);
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
