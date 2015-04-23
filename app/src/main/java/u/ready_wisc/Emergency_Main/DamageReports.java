@@ -1,66 +1,41 @@
 package u.ready_wisc.Emergency_Main;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.http.AndroidHttpClient;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.provider.SyncStateContract;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.SimpleAdapter;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.SocketException;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Iterator;
-import java.util.Locale;
-
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentActivity;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONStringer;
+
+import java.util.Calendar;
 
 import u.ready_wisc.Config;
 import u.ready_wisc.R;
 
-    public class DamageReports extends ActionBarActivity {
+public class DamageReports extends ActionBarActivity {
 
     //Variable declare.
     private static EditText text9;
@@ -77,7 +52,7 @@ import u.ready_wisc.R;
     RadioButton severeBox;
     RadioButton sewerBox;
     RadioButton otherBox;
-    EditText date;
+    //EditText date;
     EditText name;
     EditText address;
     EditText city;
@@ -111,7 +86,7 @@ import u.ready_wisc.R;
         severeBox = (RadioButton) findViewById(R.id.severeBox);
         sewerBox = (RadioButton) findViewById(R.id.sewerBox);
         otherBox = (RadioButton) findViewById(R.id.otherBox);
-        date = (EditText) findViewById(R.id.dateEdit);
+        //date = (EditText) findViewById(R.id.dateEdit);
         name = (EditText) findViewById(R.id.nameEdit);
         address = (EditText) findViewById(R.id.addressEdit);
         city = (EditText) findViewById(R.id.cityEdit);
@@ -165,10 +140,6 @@ import u.ready_wisc.R;
 
     }
 
-    //Method that would use the location every time it is changed.
-    public void makeUseOfNewLocation(Location location) {
-
-    }
 
 
     @Override
@@ -211,11 +182,13 @@ import u.ready_wisc.R;
             try {
 
                 JSONObject jObject = createJObject();
-
+                Log.d("String URL:   ", Config.URL_REPORT);
+                Log.d("JSON OBJ:   ", jObject.toString());
+                // Something is wrong with putDataToServer method... this is why teh toast will not work.
                 // URL located in config file
-                String rep = putDataToServer(Config.URL_REPORT, jObject);
-
+                String rep = (putDataToServer(Config.URL_REPORT, jObject));
                 Toast.makeText(getApplicationContext(), rep, Toast.LENGTH_LONG).show();
+
             } catch (Throwable e) {
 
             }
@@ -266,7 +239,7 @@ import u.ready_wisc.R;
 
                 obj.put("deviceid", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
                 obj.put("type_of_occurrence", disasterType);
-                obj.put("date", date.getText().toString());
+                obj.put("date", String.valueOf(text9.getText()));
                 obj.put("name", name.getText().toString());
                 obj.put("address", address.getText().toString());
                 obj.put("city", city.getText().toString());
@@ -291,10 +264,33 @@ import u.ready_wisc.R;
         }
 
         //Method to send data to server via HTTP Post
-        public String putDataToServer(String url, JSONObject json) throws Throwable {
+        public String putDataToServer(String url, JSONObject json) throws Throwable{
 
+            PutData test = new PutData(url, json);
+            Thread t = new Thread(test);
+            t.start();
 
-            DefaultHttpClient httpclient = new DefaultHttpClient();
+//            Log.d("Data to server", "started");
+//            int TIMEOUT_MILLISEC = 10000;  // = 10 seconds
+//            DefaultHttpClient httpclient = new DefaultHttpClient();
+//            HttpPost httppostreq = new HttpPost("http://joshuaolufs.com/php/TESTquery_zipcodes.php");
+//            StringEntity se = new StringEntity(json.toString());
+//            //httppostreq.setEntity(new ByteArrayEntity(json.toString().getBytes("UTF8")));
+//            httppostreq.setEntity(se);
+//            HttpResponse httpresponse = httpclient.execute(httppostreq);
+//            String responseText = null;
+//
+//
+//            try {
+//                responseText = EntityUtils.toString(httpresponse.getEntity());
+//            }catch (ParseException e) {
+//                e.printStackTrace();
+//                Log.i("Parse Exception", e + "");
+//            }
+//
+//            Log.d("Response", responseText);
+//change
+/*            DefaultHttpClient httpclient = new DefaultHttpClient();
             HttpPost request = new HttpPost(url);
 
             StringBuilder sb = new StringBuilder();
@@ -330,9 +326,10 @@ import u.ready_wisc.R;
 
             }
 
-            return sb.toString();
+            return sb.toString();*/
+            return "hi";
         }
-
+//this is a test
     }
 
     /*Class for button click of the "take photo" button.*/
@@ -348,8 +345,12 @@ import u.ready_wisc.R;
 
     //Date picker method that will show the date picker.
     public void showDatePickerDialog(View v) {
+        InputMethodManager imm = (InputMethodManager) getSystemService( //hides keyboard since its not needed
+                Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(text9.getWindowToken(), 0);
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(), "datepicker");
+
     }
 
     /*Class to create a date picker fragment.*/
@@ -375,35 +376,4 @@ import u.ready_wisc.R;
         }
     }
 
-    /*Class to show the dialog on press of the submit button.*/
-    public static class ShowLocationFragment extends DialogFragment {
-
-        //Method that will make everything upon creation of the fragment.
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the Builder class for convenient dialog construction
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-            //Variables that will get lat and long from the Location object.
-            double lat = loc.getLatitude();
-            double longit = loc.getLongitude();
-
-            //Setting the builder to have a message and options for "okay" and "cancel".
-            builder.setMessage("Latitude: " + Double.toString(lat) + " \nLongitude: " + Double.toString(longit))
-                    .setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // FIRE ZE MISSILES!
-                            locationManager.removeUpdates(locationListener);
-                        }
-                    })
-                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // User cancelled the dialog
-                            locationManager.removeUpdates(locationListener);
-                        }
-                    });
-            // Create the AlertDialog object and return it
-            return builder.create();
-        }
-    }
 }

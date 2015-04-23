@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import edu.parkside.cs.checklist.Checklist;
 import u.ready_wisc.Emergency_Main.Volunteer;
-import u.ready_wisc.MenuActivity;
 import u.ready_wisc.R;
 import u.ready_wisc.myAdapter;
 
@@ -78,40 +77,16 @@ public class Prep_Main extends ActionBarActivity {
         if (type.equals("Build A Kit")) {
             list = R.array.buildList;
             builder.setTitle(R.string.supplyType);
-            builder.setItems(list, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // Basic supplies has been chosen
-                    if(which == 0) {
-                        Intent i = new Intent(Prep_Main.this, MenuActivity.class);
-                        Prep_Main.this.startActivity(i);
-                    }
-                    // Sanitation Supplies has been chosen
-                    else if(which == 1){
-                        Intent i = new Intent(Prep_Main.this, SanitationSupp.class);
-                        Prep_Main.this.startActivity(i);
-                    }
-                    // Safety Supplies has been chosen
-                    else if(which == 2){
-                        Intent i = new Intent(Prep_Main.this, MenuActivity.class);
-                        Prep_Main.this.startActivity(i);
-                    }
-                    // Pet Supplies has been chosen
-                    else if(which == 3){
-                        Intent i = new Intent(Prep_Main.this, MenuActivity.class);
-                        Prep_Main.this.startActivity(i);
-                    }
-                    // Personal Items has been chosen
-                    else if(which == 4){
-                        Intent i = new Intent(Prep_Main.this, MenuActivity.class);
-                        Prep_Main.this.startActivity(i);
-                    }
-                }
-            });
         } else if (type.equals("Make A Plan")) {
             list = R.array.planList;
             builder.setTitle(R.string.DisasterPlan);
         }
+        builder.setItems(list, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(Prep_Main.this, "You chose " + which, Toast.LENGTH_SHORT).show();
+                    }
+                });
         return builder.create();
     }
 
@@ -136,4 +111,6 @@ public class Prep_Main extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

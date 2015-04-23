@@ -3,19 +3,17 @@ package u.ready_wisc;
 /**
  * Created by kiflebk on 3/9/15.
  */
+
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.internal.widget.AdapterViewCompat;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import u.ready_wisc.Config;
 
 
 public class CountyPicker extends Activity implements AdapterViewCompat.OnItemSelectedListener {

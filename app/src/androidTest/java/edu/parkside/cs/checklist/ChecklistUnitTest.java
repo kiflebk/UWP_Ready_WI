@@ -1,7 +1,6 @@
 package edu.parkside.cs.checklist;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.test.ActivityUnitTestCase;
 import android.test.suitebuilder.annotation.MediumTest;

@@ -1,21 +1,17 @@
 package u.ready_wisc;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.content.Intent;
 import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class ResourcesActivity extends ActionBarActivity {
