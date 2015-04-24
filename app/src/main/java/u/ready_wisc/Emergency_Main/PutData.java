@@ -1,25 +1,15 @@
 package u.ready_wisc.Emergency_Main;
 
-import android.preference.PreferenceActivity;
 import android.util.Log;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
-
-import java.io.InputStream;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 /**
  * Copyright [2015] [University of Wisconsin - Parkside]
@@ -49,19 +39,15 @@ public class PutData implements Runnable {
     @Override
     public void run() {
 
+        char hello = (char) 92;
         try {
             Log.i("Thread JSON:", mainJSON.toString());
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost("http://www.joshuaolufs.com/php/query_damageReports_insert.php");
+            HttpPost httppost = new HttpPost("http://www.joshuaolufs.com/php/query_damageReports_insert.php?=" + mainJSON.toString().replace('{', ' ').replace('}',' ').replace(hello, ' ').trim().replace('"', ' ').replace(" ", "").replace(':','=').replace(',','&')) ;
             StringEntity se = new StringEntity(mainJSON.toString());
             Log.i("String Entity", mainJSON.toString());
             httppost.setEntity(se);
-
-            //set headers to let server know
-            httppost.setHeader("Accept", "application/json");
-            httppost.setHeader("Content-type", "application/json");
-
-            //execute post request
+            //httppost.setEntity(new ByteArrayEntity(mainJSON.toString().getBytes("UTF8")));
             HttpResponse response = httpclient.execute(httppost);
             HttpEntity entity = response.getEntity();
             Log.i("HTTP Response", EntityUtils.toString(entity));

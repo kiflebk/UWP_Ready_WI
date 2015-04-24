@@ -16,4 +16,26 @@
         <item>Evacuation Plan</item>
         <item>Shelter In Place</item>
     </array>
+    <array name="jsonKey">
+        <item>deviceid</item>
+        <item>type_of_occurrence</item>
+        <item>date</item>
+        <item>name</item>
+        <item>address</item>
+        <item>city</item>
+        <item>add_state</item>
+        <item>zip</item>
+        <item>own_or_rent</item>
+        <item>insurance_deductible</item>
+        <item>damage_cost</item>
+        <item>loss_percent</item>
+        <item>habitable</item>
+        <item>basement_water</item>
+        <item>water_depth</item>
+        <item>basement_resident</item>
+        <item>damage_desc</item>
+        <item>longitude</item>
+        <item>latitude</item>
+    </array>
+
 </resources>

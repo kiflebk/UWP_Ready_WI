@@ -52,6 +52,7 @@ public class DamageReports extends ActionBarActivity {
     RadioButton severeBox;
     RadioButton sewerBox;
     RadioButton otherBox;
+    //EditText date;
     EditText name;
     EditText address;
     EditText city;
@@ -183,7 +184,7 @@ public class DamageReports extends ActionBarActivity {
                 JSONObject jObject = createJObject();
                 Log.d("String URL:   ", Config.URL_REPORT);
                 Log.d("JSON OBJ:   ", jObject.toString());
-
+                // Something is wrong with putDataToServer method... this is why teh toast will not work.
                 // URL located in config file
                 String rep = (putDataToServer(Config.URL_REPORT, jObject));
                 Toast.makeText(getApplicationContext(), rep, Toast.LENGTH_LONG).show();
@@ -229,33 +230,32 @@ public class DamageReports extends ActionBarActivity {
                 rentOrOwned = 1;
 
             //If amount is left blank assume there is no insurance
-            if (insurDeductAmt.getText() == null || insurDeductAmt.getText().equals("")) {
+            if (insurDeductAmt.getText() == null) {
                 insurDeductAmt.setText("0.00");
             }
 
 
             try {
-                //build the json object
-                obj.accumulate("deviceid", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
-                obj.accumulate("type_of_occurrence", disasterType);
-                obj.accumulate("date", String.valueOf(text9.getText()));
-                obj.accumulate("name", name.getText().toString());
-                obj.accumulate("address", address.getText().toString());
-                obj.accumulate("city", city.getText().toString());
-                obj.accumulate("add_state", state.getText().toString());
-                obj.accumulate("zip", zip.getText().toString());
-                obj.accumulate("own_or_rent", rentOrOwned);
-                obj.accumulate("Insurance Deductible", insurDeductAmt);
-                obj.accumulate("damage_cost", damageCost.getText().toString());
-                obj.accumulate("loss_percent", loss_percent.getText().toString());
-                obj.accumulate("habitable", checked(habitable));
-                obj.accumulate("basement_water", checked(basement_water));
-                obj.accumulate("water_depth", water_depth.getText().toString());
-                obj.accumulate("basement_resident", checked(basement_resident));
-                obj.accumulate("damage_desc", damage_desc.getText().toString());
-                obj.accumulate("longitude", loc.getLongitude());
-                obj.accumulate("latitude", loc.getLatitude());
 
+                obj.put("deviceid", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
+                obj.put("type_of_occurrence", disasterType+"");
+                obj.put("date", String.valueOf(text9.getText()));
+                obj.put("name", name.getText().toString());
+                obj.put("address", address.getText().toString());
+                obj.put("city", city.getText().toString());
+                obj.put("add_state", state.getText().toString());
+                obj.put("zip", zip.getText().toString());
+                obj.put("own_or_rent", rentOrOwned+"");
+                obj.put("Insurance Deductible", insurDeductAmt+"");
+                obj.put("damage_cost", damageCost.getText().toString());
+                obj.put("loss_percent", loss_percent.getText().toString());
+                obj.put("habitable", checked(habitable)+"");
+                obj.put("basement_water", checked(basement_water)+"");
+                obj.put("water_depth", water_depth.getText().toString());
+                obj.put("basement_resident", checked(basement_resident)+"");
+                obj.put("damage_desc", damage_desc.getText().toString());
+                obj.put("longitude", loc.getLongitude()+"");
+                obj.put("latitude", loc.getLatitude()+"");
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -298,8 +298,8 @@ public class DamageReports extends ActionBarActivity {
 
             StringEntity entity = new StringEntity(json.toString());
 
-            //entity.setContentType("application/json;charset=UTF-8");
-           // entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
+            entity.setContentType("application/json;charset=UTF-8");
+            entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
 
 
             request.setEntity(entity);
@@ -329,6 +329,7 @@ public class DamageReports extends ActionBarActivity {
             return sb.toString();*/
             return "hi";
         }
+//this is a test
     }
 
     /*Class for button click of the "take photo" button.*/
