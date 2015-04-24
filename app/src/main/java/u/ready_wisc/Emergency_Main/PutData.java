@@ -43,7 +43,11 @@ public class PutData implements Runnable {
         try {
             Log.i("Thread JSON:", mainJSON.toString());
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost("http://www.joshuaolufs.com/php/query_damageReports_insert.php?=" + mainJSON.toString().replace('{', ' ').replace('}',' ').replace(hello, ' ').trim().replace('"', ' ').replace(" ", "").replace(':','=').replace(',','&')) ;
+
+            String url = "http://www.joshuaolufs.com/php/query_damageReports_insert.php?" + mainJSON.toString().replace('{', ' ').replace('}',' ').replace(hello, ' ').trim().replace('"', ' ').replace(" ", "").replace(':','=').replace(',','&');
+
+            Log.i("HTTP URL:", url);
+            HttpPost httppost = new HttpPost(url) ;
             StringEntity se = new StringEntity(mainJSON.toString());
             Log.i("String Entity", mainJSON.toString());
             httppost.setEntity(se);

@@ -246,7 +246,7 @@ public class DamageReports extends ActionBarActivity {
                 obj.put("add_state", state.getText().toString());
                 obj.put("zip", zip.getText().toString());
                 obj.put("own_or_rent", rentOrOwned+"");
-                obj.put("Insurance Deductible", insurDeductAmt+"");
+                obj.put("insurance_deductible", insurDeductAmt.getText().toString());
                 obj.put("damage_cost", damageCost.getText().toString());
                 obj.put("loss_percent", loss_percent.getText().toString());
                 obj.put("habitable", checked(habitable)+"");
