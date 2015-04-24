@@ -15,6 +15,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
+import java.io.InputStream;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -55,7 +56,12 @@ public class PutData implements Runnable {
             StringEntity se = new StringEntity(mainJSON.toString());
             Log.i("String Entity", mainJSON.toString());
             httppost.setEntity(se);
-            //httppost.setEntity(new ByteArrayEntity(mainJSON.toString().getBytes("UTF8")));
+
+            //set headers to let server know
+            httppost.setHeader("Accept", "application/json");
+            httppost.setHeader("Content-type", "application/json");
+
+            //execute post request
             HttpResponse response = httpclient.execute(httppost);
             HttpEntity entity = response.getEntity();
             Log.i("HTTP Response", EntityUtils.toString(entity));
