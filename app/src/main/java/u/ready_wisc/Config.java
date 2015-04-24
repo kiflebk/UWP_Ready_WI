@@ -1,9 +1,7 @@
 package u.ready_wisc;
+
 /**
  * Created by kiflebk on 4/17/15.
- *
- *
- *
  */
 public class Config {
 
@@ -31,10 +29,6 @@ public class Config {
     public static final String FLOOD_LINK = "http://readywisconsin.wi.gov/media/pdf/Flooding.pdf";
     public static final String THUNDER_LINK = "http://readywisconsin.wi.gov/media/pdf/Thunderstorms.pdf";
     public static final String WINTER_LINK = "http://readywisconsin.wi.gov/media/pdf/Winter_Handout.pdf";
-
-    // URL for sending damage report data
-    public static final String URL_REPORT = "http://www.joshuaolufs.com/php/query_damageReports_insert.php";
-
 
     // Disaster Type INFO
     public static final String TORNADO_INFO;
