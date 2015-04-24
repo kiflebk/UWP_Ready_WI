@@ -191,11 +191,10 @@ public class DamageReports extends ActionBarActivity {
             try {
 
                 JSONObject jObject = createJObject();
-                Log.d("String URL:   ", Config.URL_REPORT);
-                Log.d("JSON OBJ:   ", jObject.toString());
+
                 // Something is wrong with putDataToServer method... this is why teh toast will not work.
                 // URL located in config file
-                String rep = (putDataToServer(Config.URL_REPORT, jObject));
+                String rep = (putDataToServer(jObject));
                 Toast.makeText(getApplicationContext(), rep, Toast.LENGTH_LONG).show();
 
             } catch (Throwable e) {
@@ -273,9 +272,9 @@ public class DamageReports extends ActionBarActivity {
         }
 
         //Method to send data to server via HTTP Post
-        public String putDataToServer(String url, JSONObject json) throws Throwable{
+        public String putDataToServer(JSONObject json) throws Throwable {
 
-            PutData test = new PutData(url, json);
+            PutData test = new PutData(json);
             Thread t = new Thread(test);
             t.start();
 

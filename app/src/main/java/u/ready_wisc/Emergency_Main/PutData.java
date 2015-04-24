@@ -30,8 +30,8 @@ public class PutData implements Runnable {
     String mainURL;
     JSONObject mainJSON;
 
-    public PutData(String url, JSONObject json){
-        mainURL = url;
+    public PutData(JSONObject json) {
+
         mainJSON = json;
     }
 
