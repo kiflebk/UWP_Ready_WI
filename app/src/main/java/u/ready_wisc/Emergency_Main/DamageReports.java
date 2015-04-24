@@ -1,5 +1,16 @@
 package u.ready_wisc.Emergency_Main;
 
+
+/**
+ * This class builds damageReports
+ * THen calls a post method that will send
+ * the data to the sever as a HTTP GET.
+ *
+ *Future development will have to focus on
+ * switching to HTTP POST.
+ *
+ */
+
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -52,7 +63,6 @@ public class DamageReports extends ActionBarActivity {
     RadioButton severeBox;
     RadioButton sewerBox;
     RadioButton otherBox;
-    //EditText date;
     EditText name;
     EditText address;
     EditText city;
@@ -86,7 +96,6 @@ public class DamageReports extends ActionBarActivity {
         severeBox = (RadioButton) findViewById(R.id.severeBox);
         sewerBox = (RadioButton) findViewById(R.id.sewerBox);
         otherBox = (RadioButton) findViewById(R.id.otherBox);
-        //date = (EditText) findViewById(R.id.dateEdit);
         name = (EditText) findViewById(R.id.nameEdit);
         address = (EditText) findViewById(R.id.addressEdit);
         city = (EditText) findViewById(R.id.cityEdit);
@@ -239,21 +248,21 @@ public class DamageReports extends ActionBarActivity {
 
                 obj.put("deviceid", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
                 obj.put("type_of_occurrence", (disasterType+"").replace(" ","%20"));
-                obj.put("date", String.valueOf(text9.getText()).replace(" ","%20"));
-                obj.put("name", name.getText().toString().replace(" ","%20"));
-                obj.put("address", address.getText().toString().replace(" ","%20"));
-                obj.put("city", city.getText().toString().replace(" ","%20"));
-                obj.put("add_state", state.getText().toString().replace(" ","%20"));
-                obj.put("zip", zip.getText().toString().replace(" ","%20"));
+                obj.put("date", String.valueOf(text9.getText()).replace(" ", "%20"));
+                obj.put("name", name.getText().toString().replace(" ", "%20"));
+                obj.put("address", address.getText().toString().replace(" ", "%20"));
+                obj.put("city", city.getText().toString().replace(" ", "%20"));
+                obj.put("add_state", state.getText().toString().replace(" ", "%20"));
+                obj.put("zip", zip.getText().toString().replace(" ", "%20"));
                 obj.put("own_or_rent", (rentOrOwned+"").replace(" ","%20"));
-                obj.put("insurance_deductible", insurDeductAmt.getText().toString().replace(" ","%20"));
-                obj.put("damage_cost", damageCost.getText().toString().replace(" ","%20"));
-                obj.put("loss_percent", loss_percent.getText().toString().replace(" ","%20"));
+                obj.put("insurance_deductible", insurDeductAmt.getText().toString().replace(" ", "%20"));
+                obj.put("damage_cost", damageCost.getText().toString().replace(" ", "%20"));
+                obj.put("loss_percent", loss_percent.getText().toString().replace(" ", "%20"));
                 obj.put("habitable", (checked(habitable)+"").replace(" ","%20"));
                 obj.put("basement_water", (checked(basement_water)+"").replace(" ","%20"));
-                obj.put("water_depth", water_depth.getText().toString().replace(" ","%20"));
+                obj.put("water_depth", water_depth.getText().toString().replace(" ", "%20"));
                 obj.put("basement_resident", (checked(basement_resident)+"").replace(" ","%20"));
-                obj.put("damage_desc", damage_desc.getText().toString().replace(" ","%20"));
+                obj.put("damage_desc", damage_desc.getText().toString().replace(" ", "%20"));
                 obj.put("longitude", (loc.getLongitude()+"").replace(" ","%20"));
                 obj.put("latitude", (loc.getLatitude()+"").replace(" ","%20"));
 
@@ -270,66 +279,8 @@ public class DamageReports extends ActionBarActivity {
             Thread t = new Thread(test);
             t.start();
 
-//            Log.d("Data to server", "started");
-//            int TIMEOUT_MILLISEC = 10000;  // = 10 seconds
-//            DefaultHttpClient httpclient = new DefaultHttpClient();
-//            HttpPost httppostreq = new HttpPost("http://joshuaolufs.com/php/TESTquery_zipcodes.php");
-//            StringEntity se = new StringEntity(json.toString());
-//            //httppostreq.setEntity(new ByteArrayEntity(json.toString().getBytes("UTF8")));
-//            httppostreq.setEntity(se);
-//            HttpResponse httpresponse = httpclient.execute(httppostreq);
-//            String responseText = null;
-//
-//
-//            try {
-//                responseText = EntityUtils.toString(httpresponse.getEntity());
-//            }catch (ParseException e) {
-//                e.printStackTrace();
-//                Log.i("Parse Exception", e + "");
-//            }
-//
-//            Log.d("Response", responseText);
-//change
-/*            DefaultHttpClient httpclient = new DefaultHttpClient();
-            HttpPost request = new HttpPost(url);
-
-            StringBuilder sb = new StringBuilder();
-
-
-            StringEntity entity = new StringEntity(json.toString());
-
-            entity.setContentType("application/json;charset=UTF-8");
-            entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
-
-
-            request.setEntity(entity);
-
-            HttpResponse response = null;
-
-
-            HttpConnectionParams.setSoTimeout(httpclient.getParams(), 10000);
-            HttpConnectionParams.setConnectionTimeout(httpclient.getParams(), 10000);
-            try {
-                Log.d("Sending report", url);
-                response = httpclient.execute(request);
-            } catch (SocketException se) {
-                Log.e("SocketException", se + "");
-                throw se;
-            }
-
-
-            InputStream in = response.getEntity().getContent();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
-
-            }
-
-            return sb.toString();*/
             return "hi";
         }
-//this is a test
     }
 
     /*Class for button click of the "take photo" button.*/

@@ -32,6 +32,10 @@ public class Config {
     public static final String THUNDER_LINK = "http://readywisconsin.wi.gov/media/pdf/Thunderstorms.pdf";
     public static final String WINTER_LINK = "http://readywisconsin.wi.gov/media/pdf/Winter_Handout.pdf";
 
+    // URL for sending damage report data
+    public static final String URL_REPORT = "http://www.joshuaolufs.com/php/query_damageReports_insert.php";
+
+
     // Disaster Type INFO
     public static final String TORNADO_INFO;
 
@@ -885,8 +889,5 @@ public class Config {
                 "</body>");
     }
 
-    // URL for sending damage report data
-    public static final String URL_REPORT = "http://joshuaolufs.com/" +
-            "php/query_damageReports_insert.php";
 
 }
