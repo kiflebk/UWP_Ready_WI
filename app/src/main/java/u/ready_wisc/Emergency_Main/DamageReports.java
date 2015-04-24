@@ -238,24 +238,24 @@ public class DamageReports extends ActionBarActivity {
             try {
 
                 obj.put("deviceid", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
-                obj.put("type_of_occurrence", disasterType+"");
-                obj.put("date", String.valueOf(text9.getText()));
-                obj.put("name", name.getText().toString());
-                obj.put("address", address.getText().toString());
-                obj.put("city", city.getText().toString());
-                obj.put("add_state", state.getText().toString());
-                obj.put("zip", zip.getText().toString());
-                obj.put("own_or_rent", rentOrOwned+"");
-                obj.put("insurance_deductible", insurDeductAmt.getText().toString());
-                obj.put("damage_cost", damageCost.getText().toString());
-                obj.put("loss_percent", loss_percent.getText().toString());
-                obj.put("habitable", checked(habitable)+"");
-                obj.put("basement_water", checked(basement_water)+"");
-                obj.put("water_depth", water_depth.getText().toString());
-                obj.put("basement_resident", checked(basement_resident)+"");
-                obj.put("damage_desc", damage_desc.getText().toString());
-                obj.put("longitude", loc.getLongitude()+"");
-                obj.put("latitude", loc.getLatitude()+"");
+                obj.put("type_of_occurrence", (disasterType+"").replace(" ","%20"));
+                obj.put("date", String.valueOf(text9.getText()).replace(" ","%20"));
+                obj.put("name", name.getText().toString().replace(" ","%20"));
+                obj.put("address", address.getText().toString().replace(" ","%20"));
+                obj.put("city", city.getText().toString().replace(" ","%20"));
+                obj.put("add_state", state.getText().toString().replace(" ","%20"));
+                obj.put("zip", zip.getText().toString().replace(" ","%20"));
+                obj.put("own_or_rent", (rentOrOwned+"").replace(" ","%20"));
+                obj.put("insurance_deductible", insurDeductAmt.getText().toString().replace(" ","%20"));
+                obj.put("damage_cost", damageCost.getText().toString().replace(" ","%20"));
+                obj.put("loss_percent", loss_percent.getText().toString().replace(" ","%20"));
+                obj.put("habitable", (checked(habitable)+"").replace(" ","%20"));
+                obj.put("basement_water", (checked(basement_water)+"").replace(" ","%20"));
+                obj.put("water_depth", water_depth.getText().toString().replace(" ","%20"));
+                obj.put("basement_resident", (checked(basement_resident)+"").replace(" ","%20"));
+                obj.put("damage_desc", damage_desc.getText().toString().replace(" ","%20"));
+                obj.put("longitude", (loc.getLongitude()+"").replace(" ","%20"));
+                obj.put("latitude", (loc.getLatitude()+"").replace(" ","%20"));
 
             } catch (JSONException e) {
                 e.printStackTrace();
