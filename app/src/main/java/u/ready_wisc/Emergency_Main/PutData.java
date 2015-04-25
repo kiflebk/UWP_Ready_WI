@@ -1,6 +1,8 @@
 package u.ready_wisc.Emergency_Main;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -25,36 +27,55 @@ import org.json.JSONObject;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * Runnable object used to submit damage report to server using HTTP GET
  */
+
 public class PutData implements Runnable {
-    String mainURL;
+
+    // JSON object is created in DamageReports.java
     JSONObject mainJSON;
+    String dataAccepted;
 
     public PutData(JSONObject json) {
 
         mainJSON = json;
     }
 
-    //TODO FIX THIS
+    public String getDataAccepted(){
+        return dataAccepted;
+    }
+
+    //TODO for future versions: GET needs to be changed to POST.  Data needs to be encrypted before being sent
     @Override
     public void run() {
 
-        char hello = (char) 92;
+        // char holds the \ character to eliminate from the URL header
+        char backspace = (char) 92;
+
+        //
         try {
             Log.i("Thread JSON:", mainJSON.toString());
             HttpClient httpclient = new DefaultHttpClient();
 
-            String url = "http://www.joshuaolufs.com/php/query_damageReports_insert.php?" + mainJSON.toString().replace('{', ' ').replace('}',' ').replace(hello, ' ').trim().replace('"', ' ').replace(" ", "").replace(':','=').replace(',','&');
+            String url = "http://www.joshuaolufs.com/php/query_damageReports_insert.php?" + mainJSON.toString().replace('{', ' ').replace('}',' ').replace(backspace, ' ').trim().replace('"', ' ').replace(" ", "").replace(':','=').replace(',','&');
 
             Log.i("HTTP URL:", url);
             HttpPost httppost = new HttpPost(url) ;
-            StringEntity se = new StringEntity(mainJSON.toString());
+
+            // The following code needs to be fixed to send the DamageReports JSON object
+            // as a POST.
+
+          /*StringEntity se = new StringEntity(mainJSON.toString());
             Log.i("String Entity", mainJSON.toString());
-            httppost.setEntity(se);
-            //httppost.setEntity(new ByteArrayEntity(mainJSON.toString().getBytes("UTF8")));
+            httppost.setEntity(se);*/
+
+            // As the system currently works, the two responses from the server are:
+            // 1 - pass, 0 - fail
             HttpResponse response = httpclient.execute(httppost);
             HttpEntity entity = response.getEntity();
-            Log.i("HTTP Response", EntityUtils.toString(entity));
+            dataAccepted = EntityUtils.toString(entity);
+            Log.i("HTTP Response", dataAccepted);
 
         } catch (Exception e) {
             Log.e("log_tag", "Error in http connection" + e.toString());

@@ -2,13 +2,23 @@ package u.ready_wisc.Emergency_Main;
 
 
 /**
+ * Copyright [2015] [University of Wisconsin - Parkside]
+ * <p/>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p/>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p/>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  * This class builds damageReports
- * THen calls a post method that will send
+ * Then calls a post method that will send
  * the data to the sever as a HTTP GET.
- *
- *Future development will have to focus on
- * switching to HTTP POST.
- *
  */
 
 import android.app.AlertDialog;
@@ -190,12 +200,12 @@ public class DamageReports extends ActionBarActivity {
 
             try {
 
+                // JSON object is created based off of user input
                 JSONObject jObject = createJObject();
 
-                // Something is wrong with putDataToServer method... this is why teh toast will not work.
-                // URL located in config file
-                String rep = (putDataToServer(jObject));
-                Toast.makeText(getApplicationContext(), rep, Toast.LENGTH_LONG).show();
+                // The JSON object is passed over to be sent
+                putDataToServer(jObject);
+
 
             } catch (Throwable e) {
 
@@ -245,6 +255,10 @@ public class DamageReports extends ActionBarActivity {
 
             try {
 
+                // All data is convert to a string and put into the JSON object
+                // Spaces are replaced with http tag for space to accommodate the
+                // HTTP GET URL format.
+                // TODO the space replace may need to be changed once HTTP POST is implemented
                 obj.put("deviceid", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
                 obj.put("type_of_occurrence", (disasterType+"").replace(" ","%20"));
                 obj.put("date", String.valueOf(text9.getText()).replace(" ", "%20"));
@@ -272,13 +286,25 @@ public class DamageReports extends ActionBarActivity {
         }
 
         //Method to send data to server via HTTP Post
-        public String putDataToServer(JSONObject json) throws Throwable {
+        public void putDataToServer(JSONObject json) throws Throwable {
 
-            PutData test = new PutData(json);
-            Thread t = new Thread(test);
+            String reportAccepted;
+            PutData httpGet = new PutData(json);
+            Thread t = new Thread(httpGet);
             t.start();
+            t.join();
 
-            return "hi";
+            reportAccepted = httpGet.getDataAccepted();
+
+            if (reportAccepted.equals("1")) {
+                Toast.makeText(getApplicationContext(), "Report Submitted Successfully", Toast.LENGTH_LONG).show();
+                DamageReports.this.finish();
+
+            //TODO if report is not sent it needs to be saved to the local database
+            }else
+                Toast.makeText(getApplicationContext(), "Report Not Sent", Toast.LENGTH_LONG).show();
+
+
         }
     }
 
