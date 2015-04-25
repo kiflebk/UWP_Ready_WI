@@ -14,12 +14,8 @@ import android.view.MenuItem;
 
 //import com.pushbots.push.Pushbots;
 
-import u.ready_wisc.MenuActivity;
-import u.ready_wisc.R;
-
 public class SplashActivity extends ActionBarActivity {
 
-    private final int time = 2000;
     static MyDatabaseHelper mDatabaseHelper;
     boolean splashClose = false;
 
@@ -43,6 +39,7 @@ public class SplashActivity extends ActionBarActivity {
 //            }
 //        }
 
+        int time = 2000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -120,7 +117,7 @@ public class SplashActivity extends ActionBarActivity {
 
         try {
 
-            mDatabaseHelper.insert(mDatabaseHelper.TABLE_USERS, values);
+            mDatabaseHelper.insert(MyDatabaseHelper.TABLE_USERS, values);
 
         } catch (MyDatabaseHelper.NotValidException e) {
 

@@ -21,7 +21,6 @@ package u.ready_wisc.Emergency_Main;
  * the data to the sever as a HTTP GET.
  */
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -35,7 +34,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,7 +51,6 @@ import org.json.JSONObject;
 
 import java.util.Calendar;
 
-import u.ready_wisc.Config;
 import u.ready_wisc.R;
 
 public class DamageReports extends ActionBarActivity {
@@ -67,7 +64,6 @@ public class DamageReports extends ActionBarActivity {
     static LocationManager locationManager;
     static Location loc;
     static LocationListener locationListener;
-    private AlertDialog.Builder alert;
     RadioButton fireButton;
     RadioButton floodBox;
     RadioButton severeBox;
@@ -207,7 +203,7 @@ public class DamageReports extends ActionBarActivity {
                 putDataToServer(jObject);
 
 
-            } catch (Throwable e) {
+            } catch (Throwable ignored) {
 
             }
 

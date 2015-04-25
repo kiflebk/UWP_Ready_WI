@@ -20,8 +20,23 @@ import u.ready_wisc.R;
 import u.ready_wisc.RssActivity;
 
 /**
- * Created by piela_000 on 3/1/2015.
+ * Copyright [2015] [University of Wisconsin - Parkside]
+ * <p/>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p/>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p/>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Fragment is built to hold the RSS listview
  */
+
 public class RssFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private ProgressBar progressBar;
@@ -38,32 +53,37 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        // If a current RSS fragment isn't loaded, the RSS feed is read in and
+        // a new fragment is created and placed in the container.
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_layout, container, false);
             progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
             listView = (ListView) view.findViewById(R.id.listView);
             listView.setOnItemClickListener(this);
             startService();
-        } else {
-            // If we are returning from a configuration change:
-            // "view" is still attached to the previous view hierarchy
-            // so we need to remove it and re-attach it to the current one
+        }
+
+        // If we are returning from a configuration change:
+        // "view" is still attached to the previous view hierarchy
+        // so we need to remove it and re-attach it to the current one
+        else {
             ViewGroup parent = (ViewGroup) view.getParent();
             parent.removeView(view);
         }
         return view;
     }
 
+    // RSS service is started
     private void startService() {
         Intent intent = new Intent(getActivity(), RssService.class);
         intent.putExtra(RssService.RECEIVER, resultReceiver);
         getActivity().startService(intent);
     }
 
-    /**
-     * Once the {@link RssService} finishes its task, the result is sent to this
-     * ResultReceiver.
-     */
+
+     // Once the {@link RssService} finishes its task, the result is sent to this
+     // ResultReceiver.
     private final ResultReceiver resultReceiver = new ResultReceiver(new Handler()) {
         @SuppressWarnings("unchecked")
         @Override
@@ -78,20 +98,17 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
                         Toast.LENGTH_LONG).show();
             }
             listView.setVisibility(View.VISIBLE);
-        };
-    };
+        }
+     };
 
     @Override
+    // If a listitem is clicked, the details of the item are loaded into a seperate intent and started
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         RssAdapter adapter = (RssAdapter) parent.getAdapter();
         RssItem item = (RssItem) adapter.getItem(position);
 
         weatherLink = item.getLink();
         weatherDesc = item.getDesc();
-
-//        Uri uri = Uri.parse(item.getLink());
-//        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-//        startActivity(intent);
 
         Intent intent = new Intent(getActivity(), RssActivity.class);
         startActivity(intent);

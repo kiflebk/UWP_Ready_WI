@@ -11,13 +11,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by piela_000 on 3/1/2015.
+ * Copyright [2015] [University of Wisconsin - Parkside]
+ * <p/>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p/>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p/>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Parses the XML RSS that is returned and creates separate RSS objects
+ * with the data.
  */
 public class RssParser {
 
     // We don't use namespaces
     private final String ns = null;
 
+    // sets features of parser to match RSS XML and reads through inputStream to get all objects
     public List<RssItem> parse(InputStream inputStream) throws XmlPullParserException, IOException {
         try {
             XmlPullParser parser = Xml.newPullParser();
@@ -30,31 +46,45 @@ public class RssParser {
         }
     }
 
+    //Uses XML tags to separate data into proper categories
     private List<RssItem> readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
         parser.require(XmlPullParser.START_TAG, null, "feed");
         String title = null;
         String link = null;
         String desc = null;
-        List<RssItem> items = new ArrayList<RssItem>();
+        List<RssItem> items = new ArrayList<>();
+
+        // parses until end of document creating new objects for each XML tagged object
+        // and assigns attributes from the XML
         while (parser.next() != XmlPullParser.END_DOCUMENT) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
             String name = parser.getName();
 
-            if (name.equals("title")) {
-                title = readTitle(parser);
-            } else if (name.equals("id")) {
-                link = readLink(parser);
+            switch (name) {
+                case "title":
+                    title = readTitle(parser);
+                    break;
+                case "id":
+                    link = readLink(parser);
+                    break;
+                case "summary":
+                    desc = readDesc(parser);
+                    break;
             }
-              else if (name.equals("summary")){
-                desc = readDesc(parser);
-            }
+
+            // Checks for the case where there are no weather advisories and
+            // adds the proper description for the item to show if the object
+            // is selected from the list
             if (title != null && link != null) {
                 if (desc == null){
                     desc = "No current weather warnings/advisories.";
                 }
                 RssItem item = new RssItem(title, link, desc);
+
+                // The RSS header always contains the first tag of "Watches, Warnings, and Advisories
+                // this tag is removed since it is not needed
                 if( !(item.getTitle().contains("Watches, Warnings and Advisories"))) {
                     items.add(item);
                     title = null;

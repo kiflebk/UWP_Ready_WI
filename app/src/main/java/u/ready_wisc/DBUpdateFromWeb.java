@@ -1,8 +1,6 @@
 package u.ready_wisc;
 
-import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -37,17 +35,17 @@ public class DBUpdateFromWeb implements Runnable{
 
     //main thread to complete query and return results
     public static void updateLocalDB() {
-        JSONArray jArray = null;
+        JSONArray jArray;
 
         String result = null;
 
-        StringBuilder sb = null;
+        StringBuilder sb;
 
         InputStream is = null;
 
         String[][] ct_name = new String[3][3];
 
-        ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        ArrayList<NameValuePair> nameValuePairs = new ArrayList<>();
 
         // here we try to create a new http client to connect to the .php database query
         try {
@@ -65,15 +63,17 @@ public class DBUpdateFromWeb implements Runnable{
         } catch (Exception e) {
             Log.e("log_tag", "Error in http connection" + e.toString());
         }
+
         //convert response to string
         try {
+            assert is != null;
             BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
             sb = new StringBuilder();
-            sb.append(reader.readLine() + "\n");
+            sb.append(reader.readLine()).append("\n");
 
-            String line = "0";
-            while ((line = reader.readLine()) != null) {
-                sb.append(line + "\n");
+            String line;
+            while (null != (line = reader.readLine())) {
+                sb.append(line).append("\n");
             }
             is.close();
             result = sb.toString();
@@ -85,7 +85,7 @@ public class DBUpdateFromWeb implements Runnable{
         //converts JSON object to the string array we need
         try {
             jArray = new JSONArray(result);
-            JSONObject json_data = null;
+            JSONObject json_data;
 
             //ct_name = new String[jArray.length()];
             for (int i = 0; i < jArray.length(); i++) {
