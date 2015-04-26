@@ -1,6 +1,32 @@
+/*
+*
+*  Copyright 2015 University of Wisconsin - Parkside
+*
+*  Licensed under the Apache License, Version 2.0 (the "License");
+*  you may not use this file except in compliance with the License.
+*  You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+*  Unless required by applicable law or agreed to in writing, software
+*  distributed under the License is distributed on an "AS IS" BASIS,
+*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+*  See the License for the specific language governing permissions and
+*  limitations under the License.
+*
+*
+*/
+
+
 package u.ready_wisc.Emergency_Main;
 
-import android.app.AlertDialog;
+
+
+ //This class builds damageReports
+ //Then calls a post method that will send
+ //the data to the sever as a HTTP GET.
+ 
+
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -14,7 +40,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,7 +57,6 @@ import org.json.JSONObject;
 
 import java.util.Calendar;
 
-import u.ready_wisc.Config;
 import u.ready_wisc.R;
 
 public class DamageReports extends ActionBarActivity {
@@ -46,13 +70,11 @@ public class DamageReports extends ActionBarActivity {
     static LocationManager locationManager;
     static Location loc;
     static LocationListener locationListener;
-    private AlertDialog.Builder alert;
     RadioButton fireButton;
     RadioButton floodBox;
     RadioButton severeBox;
     RadioButton sewerBox;
     RadioButton otherBox;
-    //EditText date;
     EditText name;
     EditText address;
     EditText city;
@@ -86,7 +108,6 @@ public class DamageReports extends ActionBarActivity {
         severeBox = (RadioButton) findViewById(R.id.severeBox);
         sewerBox = (RadioButton) findViewById(R.id.sewerBox);
         otherBox = (RadioButton) findViewById(R.id.otherBox);
-        //date = (EditText) findViewById(R.id.dateEdit);
         name = (EditText) findViewById(R.id.nameEdit);
         address = (EditText) findViewById(R.id.addressEdit);
         city = (EditText) findViewById(R.id.cityEdit);
@@ -181,15 +202,14 @@ public class DamageReports extends ActionBarActivity {
 
             try {
 
+                // JSON object is created based off of user input
                 JSONObject jObject = createJObject();
-                Log.d("String URL:   ", Config.URL_REPORT);
-                Log.d("JSON OBJ:   ", jObject.toString());
-                // Something is wrong with putDataToServer method... this is why teh toast will not work.
-                // URL located in config file
-                String rep = (putDataToServer(Config.URL_REPORT, jObject));
-                Toast.makeText(getApplicationContext(), rep, Toast.LENGTH_LONG).show();
 
-            } catch (Throwable e) {
+                // The JSON object is passed over to be sent
+                putDataToServer(jObject);
+
+
+            } catch (Throwable ignored) {
 
             }
 
@@ -237,25 +257,29 @@ public class DamageReports extends ActionBarActivity {
 
             try {
 
+                // All data is convert to a string and put into the JSON object
+                // Spaces are replaced with http tag for space to accommodate the
+                // HTTP GET URL format.
+                // TODO the space replace may need to be changed once HTTP POST is implemented
                 obj.put("deviceid", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
-                obj.put("type_of_occurrence", disasterType);
-                obj.put("date", String.valueOf(text9.getText()));
-                obj.put("name", name.getText().toString());
-                obj.put("address", address.getText().toString());
-                obj.put("city", city.getText().toString());
-                obj.put("add_state", state.getText().toString());
-                obj.put("zip", zip.getText().toString());
-                obj.put("own_or_rent", rentOrOwned);
-                obj.put("Insurance Deductible", insurDeductAmt);
-                obj.put("damage_cost", damageCost.getText().toString());
-                obj.put("loss_percent", loss_percent.getText().toString());
-                obj.put("habitable", checked(habitable));
-                obj.put("basement_water", checked(basement_water));
-                obj.put("water_depth", water_depth.getText().toString());
-                obj.put("basement_resident", checked(basement_resident));
-                obj.put("damage_desc", damage_desc.getText().toString());
-                obj.put("longitude", loc.getLongitude());
-                obj.put("latitude", loc.getLatitude());
+                obj.put("type_of_occurrence", (disasterType+"").replace(" ","%20"));
+                obj.put("date", String.valueOf(text9.getText()).replace(" ", "%20"));
+                obj.put("name", name.getText().toString().replace(" ", "%20"));
+                obj.put("address", address.getText().toString().replace(" ", "%20"));
+                obj.put("city", city.getText().toString().replace(" ", "%20"));
+                obj.put("add_state", state.getText().toString().replace(" ", "%20"));
+                obj.put("zip", zip.getText().toString().replace(" ", "%20"));
+                obj.put("own_or_rent", (rentOrOwned+"").replace(" ","%20"));
+                obj.put("insurance_deductible", insurDeductAmt.getText().toString().replace(" ", "%20"));
+                obj.put("damage_cost", damageCost.getText().toString().replace(" ", "%20"));
+                obj.put("loss_percent", loss_percent.getText().toString().replace(" ", "%20"));
+                obj.put("habitable", (checked(habitable)+"").replace(" ","%20"));
+                obj.put("basement_water", (checked(basement_water)+"").replace(" ","%20"));
+                obj.put("water_depth", water_depth.getText().toString().replace(" ", "%20"));
+                obj.put("basement_resident", (checked(basement_resident)+"").replace(" ","%20"));
+                obj.put("damage_desc", damage_desc.getText().toString().replace(" ", "%20"));
+                obj.put("longitude", (loc.getLongitude()+"").replace(" ","%20"));
+                obj.put("latitude", (loc.getLatitude()+"").replace(" ","%20"));
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -264,72 +288,26 @@ public class DamageReports extends ActionBarActivity {
         }
 
         //Method to send data to server via HTTP Post
-        public String putDataToServer(String url, JSONObject json) throws Throwable{
+        public void putDataToServer(JSONObject json) throws Throwable {
 
-            PutData test = new PutData(url, json);
-            Thread t = new Thread(test);
+            String reportAccepted;
+            PutData httpGet = new PutData(json);
+            Thread t = new Thread(httpGet);
             t.start();
+            t.join();
 
-//            Log.d("Data to server", "started");
-//            int TIMEOUT_MILLISEC = 10000;  // = 10 seconds
-//            DefaultHttpClient httpclient = new DefaultHttpClient();
-//            HttpPost httppostreq = new HttpPost("http://joshuaolufs.com/php/TESTquery_zipcodes.php");
-//            StringEntity se = new StringEntity(json.toString());
-//            //httppostreq.setEntity(new ByteArrayEntity(json.toString().getBytes("UTF8")));
-//            httppostreq.setEntity(se);
-//            HttpResponse httpresponse = httpclient.execute(httppostreq);
-//            String responseText = null;
-//
-//
-//            try {
-//                responseText = EntityUtils.toString(httpresponse.getEntity());
-//            }catch (ParseException e) {
-//                e.printStackTrace();
-//                Log.i("Parse Exception", e + "");
-//            }
-//
-//            Log.d("Response", responseText);
-//change
-/*            DefaultHttpClient httpclient = new DefaultHttpClient();
-            HttpPost request = new HttpPost(url);
+            reportAccepted = httpGet.getDataAccepted();
 
-            StringBuilder sb = new StringBuilder();
+            if (reportAccepted.equals("1")) {
+                Toast.makeText(getApplicationContext(), "Report Submitted Successfully", Toast.LENGTH_LONG).show();
+                DamageReports.this.finish();
+
+            //TODO if report is not sent it needs to be saved to the local database
+            }else
+                Toast.makeText(getApplicationContext(), "Report Not Sent", Toast.LENGTH_LONG).show();
 
 
-            StringEntity entity = new StringEntity(json.toString());
-
-            entity.setContentType("application/json;charset=UTF-8");
-            entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
-
-
-            request.setEntity(entity);
-
-            HttpResponse response = null;
-
-
-            HttpConnectionParams.setSoTimeout(httpclient.getParams(), 10000);
-            HttpConnectionParams.setConnectionTimeout(httpclient.getParams(), 10000);
-            try {
-                Log.d("Sending report", url);
-                response = httpclient.execute(request);
-            } catch (SocketException se) {
-                Log.e("SocketException", se + "");
-                throw se;
-            }
-
-
-            InputStream in = response.getEntity().getContent();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
-
-            }
-
-            return sb.toString();*/
-            return "hi";
         }
-//this is a test
     }
 
     /*Class for button click of the "take photo" button.*/

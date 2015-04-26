@@ -1,3 +1,23 @@
+/*
+*
+*  Copyright 2015 University of Wisconsin - Parkside
+*
+*  Licensed under the Apache License, Version 2.0 (the "License");
+*  you may not use this file except in compliance with the License.
+*  You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+*  Unless required by applicable law or agreed to in writing, software
+*  distributed under the License is distributed on an "AS IS" BASIS,
+*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+*  See the License for the specific language governing permissions and
+*  limitations under the License.
+*
+*
+*/
+
+
 package rss;
 
 import android.content.Context;
@@ -10,9 +30,11 @@ import java.util.List;
 
 import u.ready_wisc.R;
 
-/**
- * Created by piela_000 on 3/1/2015.
- */
+
+ 
+ // Adapter for RSS listview object
+ 
+
 public class RssAdapter extends BaseAdapter {
 
     private final List<RssItem> items;

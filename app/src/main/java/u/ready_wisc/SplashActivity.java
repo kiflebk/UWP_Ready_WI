@@ -1,3 +1,23 @@
+/*
+*
+*  Copyright 2015 University of Wisconsin - Parkside
+*
+*  Licensed under the Apache License, Version 2.0 (the "License");
+*  you may not use this file except in compliance with the License.
+*  You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+*  Unless required by applicable law or agreed to in writing, software
+*  distributed under the License is distributed on an "AS IS" BASIS,
+*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+*  See the License for the specific language governing permissions and
+*  limitations under the License.
+*
+*
+*/
+
+
 package u.ready_wisc;
 
 import android.content.ContentValues;
@@ -14,12 +34,8 @@ import android.view.MenuItem;
 
 //import com.pushbots.push.Pushbots;
 
-import u.ready_wisc.MenuActivity;
-import u.ready_wisc.R;
-
 public class SplashActivity extends ActionBarActivity {
 
-    private final int time = 2000;
     static MyDatabaseHelper mDatabaseHelper;
     boolean splashClose = false;
 
@@ -43,6 +59,7 @@ public class SplashActivity extends ActionBarActivity {
 //            }
 //        }
 
+        int time = 2000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -120,7 +137,7 @@ public class SplashActivity extends ActionBarActivity {
 
         try {
 
-            mDatabaseHelper.insert(mDatabaseHelper.TABLE_USERS, values);
+            mDatabaseHelper.insert(MyDatabaseHelper.TABLE_USERS, values);
 
         } catch (MyDatabaseHelper.NotValidException e) {
 
