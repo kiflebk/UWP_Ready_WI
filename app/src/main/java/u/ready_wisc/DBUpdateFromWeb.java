@@ -1,3 +1,23 @@
+/*
+*
+*  Copyright 2015 University of Wisconsin - Parkside
+*
+*  Licensed under the Apache License, Version 2.0 (the "License");
+*  you may not use this file except in compliance with the License.
+*  You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+*  Unless required by applicable law or agreed to in writing, software
+*  distributed under the License is distributed on an "AS IS" BASIS,
+*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+*  See the License for the specific language governing permissions and
+*  limitations under the License.
+*
+*
+*/
+
+
 package u.ready_wisc;
 
 import android.util.Log;
@@ -51,10 +71,10 @@ public class DBUpdateFromWeb implements Runnable{
         try {
             HttpClient httpclient = new DefaultHttpClient();
 
-            /* the web end is set up with a php script to query the database
-                asking for the info we need.  The url listed will display
-                the results in JSON format for java to read.
-             */
+            //the web end is set up with a php script to query the database
+            //  asking for the info we need.  The url listed will display
+            //the results in JSON format for java to read.
+             
             HttpPost httppost = new HttpPost("http://joshuaolufs.com/");
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             HttpResponse response = httpclient.execute(httppost);
