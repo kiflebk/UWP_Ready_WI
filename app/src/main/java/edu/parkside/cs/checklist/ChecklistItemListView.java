@@ -366,9 +366,14 @@ public class ChecklistItemListView extends ActionBarActivity {
      * @todo Update the user of the mode change in some visual mannor.
      */
     public void menuEditButtonPressed(MenuItem menuItem) {
-        isInEditMode = (isInEditMode == true) ? false : true;
-
-        // Change the visual state of the application to indicate edit mode.
-
+        if (isInEditMode) {
+            // Change the visual state of the application to indicate edit mode.
+            menuItem.setIcon(getResources().getDrawable(R.drawable.edit_add));
+            isInEditMode = false;
+        }
+        else {
+            menuItem.setIcon(getResources().getDrawable(R.drawable.edit_remove));
+            isInEditMode = true;
+        }
     }
 }

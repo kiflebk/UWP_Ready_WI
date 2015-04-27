@@ -4,7 +4,7 @@
     tools:context="edu.parkside.cs.checklist.Checklist">
 
     <item android:id="@+id/action_edit"
-        android:icon="@drawable/ic_action_edit"
+        android:icon="@drawable/edit_add"
         android:title="@string/menu_checklist_edit"
         app:showAsAction="always"
         android:onClick="menuEditButtonPressed"

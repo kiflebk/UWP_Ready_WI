@@ -204,6 +204,7 @@
 
 package edu.parkside.cs.checklist;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -226,7 +227,7 @@ import u.ready_wisc.R;
  * @email krawchukdavid@gmail.com
  * @date 02/20/2014
  */
-public class ChecklistItemDetail extends Activity {
+public class ChecklistItemDetail extends ActionBarActivity {
 
     /* INSTANCE VARIABLE BLOCK BEGIN */
     ChecklistItemRow passedItem;

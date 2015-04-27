@@ -206,6 +206,7 @@ package edu.parkside.cs.checklist;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -223,7 +224,7 @@ import u.ready_wisc.R;
  * @author David Krawchuk
  * @version 1.0v Build * March 18 2015
  */
-public class Checklist extends Activity {
+public class Checklist extends ActionBarActivity {
 
     /* INSTANCE VARIABLE BLOCK BEGIN */
     public final static String EXTRA_MESSAGE = "edu.parkside.cs.checklist.checklist";
@@ -362,10 +363,15 @@ public class Checklist extends Activity {
      * @param menuItem
      */
     public void menuEditButtonPressed(MenuItem menuItem) {
-        isInEditMode = (isInEditMode == true) ? false : true;
-
-        // Change the visual state of the application to indicate edit mode.
-
+        if (isInEditMode) {
+            // Change the visual state of the application to indicate edit mode.
+            menuItem.setIcon(getResources().getDrawable(R.drawable.edit_add));
+            isInEditMode = false;
+        }
+        else {
+            menuItem.setIcon(getResources().getDrawable(R.drawable.edit_remove));
+            isInEditMode = true;
+        }
     }
 
 }
