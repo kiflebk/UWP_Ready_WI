@@ -61,26 +61,26 @@ public class ResourcesActivity extends ActionBarActivity {
         // This is only used for testing the layout
         //===========================================================
 
-        ResourceItem parkside0 = new ResourceItem("Uw-Parkside",
+        ResourceItem parkside0 = new ResourceItem("Aurora Medical",
                                                 "900 Wood road",
                                                 "262-595-2020",
                                                 "",
                                                 "Kenosha",
-                                                "Shelter");
+                                                "Hospital");
 
-        ResourceItem parkside1 = new ResourceItem("Uw-Parkside",
+        ResourceItem parkside1 = new ResourceItem("Fire Dept.",
                 "900 Wood road",
                 "262-595-2020",
                 "",
                 "Kenosha",
-                "Shelter");
+                "Fire");
 
-        ResourceItem parkside2 = new ResourceItem("Uw-Parkside",
+        ResourceItem parkside2 = new ResourceItem("Sheriff",
                 "900 Wood road",
                 "262-595-2020",
                 "",
                 "Kenosha",
-                "Shelter");
+                "Sheriff");
 
         ArrayList<ResourceItem> resources = new ArrayList();
 
