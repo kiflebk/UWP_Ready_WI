@@ -40,21 +40,21 @@ public class ResourceAdapter extends ArrayAdapter<ResourceItem>{
         otherText.setText(resourceList.get(position).getOther());
 
 //        Icon decider to be implemented, basic idea here
-//        String iconType = resourceList.get(position).getType();
-//        switch(iconType.toLowerCase()){
-//            case "hospital":
-//                resourceIcon.setImageResource(R.id.icon_hospital);
-//                break;
-//            case "sheriff":
-//                resourceIcon.setImageResource(R.id.icon_sheriff);
-//                break;
+        String iconType = resourceList.get(position).getType();
+        switch(iconType.toLowerCase()){
+            case "hospital":
+                resourceIcon.setImageResource(R.drawable.reshosp);
+                break;
+            case "sheriff":
+                resourceIcon.setImageResource(R.drawable.resheriff);
+                break;
 //            case "shelter":
 //                resourceIcon.setImageResource(R.id.shelter_icon);
 //                break;
-//            case "fire":
-//                resourceIcon.setImageResource(R.id.fire_icon);
-//                break;
-//        }
+            case "fire":
+                resourceIcon.setImageResource(R.drawable.resfire);
+                break;
+        }
 
         return row;
     }

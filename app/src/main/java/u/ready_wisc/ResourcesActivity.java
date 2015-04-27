@@ -38,7 +38,7 @@ public class ResourcesActivity extends ActionBarActivity {
 
         //Button backButton = (Button) findViewById(R.id.backButton);
         final ListView resourcesListView = (ListView) findViewById(R.id.resourcesListView);
-        final Spinner countySpinner = (Spinner) findViewById(R.id.countySpinner);
+
         final Spinner resourceSpinner = (Spinner) findViewById(R.id.resourceSpinner);
 
         Intent i = getIntent();
