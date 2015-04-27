@@ -19,22 +19,34 @@ import java.util.List;
 
 
 public class ResourcesActivity extends ActionBarActivity {
+    Button backButton;
     String county;
+    String resource;
     ArrayList<ResourceItem> resourceList;
     ListView resourcesListView;
     Spinner countySpinner;
     Button callButton;
+    Button changeButton;
+    Spinner resourceSpinner;
 
     //For Ben:
-    //db.execSQL("CREATE TABLE resources (county VARCHAR(20), name VARCHAR(50) PRIMARY KEY, address VARCHAR(20), phone INTEGER, other VARCHAR(50), type VARCHAR(10)");
+    //db.execSQL("CREATE TABLE resources (county TEXT, name TEXT PRIMARY KEY, address TEXT, phone TEXT, other TEXT, type TEXT");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resources);
+
+
+        //Button backButton = (Button) findViewById(R.id.backButton);
         final ListView resourcesListView = (ListView) findViewById(R.id.resourcesListView);
         final Spinner countySpinner = (Spinner) findViewById(R.id.countySpinner);
+        final Spinner resourceSpinner = (Spinner) findViewById(R.id.resourceSpinner);
+
         Intent i = getIntent();
         county = i.getStringExtra("county");
+        resource = "";
+
+
         Button callButton = (Button) findViewById(R.id.callButton);
         callButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,6 +56,45 @@ public class ResourcesActivity extends ActionBarActivity {
                 startActivity(i);
             }
         });
+
+
+        // This is only used for testing the layout
+        //===========================================================
+
+        ResourceItem parkside0 = new ResourceItem("Uw-Parkside",
+                                                "900 Wood road",
+                                                "262-595-2020",
+                                                "",
+                                                "Kenosha",
+                                                "Shelter");
+
+        ResourceItem parkside1 = new ResourceItem("Uw-Parkside",
+                "900 Wood road",
+                "262-595-2020",
+                "",
+                "Kenosha",
+                "Shelter");
+
+        ResourceItem parkside2 = new ResourceItem("Uw-Parkside",
+                "900 Wood road",
+                "262-595-2020",
+                "",
+                "Kenosha",
+                "Shelter");
+
+        ArrayList<ResourceItem> resources = new ArrayList();
+
+        resources.add(parkside0);
+        resources.add(parkside1);
+        resources.add(parkside2);
+
+        ResourceAdapter adapter = new ResourceAdapter(this, resources);
+        resourcesListView.setAdapter(adapter);
+
+        //==============================================================
+
+
+
 //        //Database query to populate listview
 //        //Need local DB + working activity
 //        SQLiteDatabase resourceDB = this.getReadableDatabase();
@@ -60,6 +111,8 @@ public class ResourcesActivity extends ActionBarActivity {
 //                resourceList.add(item);
 //            } while (result.moveToFirst());
 //        }
+
+
 //        ResourceAdapter adapter = new ResourceAdapter(this, resourceList);
 //        resourcesListView.setAdapter(adapter);
 //        countySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -68,6 +121,32 @@ public class ResourcesActivity extends ActionBarActivity {
 //                county = countySpinner.getItemAtPosition(position).toString();
 //                SQLiteDatabase resourceDB = this.getReadableDatabase();
 //                String query = "SELECT * FROM resources WHERE COUNTY=\"" + county + "\"";
+//                Cursor result = resourceDB.rawQuery(query, null);
+//                if(result.moveToFirst()){
+//                    do{
+//                        ResourceItem item = new ResourceItem();
+//                        item.setName(result.getString(1));
+//                        item.setAddress(result.getString(2));
+//                        item.setPhone(result.getString(3));
+//                        item.setOther(result.getString(4));
+//                        item.setType(result.getString(5));
+//                        resourceList.add(item);
+//                    } while (result.moveToFirst());
+//                }
+//                ResourceAdapter adapter = new ResourceAdapter(ResourcesActivity.this, resourceList);
+//                resourcesListView.setAdapter(adapter);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//            }
+//        });
+//        resourceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                resource = countySpinner.getItemAtPosition(position).toString();
+//                SQLiteDatabase resourceDB = this.getReadableDatabase();
+//                String query = "SELECT * FROM resources WHERE COUNTY=\"" + county + "\" AND TYPE=\"" + resource + "\"";
 //                Cursor result = resourceDB.rawQuery(query, null);
 //                if(result.moveToFirst()){
 //                    do{

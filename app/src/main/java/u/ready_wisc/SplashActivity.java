@@ -1,7 +1,10 @@
 package u.ready_wisc;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
@@ -27,14 +30,17 @@ public class SplashActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
        // Pushbots.sharedInstance().init(this);
-        DBUpdateFromWeb foo = new DBUpdateFromWeb();
-        Thread t = new Thread(foo);
 
-        t.start();
-        try {
-            t.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (isOnline()) {
+            DBUpdateFromWeb foo = new DBUpdateFromWeb();
+            Thread t = new Thread(foo);
+
+            t.start();
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
         new Handler().postDelayed(new Runnable() {
@@ -55,6 +61,14 @@ public class SplashActivity extends ActionBarActivity {
         super.onResume();
         if (splashClose)
         SplashActivity.this.finish();
+    }
+
+    // returns true or false based on if device has an internet connection.
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
 

@@ -27,6 +27,17 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
 
+    public static final String TABLE_RESOURCES = "resourcs";
+
+    private static final String COL_CNTY = "county";
+
+    private static final String COL_ADDR = "address";
+
+    private static final String COL_PHONE = "phone";
+
+    private static final String COL_TYPE = "coltype";
+
+
     public MyDatabaseHelper(Context context) {
 
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -48,6 +59,27 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 + COL_DOB + " INTEGER"
 
                 + ");");
+
+
+//        db.execSQL("CREATE TABLE " + TABLE_RESOURCES + " ("
+//
+//                + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+//
+//                //XXX  + county home addr phone otherInfo type
+//
+//                + COL_CNTY + " TEXT NOT NULL,"
+//
+//                + COL_NAME + " TEXT, "
+//
+//                + COL_ADDR + " TEXT, "
+//
+//                + COL_PHONE + " TEXT, "
+//
+//                + COL_EMAIL + " TEXT,"
+//
+//                + COL_TYPE + " TEXT "
+//
+//                + ");");
 
     }
 
@@ -120,3 +152,4 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     }
 }
+

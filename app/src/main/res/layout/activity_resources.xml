@@ -38,8 +38,30 @@
         android:textSize="30dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/resourceText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Resource:"
+        android:id="@+id/resourceText"
+        android:textSize="30dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/countyText" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/resourceSpinner"
+        android:spinnerMode="dropdown"
+        android:entries="@array/resourceList"
+        android:layout_toEndOf="@+id/resourceText"
+        android:layout_above="@+id/contactsText"
         android:layout_below="@+id/countySpinner"
-        android:layout_marginTop="10dp" />
+        android:layout_toRightOf="@+id/resourceText" />
 
     <ListView
         android:layout_width="wrap_content"

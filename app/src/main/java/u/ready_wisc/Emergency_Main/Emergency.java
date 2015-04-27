@@ -30,7 +30,7 @@ public class Emergency extends ActionBarActivity {
     private boolean isFlashOn = false;
     //Set boolean to false when SOS starts
     private boolean sosTone = false;
-    //Create camera object to access flahslight
+    //Create camera object to access flashlight
     private Camera camera = null;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public class Emergency extends ActionBarActivity {
                 //if sos tone button is pressed play sound, if sound is playing pause sound
                 //sound will play until button is pressed again, even if app is in background
                 if (x.equals("SOS Tone")){
-                    if (sosTone == false) {
+                    if (!sosTone) {
 
                         //sets device volume to maximum
                         AudioManager am =
@@ -109,7 +109,7 @@ public class Emergency extends ActionBarActivity {
                     // if camera has flash toggle on and off
                     else {
                         // boolean to check status of camera flash
-                        if (isFlashOn == false) {
+                        if (!isFlashOn) {
 
                             //if flash is off, toggle boolean to on and turn on flash
                             isFlashOn = true;
