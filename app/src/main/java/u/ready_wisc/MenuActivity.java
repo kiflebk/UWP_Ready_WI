@@ -75,7 +75,9 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
         resourcesbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent old = getIntent();
                 Intent i = new Intent(MenuActivity.this, ResourcesActivity.class);
+                i.putExtra("county",old.getStringExtra("county"));
                 MenuActivity.this.startActivity(i);
             }
         });

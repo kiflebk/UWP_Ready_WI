@@ -6,35 +6,19 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
-import android.util.Log;
 
 import java.util.ArrayList;
 
 /**
- * Created by kiflebk on 2/11/15.
+ * Created by Jake on 4/27/2015 based on work by kiflebk.
  */
-public class MyDatabaseHelper extends SQLiteOpenHelper {
-    // components of the table which can be changed later to join up with other team later on
-
-    public static final String TABLE_USERS = "users";
-
-    public static final String COL_ID = BaseColumns._ID;
-
-    public static final String COL_NAME = "name";
-
-    public static final String COL_EMAIL = "email";
-
-    public static final String COL_DOB = "date_of_birth";
-
-    private static final String DATABASE_NAME = "my_app.db";
-
-    private static final int DATABASE_VERSION = 2;
+public class ResourceDBHelper extends SQLiteOpenHelper{// components of the table which can be changed later to join up with other team later on
 
     public static final String TABLE_RESOURCES = "resources";
 
     public static final String COL_COUNTY = "county";
 
-    public static final String COL_RNAME = "name";
+    public static final String COL_NAME = "name";
 
     public static final String COL_ADDRESS = "address";
 
@@ -44,8 +28,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public static final String COL_TYPE = "type";
 
+    private static final String DATABASE_NAME = "resources.db";
 
-    public MyDatabaseHelper(Context context) {
+    private static final int DATABASE_VERSION = 2;
+
+    public ResourceDBHelper(Context context) {
 
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
@@ -55,23 +42,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL("CREATE TABLE " + TABLE_USERS + " ("
-
-                + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-
-                + COL_RNAME + " TEXT NOT NULL,"
-
-                + COL_EMAIL + " TEXT,"
-
-                + COL_DOB + " INTEGER"
-
-                + ");");
-
         db.execSQL("CREATE TABLE " + TABLE_RESOURCES + " ("
 
-                + COL_COUNTY + " TEXT NOT NULL,"
+                + COL_COUNTY + "TEXT NOT NULL,"
 
-                + COL_RNAME + " TEXT PRIMARY KEY NOT NULL,"
+                + COL_NAME + " TEXT PRIMARY KEY NOT NULL,"
 
                 + COL_ADDRESS + " TEXT,"
 
@@ -85,22 +60,18 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(COL_COUNTY, "Kenosha");
-        values.put(COL_RNAME, "Kenosha County Sheriff's Department");
+        values.put(COL_NAME, "Kenosha County Sheriff's Department");
         values.put(COL_ADDRESS, "1000 55th Street Kenosha, WI 53140");
         values.put(COL_PHONE, "(262)-605-5100");
         values.put(COL_TYPE, "Sheriff");
         values.put(COL_OTHER, "");
         db.insert(TABLE_RESOURCES, null, values);
-
-
     }
 
     @Override
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS + ";");
 
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_RESOURCES + ";");
 
@@ -116,25 +87,15 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public int update(String tableName, long id, ContentValues values) throws NotValidException {
+    public int update(String tableName, String name, ContentValues values) throws NotValidException {
 
         validate(values);
 
-        String selection = COL_ID + " = ?";
+        String selection = COL_NAME + " = ?";
 
-        String[] selectionArgs = {String.valueOf(id)};
+        String[] selectionArgs = {name};
 
         return getWritableDatabase().update(tableName, values, selection, selectionArgs);
-
-    }
-
-    public int delete(String tableName, long id) {
-
-        String selection = COL_ID + " = ?";
-
-        String[] selectionArgs = {String.valueOf(id)};
-
-        return getWritableDatabase().delete(tableName, selection, selectionArgs);
 
     }
 
@@ -142,7 +103,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         if (!values.containsKey(COL_NAME) || values.getAsString(COL_NAME) == null || values.getAsString(COL_NAME).isEmpty()) {
 
-            throw new NotValidException("User name must be set");
+            throw new NotValidException("Resource name must be set");
 
         }
 
@@ -160,7 +121,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor query(String tableName, String orderedBy) {
 
-        String[] projection = {COL_ID, COL_NAME, COL_EMAIL, COL_DOB};
+        String[] projection = {COL_COUNTY, COL_NAME, COL_ADDRESS, COL_PHONE, COL_OTHER, COL_TYPE};
 
         return getReadableDatabase().query(tableName, projection, null, null, null, null, orderedBy);
 
@@ -180,7 +141,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 item.setOther(result.getString(4));
                 item.setType(result.getString(5));
                 resourceList.add(item);
-            } while (result.moveToNext());
+            } while (result.moveToFirst());
         }
         result.close();
         resourceDB.close();
@@ -201,11 +162,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 item.setOther(result.getString(4));
                 item.setType(result.getString(5));
                 resourceList.add(item);
-            } while (result.moveToNext());
+            } while (result.moveToFirst());
         }
         result.close();
         resourceDB.close();
         return resourceList;
     }
 }
-

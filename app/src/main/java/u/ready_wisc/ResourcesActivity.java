@@ -14,38 +14,31 @@ import android.content.Intent;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.pushbots.push.utils.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class ResourcesActivity extends ActionBarActivity {
-    Button backButton;
     String county;
-    String resource;
     ArrayList<ResourceItem> resourceList;
     ListView resourcesListView;
-    Spinner countySpinner;
     Button callButton;
-    Button changeButton;
     Spinner resourceSpinner;
+    static MyDatabaseHelper rDBHelper;
 
-    //For Ben:
-    //db.execSQL("CREATE TABLE resources (county TEXT, name TEXT PRIMARY KEY, address TEXT, phone TEXT, other TEXT, type TEXT");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resources);
+        rDBHelper = new MyDatabaseHelper(this);
 
-
-        //Button backButton = (Button) findViewById(R.id.backButton);
         final ListView resourcesListView = (ListView) findViewById(R.id.resourcesListView);
-
         final Spinner resourceSpinner = (Spinner) findViewById(R.id.resourceSpinner);
 
         Intent i = getIntent();
         county = i.getStringExtra("county");
-        resource = "";
-
 
         Button callButton = (Button) findViewById(R.id.callButton);
         callButton.setOnClickListener(new View.OnClickListener() {
@@ -57,116 +50,25 @@ public class ResourcesActivity extends ActionBarActivity {
             }
         });
 
-
-        // This is only used for testing the layout
-        //===========================================================
-
-        ResourceItem parkside0 = new ResourceItem("Aurora Medical",
-                                                "900 Wood road",
-                                                "262-595-2020",
-                                                "",
-                                                "Kenosha",
-                                                "Hospital");
-
-        ResourceItem parkside1 = new ResourceItem("Fire Dept.",
-                "900 Wood road",
-                "262-595-2020",
-                "",
-                "Kenosha",
-                "Fire");
-
-        ResourceItem parkside2 = new ResourceItem("Sheriff",
-                "900 Wood road",
-                "262-595-2020",
-                "",
-                "Kenosha",
-                "Sheriff");
-
-        ArrayList<ResourceItem> resources = new ArrayList();
-
-        resources.add(parkside0);
-        resources.add(parkside1);
-        resources.add(parkside2);
-
-        ResourceAdapter adapter = new ResourceAdapter(this, resources);
+        //Database query to populate listview
+        //Need local DB + working activity
+        resourceList = rDBHelper.getDataFromCounty(county);
+        ResourceAdapter adapter = new ResourceAdapter(this, resourceList);
         resourcesListView.setAdapter(adapter);
 
-        //==============================================================
+        resourceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String resource = parent.getItemAtPosition(position).toString();
+                resourceList = rDBHelper.getDataFromType(county,resource);
+                ResourceAdapter adapter = new ResourceAdapter(ResourcesActivity.this, resourceList);
+                resourcesListView.setAdapter(adapter);
+            }
 
-
-
-//        //Database query to populate listview
-//        //Need local DB + working activity
-//        SQLiteDatabase resourceDB = this.getReadableDatabase();
-//        String query = "SELECT * FROM resources WHERE COUNTY=\"" + county + "\"";
-//        Cursor result = resourceDB.rawQuery(query, null);
-//        if(result.moveToFirst()){
-//            do{
-//                ResourceItem item = new ResourceItem();
-//                item.setName(result.getString(1));
-//                item.setAddress(result.getString(2));
-//                item.setPhone(result.getString(3));
-//                item.setOther(result.getString(4));
-//                item.setType(result.getString(5));
-//                resourceList.add(item);
-//            } while (result.moveToFirst());
-//        }
-
-
-//        ResourceAdapter adapter = new ResourceAdapter(this, resourceList);
-//        resourcesListView.setAdapter(adapter);
-//        countySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                county = countySpinner.getItemAtPosition(position).toString();
-//                SQLiteDatabase resourceDB = this.getReadableDatabase();
-//                String query = "SELECT * FROM resources WHERE COUNTY=\"" + county + "\"";
-//                Cursor result = resourceDB.rawQuery(query, null);
-//                if(result.moveToFirst()){
-//                    do{
-//                        ResourceItem item = new ResourceItem();
-//                        item.setName(result.getString(1));
-//                        item.setAddress(result.getString(2));
-//                        item.setPhone(result.getString(3));
-//                        item.setOther(result.getString(4));
-//                        item.setType(result.getString(5));
-//                        resourceList.add(item);
-//                    } while (result.moveToFirst());
-//                }
-//                ResourceAdapter adapter = new ResourceAdapter(ResourcesActivity.this, resourceList);
-//                resourcesListView.setAdapter(adapter);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//            }
-//        });
-//        resourceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                resource = countySpinner.getItemAtPosition(position).toString();
-//                SQLiteDatabase resourceDB = this.getReadableDatabase();
-//                String query = "SELECT * FROM resources WHERE COUNTY=\"" + county + "\" AND TYPE=\"" + resource + "\"";
-//                Cursor result = resourceDB.rawQuery(query, null);
-//                if(result.moveToFirst()){
-//                    do{
-//                        ResourceItem item = new ResourceItem();
-//                        item.setName(result.getString(1));
-//                        item.setAddress(result.getString(2));
-//                        item.setPhone(result.getString(3));
-//                        item.setOther(result.getString(4));
-//                        item.setType(result.getString(5));
-//                        resourceList.add(item);
-//                    } while (result.moveToFirst());
-//                }
-//                ResourceAdapter adapter = new ResourceAdapter(ResourcesActivity.this, resourceList);
-//                resourcesListView.setAdapter(adapter);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//            }
-//        });
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
 
