@@ -50,7 +50,7 @@ public class Prep_Main extends ActionBarActivity {
         setContentView(R.layout.activity_disaster_info_layout);
 
 
-        String[] disasterList = {"Build A Kit", "Make A Plan", "Volunteer", "Custom List"};
+        String[] disasterList = {"Basic Kit Supplies", "Make A Plan", "Volunteer", "Custom List"};
 
         final ListAdapter disasterAdapt = new myAdapter(this, disasterList);
 
@@ -81,7 +81,7 @@ public class Prep_Main extends ActionBarActivity {
 //                    Intent i = new Intent(Prep_Main.this, Volunteer.class);
 //                    Prep_Main.this.startActivity(i);
                         break;
-                    case "Build A Kit": {
+                    case "Basic Kit Supplies": {
                         AlertDialog dialog = buildDialog(x);
                         dialog.show();
                         break;
@@ -94,19 +94,53 @@ public class Prep_Main extends ActionBarActivity {
     private AlertDialog buildDialog(String type){
         int list = 0;
         AlertDialog.Builder builder = new AlertDialog.Builder(Prep_Main.this);
-        if (type.equals("Build A Kit")) {
+        if (type.equals("Basic Kit Supplies")) {
             list = R.array.buildList;
             builder.setTitle(R.string.supplyType);
+            // Open the activity that the user picks from the Basic Kit Supplies list
+            builder.setItems(list, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent i;
+                    switch(which){
+                        case 0:
+                            i = new Intent(Prep_Main.this, Essentials.class);
+                            Prep_Main.this.startActivity(i);
+                            break;
+                        case 1:
+                            i = new Intent(Prep_Main.this, Water.class);
+                            Prep_Main.this.startActivity(i);
+                            break;
+                        case 2:
+                            i = new Intent(Prep_Main.this, Food.class);
+                            Prep_Main.this.startActivity(i);
+                            break;
+                        case 3:
+                            i = new Intent(Prep_Main.this, FirstAid.class);
+                            Prep_Main.this.startActivity(i);
+                            break;
+                        case 4:
+                            i = new Intent(Prep_Main.this, Bedding.class);
+                            Prep_Main.this.startActivity(i);
+                            break;
+                        case 5:
+                            i = new Intent(Prep_Main.this, SanitationSupp.class);
+                            Prep_Main.this.startActivity(i);
+                            break;
+                    }
+                    //Toast.makeText(Prep_Main.this, "You chose " + which, Toast.LENGTH_SHORT).show();
+                }
+            });
         } else if (type.equals("Make A Plan")) {
             list = R.array.planList;
             builder.setTitle(R.string.DisasterPlan);
         }
-        builder.setItems(list, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(Prep_Main.this, "You chose " + which, Toast.LENGTH_SHORT).show();
-                    }
-                });
+//        builder.setItems(list, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        Toast.makeText(Prep_Main.this, "You chose " + which, Toast.LENGTH_SHORT).show();
+//                    }
+//                });
         return builder.create();
     }
 
@@ -131,6 +165,4 @@ public class Prep_Main extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 }

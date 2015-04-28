@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="buildList">
-        <item>Basic Supplies</item>
+        <item>Essentials</item>
+        <item>Water</item>
+        <item>Food</item>
+        <item>First Aid</item>
+        <item>Bedding and Clothing</item>
         <item>Sanitation Supplies</item>
-        <item>Safety Supplies</item>
-        <item>Pet Supplies</item>
-        <item>Personal Items</item>
     </array>
     <array name="planList">
         <item>Meeting Places</item>

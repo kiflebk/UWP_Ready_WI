@@ -361,6 +361,26 @@
             android:name=".BePrepared.SanitationSupp"
             android:label="@string/title_activity_sanitation_supp" >
         </activity>
+        <activity
+            android:name=".BePrepared.Essentials"
+            android:label="@string/title_activity_essentials" >
+        </activity>
+        <activity
+            android:name=".BePrepared.Water"
+            android:label="@string/title_activity_water" >
+        </activity>
+        <activity
+            android:name=".BePrepared.Food"
+            android:label="@string/title_activity_food" >
+        </activity>
+        <activity
+            android:name=".BePrepared.FirstAid"
+            android:label="@string/title_activity_first_aid" >
+        </activity>
+        <activity
+            android:name=".BePrepared.Bedding"
+            android:label="@string/title_activity_bedding" >
+        </activity>
     </application>
 
 </manifest>

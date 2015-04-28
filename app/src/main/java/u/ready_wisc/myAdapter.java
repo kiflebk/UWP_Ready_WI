@@ -90,7 +90,7 @@ public class myAdapter extends ArrayAdapter<String> {
             case "Extreme Heat":
                 theImageView.setImageResource(R.drawable.heat_wave);
                 break;
-            case "Build A Kit":
+            case "Basic Kit Supplies":
                 theImageView.setImageResource(R.drawable.build_icon);
                 break;
             case "Make A Plan":

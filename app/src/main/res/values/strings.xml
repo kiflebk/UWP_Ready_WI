@@ -66,5 +66,10 @@
     <string name="RuInsured">Your Insurance Deductible</string>
     <string name="title_activity_poop">Poop</string>
     <string name="title_activity_sanitation_supp">SanitationSupp</string>
+    <string name="title_activity_essentials">Essentials</string>
+    <string name="title_activity_water">Water</string>
+    <string name="title_activity_food">Food</string>
+    <string name="title_activity_first_aid">FirstAid</string>
+    <string name="title_activity_bedding">Bedding</string>
 
 </resources>
