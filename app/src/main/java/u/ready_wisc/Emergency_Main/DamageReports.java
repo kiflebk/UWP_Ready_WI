@@ -22,24 +22,29 @@ package u.ready_wisc.Emergency_Main;
 
 
 
- //This class builds damageReports
- //Then calls a post method that will send
- //the data to the sever as a HTTP GET.
- 
+//This class builds damageReports
+//Then calls a post method that will send
+//the data to the sever as a HTTP GET.
+
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,6 +62,8 @@ import org.json.JSONObject;
 
 import java.util.Calendar;
 
+import u.ready_wisc.Config;
+import u.ready_wisc.MyDatabaseHelper;
 import u.ready_wisc.R;
 
 public class DamageReports extends ActionBarActivity {
@@ -92,11 +99,14 @@ public class DamageReports extends ActionBarActivity {
     EditText insurDeductAmt;
     int disasterType;
     int rentOrOwned;
+    static MyDatabaseHelper mDatabaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_damage_reports);
+
+        mDatabaseHelper = new MyDatabaseHelper(this);
 
         //Initialize variables on create of activity.
         btnTakePhoto = (Button) findViewById(R.id.camerabutton);
@@ -131,34 +141,35 @@ public class DamageReports extends ActionBarActivity {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         //locationManager initialize
-        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        if (isOnline()) {
+            locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
-        //Location settings with default methods.
-        locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                loc = location;
-            }
+            //Location settings with default methods.
+            locationListener = new LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    loc = location;
+                }
 
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
+                @Override
+                public void onStatusChanged(String provider, int status, Bundle extras) {
 
-            }
+                }
 
-            @Override
-            public void onProviderEnabled(String provider) {
+                @Override
+                public void onProviderEnabled(String provider) {
 
-            }
+                }
 
-            @Override
-            public void onProviderDisabled(String provider) {
+                @Override
+                public void onProviderDisabled(String provider) {
 
-            }
-        };
+                }
+            };
 
-        //Request location updates from the network (wifi or cell tower).
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-
+            //Request location updates from the network (wifi or cell tower).
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+        }
     }
 
 
@@ -200,14 +211,35 @@ public class DamageReports extends ActionBarActivity {
 
         public void onClick(View v) {
 
+            // char holds the \ character to eliminate from the URL header
+            char backspace = (char) 92;
+            boolean isConnected = isOnline();
+
             try {
 
                 // JSON object is created based off of user input
                 JSONObject jObject = createJObject();
 
-                // The JSON object is passed over to be sent
-                putDataToServer(jObject);
+                // Convert JSON object to url string
+                String url = Config.DAMAGE_REPORT_URL + jObject.toString().replace('{', ' ').replace('}',' ').replace(backspace, ' ').trim().replace('"', ' ').replace(" ", "").replace(':','=').replace(',','&');
 
+                // The JSON object is passed over to be sent
+                if(isConnected)
+                    putDataToServer(url);
+                else {
+                    addUser(url);
+                    String place = null;
+                    Cursor cur = mDatabaseHelper.query(MyDatabaseHelper.TABLE_USERS, null);
+
+                    if (cur.moveToFirst()) {
+                        int placeColumn = cur.getColumnIndex(MyDatabaseHelper.COL_JSON);
+                        place = cur.getString(placeColumn);
+                    }
+
+                    Log.i("DB Error", place);
+                    Toast.makeText(getApplicationContext(), "No Network Connection.  Report will be submitted when network connection is established.", Toast.LENGTH_LONG).show();
+                    DamageReports.this.finish();
+                }
 
             } catch (Throwable ignored) {
 
@@ -278,8 +310,11 @@ public class DamageReports extends ActionBarActivity {
                 obj.put("water_depth", water_depth.getText().toString().replace(" ", "%20"));
                 obj.put("basement_resident", (checked(basement_resident)+"").replace(" ","%20"));
                 obj.put("damage_desc", damage_desc.getText().toString().replace(" ", "%20"));
-                obj.put("longitude", (loc.getLongitude()+"").replace(" ","%20"));
-                obj.put("latitude", (loc.getLatitude()+"").replace(" ","%20"));
+
+                if (isOnline()) {
+                    obj.put("longitude", (loc.getLongitude()+"").replace(" ","%20"));
+                    obj.put("latitude", (loc.getLatitude()+"").replace(" ","%20"));
+                }
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -288,7 +323,7 @@ public class DamageReports extends ActionBarActivity {
         }
 
         //Method to send data to server via HTTP Post
-        public void putDataToServer(JSONObject json) throws Throwable {
+        public void putDataToServer(String json) throws Throwable {
 
             String reportAccepted;
             PutData httpGet = new PutData(json);
@@ -302,10 +337,9 @@ public class DamageReports extends ActionBarActivity {
                 Toast.makeText(getApplicationContext(), "Report Submitted Successfully", Toast.LENGTH_LONG).show();
                 DamageReports.this.finish();
 
-            //TODO if report is not sent it needs to be saved to the local database
+                //TODO if report is not sent it needs to be saved to the local database
             }else
                 Toast.makeText(getApplicationContext(), "Report Not Sent", Toast.LENGTH_LONG).show();
-
 
         }
     }
@@ -352,6 +386,37 @@ public class DamageReports extends ActionBarActivity {
         public void onDateSet(DatePicker view, int year, int month, int day) {
             DamageReports.text9.setText(month + 1 + "/" + day + "/" + year);
         }
+    }
+
+    protected void addUser(String name) {
+
+        Log.i("DB Error","Starting addUser");
+
+        ContentValues values = new ContentValues();
+
+        values.put(MyDatabaseHelper.COL_JSON, name);
+
+        try {
+            Log.i("DB Error", "Insertion Start");
+
+            mDatabaseHelper.insert(mDatabaseHelper.TABLE_USERS, values);
+
+            Log.i("DB Error", "Insertion Successful");
+
+        } catch (MyDatabaseHelper.NotValidException e) {
+
+            Log.e("DB Error:", "Unable to insert into DB.");
+
+        }
+
+    }
+
+    // returns true or false based on if device has an internet connection.
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
 }

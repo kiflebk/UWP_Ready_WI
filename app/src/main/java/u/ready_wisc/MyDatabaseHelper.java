@@ -26,6 +26,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 /**
  * Created by kiflebk on 2/11/15.
@@ -37,13 +38,13 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public static final String COL_ID = BaseColumns._ID;
 
-    public static final String COL_NAME = "name";
+    public static final String COL_JSON = "json";
 
     public static final String COL_EMAIL = "email";
 
     public static final String COL_DOB = "date_of_birth";
 
-    private static final String DATABASE_NAME = "my_app.db";
+    private static final String DATABASE_NAME = "damage_reports.db";
 
     private static final int DATABASE_VERSION = 1;
 
@@ -57,25 +58,22 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db) {
 
+        Log.i("DB Error","Table dropped");
+
         db.execSQL("CREATE TABLE " + TABLE_USERS + " ("
 
                 + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
 
-                + COL_NAME + " TEXT NOT NULL,"
-
-                + COL_EMAIL + " TEXT,"
-
-                + COL_DOB + " INTEGER"
+                + COL_JSON + " TEXT NOT NULL"
 
                 + ");");
-
     }
 
     @Override
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-
+        Log.i("DB Error", "Dropping table");
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS + ";");
 
         onCreate(db);
@@ -84,7 +82,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public long insert(String tableName, ContentValues values) throws NotValidException {
 
+        Log.i("Db Error", "Start Validation");
         validate(values); //checks values
+        Log.i("DB Error", "End Validation");
 
         return getWritableDatabase().insert(tableName, null, values);
 
@@ -114,7 +114,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     protected void validate(ContentValues values) throws NotValidException {
 
-        if (!values.containsKey(COL_NAME) || values.getAsString(COL_NAME) == null || values.getAsString(COL_NAME).isEmpty()) {
+        if (!values.containsKey(COL_JSON)) {
 
             throw new NotValidException("User name must be set");
 
@@ -134,7 +134,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor query(String tableName, String orderedBy) {
 
-        String[] projection = {COL_ID, COL_NAME, COL_EMAIL, COL_DOB};
+        String[] projection = {COL_ID, COL_JSON};
 
         return getReadableDatabase().query(tableName, projection, null, null, null, null, orderedBy);
 
