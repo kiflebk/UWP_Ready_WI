@@ -20,7 +20,6 @@
 
 package u.ready_wisc;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -29,12 +28,10 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import u.ready_wisc.Emergency_Main.DamageReports;
 import u.ready_wisc.Emergency_Main.PutData;
 
 //import com.pushbots.push.Pushbots;
@@ -79,7 +76,7 @@ public class SplashActivity extends ActionBarActivity {
 //            }
             Cursor damageCur;
             damageCur = mDatabaseHelper.query(MyDatabaseHelper.TABLE_USERS, null);
-            String url = null;
+            String url;
             if (damageCur.moveToFirst()) {
                 int placeColumn = damageCur.getColumnIndex(MyDatabaseHelper.COL_JSON);
                 url = damageCur.getString(placeColumn);
