@@ -21,7 +21,7 @@ import java.util.List;
 
 
 public class ResourcesActivity extends ActionBarActivity {
-    String county;
+    static String county = "";
     ArrayList<ResourceItem> resourceList;
     ListView resourcesListView;
     Button callButton;
@@ -37,8 +37,10 @@ public class ResourcesActivity extends ActionBarActivity {
         final ListView resourcesListView = (ListView) findViewById(R.id.resourcesListView);
         final Spinner resourceSpinner = (Spinner) findViewById(R.id.resourceSpinner);
 
-        Intent i = getIntent();
-        county = i.getStringExtra("county");
+        if(county.isEmpty()) {
+            Intent i = getIntent();
+            county = i.getStringExtra("county");
+        }
 
         Button callButton = (Button) findViewById(R.id.callButton);
         callButton.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +73,11 @@ public class ResourcesActivity extends ActionBarActivity {
         });
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("county",county);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
