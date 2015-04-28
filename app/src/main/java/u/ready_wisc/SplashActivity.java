@@ -20,17 +20,19 @@
 
 package u.ready_wisc;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import u.ready_wisc.Emergency_Main.PutData;
 
 //import com.pushbots.push.Pushbots;
 
@@ -41,23 +43,9 @@ public class SplashActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //mDatabaseHelper = new MyDatabaseHelper(this);
-        //mDatabaseHelper.onUpgrade(mDatabaseHelper.getReadableDatabase(), 0, 1);
+        mDatabaseHelper = new MyDatabaseHelper(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
-
-//TODO implement database update feature
-//        if (isOnline()) {
-//            DBUpdateFromWeb foo = new DBUpdateFromWeb();
-//            Thread t = new Thread(foo);
-//
-//            t.start();
-//            try {
-//                t.join();
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
 
         int time = 2000;
         new Handler().postDelayed(new Runnable() {
@@ -75,6 +63,33 @@ public class SplashActivity extends ActionBarActivity {
                 splashClose = true;
             }
         }, time);
+
+        if (isOnline()) {
+//TODO implement webDB update feature
+//            DBUpdateFromWeb foo = new DBUpdateFromWeb();
+//            Thread t = new Thread(foo);
+//            t.start();
+//            try {
+//                t.join();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+            Cursor damageCur;
+            damageCur = mDatabaseHelper.query(MyDatabaseHelper.TABLE_USERS, null);
+            String url;
+            if (damageCur.moveToFirst()) {
+                int placeColumn = damageCur.getColumnIndex(MyDatabaseHelper.COL_JSON);
+                url = damageCur.getString(placeColumn);
+
+                try {
+                    putDataToServer(url);
+                } catch (Throwable throwable) {
+                    throwable.printStackTrace();
+                }
+
+                mDatabaseHelper.onUpgrade(mDatabaseHelper.getReadableDatabase(), 0, 1);
+            }
+        }
 
     }
 
@@ -115,13 +130,32 @@ public class SplashActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    protected static void addUser(String name, String email, long dateOfBirthMillis) {
+    //Method to send data to server via HTTP Post
+    public void putDataToServer(String json) throws Throwable {
+
+        String reportAccepted;
+        PutData httpGet = new PutData(json);
+        Thread t = new Thread(httpGet);
+        t.start();
+        t.join();
+
+        reportAccepted = httpGet.getDataAccepted();
+
+        if (reportAccepted.equals("1")) {
+            Toast.makeText(getApplicationContext(), "Saved Report Submitted Successfully", Toast.LENGTH_LONG).show();
+
+        }else
+            Toast.makeText(getApplicationContext(), "Report Not Sent", Toast.LENGTH_LONG).show();
+
+    }
+
+/*    protected static void addUser(String name, String email, long dateOfBirthMillis) {
 
         //mDatabaseHelper.onUpgrade(mDatabaseHelper.getReadableDatabase(), 0, 1);
 
         ContentValues values = new ContentValues();
 
-        values.put(MyDatabaseHelper.COL_NAME, name);
+        values.put(MyDatabaseHelper.COL_JSON, name);
 
         if (email != null) {
 
@@ -145,5 +179,5 @@ public class SplashActivity extends ActionBarActivity {
 
         }
 
-    }
+    }*/
 }

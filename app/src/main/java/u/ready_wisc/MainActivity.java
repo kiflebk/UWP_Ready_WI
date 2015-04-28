@@ -75,9 +75,9 @@ public class MainActivity extends ActionBarActivity {
         DisplayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cursor c = mDatabaseHelper.query(MyDatabaseHelper.TABLE_USERS, MyDatabaseHelper.COL_NAME);
+                Cursor c = mDatabaseHelper.query(MyDatabaseHelper.TABLE_USERS, MyDatabaseHelper.COL_JSON);
 
-                String[] from = new String[]{MyDatabaseHelper.COL_NAME, MyDatabaseHelper.COL_EMAIL};
+                String[] from = new String[]{MyDatabaseHelper.COL_JSON, MyDatabaseHelper.COL_EMAIL};
 
                 int[] to = { android.R.id.text1, android.R.id.text2 };
 
@@ -115,7 +115,7 @@ public class MainActivity extends ActionBarActivity {
 
         ContentValues values = new ContentValues();
 
-        values.put(MyDatabaseHelper.COL_NAME, name);
+        values.put(MyDatabaseHelper.COL_JSON, name);
 
         if (email != null) {
 

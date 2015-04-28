@@ -28,7 +28,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONObject;
 
 
  //Runnable object used to submit damage report to server using HTTP GET
@@ -37,10 +36,10 @@ import org.json.JSONObject;
 public class PutData implements Runnable {
 
     // JSON object is created in DamageReports.java
-    JSONObject mainJSON;
+    String mainJSON;
     String dataAccepted;
 
-    public PutData(JSONObject json) {
+    public PutData(String json) {
 
         mainJSON = json;
     }
@@ -54,22 +53,21 @@ public class PutData implements Runnable {
     public void run() {
 
         // char holds the \ character to eliminate from the URL header
-        char backspace = (char) 92;
+        //char backspace = (char) 92;
 
         //
         try {
-            Log.i("Thread JSON:", mainJSON.toString());
+            Log.i("Thread JSON:", mainJSON);
             HttpClient httpclient = new DefaultHttpClient();
 
-            String url = "http://www.joshuaolufs.com/php/query_damageReports_insert.php?" + mainJSON.toString().replace('{', ' ').replace('}',' ').replace(backspace, ' ').trim().replace('"', ' ').replace(" ", "").replace(':','=').replace(',','&');
+            //String url = "http://www.joshuaolufs.com/php/query_damageReports_insert.php?" + mainJSON.toString().replace('{', ' ').replace('}',' ').replace(backspace, ' ').trim().replace('"', ' ').replace(" ", "").replace(':','=').replace(',','&');
 
-            Log.i("HTTP URL:", url);
-            HttpPost httppost = new HttpPost(url) ;
+            Log.i("HTTP URL:", mainJSON);
+            HttpPost httppost = new HttpPost(mainJSON) ;
 
-            // The following code needs to be fixed to send the DamageReports JSON object
-            // as a POST.
+            // TODO The following code needs to be fixed to send the DamageReports JSON object as a POST.
 
-           //StringEntity se = new StringEntity(mainJSON.toString());
+            //StringEntity se = new StringEntity(mainJSON.toString());
             //Log.i("String Entity", mainJSON.toString());
             //httppost.setEntity(se);
 
