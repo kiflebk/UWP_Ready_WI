@@ -910,7 +910,7 @@ public class Config {
                 "</body>");
     }
 
-    // TODO Make this look prettier
+    
     public static final String SANITATION_SUPP;
 
     static{
