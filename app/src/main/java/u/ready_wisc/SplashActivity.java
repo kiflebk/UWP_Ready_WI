@@ -37,12 +37,12 @@ import u.ready_wisc.Emergency_Main.PutData;
 
 public class SplashActivity extends ActionBarActivity {
 
-    static MyDatabaseHelper mDatabaseHelper;
+    static ReportsDatabaseHelper mDatabaseHelper;
     boolean splashClose = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mDatabaseHelper = new MyDatabaseHelper(this);
+        mDatabaseHelper = new ReportsDatabaseHelper(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
@@ -74,10 +74,10 @@ public class SplashActivity extends ActionBarActivity {
 //                e.printStackTrace();
 //            }
             Cursor damageCur;
-            damageCur = mDatabaseHelper.query(MyDatabaseHelper.TABLE_USERS, null);
+            damageCur = mDatabaseHelper.query(ReportsDatabaseHelper.TABLE_USERS, null);
             String url;
             if (damageCur.moveToFirst()) {
-                int placeColumn = damageCur.getColumnIndex(MyDatabaseHelper.COL_JSON);
+                int placeColumn = damageCur.getColumnIndex(ReportsDatabaseHelper.COL_JSON);
                 url = damageCur.getString(placeColumn);
 
                 try {

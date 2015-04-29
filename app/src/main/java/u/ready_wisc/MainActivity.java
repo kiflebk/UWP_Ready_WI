@@ -37,7 +37,7 @@ import android.widget.SimpleCursorAdapter;
 
 
 public class MainActivity extends ActionBarActivity {
-    static MyDatabaseHelper mDatabaseHelper;
+    static ReportsDatabaseHelper mDatabaseHelper;
     private Button DisplayButton, UpdateButton, getDBButton;
     static Context ctx;
 
@@ -50,7 +50,7 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        mDatabaseHelper = new MyDatabaseHelper(this);
+        mDatabaseHelper = new ReportsDatabaseHelper(this);
         UpdateButton = (Button) findViewById(R.id.UpdateButton);
         DisplayButton = (Button) findViewById(R.id.DisplayButton);
         getDBButton = (Button) findViewById(R.id.getDBButton);
@@ -75,9 +75,9 @@ public class MainActivity extends ActionBarActivity {
         DisplayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cursor c = mDatabaseHelper.query(MyDatabaseHelper.TABLE_USERS, MyDatabaseHelper.COL_JSON);
+                Cursor c = mDatabaseHelper.query(ReportsDatabaseHelper.TABLE_USERS, ReportsDatabaseHelper.COL_JSON);
 
-                String[] from = new String[]{MyDatabaseHelper.COL_JSON, MyDatabaseHelper.COL_EMAIL};
+                String[] from = new String[]{ReportsDatabaseHelper.COL_JSON, ReportsDatabaseHelper.COL_EMAIL};
 
                 int[] to = { android.R.id.text1, android.R.id.text2 };
 
@@ -115,17 +115,17 @@ public class MainActivity extends ActionBarActivity {
 
         ContentValues values = new ContentValues();
 
-        values.put(MyDatabaseHelper.COL_JSON, name);
+        values.put(ReportsDatabaseHelper.COL_JSON, name);
 
         if (email != null) {
 
-            values.put(MyDatabaseHelper.COL_EMAIL, email);
+            values.put(ReportsDatabaseHelper.COL_EMAIL, email);
 
         }
 
         if (dateOfBirthMillis != 0) {
 
-            values.put(MyDatabaseHelper.COL_DOB, dateOfBirthMillis);
+            values.put(ReportsDatabaseHelper.COL_DOB, dateOfBirthMillis);
 
         }
 
@@ -133,7 +133,7 @@ public class MainActivity extends ActionBarActivity {
 
             mDatabaseHelper.insert(mDatabaseHelper.TABLE_USERS, values);
 
-        } catch (MyDatabaseHelper.NotValidException e) {
+        } catch (ReportsDatabaseHelper.NotValidException e) {
 
             Log.e("DB Error:", "Unable to insert into DB.");
 

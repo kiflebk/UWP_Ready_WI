@@ -63,7 +63,7 @@ import org.json.JSONObject;
 import java.util.Calendar;
 
 import u.ready_wisc.Config;
-import u.ready_wisc.MyDatabaseHelper;
+import u.ready_wisc.ReportsDatabaseHelper;
 import u.ready_wisc.R;
 
 public class DamageReports extends ActionBarActivity {
@@ -99,14 +99,14 @@ public class DamageReports extends ActionBarActivity {
     EditText insurDeductAmt;
     int disasterType;
     int rentOrOwned;
-    static MyDatabaseHelper mDatabaseHelper;
+    static ReportsDatabaseHelper mDatabaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_damage_reports);
 
-        mDatabaseHelper = new MyDatabaseHelper(this);
+        mDatabaseHelper = new ReportsDatabaseHelper(this);
 
         //Initialize variables on create of activity.
         btnTakePhoto = (Button) findViewById(R.id.camerabutton);
@@ -229,10 +229,10 @@ public class DamageReports extends ActionBarActivity {
                 else {
                     addUser(url);
                     String place = null;
-                    Cursor cur = mDatabaseHelper.query(MyDatabaseHelper.TABLE_USERS, null);
+                    Cursor cur = mDatabaseHelper.query(ReportsDatabaseHelper.TABLE_USERS, null);
 
                     if (cur.moveToFirst()) {
-                        int placeColumn = cur.getColumnIndex(MyDatabaseHelper.COL_JSON);
+                        int placeColumn = cur.getColumnIndex(ReportsDatabaseHelper.COL_JSON);
                         place = cur.getString(placeColumn);
                     }
 
@@ -394,7 +394,7 @@ public class DamageReports extends ActionBarActivity {
 
         ContentValues values = new ContentValues();
 
-        values.put(MyDatabaseHelper.COL_JSON, name);
+        values.put(ReportsDatabaseHelper.COL_JSON, name);
 
         try {
             Log.i("DB Error", "Insertion Start");
@@ -403,7 +403,7 @@ public class DamageReports extends ActionBarActivity {
 
             Log.i("DB Error", "Insertion Successful");
 
-        } catch (MyDatabaseHelper.NotValidException e) {
+        } catch (ReportsDatabaseHelper.NotValidException e) {
 
             Log.e("DB Error:", "Unable to insert into DB.");
 

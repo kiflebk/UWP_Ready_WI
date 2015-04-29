@@ -31,7 +31,7 @@ import android.util.Log;
 /**
  * Created by kiflebk on 2/11/15.
  */
-public class MyDatabaseHelper extends SQLiteOpenHelper {
+public class ReportsDatabaseHelper extends SQLiteOpenHelper {
     // components of the table which can be changed later to join up with other team later on
 
     public static final String TABLE_USERS = "users";
@@ -48,7 +48,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
 
-    public MyDatabaseHelper(Context context) {
+    public ReportsDatabaseHelper(Context context) {
 
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
