@@ -63,7 +63,10 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainmenu);
-        Pushbots.sharedInstance().init(this); // was added for pushbots
+
+        // Code used to start pushbots and change to correct county account
+        Pushbots.sharedInstance().setAppId(CountyPicker.appID);
+        Pushbots.sharedInstance().init(this);
 
         // RSS activity isn't called if device has no network connection
         if ((savedInstanceState == null) && isOnline()) {
@@ -176,7 +179,6 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
 
                 Log.e("err", "Device has no camera!");
                 //Return from the method, do nothing after this code block
-                return;
             }
             // if camera has flash toggle on and off
             else {

@@ -21,7 +21,6 @@
 package u.ready_wisc.BePrepared;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,7 +34,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import edu.parkside.cs.checklist.Checklist;
-import u.ready_wisc.Emergency_Main.Volunteer;
 import u.ready_wisc.R;
 import u.ready_wisc.myAdapter;
 
@@ -102,7 +100,9 @@ public class Prep_Main extends ActionBarActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Intent i;
-                    switch(which){
+
+                    //TODO uncomment once activities are created
+/*                    switch(which){
                         case 0:
                             i = new Intent(Prep_Main.this, Essentials.class);
                             Prep_Main.this.startActivity(i);
@@ -127,7 +127,7 @@ public class Prep_Main extends ActionBarActivity {
                             i = new Intent(Prep_Main.this, SanitationSupp.class);
                             Prep_Main.this.startActivity(i);
                             break;
-                    }
+                    }*/
                     //Toast.makeText(Prep_Main.this, "You chose " + which, Toast.LENGTH_SHORT).show();
                 }
             });

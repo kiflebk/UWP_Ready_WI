@@ -21,9 +21,20 @@
 package u.ready_wisc;
 
 /**
- * Created by kiflebk on 3/9/15.
- */
+ * Copyright [2015] [University of Wisconsin - Parkside]
 
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ */
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -42,6 +53,7 @@ public class CountyPicker extends Activity implements AdapterViewCompat.OnItemSe
     Spinner counties;
     Button pick;
     public static String countyIdCode;
+    public static String appID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,28 +78,40 @@ public class CountyPicker extends Activity implements AdapterViewCompat.OnItemSe
 
                 // County codes are located in config file for
                 // easy updating and additions
-                if (countyInt == 0)
+                if (countyInt == 0) {
                     countyIdCode = Config.RSS_DANE;
-                else if (countyInt == 1)
+                    appID = "553feb2717795996028b457e";
+                }else if (countyInt == 1) {
                     countyIdCode = Config.RSS_JEFFERSON;
-                else if (countyInt == 2)
+                    appID = "553fec3217795996028b4580";
+                }else if (countyInt == 2) {
                     countyIdCode = Config.RSS_KENOSHA;
-                else if (countyInt == 3)
+                    appID = "553fe6fd177959ac0e8b457f";
+                }else if (countyInt == 3) {
                     countyIdCode = Config.RSS_MILWAUKEE;
-                else if (countyInt == 4)
+                    appID = "553fed2c17795996028b4584";
+                }else if (countyInt == 4) {
                     countyIdCode = Config.RSS_OZAUKEE;
-                else if (countyInt == 5)
+                    appID = "553ff12617795996028b4585";
+                }else if (countyInt == 5) {
                     countyIdCode = Config.RSS_RACINE;
-                else if (countyInt == 6)
+                    appID = "553fea39177959ac0e8b4581";
+                }else if (countyInt == 6) {
                     countyIdCode = Config.RSS_ROCK;
-                else if (countyInt == 7)
+                    appID = "553ff3bb1779597b408b4569";
+                }else if (countyInt == 7) {
                     countyIdCode = Config.RSS_SAUK;
-                else if (countyInt == 8)
+                    appID = "553ff53617795912158b457a";
+                }else if (countyInt == 8) {
                     countyIdCode = Config.RSS_WALWORTH;
-                else if (countyInt == 9)
+                    appID = "553ff6e91779597b408b4572";
+                }else if (countyInt == 9) {
                     countyIdCode = Config.RSS_WASHINGTON;
-                else if (countyInt == 10)
+                    appID = "553ff97e1779597b408b4574";
+                }else if (countyInt == 10) {
                     countyIdCode = Config.RSS_WAUKESHA;
+                    appID = "553ffa3f17795912158b4584";
+                }
                 startUI(getCurrentFocus());
             }
         });

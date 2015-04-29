@@ -34,7 +34,6 @@ import android.widget.Toast;
 
 import u.ready_wisc.Emergency_Main.PutData;
 
-//import com.pushbots.push.Pushbots;
 
 public class SplashActivity extends ActionBarActivity {
 
