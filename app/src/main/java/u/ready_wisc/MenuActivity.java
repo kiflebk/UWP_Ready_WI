@@ -85,8 +85,6 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
         resourcesbutton = (Button) findViewById(R.id.disasterResourcesButton);
         reportButton = (Button) findViewById(R.id.reportDamageButton);
         checklistButton = (Button) findViewById(R.id.prepareButton);
-        prepareMenuButton = (ImageButton) findViewById(R.id.prepareMenuButton);
-        emergMenuButton = (ImageButton) findViewById(R.id.emergencyMenuButton);
         sosMenuButton = (ImageButton) findViewById(R.id.SOSMenubutton);
         flashlightButton = (ImageButton) findViewById(R.id.FlashlightMenuButton);
 
@@ -95,8 +93,6 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
         flashlightButton.setOnClickListener(this);
         reportButton.setOnClickListener(this);
         checklistButton.setOnClickListener(this);
-        prepareMenuButton.setOnClickListener(this);
-        emergMenuButton.setOnClickListener(this);
         sosMenuButton.setOnClickListener(this);
 
         resourcesbutton.setOnClickListener(new View.OnClickListener() {
