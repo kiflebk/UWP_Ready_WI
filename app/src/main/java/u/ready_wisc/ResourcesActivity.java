@@ -30,37 +30,33 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.pushbots.push.utils.Log;
+
 import java.util.ArrayList;
 
 
 public class ResourcesActivity extends ActionBarActivity {
-    Button backButton;
-    String county;
+    static String county = "";
     ArrayList<ResourceItem> resourceList;
     ListView resourcesListView;
-    Spinner countySpinner;
     Button callButton;
-    Button changeButton;
+    Spinner resourceSpinner;
+    static MyDatabaseHelper rDBHelper;
 
-    //For Ben:
-    //db.execSQL("CREATE TABLE resources (county TEXT, name TEXT PRIMARY KEY, address TEXT, phone TEXT, other TEXT, type TEXT");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resources);
-        Button backButton = (Button) findViewById(R.id.backButton);
+        rDBHelper = new MyDatabaseHelper(this);
+
         final ListView resourcesListView = (ListView) findViewById(R.id.resourcesListView);
-        final Spinner countySpinner = (Spinner) findViewById(R.id.countySpinner);
-        Intent i = getIntent();
-        county = i.getStringExtra("county");
-        backButton.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(ResourcesActivity.this, MenuActivity.class);
-                ResourcesActivity.this.startActivity(i);
-                ResourcesActivity.this.finish();
-            }
-        });
+        final Spinner resourceSpinner = (Spinner) findViewById(R.id.resourceSpinner);
+
+        if(county.isEmpty()) {
+            Intent i = getIntent();
+            county = i.getStringExtra("county");
+        }
+
         Button callButton = (Button) findViewById(R.id.callButton);
         callButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,52 +66,33 @@ public class ResourcesActivity extends ActionBarActivity {
                 startActivity(i);
             }
         });
-//        //Database query to populate listview
-//        //Need local DB + working activity
-//        SQLiteDatabase resourceDB = this.getReadableDatabase();
-//        String query = "SELECT * FROM resources WHERE COUNTY=\"" + county + "\"";
-//        Cursor result = resourceDB.rawQuery(query, null);
-//        if(result.moveToFirst()){
-//            do{
-//                ResourceItem item = new ResourceItem();
-//                item.setName(result.getString(1));
-//                item.setAddress(result.getString(2));
-//                item.setPhone(result.getString(3));
-//                item.setOther(result.getString(4));
-//                item.setType(result.getString(5));
-//                resourceList.add(item);
-//            } while (result.moveToFirst());
-//        }
-//        ResourceAdapter adapter = new ResourceAdapter(this, resourceList);
-//        resourcesListView.setAdapter(adapter);
-//        countySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                county = countySpinner.getItemAtPosition(position).toString();
-//                SQLiteDatabase resourceDB = this.getReadableDatabase();
-//                String query = "SELECT * FROM resources WHERE COUNTY=\"" + county + "\"";
-//                Cursor result = resourceDB.rawQuery(query, null);
-//                if(result.moveToFirst()){
-//                    do{
-//                        ResourceItem item = new ResourceItem();
-//                        item.setName(result.getString(1));
-//                        item.setAddress(result.getString(2));
-//                        item.setPhone(result.getString(3));
-//                        item.setOther(result.getString(4));
-//                        item.setType(result.getString(5));
-//                        resourceList.add(item);
-//                    } while (result.moveToFirst());
-//                }
-//                ResourceAdapter adapter = new ResourceAdapter(ResourcesActivity.this, resourceList);
-//                resourcesListView.setAdapter(adapter);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//            }
-//        });
+
+        //Database query to populate listview
+        //Need local DB + working activity
+        resourceList = rDBHelper.getDataFromCounty(county);
+        ResourceAdapter adapter = new ResourceAdapter(this, resourceList);
+        resourcesListView.setAdapter(adapter);
+
+        resourceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String resource = parent.getItemAtPosition(position).toString();
+                resourceList = rDBHelper.getDataFromType(county,resource);
+                ResourceAdapter adapter = new ResourceAdapter(ResourcesActivity.this, resourceList);
+                resourcesListView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("county",county);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

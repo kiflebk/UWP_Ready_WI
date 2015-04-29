@@ -4,30 +4,10 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.kiflebk.readywisc.ResourcesActivity">
+    tools:context="com.example.kiflebk.readywisc.ResourcesActivity"
+    android:id="@+id/resActi">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="County:"
-        android:id="@+id/countyText"
-        android:textSize="30dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:gravity="center_vertical|center_horizontal" />
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/countySpinner"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/countyText"
-        android:layout_toEndOf="@+id/countyText"
-        android:spinnerMode="dropdown"
-        android:entries="@array/county"
-        android:layout_alignBottom="@+id/countyText" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -38,8 +18,29 @@
         android:textSize="30dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/countySpinner"
-        android:layout_marginTop="10dp" />
+        android:layout_below="@+id/resourceText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Resource:"
+        android:id="@+id/resourceText"
+        android:textSize="30dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+         />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/resourceSpinner"
+        android:spinnerMode="dropdown"
+        android:entries="@array/resourceList"
+        android:layout_toEndOf="@+id/resourceText"
+        android:layout_above="@+id/contactsText"
+        android:layout_toRightOf="@+id/resourceText" />
 
     <ListView
         android:layout_width="wrap_content"
@@ -64,23 +65,10 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Back"
-            android:id="@+id/backButton"
-            android:gravity="left" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="911"
             android:id="@+id/callButton"
             android:gravity="center_horizontal" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Change County"
-            android:id="@+id/changeButton"
-            android:gravity="right" />
     </LinearLayout>
 
 </RelativeLayout>

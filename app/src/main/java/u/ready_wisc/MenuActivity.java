@@ -56,6 +56,7 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
     Context context;
     public static MediaPlayer mp;
     PackageManager pm;
+    String county;
 
     @Override
 
@@ -72,6 +73,8 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
         if ((savedInstanceState == null) && isOnline()) {
             addRssFragment();
         }
+        Intent oldIntent = getIntent();
+        county = oldIntent.getStringExtra("county");
 
         context = getApplicationContext();
 
@@ -99,6 +102,7 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MenuActivity.this, ResourcesActivity.class);
+                i.putExtra("county",county);
                 MenuActivity.this.startActivity(i);
             }
         });
