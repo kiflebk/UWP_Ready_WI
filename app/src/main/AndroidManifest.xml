@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="u.ready_wisc" >
+    package="u.ready_wisc">
 
     <uses-sdk android:minSdkVersion="11" />
 
@@ -45,14 +45,14 @@
         android:icon="@drawable/alt_wi"
         android:label="@string/app_name"
         android:screenOrientation="portrait"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <service android:name="rss.RssService" />
 
         <!-- THis activity is the first screen when app is launched -->
         <activity
             android:name=".SplashActivity"
             android:label="Ready Badger"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -70,7 +70,7 @@
         <activity
             android:name=".MenuActivity"
             android:label="Ready Badger"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="u.ready_wisc.MESSAGE" />
 
@@ -83,7 +83,7 @@
             android:name=".disasterTypes.DisastersType"
             android:label="Types Of Disasters"
             android:parentActivityName=".MenuActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
@@ -93,7 +93,7 @@
         <activity
             android:name=".disasterTypes.Tornado"
             android:label="Tornadoes"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".disasterTypes.DisastersType" />
@@ -103,7 +103,7 @@
         <activity
             android:name=".disasterTypes.WinterStorm"
             android:label="Winter Storms"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".disasterTypes.DisastersType" />
@@ -113,7 +113,7 @@
         <activity
             android:name=".disasterTypes.Terrorism"
             android:label="Terrorism"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".disasterTypes.DisastersType" />
@@ -123,7 +123,7 @@
         <activity
             android:name=".disasterTypes.PublicHealthEmergency"
             android:label="Public Health Emergency"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".disasterTypes.DisastersType" />
@@ -133,7 +133,7 @@
         <activity
             android:name=".disasterTypes.PowerOutage"
             android:label="Power Outage"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".disasterTypes.DisastersType" />
@@ -143,7 +143,7 @@
         <activity
             android:name=".disasterTypes.Flood"
             android:label="Flood"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".disasterTypes.DisastersType" />
@@ -153,7 +153,7 @@
         <activity
             android:name=".disasterTypes.Fire"
             android:label="Fire/Wild Fire"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".disasterTypes.DisastersType" />
@@ -163,7 +163,7 @@
         <activity
             android:name=".disasterTypes.ThunderStorm"
             android:label="Thunder Storms"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".disasterTypes.DisastersType" />
@@ -173,7 +173,7 @@
         <activity
             android:name=".disasterTypes.ExtremeHeat"
             android:label="Extreme Heat"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".disasterTypes.DisastersType" />
@@ -183,7 +183,7 @@
         <activity
             android:name=".disasterTypes.BombThreat"
             android:label="Bomb Threats"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".disasterTypes.DisastersType" />
@@ -191,7 +191,7 @@
         <activity
             android:name=".Emergency_Main.Emergency"
             android:label="Emergency"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
@@ -201,7 +201,7 @@
         <activity
             android:name=".Emergency_Main.DamageReports"
             android:label="Damage Reports"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="u.ready_wisc.Emergency_Main.Emergency" />
@@ -212,7 +212,7 @@
             android:name=".ResourcesActivity"
             android:label="Disaster Resources"
             android:parentActivityName=".MenuActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="u.ready_wisc.MenuActivity" />
@@ -223,7 +223,7 @@
             android:name=".MainActivity"
             android:label="Disaster Resources1221"
             android:parentActivityName=".MenuActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="u.ready_wisc.MenuActivity" />
@@ -233,7 +233,7 @@
         <activity
             android:name=".RssActivity"
             android:label="@string/title_activity_rss"
-            android:parentActivityName=".MenuActivity" >
+            android:parentActivityName=".MenuActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="u.ready_wisc.MenuActivity" />
@@ -244,7 +244,7 @@
         <activity
             android:name=".BePrepared.Prep_Main"
             android:label="Prepare Now"
-            android:parentActivityName=".MenuActivity" >
+            android:parentActivityName=".MenuActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
@@ -252,7 +252,7 @@
         <activity
             android:name=".BePrepared.Build_Kits"
             android:label="Prepare Now Rather Than Later"
-            android:parentActivityName=".BePrepared.Prep_Main" >
+            android:parentActivityName=".BePrepared.Prep_Main">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BePrepared.Prep_Main" />
@@ -260,7 +260,7 @@
         <activity
             android:name=".BePrepared.Plan"
             android:label="Prepare Now Rather Than Later"
-            android:parentActivityName=".BePrepared.Prep_Main" >
+            android:parentActivityName=".BePrepared.Prep_Main">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BePrepared.Prep_Main" />
@@ -276,7 +276,7 @@
             android:name="edu.parkside.cs.checklist.ChecklistItemListView"
             android:label="@string/title_activity_checklist__item_list_view"
             android:parentActivityName="edu.parkside.cs.checklist.Checklist"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.parkside.cs.checklist.Checklist" />
@@ -287,7 +287,7 @@
             android:name="edu.parkside.cs.checklist.ChecklistCreate"
             android:label="@string/title_activity_checklist__kit__create"
             android:parentActivityName="edu.parkside.cs.checklist.Checklist"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.parkside.cs.checklist.Checklist" />
@@ -296,7 +296,7 @@
             android:name="edu.parkside.cs.checklist.ChecklistCreateItemAdd"
             android:label="@string/title_activity_checklist__create__item__add"
             android:parentActivityName="edu.parkside.cs.checklist.ChecklistCreate"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.parkside.cs.checklist.ChecklistCreate" />
@@ -307,7 +307,7 @@
             android:name="edu.parkside.cs.checklist.ChecklistItemCreate"
             android:label="@string/title_activity_checklist__item__create"
             android:parentActivityName="edu.parkside.cs.checklist.ChecklistItemListView"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.parkside.cs.checklist.ChecklistItemListView" />
@@ -316,7 +316,7 @@
             android:name="edu.parkside.cs.checklist.ChecklistItemDetail"
             android:label="@string/title_activity_checklist__item__detail"
             android:parentActivityName="edu.parkside.cs.checklist.ChecklistItemListView"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.parkside.cs.checklist.ChecklistItemListView" />
@@ -325,7 +325,7 @@
         <!-- Below is all used for push notifications -->
         <receiver
             android:name="com.pushbots.google.gcm.GCMBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
 
                 <!-- Receives the actual messages. -->
@@ -341,7 +341,7 @@
         <service android:name="com.pushbots.push.GCMIntentService" />
         <service
             android:name="org.openudid.OpenUDID_service"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="org.openudid.GETUDID" />
             </intent-filter>
@@ -350,72 +350,66 @@
 
         <activity
             android:name=".BePrepared.SanitationSupp"
-            android:label="@string/title_activity_sanitation_supp" >
-        </activity>
+            android:label="@string/title_activity_sanitation_supp"></activity>
         <activity
             android:name=".BePrepared.Essentials"
-            android:label="@string/title_activity_essentials" >
-        </activity>
+            android:label="@string/title_activity_essentials"></activity>
         <activity
             android:name=".BePrepared.Water"
-            android:label="@string/title_activity_water" >
-        </activity>
+            android:label="@string/title_activity_water"></activity>
         <activity
             android:name=".BePrepared.Food"
-            android:label="@string/title_activity_food" >
-        </activity>
+            android:label="@string/title_activity_food"></activity>
         <activity
             android:name=".BePrepared.FirstAid"
-            android:label="@string/title_activity_first_aid" >
-        </activity>
+            android:label="@string/title_activity_first_aid"></activity>
         <activity
             android:name=".BePrepared.Bedding"
-            android:label="@string/title_activity_bedding" >
-        </activity>
+            android:label="@string/title_activity_bedding"></activity>
         <activity
-            android:name=".BasicKit.Essentials"
+            android:name=".BePrepared.BasicKit.Essentials"
             android:label="@string/title_activity_essentials"
-            android:parentActivityName=".BePrepared.Prep_Main" >
+            android:parentActivityName=".BePrepared.Prep_Main">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="u.ready_wisc.BePrepared.Prep_Main" />
         </activity>
         <activity
-            android:name=".BasicKit.Water"
+            android:name=".BePrepared.BasicKit.Water"
             android:label="@string/title_activity_water"
-            android:parentActivityName=".BePrepared.Prep_Main" >
+            android:parentActivityName=".BePrepared.Prep_Main">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="u.ready_wisc.BePrepared.Prep_Main" />
         </activity>
         <activity
-            android:name=".BasicKit.Food"
+            android:name=".BePrepared.BasicKit.Food"
             android:label="@string/title_activity_food"
-            android:parentActivityName=".BePrepared.Prep_Main" >
+            android:parentActivityName=".BePrepared.Prep_Main">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="u.ready_wisc.BePrepared.Prep_Main" />
         </activity>
         <activity
-            android:name=".BasicKit.FirstAid"
+            android:name=".BePrepared.BasicKit.FirstAid"
             android:label="@string/title_activity_first_aid"
-            android:parentActivityName=".BePrepared.Prep_Main" >
+            android:parentActivityName=".BePrepared.Prep_Main">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="u.ready_wisc.BePrepared.Prep_Main" />
         </activity>
         <activity
-            android:name=".BasicKit.Bedding"
+            android:name=".BePrepared.BasicKit.Bedding"
             android:label="@string/title_activity_bedding"
-            android:parentActivityName=".BePrepared.Prep_Main" >
+            android:parentActivityName=".BePrepared.Prep_Main">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="u.ready_wisc.BePrepared.Prep_Main" />
         </activity>
         <activity
-            android:name=".BasicKit.SanitationSupp"
+            android:name=".BePrepared.BasicKit.SanitationSupp"
             android:label="@string/title_activity_sanitation_supp"
-            android:parentActivityName=".BePrepared.Prep_Main" >
+            android:parentActivityName=".BePrepared.Prep_Main">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="u.ready_wisc.BePrepared.Prep_Main" />
