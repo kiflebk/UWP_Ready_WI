@@ -31,9 +31,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import edu.parkside.cs.checklist.Checklist;
+import u.ready_wisc.BasicKit.Bedding;
+import u.ready_wisc.BasicKit.Essentials;
+import u.ready_wisc.BasicKit.FirstAid;
+import u.ready_wisc.BasicKit.Food;
+import u.ready_wisc.BasicKit.SanitationSupp;
+import u.ready_wisc.BasicKit.Water;
 import u.ready_wisc.R;
 import u.ready_wisc.myAdapter;
 
@@ -61,7 +66,7 @@ public class Prep_Main extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String x = String.valueOf(parent.getItemAtPosition(position));
                 String disasterPicked = "You selected " + x;
-                Toast.makeText(Prep_Main.this, disasterPicked, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Prep_Main.this, disasterPicked, Toast.LENGTH_SHORT).show();
 
                 switch (x) {
                     case "Custom List":
@@ -102,7 +107,7 @@ public class Prep_Main extends ActionBarActivity {
                     Intent i;
 
                     //TODO uncomment once activities are created
-/*                    switch(which){
+                    switch(which){
                         case 0:
                             i = new Intent(Prep_Main.this, Essentials.class);
                             Prep_Main.this.startActivity(i);
@@ -127,7 +132,7 @@ public class Prep_Main extends ActionBarActivity {
                             i = new Intent(Prep_Main.this, SanitationSupp.class);
                             Prep_Main.this.startActivity(i);
                             break;
-                    }*/
+                    }
                     //Toast.makeText(Prep_Main.this, "You chose " + which, Toast.LENGTH_SHORT).show();
                 }
             });

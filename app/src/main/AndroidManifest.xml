@@ -48,12 +48,6 @@
         android:theme="@style/AppTheme" >
         <service android:name="rss.RssService" />
 
-        <!--
-             TODO replaced line, need to ask client if original logo is okay
-                android:icon="@mipmap/ic_rw2"
-        -->
-
-
         <!-- THis activity is the first screen when app is launched -->
         <activity
             android:name=".SplashActivity"
@@ -245,9 +239,6 @@
                 android:value="u.ready_wisc.MenuActivity" />
         </activity>
 
-        <!-- All of this Checklist crap is broken an app crashes...I will build a better way to this -->
-
-
         <!-- This is the be prepared activity aka checklists -->
 
         <activity
@@ -380,6 +371,54 @@
         <activity
             android:name=".BePrepared.Bedding"
             android:label="@string/title_activity_bedding" >
+        </activity>
+        <activity
+            android:name=".BasicKit.Essentials"
+            android:label="@string/title_activity_essentials"
+            android:parentActivityName=".BePrepared.Prep_Main" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="u.ready_wisc.BePrepared.Prep_Main" />
+        </activity>
+        <activity
+            android:name=".BasicKit.Water"
+            android:label="@string/title_activity_water"
+            android:parentActivityName=".BePrepared.Prep_Main" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="u.ready_wisc.BePrepared.Prep_Main" />
+        </activity>
+        <activity
+            android:name=".BasicKit.Food"
+            android:label="@string/title_activity_food"
+            android:parentActivityName=".BePrepared.Prep_Main" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="u.ready_wisc.BePrepared.Prep_Main" />
+        </activity>
+        <activity
+            android:name=".BasicKit.FirstAid"
+            android:label="@string/title_activity_first_aid"
+            android:parentActivityName=".BePrepared.Prep_Main" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="u.ready_wisc.BePrepared.Prep_Main" />
+        </activity>
+        <activity
+            android:name=".BasicKit.Bedding"
+            android:label="@string/title_activity_bedding"
+            android:parentActivityName=".BePrepared.Prep_Main" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="u.ready_wisc.BePrepared.Prep_Main" />
+        </activity>
+        <activity
+            android:name=".BasicKit.SanitationSupp"
+            android:label="@string/title_activity_sanitation_supp"
+            android:parentActivityName=".BePrepared.Prep_Main" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="u.ready_wisc.BePrepared.Prep_Main" />
         </activity>
     </application>
 

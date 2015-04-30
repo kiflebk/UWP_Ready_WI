@@ -20,7 +20,6 @@
 
 package u.ready_wisc.BePrepared;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -31,7 +30,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import u.ready_wisc.Emergency_Main.Volunteer;
 import u.ready_wisc.R;
 import u.ready_wisc.myAdapter;
 
@@ -61,7 +59,7 @@ public class Build_Kits extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String x = String.valueOf(parent.getItemAtPosition(position));
                 String disasterPicked = "You selected " + x;
-                Toast.makeText(Build_Kits.this, disasterPicked, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(Build_Kits.this, disasterPicked, Toast.LENGTH_SHORT).show();
 
 //                if (x.equals("Custom List")) {
 //                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

@@ -26,8 +26,6 @@
         android:layout_gravity="center_horizontal"
         android:src="@drawable/alt_wi" />
 
-    <!--TODO ask client about logo trademarks and add original WEM back in
-    android:src="@drawable/wem1"-->
 
     <ProgressBar
         android:id="@+id/progressBar"
