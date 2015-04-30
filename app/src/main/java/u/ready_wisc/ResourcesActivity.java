@@ -31,8 +31,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-import com.pushbots.push.utils.Log;
-
 import java.util.ArrayList;
 
 

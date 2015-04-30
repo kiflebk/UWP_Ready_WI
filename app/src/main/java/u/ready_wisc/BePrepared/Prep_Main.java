@@ -106,7 +106,6 @@ public class Prep_Main extends ActionBarActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     Intent i;
 
-                    //TODO uncomment once activities are created
                     switch(which){
                         case 0:
                             i = new Intent(Prep_Main.this, Essentials.class);

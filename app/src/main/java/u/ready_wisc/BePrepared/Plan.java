@@ -28,7 +28,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import u.ready_wisc.R;
 import u.ready_wisc.myAdapter;

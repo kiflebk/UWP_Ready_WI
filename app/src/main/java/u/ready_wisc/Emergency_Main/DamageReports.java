@@ -63,8 +63,8 @@ import org.json.JSONObject;
 import java.util.Calendar;
 
 import u.ready_wisc.Config;
-import u.ready_wisc.ReportsDatabaseHelper;
 import u.ready_wisc.R;
+import u.ready_wisc.ReportsDatabaseHelper;
 
 public class DamageReports extends ActionBarActivity {
 
@@ -337,7 +337,6 @@ public class DamageReports extends ActionBarActivity {
                 Toast.makeText(getApplicationContext(), "Report Submitted Successfully", Toast.LENGTH_LONG).show();
                 DamageReports.this.finish();
 
-                //TODO if report is not sent it needs to be saved to the local database
             }else
                 Toast.makeText(getApplicationContext(), "Report Not Sent", Toast.LENGTH_LONG).show();
 
