@@ -29,7 +29,6 @@ import java.util.ArrayList;
 */
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
-    // components of the table which can be changed later to join up with other team later on
 
     public static final String TABLE_USERS = "users";
 
