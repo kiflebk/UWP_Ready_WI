@@ -32,6 +32,8 @@ public class Config {
     // URL to send damage report
     public static final String DAMAGE_REPORT_URL = "http://www.joshuaolufs.com/php/query_damageReports_insert.php?";
 
+    public static final String EMERGENCY_MAP_URL = "https://www.google.com/maps/search/emergency+";
+
     // URLs portions for the county RSS feeds
     // Additional codes can be found at https://alerts.weather.gov/cap/wi.php?x=3
     // TODO as app is expanded all counties will need to be added
