@@ -6,7 +6,6 @@
         <item>Jefferson</item>
         <item>Kenosha</item>
         <item>Milwaukee</item>
-<<<<<<< HEAD
         <item>Ozaukee</item>
         <item>Racine</item>
         <item>Rock</item>
@@ -14,13 +13,11 @@
         <item>Walworth</item>
         <item>Washington</item>
         <item>Waukesha</item>
-=======
         <item>Waukesha</item>
         <item>Walworth</item>
         <item>Ozaukee</item>
         <item>Jefferson</item>
         <item>Washington</item>
->>>>>>> origin/resources
 
     </string-array>
 

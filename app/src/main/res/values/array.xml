@@ -17,7 +17,6 @@
         <item>Evacuation Plan</item>
         <item>Shelter In Place</item>
     </array>
-<<<<<<< HEAD
     <array name="jsonKey">
         <item>deviceid</item>
         <item>type_of_occurrence</item>
@@ -40,11 +39,9 @@
         <item>latitude</item>
     </array>
 
-=======
     <array name="resourceList">
         <item>Hospital</item>
         <item>Sheriff</item>
         <item>Fire</item>
     </array>
->>>>>>> origin/resources
 </resources>
