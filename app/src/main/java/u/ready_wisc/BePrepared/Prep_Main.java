@@ -33,18 +33,18 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import edu.parkside.cs.checklist.Checklist;
-import u.ready_wisc.BasicKit.Bedding;
-import u.ready_wisc.BasicKit.Essentials;
-import u.ready_wisc.BasicKit.FirstAid;
-import u.ready_wisc.BasicKit.Food;
-import u.ready_wisc.BasicKit.SanitationSupp;
-import u.ready_wisc.BasicKit.Water;
+import u.ready_wisc.BePrepared.BasicKit.Bedding;
+import u.ready_wisc.BePrepared.BasicKit.Essentials;
+import u.ready_wisc.BePrepared.BasicKit.FirstAid;
+import u.ready_wisc.BePrepared.BasicKit.Food;
+import u.ready_wisc.BePrepared.BasicKit.SanitationSupp;
+import u.ready_wisc.BePrepared.BasicKit.Water;
 import u.ready_wisc.R;
 import u.ready_wisc.myAdapter;
 
 /**
  * Created by OZAN on 3/15/2015.
- *
+ * <p/>
  * hhljl
  */
 public class Prep_Main extends ActionBarActivity {
@@ -94,7 +94,7 @@ public class Prep_Main extends ActionBarActivity {
         });
     }
 
-    private AlertDialog buildDialog(String type){
+    private AlertDialog buildDialog(String type) {
         int list = 0;
         AlertDialog.Builder builder = new AlertDialog.Builder(Prep_Main.this);
         if (type.equals("Basic Kit Supplies")) {
@@ -106,7 +106,7 @@ public class Prep_Main extends ActionBarActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     Intent i;
 
-                    switch(which){
+                    switch (which) {
                         case 0:
                             i = new Intent(Prep_Main.this, Essentials.class);
                             Prep_Main.this.startActivity(i);

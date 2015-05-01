@@ -1,4 +1,3 @@
-
 /*
 *
 *  Copyright 2015 University of Wisconsin - Parkside
@@ -18,7 +17,7 @@
 *
 */
 
-package u.ready_wisc.BasicKit;
+package u.ready_wisc.BePrepared.BasicKit;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -30,15 +29,16 @@ import android.widget.TextView;
 import u.ready_wisc.Config;
 import u.ready_wisc.R;
 
-public class SanitationSupp extends ActionBarActivity {
+public class Bedding extends ActionBarActivity {
+
     TextView t;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sanitation_supp);
+        setContentView(R.layout.activity_bedding);
 
-        t = (TextView) findViewById(R.id.textViewSanitation);
-        t.setText(Html.fromHtml(Config.SANITATION_SUPP));
+        t = (TextView) findViewById(R.id.textViewBedding);
+        t.setText(Html.fromHtml(Config.BEDDING));
 
     }
 

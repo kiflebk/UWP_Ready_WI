@@ -17,7 +17,7 @@
 *
 */
 
-package u.ready_wisc.BasicKit;
+package u.ready_wisc.BePrepared.BasicKit;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -29,16 +29,16 @@ import android.widget.TextView;
 import u.ready_wisc.Config;
 import u.ready_wisc.R;
 
-public class Food extends ActionBarActivity {
+public class FirstAid extends ActionBarActivity {
 
     TextView t;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food);
+        setContentView(R.layout.activity_first_aid);
 
-        t = (TextView) findViewById(R.id.textViewFood);
-        t.setText(Html.fromHtml(Config.FOOD));
+        t = (TextView) findViewById(R.id.textViewFirst);
+        t.setText(Html.fromHtml(Config.FIRSTAID));
 
     }
 

@@ -75,7 +75,7 @@ public class DBUpdateFromWeb implements Runnable{
             //  asking for the info we need.  The url listed will display
             //the results in JSON format for java to read.
              
-            HttpPost httppost = new HttpPost("http://joshuaolufs.com/");
+            HttpPost httppost = new HttpPost(Config.DB_UPDATE_URL + CountyPicker.countyIdCode);
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             HttpResponse response = httpclient.execute(httppost);
             HttpEntity entity = response.getEntity();

@@ -25,6 +25,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -35,6 +36,8 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import u.ready_wisc.Config;
+import u.ready_wisc.CountyPicker;
 import u.ready_wisc.MenuActivity;
 import u.ready_wisc.R;
 import u.ready_wisc.myAdapter;
@@ -76,6 +79,14 @@ public class Emergency extends ActionBarActivity {
                     //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     Intent i = new Intent(Emergency.this, DamageReports.class);
                     Emergency.this.startActivity(i);
+                }
+
+                if (x.equals("Emergency Map")) {
+                    //Calls emergency map
+
+                    Uri uri = Uri.parse(Config.EMERGENCY_MAP_URL + CountyPicker.countyName + "+wi");
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
                 }
 
                 //if sos tone button is pressed play sound, if sound is playing pause sound

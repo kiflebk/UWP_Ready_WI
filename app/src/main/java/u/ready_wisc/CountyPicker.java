@@ -53,6 +53,7 @@ public class CountyPicker extends Activity implements AdapterViewCompat.OnItemSe
     Spinner counties;
     Button pick;
     public static String countyIdCode;
+    public static String countyName;
     public static String appID;
 
     @Override
@@ -80,36 +81,47 @@ public class CountyPicker extends Activity implements AdapterViewCompat.OnItemSe
                 // easy updating and additions
                 if (countyInt == 0) {
                     countyIdCode = Config.RSS_DANE;
+                    countyName= "dane";
                     appID = "553feb2717795996028b457e";
                 }else if (countyInt == 1) {
                     countyIdCode = Config.RSS_JEFFERSON;
+                    countyName= "jefferson";
                     appID = "553fec3217795996028b4580";
                 }else if (countyInt == 2) {
                     countyIdCode = Config.RSS_KENOSHA;
+                    countyName= "kenosha";
                     appID = "553fe6fd177959ac0e8b457f";
                 }else if (countyInt == 3) {
                     countyIdCode = Config.RSS_MILWAUKEE;
+                    countyName= "milwaukee";
                     appID = "553fed2c17795996028b4584";
                 }else if (countyInt == 4) {
                     countyIdCode = Config.RSS_OZAUKEE;
+                    countyName= "ozaukee";
                     appID = "553ff12617795996028b4585";
                 }else if (countyInt == 5) {
                     countyIdCode = Config.RSS_RACINE;
+                    countyName= "racine";
                     appID = "553fea39177959ac0e8b4581";
                 }else if (countyInt == 6) {
                     countyIdCode = Config.RSS_ROCK;
+                    countyName= "rock";
                     appID = "553ff3bb1779597b408b4569";
                 }else if (countyInt == 7) {
                     countyIdCode = Config.RSS_SAUK;
+                    countyName= "sauk";
                     appID = "553ff53617795912158b457a";
                 }else if (countyInt == 8) {
                     countyIdCode = Config.RSS_WALWORTH;
+                    countyName= "walworth";
                     appID = "553ff6e91779597b408b4572";
                 }else if (countyInt == 9) {
                     countyIdCode = Config.RSS_WASHINGTON;
+                    countyName= "washington";
                     appID = "553ff97e1779597b408b4574";
                 }else if (countyInt == 10) {
                     countyIdCode = Config.RSS_WAUKESHA;
+                    countyName= "waukesha";
                     appID = "553ffa3f17795912158b4584";
                 }
                 startUI(getCurrentFocus());

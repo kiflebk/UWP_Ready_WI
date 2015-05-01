@@ -17,7 +17,7 @@
 *
 */
 
-package u.ready_wisc.BasicKit;
+package u.ready_wisc.BePrepared.BasicKit;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
