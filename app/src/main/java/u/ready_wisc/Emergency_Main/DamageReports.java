@@ -55,6 +55,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -169,9 +170,13 @@ public class DamageReports extends ActionBarActivity {
 
             //Request location updates from the network (wifi or cell tower).
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-        }
-    }
 
+
+        }
+
+
+
+        }
 
 
     @Override
@@ -217,8 +222,21 @@ public class DamageReports extends ActionBarActivity {
 
             try {
 
+                if ((text9.getText() == null || text9.getText().equals("")) ||
+                        (name.getText() == null || name.getText().equals(""))
+                        || zip.getText() == null ||
+                        (zip.getText().length() > 5 || zip.getText().length() < 5)
+                        || (address.getText() == null || address.getText().equals("")) ||
+                        (city.getText() == null || city.getText().equals("")) ||
+                        (damageCost.getText() == null || damageCost.getText().equals(""))
+                        || (loss_percent.getText() == null || loss_percent.getText().equals(""))) {
+                    Toast.makeText(getApplicationContext(), "Please fill out all fields ", Toast.LENGTH_LONG).show();
+
+                }
+
                 // JSON object is created based off of user input
-                JSONObject jObject = createJObject();
+                else {
+                    JSONObject jObject = createJObject();
 
                 // Convert JSON object to url string
                 String url = Config.DAMAGE_REPORT_URL + jObject.toString().replace('{', ' ').replace('}',' ').replace(backspace, ' ').trim().replace('"', ' ').replace(" ", "").replace(':','=').replace(',','&');
@@ -241,6 +259,7 @@ public class DamageReports extends ActionBarActivity {
                     DamageReports.this.finish();
                 }
 
+                }
             } catch (Throwable ignored) {
 
             }
@@ -285,7 +304,6 @@ public class DamageReports extends ActionBarActivity {
             if (insurDeductAmt.getText() == null) {
                 insurDeductAmt.setText("0.00");
             }
-
 
             try {
 
