@@ -176,7 +176,7 @@ public class DamageReports extends ActionBarActivity {
 
 
 
-        }
+    }
 
 
     @Override
@@ -238,26 +238,26 @@ public class DamageReports extends ActionBarActivity {
                 else {
                     JSONObject jObject = createJObject();
 
-                // Convert JSON object to url string
-                String url = Config.DAMAGE_REPORT_URL + jObject.toString().replace('{', ' ').replace('}',' ').replace(backspace, ' ').trim().replace('"', ' ').replace(" ", "").replace(':','=').replace(',','&');
+                    // Convert JSON object to url string
+                    String url = Config.DAMAGE_REPORT_URL + jObject.toString().replace('{', ' ').replace('}',' ').replace(backspace, ' ').trim().replace('"', ' ').replace(" ", "").replace(':','=').replace(',','&');
 
-                // The JSON object is passed over to be sent
-                if(isConnected)
-                    putDataToServer(url);
-                else {
-                    addUser(url);
-                    String place = null;
-                    Cursor cur = mDatabaseHelper.query(ReportsDatabaseHelper.TABLE_USERS, null);
+                    // The JSON object is passed over to be sent
+                    if(isConnected)
+                        putDataToServer(url);
+                    else {
+                        addUser(url);
+                        String place = null;
+                        Cursor cur = mDatabaseHelper.query(ReportsDatabaseHelper.TABLE_USERS, null);
 
-                    if (cur.moveToFirst()) {
-                        int placeColumn = cur.getColumnIndex(ReportsDatabaseHelper.COL_JSON);
-                        place = cur.getString(placeColumn);
+                        if (cur.moveToFirst()) {
+                            int placeColumn = cur.getColumnIndex(ReportsDatabaseHelper.COL_JSON);
+                            place = cur.getString(placeColumn);
+                        }
+
+                        Log.i("DB Error", place);
+                        Toast.makeText(getApplicationContext(), "No Network Connection.  Report will be submitted when network connection is established.", Toast.LENGTH_LONG).show();
+                        DamageReports.this.finish();
                     }
-
-                    Log.i("DB Error", place);
-                    Toast.makeText(getApplicationContext(), "No Network Connection.  Report will be submitted when network connection is established.", Toast.LENGTH_LONG).show();
-                    DamageReports.this.finish();
-                }
 
                 }
             } catch (Throwable ignored) {

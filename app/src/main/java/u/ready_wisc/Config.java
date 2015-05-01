@@ -38,6 +38,8 @@ public class Config {
 
         public static final String MAKE_PLAN_URL = "http://readywisconsin.wi.gov/Plan/Plan.asp?maintab=0";
 
+        public static final String DB_UPDATE_URL = "http://www.joshuaolufs.com/php/query_Contacts_select.php?x=";
+
 
         // URLs portions for the county RSS feeds
         // Additional codes can be found at https://alerts.weather.gov/cap/wi.php?x=3
