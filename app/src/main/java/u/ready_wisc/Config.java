@@ -920,12 +920,19 @@ public class Config {
                 "\n" +
                 "<ul>\n" +
                 "<li>   1. Toilet paper                 </li><br />\n" +
+                "\n" +
                 "<li>   2. Soap, liquid detergent       </li><br />\n" +
+                "\n" +
                 "<li>   3. Feminine supplies and personal hygiene items                 </li><br />\n" +
+                "\n" +
                 "<li>   4. Plastic garbage bags, ties (for personal sanitation uses)    </li><br />\n" +
+                "\n" +
                 "<li>   5. Plastic bucket with tight lid    </li><br />\n" +
+                "\n" +
                 "<li>   6. Disinfectant                     </li><br />\n" +
+                "\n" +
                 "<li>   7. Household chlorine bleach        </li><br />\n" +
+                "\n" +
                 "</ul>\n" +
                 "</div>\n</body>");
     }
@@ -935,237 +942,140 @@ public class Config {
 
     static{
         ESSENTIALS = ("<div id=\"tcontent11\" class=\"tabcontentsub\">\n" +
-                "\t\t\t\t"
 
-                + "<h3> Essentials  </h3>\n" +
+                "\n" +
 
-                "\t\t\t\t"
+                 "<h3> Essentials  </h3>\n" +
 
-                + " Start out thinking about the basics of survival &#150; fresh water, food, safety, warmth, sanitation" +
+                " </div>\n" +
+                "<br />\n" +
 
-                " and clean air.\n" +
+                 " Start out thinking about the basics of survival &#150; fresh water, food, safety, warmth, sanitation \n" +
 
-                "\t\t\t\t\n" +
-                "\t\t\t\t"
+                 " and clean air.\n" +
 
-                + "<h4> For Everyone  </h4>\n" +
+               "\n" +
 
-                "\t\t\t\t<ul>\n" +
-                "\t\t\t\t\t"
+                "<h4> For Everyone  </h4>\n" +
 
-                + "<li> Water (1 gallon per person per day for 3 days) </li>\n" +
+                "<ul>\n" +
+                 "\n" +
 
-                "\t\t\t\t\t"
-                + ""
-                + "<li> Food that does not need electricity for storage or preparation  </li>\n" +
+                 "<li> Water (1 gallon per person per day for 3 days) </li>\n" +
 
-                "\t\t\t\t\t"
+                 "<li> Food that does not need electricity for storage or preparation  </li>\n" +
 
-                + " <li> Manual can opener (if kit contains canned food)     </li>\n" +
+                 " <li> Manual can opener (if kit contains canned food)     </li>\n" +
 
-                "\t\t\t\t\t"
-                + ""
-                + "<li> Battery-powered NOAA Weather Radio and a commercial radio or hand crank radio   </li>\n" +
+                 "<li> Battery-powered NOAA Weather Radio and a commercial radio or hand crank radio   </li>\n" +
 
-                "\t\t\t\t\t"
+                 "<li> Flashlights and extra batteries </li>\n" +
 
-                + "<li> Flashlights and extra batteries </li>\n" +
+                 "<li> Sleeping bag or warm blanket for each person    </li>\n" +
 
-                "\t\t\t\t\t"
+                 "<li> First aid kit and emergency medical reference manual    </li>\n" +
 
-                + "<li> Sleeping bag or warm blanket for each person    </li>\n" +
+                 "<li> Prescription medications and eyewear    </li>\n" +
 
-                "\t\t\t\t\t"
+                 "<li> Mess kits, paper cups, plates and plastic utensils, paper towels, moist towelettes, garbage bags and ties   </li>\n" +
 
-                + "<li> First aid kit and emergency medical reference manual    </li>\n" +
+                 "<li> Complete change of clothing, including a long-sleeved shirt, long pants, socks and sturdy shoes </li>\n" +
 
-                "\t\t\t\t\t"
+                 "</ul>\n" +
+                "\n" +
 
-                + "<li> Prescription medications and eyewear    </li>\n" +
+                 "<h4 class=\"cb\">    For Baby    </h4>\n" +
 
-                "\t\t\t\t\t"
+                 "<ul>\n" +
+                         "\n" +
 
-                + "<li> Mess kits, paper cups, plates and plastic utensils, paper towels, moist towelettes, garbage bags and ties   </li>\n" +
+                 "<li> Formula </li>\n" +
 
-                "\t\t\t\t\t"
+                 "<li> Bottled water to mix with formula and to wash bottles</li>\n" +
 
-                + "<li> Complete change of clothing, including a long-sleeved shirt, long pants, socks and sturdy shoes </li>\n" +
+                 "<li> Bottles </li>\n" +
 
-                "\t\t\t\t"
-                + "</ul>\n" +
-                "\t\t\t\t\n" +
+                 "<li> Blankets (both emergency blankets and receiving blankets)   </li>\n" +
 
-                "\t\t\t\t"
+                 "<li> Diapers &#150; keep the diaper size current </li>\n" +
 
-                + "<h4 class=\"cb\">    For Baby    </h4>\n" +
+                 "<li> Disposable wipes    </li>\n" +
 
-                "\t\t\t\t"
-                + "<ul>\n" +
-                "\t\t\t\t\t"
+                  "<li> Copy of a current shot record   </li>\n" +
 
-                + "<li> Formula </li>\n" +
+                "<li> Bath towels and wash cloths </li>\n" +
 
-                "\t\t\t\t\t"
+                 "<li> Burp cloths, bibs   </li>\n" +
 
-                + "<li> Bottled water to mix with formula and to wash bottles</li>\n" +
-                "\t\t\t\t\t"
+                 "<li> Cotton swabs    </li>\n" +
 
-                + "<li> Bottles </li>\n" +
+                 "<li> Medications </li>\n" +
 
-                "\t\t\t\t\t"
+                 "<li> Diaper rash ointment    </li>\n" +
 
-                + "<li> Blankets (both emergency blankets and receiving blankets)   </li>\n" +
+                 "<li> Binkies and toys    </li>\n" +
 
-                "\t\t\t\t\t"
+                 "<li> Cotton swabs    </li>\n" +
 
-                + "<li> Diapers &#150; keep the diaper size current </li>\n" +
+                 "<li> Medications </li>\n" +
 
-                "\t\t\t\t\t"
+                 "<li> Diaper rash ointment    </li>\n" +
 
-                + "<li> Disposable wipes    </li>\n" +
+                 "</ul>\n" +
 
-                "\t\t\t\t\t"
+                 "<h4> For Pets    </h4>\n" +
 
-                + "<li> Copy of a current shot record   </li>\n" +
+                 "<ul>\n" +
+                         "\n" +
 
-                "\t\t\t\t\t"
+                 "<li> Identification tags on collars  </li>\n" +
 
-                + "<li> Bath towels and wash cloths </li>\n" +
+                 "<li> Medications, immunization records   </li>\n" +
 
-                "\t\t\t\t\t"
+                 "<li> Food, drinking water, bowls, cat litter/pan and can opener  </li>\n" +
 
-                + "<li> Burp cloths, bibs   </li>\n" +
+                "<li> Sturdy leashes or carriers to transport pets safely (Carriers should be large enough for the pet to stand up, turn around and lie down) </li>\n" +
 
-                "\t\t\t\t\t"
-                + "<li> Cotton swabs    </li>\n" +
+                 "<li> Towels or blankets  </li>\n" +
 
-                "\t\t\t\t\t"
+                "<li> Current photos of you with your pets    </li>\n" +
 
-                + "<li> Medications </li>\n" +
+                 "<li> Feeding schedules, medical conditions, behavior problems, and the name and number of your veterinarian  </li>\n" +
 
-                "\t\t\t\t\t"
+                "<li> Pet beds and toys   </li>\t \n" +
 
-                + "<li> Diaper rash ointment    </li>\n" +
+                 "</ul>\n" +
 
-                "\t\t\t\t\t"
+                 "<h4> Additional Items    </h4>\n" +
 
-                + "<li> Binkies and toys    </li>\n" +
+                "<ul>\n" +
+                         "\n" +
 
-                "\t\t\t\t\t"
+                "<li> Cash in small denominations or traveler's checks and change </li>\n" +
 
-                + "<li> Cotton swabs    </li>\n" +
+                 "<li> Copies of important family documents, such as insurance policies, identification and bank account records in a waterproof, portable container   </li>\n" +
 
-                "\t\t\t\t\t"
+                "<li> Wrench or pliers to turn off utilities  </li>\n" +
 
-                + "<li> Medications </li>\n" +
+                 "<li> Matches in a waterproof container   </li>\n" +
 
-                "\t\t\t\t\t"
+                "<li> Household chlorine bleach and medicine dropper (When diluted nine parts water to one part bleach it can be used to disinfect)   </li>\n" +
 
-                + "<li> Diaper rash ointment    </li>\n" +
+                "<li> Dust mask (to help filter contaminated air) and plastic sheeting/duct tape (to shelter where you are)   </li>\n" +
 
-                "\t\t\t\t   "
+                 "<li> Local maps  </li>\n" +
 
-                + "</ul>\n" +
+                 "<li> Books, games, puzzles or other activities for children  </li>\n" +
 
-                "\t\t\t\t\n" +
-                "\t\t\t\t"
+                "<li> Paper and pencil    </li>\n" +
 
-                + "<h4> For Pets    </h4>\n" +
+                 "<li> Fire Extinguisher   </li>\n" +
 
-                "\t\t\t\t"
+                 "<li> Whistle to signal for help  </li>\n" +
 
-                + "<ul>\n" +
+                 "</ul>\n" +
 
-                "\t\t\t\t\t"
-
-                + "<li> Identification tags on collars  </li>\n" +
-
-                "\t\t\t\t\t"
-
-                + "<li> Medications, immunization records   </li>\n" +
-
-                "\t\t\t\t\t"
-
-                + "<li> Food, drinking water, bowls, cat litter/pan and can opener  </li>\n" +
-
-                "\t\t\t\t\t"
-
-                + "<li> Sturdy leashes or carriers to transport pets safely (Carriers should be large enough for the pet to stand up, turn around and lie down) </li>\n" +
-
-                "\t\t\t\t\t"
-
-                + "<li> Towels or blankets  </li>\n" +
-
-                "\t\t\t\t\t"
-
-                + "<li> Current photos of you with your pets    </li>\n" +
-
-                "\t\t\t\t\t"
-
-                + "<li> Feeding schedules, medical conditions, behavior problems, and the name and number of your veterinarian  </li>\n" +
-
-                "\t\t\t\t\t"
-
-                + "<li> Pet beds and toys   </li>\t \n" +
-                "\t\t\t\t"
-                + "</ul>\n" +
-                "\t\t\t\t\n" +
-
-                "\t\t\t\t"
-
-                + "<h4> Additional Items    </h4>\n" +
-
-                "\t\t\t\t"
-                + "<ul>\n" +
-
-                "\t\t\t\t\t"
-
-                + "<li> Cash in small denominations or traveler's checks and change </li>\n" +
-
-                "\t\t\t\t\t"
-
-                + "<li> Copies of important family documents, such as insurance policies, identification and bank account records in a waterproof, portable container   </li>\n" +
-
-                "\t\t\t\t\t"
-
-                + "<li> Wrench or pliers to turn off utilities  </li>\n" +
-
-                "\t\t\t\t\t"
-
-                + "<li> Matches in a waterproof container   </li>\n" +
-
-                "\t\t\t\t\t"
-
-                + "<li> Household chlorine bleach and medicine dropper (When diluted nine parts water to one part bleach it can be used to disinfect)   </li>\n" +
-
-                "\t\t\t\t\t"
-
-                + "<li> Dust mask (to help filter contaminated air) and plastic sheeting/duct tape (to shelter where you are)   </li>\n" +
-
-                "\t\t\t\t\t"
-
-                + "<li> Local maps  </li>\n" +
-
-                "\t\t\t\t\t"
-
-                + "<li> Books, games, puzzles or other activities for children  </li>\n" +
-
-                "\t\t\t\t\t"
-
-                + "<li> Paper and pencil    </li>\n" +
-
-                "\t\t\t\t\t"
-
-                + "<li> Fire Extinguisher   </li>\n" +
-
-                "\t\t\t\t\t"
-
-                + "<li> Whistle to signal for help  </li>\n" +
-
-                "\t\t\t\t"
-                + "</ul>\n" +
-                "\t\t\t"
-                + "</div>");
+                 "</div>");
     }
 
 
@@ -1173,91 +1083,92 @@ public class Config {
 
     static{
         WATER = ("<div id=\"tcontent12\" class=\"tabcontentsub\">\n" +
-                "\t\t\t\t"
 
-                + "<h3> Water   </h3>\n" +
+                "\n" +
 
-                "\t\t\t\n" +
-                " You can purchase commercially bottled water. Make sure you check the expiration date.   <br />"
+                 "<h3> Water   </h3>\n" +
 
-                + "\t\t\t\n"
+                "\n" +
+                 " You can purchase commercially bottled water. Make sure you check the expiration date.   <br />"
 
+                + "\n" +
 
-                + "<h4> If You are Preparing Your Own Containers of Water:  </h4>\n" +
+                 "<h4> If You are Preparing Your Own Containers of Water:  </h4>\n" +
 
+                "\n" +
                 "\n" +
                 "<strong> Purchased food-grade containers </strong><br />\n" +
 
-                "\t\t\t\t"
-                + "It&#146;s best to purchase food-grade water storage containers from surplus or camping supplies stores. Before filling with\n" +
-                "\t\t\t\t"
-                + " water, thoroughly clean the containers with dishwashing soap and water, and rinse completely so there is no residual soap.\n"
+                "\n" +
+                "\n" +
 
-                + " Follow directions below for filling the containers with water. <br /><br />\n" +
+                "It&#146;s best to purchase food-grade water storage containers from surplus or camping supplies stores. Before filling with\n" +
 
-                "\n"
-                + "<strong> Your own containers </strong>   <br />\n" +
+                 " water, thoroughly clean the containers with dishwashing soap and water, and rinse completely so there is no residual soap.\n" +
 
-                "\t\t\t\t"
+                 " Follow directions below for filling the containers with water. <br /><br />\n" +
 
-                + "Choose two-liter plastic soft drink bottles &#150; not plastic jugs or cardboard containers that have had milk or fruit\n" +
-                "juice in them. <br /><br />\n" +
+                "\n" +
 
-                "\t\t\t\t\n" +
+                 "<strong> Your own containers </strong>   <br />\n" +
 
-                "\t\t\t\t"
+                "\n" +
+                "\n" +
 
-                + "Milk protein and fruit sugars cannot be adequately removed from these containers and provide an environment for bacterial\n" +
+                 "Choose two-liter plastic soft drink bottles &#150; not plastic jugs or cardboard containers that have had milk or fruit\n" +
 
-                "\t\t\t\t"
+                 "juice in them. <br /><br />\n" +
 
-                + "growth when water is stored in them.  Cardboard containers also leak easily and are not designed for long-term storage of liquids. Also, do not use glass\n" +
-                "containers, because they can break and are heavy.    <br /><br />\n" +
+                "\n" +
 
-                "\t\t\t\t\n" +
-                "\t\t\t\t"
+                 "Milk protein and fruit sugars cannot be adequately removed from these containers and provide an environment for bacterial\n" +
 
-                + "Thoroughly clean the bottles with dishwashing soap and water, and rinse completely so there is no residual soap. <br /><br />\n" +
+                 "growth when water is stored in them.  Cardboard containers also leak easily and are not designed for long-term storage of liquids. Also, do not use glass\n" +
 
-                "\t\t\t\t\n" +
-                "\t\t\t\t"
+                 "containers, because they can break and are heavy.    <br /><br />\n" +
 
-                + "Sanitize the bottles by adding a solution of 1 teaspoon of non-scented liquid household chlorine bleach to a quart of water. \n" +
-                "Swish the sanitizing solution in the bottle so that it touches all surfaces. After sanitizing the bottle, thoroughly\n" +
-                "rinse out the sanitizing solution with clean water.\n" +
-                "\t\t\t\t\n" +
-                "\t\t\t\t"
-                + "<h4 class=\"cb\">    Filling Water Containers    </h4>\n" +
+                "\n" +
 
-                "\t\t\t\t\n" +
-                "\t\t\t\t"
+                 "Thoroughly clean the bottles with dishwashing soap and water, and rinse completely so there is no residual soap. <br /><br />\n" +
 
-                + "Fill the bottle to the top with regular tap water.  If the tap water has been commercially treated from a water utility\n" +
-                "with chlorine, you do not need to add anything else to the water to keep it clean. <br /><br />\n" +
+                "\n" +
 
-                "\t\t\t\t\n" +
-                "\t\t\t\t"
+                 "Sanitize the bottles by adding a solution of 1 teaspoon of non-scented liquid household chlorine bleach to a quart of water. \n" +
 
-                + "<ul style=\"list-style-position: inside;\">"
+                 "Swish the sanitizing solution in the bottle so that it touches all surfaces. After sanitizing the bottle, thoroughly\n" +
 
-                + "If the water you are using comes from a well or water source that is not treated with chlorine:<br />\n" +
+                 "rinse out the sanitizing solution with clean water.\n" +
+                "\n" +
 
-                "<li>1. Add two drops of non-scented liquid household chlorine bleach to the water. </li><br />\n" +
+                 "<h4 class=\"cb\">    Filling Water Containers    </h4>\n" +
 
-                "<li>2. Tightly close the container using the original cap. </li><br />\n" +
+                "\n" +
 
+                 "Fill the bottle to the top with regular tap water.  If the tap water has been commercially treated from a water utility\n" +
 
-                "<li>3. Be careful not to contaminate the cap by touching the inside of it with your finger.    </li><br />\n" +
+                 "with chlorine, you do not need to add anything else to the water to keep it clean. <br /><br />\n" +
 
-                "<li>4. Place a date on the outside of the container so that you know when you filled it.   </li><br />\n" +
+                "\n" +
 
-                "<li>5. Store in a cool, dark place.    </li><br />\n" +
-                "<li>6. Replace the water every six months if not using commercially bottled water. </li>\n" +
+                 "<ul style=\"list-style-position: inside;\">"
 
-                "</ul>\n" +
-                "\t\t\t"
+                + "If the water you are using comes from a well or water source that is not treated with chlorine:\n" +
 
-                + "</div>");
+                 "<li> Add two drops of non-scented liquid household chlorine bleach to the water. </li>\n" +
+
+                 "<li> Tightly close the container using the original cap. </li>\n" +
+
+                 "<li> Be careful not to contaminate the cap by touching the inside of it with your finger.    </li>\n" +
+
+                 "<li> Place a date on the outside of the container so that you know when you filled it.   </li>\n" +
+
+                "<li> Store in a cool, dark place.    </li>\n" +
+
+                "<li> Replace the water every six months if not using commercially bottled water. </li>\n" +
+
+                 "</ul>\n" +
+
+                 "</div>");
     }
 
 
@@ -1265,11 +1176,15 @@ public class Config {
 
     static{
         FOOD = ("<div id=\"tcontent13\" class=\"tabcontentsub\">\n" +
-                "\t\t\t\t"
 
-                + "<h3> Food    </h3>" +
+                "\n" +
 
-                "Store at least a three-day supply of non-perishable food. Select foods that require no refrigeration, preparation or\n" +
+                 "<h3> Food    </h3>\n" +
+
+                "\n" +
+
+                 "Store at least a three-day supply of non-perishable food. Select foods that require no refrigeration, preparation or\n" +
+
                 "cooking and little or no water. <br /><br />\n" +
 
                 "\n" +
@@ -1277,35 +1192,30 @@ public class Config {
                 "If you must heat food, pack a can of sterno. If you use a barbecue grill for cooking, do not use it indoors. <br /><br />\n" +
 
                 "\n" +
-                "Select food items that are compact and lightweight. Avoid foods that will make you thirsty. Choose salt-free crackers," +
-                "whole grain cereals, and canned foods with high liquid content: \n" +
 
-                "<br />"
+                 "Select food items that are compact and lightweight. Avoid foods that will make you thirsty. Choose salt-free crackers,\n" +
 
-                + "<ul> \n" +
+                 "whole grain cereals, and canned foods with high liquid content. \n" +
 
-                "<br />"
+                "<ul> \n" +
 
-                + "<li>1. Ready-to-eat canned meats, fruits and vegetables <br />\n" +
+                 "<li> Ready-to-eat canned meats, fruits and vegetables \n" +
 
-                "<li>2. Canned juices, milk, soup (if powdered, store extra water) <br />\n" +
+                 "<li> Canned juices, milk, soup (if powdered, store extra water) \n" +
 
-                "<li>3. Staples--sugar, salt, pepper <br />\n" +
+                 "<li> Staples--sugar, salt, pepper \n" +
 
-                "<li>4. High energy foods--peanut butter, jelly, crackers, granola bars, trail mix<br /> \n" +
+                "<li> High energy foods--peanut butter, jelly, crackers, granola bars, trail mix \n" +
 
-                "<li>5. Vitamins<br /> \n" +
+                 "<li> Vitamins \n" +
 
-                "<li>6. Foods for infants, elderly persons or persons with special dietary needs<br /> \n" +
-                "<li>7. Comfort/stress foods--cookies, hard candy, sweetened cereals, lollipops, instant coffee, tea bags <br />\n" +
+                "<li> Foods for infants, elderly persons or persons with special dietary needs \n" +
 
-                "\t\t\t\t"
+                 "<li> Comfort/stress foods--cookies, hard candy, sweetened cereals, lollipops, instant coffee, tea bags \n" +
 
-                + "</ul>    <span class=\"cb\"> </span>\n" +
+                 "</ul>    <span class=\"cb\"> </span>\n" +
 
-                "\t\t\t"
-
-                + "</div>");
+                "</div>");
 
     }
 
@@ -1314,78 +1224,87 @@ public class Config {
 
     static{
         FIRSTAID = ("<div id=\"tcontent14\" class=\"tabcontentsub\">\n" +
-                "\t\t\t\t"
 
-                + "<h3> First Aid   </h3>\n" +
+                 "<h3> First Aid   </h3>\n" +
 
-                "\t\t\t\t"
-                + "Many injuries are not life threatening and do not require immediate medical attention. Knowing how to treat minor" +
-                "injuries can make a difference in an emergency. <br /><br />\n" +
+                "\n" +
 
-                "\t\t\t\t\n" +
-                "Consider taking a first aid class, through the American Red Cross. Also, put together a first aid kit or purchase" +
-                "a kit with the following items: <br /><br />\n" +
+                 "Many injuries are not life threatening and do not require immediate medical attention. Knowing how to treat minor\n" +
 
-                "\t\t\t\t\n" +
-                "<strong>Things you should have: </strong>\n" +
-                "<br /><ul>\n" +
+                 "injuries can make a difference in an emergency. <br /><br />\n" +
 
-                "<li> 1. Two pairs of Latex, or other sterile gloves (if you are allergic to Latex). </li><br />\n" +
-                "<li>2.  Sterile dressings to stop bleeding.     </li><br />\n" +
-                "<li>3. Cleansing agent/soap and antibiotic towelettes to disinfect.    </li><br /> \n" +
+                "\n" +
 
-                "<li>4. Antibiotic ointment to prevent infection.   </li><br />\n" +
-                "<li>5. Burn ointment to prevent infection. </li><br />\n" +
-                "<li>6. Adhesive bandages in a variety of sizes. </li><br />\n" +
-                "<li>7. Eye wash solution to flush the eyes or as general decontaminant. </li><br />\n" +
-                "<li>8. Thermometer </li><br /><br />\n" +
-                "</ul>\n" +
-                "\t\n" +
-                "\t\t\t\t"
+                 "Consider taking a first aid class, through the American Red Cross. Also, put together a first aid kit or purchase\n" +
 
-                + "<span class=\"cb\"> <strong> You may also want to include:  </strong> </span><br />\n" +
+                 "a kit with the following items: <br /><br />\n" +
+
+                "\n" +
+
+                 "Things you should have: \n" +
+
+                 "<ul>\n" +
+
+                 "<li> Two pairs of Latex, or other sterile gloves (if you are allergic to Latex). </li>\n" +
+
+                 "<li> Sterile dressings to stop bleeding.     </li>\n" +
+
+                 "<li> Cleansing agent/soap and antibiotic towelettes to disinfect.    </li> \n" +
+
+                 "<li> Antibiotic ointment to prevent infection.   </li>\n" +
+
+                "<li> Burn ointment to prevent infection. </li>\n" +
+
+                 "<li> Adhesive bandages in a variety of sizes. </li>\n" +
+
+                "<li> Eye wash solution to flush the eyes or as general decontaminant. </li>\n" +
+
+                "<li> Thermometer </li>\n" +
+
+                 "</ul>\n" +
+
+                 "<span class=\"cb\">  You may also want to include:   </span>\n" +
+
                 "<ul>\n" +
 
-                "\t\t\t\t\t"
+                "<li> Prescription medications you take every day such as insulin, heart medicine and asthma inhalers.\n" +
 
-                + "<li>1. Prescription medications you take every day such as insulin, heart medicine and asthma inhalers." +
+                "You should periodically rotate medicines to account for expiration dates. </li>\n" +
 
-                "You should periodically rotate medicines to account for expiration dates. </li><br />\n" +
-                "<li>2. Prescribed medical supplies such as glucose and blood pressure monitoring equipment and supplies.   </li><br /><br />\n" +
+                 "<li> Prescribed medical supplies such as glucose and blood pressure monitoring equipment and supplies.   </li>\n" +
+
+                 "</ul>\n" +
+
+                "Things it may be good to have:\n" +
+
+                 "<ul>\n" +
+
+                 "<li> Scissors \n" +
+
+                "<li> Tweezers \n" +
+
+                "<li> Tube of petroleum jelly or other lubricant \n" +
+
                 "</ul>\n" +
-                "\t\t\t\t\n" +
 
-                "<strong>Things it may be good to have:</strong><br />\n" +
-                "<ul>\n" +
+                 "Non-prescription drugs:\n" +
+                 "<ul>\n" +
 
-                "\t\t\t\t\t"
+                 "<li> Aspirin or non-aspirin pain reliever </li>\n" +
 
-                + "<li>1. Scissors </li><br />\n" +
-                "<li>2. Tweezers </li><br />\n" +
-                "<li>3. Tube of petroleum jelly or other lubricant </li><br /><br />\n" +
+                 "<li> Anti-diarrhea medication </li>\n" +
 
-                "\t\t\t\t"
+                 "<li> Antacid (for upset stomach) </li>\n" +
 
-                + "</ul>\n" +
+                 "<li> Laxative </li>\n" +
 
-                "\t\t\t\t\n" +
-                "<strong>Non-prescription drugs:</strong>\n" +
-                "\t\t\t\t"
+                 "<li> Cold medications </li>\n" +
 
-                + "<ul></li><br />\n" +
-                "<li>1. Aspirin or non-aspirin pain reliever </li><br />\n" +
-                "<li>2. Anti-diarrhea medication </li><br />\n" +
-                "<li>3. Antacid (for upset stomach) </li><br />\n" +
-                "<li>4. Laxative </li><br />\n" +
-                "<li>5. Cold medications </li><br /><br />\n" +
                 "</ul>\n" +
-                "\t\n" +
-                "\t\t\t\t"
 
-                + "<strong>Contact your local American Red Cross chapter to learn more about first aid training. </strong>\n" +
-                "\t\t\t"
+                 "Contact your local American Red Cross chapter to learn more about first aid training. \n" +
 
-                + "</div>");
+                 "</div>");
     }
 
 
@@ -1393,30 +1312,36 @@ public class Config {
 
     static{
         BEDDING = ("<div id=\"tcontent15\" class=\"tabcontentsub\">\n" +
-                "\t\t\t\t"
 
-                + "<h3> Bedding &amp; Clothing  </h3>\n" +
 
+                 "<h3> Bedding &amp; Clothing  </h3>\n" +
 
                 "Include at least one complete change of clothing and footwear per person.<br /><br />\n" +
-                "<ul>\n" +
-                "<li>1. Blankets or sleeping bags for each person   </li><br />" +
-                "<li>2. Jacket or coat </li><br />" +
-                "<li>3. Long pants </li><br />" +
-                "<li>4. Long sleeve shirt</li><br /> " +
-                "<li>5. Sturdy shoes or work boots </li><br />" +
-                "<li>6. Hat, gloves and scarf </li><br />" +
-                "<li>7. Rain gear </li><br />" +
-                "<li>8. Thermal underwear </li><br />" +
-                "<li>9. Sunglasses </li><br />"
+
+                 "<ul>\n" +
+
+                "<li> Blankets or sleeping bags for each person   </li> \n" +
+
+                 "<li> Jacket or coat </li>\n" +
+
+                 "<li> Long pants </li>\n" +
+
+                "<li> Long sleeve shirt</li> \n" +
+
+                "<li> Sturdy shoes or work boots </li>\n" +
+
+                "<li> Hat, gloves and scarf </li>\n" +
+
+                 "<li> Rain gear </li>\n" +
+
+                 "<li> Thermal underwear </li>\n" +
+
+                 "<li> Sunglasses </li>"
 
                 + "<span class=\"cb\">  </span>\n" +
-                "\t\t\t\t"
 
-                + "</ul>\n" +
+                 "</ul>\n" +
 
-                "\t\t\t"
-
-                + "</div>\n");
+                 "</div>\n");
     }
 }
