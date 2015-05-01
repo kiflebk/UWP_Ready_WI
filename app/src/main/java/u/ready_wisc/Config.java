@@ -1208,23 +1208,18 @@ public class Config {
                         + "Choose two-liter plastic soft drink bottles &#150; not plastic jugs or cardboard containers that have had milk or fruit\n" +
                         "juice in them. <br /><br />\n" +
 
-                        "\t\t\t\t\n" +
+
 
                         "\t\t\t\t"
 
-                        + "Milk protein and fruit sugars cannot be adequately removed from these containers and provide an environment for bacterial\n" +
-
-                        "\t\t\t\t"
-
-                        + "growth when water is stored in them.  Cardboard containers also leak easily and are not designed for long-term storage of liquids. Also, do not use glass\n" +
+                        + "Milk protein and fruit sugars cannot be adequately removed from these containers and provide an environment for bacterial" +
+                        "growth when water is stored in them.  Cardboard containers also leak easily and are not designed for long-term storage of liquids. Also, do not use glass\n" +
                         "containers, because they can break and are heavy.    <br /><br />\n" +
 
-                        "\t\t\t\t\n" +
                         "\t\t\t\t"
 
                         + "Thoroughly clean the bottles with dishwashing soap and water, and rinse completely so there is no residual soap. <br /><br />\n" +
 
-                        "\t\t\t\t\n" +
                         "\t\t\t\t"
 
                         + "Sanitize the bottles by adding a solution of 1 teaspoon of non-scented liquid household chlorine bleach to a quart of water. \n" +
@@ -1234,18 +1229,16 @@ public class Config {
                         "\t\t\t\t"
                         + "<h4 class=\"cb\">    Filling Water Containers    </h4>\n" +
 
-                        "\t\t\t\t\n" +
                         "\t\t\t\t"
 
                         + "Fill the bottle to the top with regular tap water.  If the tap water has been commercially treated from a water utility\n" +
                         "with chlorine, you do not need to add anything else to the water to keep it clean. <br /><br />\n" +
 
-                        "\t\t\t\t\n" +
                         "\t\t\t\t"
 
                         + "<ul style=\"list-style-position: inside;\">"
 
-                        + "If the water you are using comes from a well or water source that is not treated with chlorine:<br />\n" +
+                        + "If the water you are using comes from a well or water source that is not treated with chlorine:<br /><br />\n" +
 
                         "<li>1. Add two drops of non-scented liquid household chlorine bleach to the water. </li><br />\n" +
 
