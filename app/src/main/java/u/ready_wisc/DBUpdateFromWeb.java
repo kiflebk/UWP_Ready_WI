@@ -20,6 +20,7 @@
 
 package u.ready_wisc;
 
+import android.content.ContentValues;
 import android.util.Log;
 
 import org.apache.http.HttpEntity;
@@ -30,6 +31,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,6 +40,8 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import u.ready_wisc.Emergency_Main.Volunteer;
 
 /**
  * Created by piela_000 on 2/14/2015.  Class is used as a thread object to
@@ -63,7 +67,7 @@ public class DBUpdateFromWeb implements Runnable{
 
         InputStream is = null;
 
-        String[][] ct_name = new String[3][3];
+        String[][] ct_name = new String[3][5];
 
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<>();
 
@@ -74,12 +78,14 @@ public class DBUpdateFromWeb implements Runnable{
             //the web end is set up with a php script to query the database
             //  asking for the info we need.  The url listed will display
             //the results in JSON format for java to read.
-             
+
+            Log.i("DB Update", Config.DB_UPDATE_URL + CountyPicker.countyIdCode);
             HttpPost httppost = new HttpPost(Config.DB_UPDATE_URL + CountyPicker.countyIdCode);
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             HttpResponse response = httpclient.execute(httppost);
             HttpEntity entity = response.getEntity();
             is = entity.getContent();
+
         } catch (Exception e) {
             Log.e("log_tag", "Error in http connection" + e.toString());
         }
@@ -97,6 +103,7 @@ public class DBUpdateFromWeb implements Runnable{
             }
             is.close();
             result = sb.toString();
+            Log.i("DB Update", result);
         } catch (Exception e) {
             Log.e("log_tag", "Error converting result " + e.toString());
         }
@@ -104,20 +111,35 @@ public class DBUpdateFromWeb implements Runnable{
 
         //converts JSON object to the string array we need
         try {
-            jArray = new JSONArray(result);
+            //jArray = new JSONArray(result);
             JSONObject json_data;
 
             //ct_name = new String[jArray.length()];
-            for (int i = 0; i < jArray.length(); i++) {
-                json_data = jArray.getJSONObject(i);
-                ct_name[i][0] = json_data.getString("name"); //gets the name category of the json string
-                ct_name[i][1] = json_data.getString("email"); //gets the email column
+            //for (int i = 0; i < jArray.length(); i++) {
+                //json_data = jArray.getJSONObject(i);
+            json_data = new JSONObject(result);
+                ct_name[0][0] = json_data.getString("vol_name_of_org");
+                ct_name[0][1] = json_data.getString("vol_phone_number");
+                ct_name[0][2] = json_data.getString("vol_email_add");
+                ct_name[0][3] = json_data.getString("vol_website");
 
+                ct_name[1][0] = json_data.getString("shel_add");
+                ct_name[1][1] = json_data.getString("shel_city");
+                ct_name[1][2] = json_data.getString("shel_phone");
+                ct_name[1][3] = json_data.getString("shel_PIC");
+                ct_name[1][4] = json_data.getString("shel_org");
+
+                ct_name[2][0] = json_data.getString("soc_facebook");
+                ct_name[2][1] = json_data.getString("soc_twit");
+                ct_name[2][2] = json_data.getString("soc_extra");
+
+                Log.i("DB Update", ct_name[0][0]);
                 // inserts data into the local database
-                // SplashActivity.addUser(ct_name[i][0], ct_name[i][1], 0);
-            }
+                SplashActivity.addUser(ct_name);
+           // }
         } catch (JSONException e1) {
-                Log.e("IDK","Database Problem");
+            e1.printStackTrace();
+            Log.e("DB Update","Database Problem");
         } catch (ParseException e1) {
             e1.printStackTrace();
         }

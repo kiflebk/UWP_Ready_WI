@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -73,6 +74,8 @@ public class VolunteerDBHelper extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db) {
 
+        Log.i("DB Update", "Creating Tables");
+
         db.execSQL("CREATE TABLE " + TABLE_VOLUNTEER + " ("
 
                 + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -115,7 +118,6 @@ public class VolunteerDBHelper extends SQLiteOpenHelper {
 
                 + ");");
 
-
     }
 
     @Override
@@ -135,15 +137,13 @@ public class VolunteerDBHelper extends SQLiteOpenHelper {
 
     public long insert(String tableName, ContentValues values) throws NotValidException {
 
-        validate(values); //checks values
+        Log.i("DB Update", "Inserting into tables");
 
         return getWritableDatabase().insert(tableName, null, values);
 
     }
 
     public int update(String tableName, long id, ContentValues values) throws NotValidException {
-
-        validate(values);
 
         String selection = COL_ID + " = ?";
 
@@ -163,15 +163,6 @@ public class VolunteerDBHelper extends SQLiteOpenHelper {
 
     }
 
-    protected void validate(ContentValues values) throws NotValidException {
-
-        if (!values.containsKey(COL_NAME) || values.getAsString(COL_NAME) == null || values.getAsString(COL_NAME).isEmpty()) {
-
-            throw new NotValidException("User name must be set");
-
-        }
-
-    }
 
     public static class NotValidException extends Throwable {
 
@@ -183,53 +174,88 @@ public class VolunteerDBHelper extends SQLiteOpenHelper {
 
     }
 
-//    public Cursor query(String tableName, String orderedBy) {
-//
-//        String[] projection = {COL_ID, COL_NAME, COL_EMAIL, COL_DOB};
-//
-//        return getReadableDatabase().query(tableName, projection, null, null, null, null, orderedBy);
-//
-//    }
-//
-//    public ArrayList<ResourceItem> getDataFromCounty(String county){
-//        ArrayList<ResourceItem> resourceList = new ArrayList();
-//        SQLiteDatabase resourceDB = this.getReadableDatabase();
-//        String query = "SELECT * FROM " + TABLE_RESOURCES + " WHERE " + COL_COUNTY + "=\"" + county + "\"";
-//        Cursor result = resourceDB.rawQuery(query, null);
-//        if(result.moveToFirst()){
-//            do{
-//                ResourceItem item = new ResourceItem();
-//                item.setName(result.getString(1));
-//                item.setAddress(result.getString(2));
-//                item.setPhone(result.getString(3));
-//                item.setOther(result.getString(4));
-//                item.setType(result.getString(5));
-//                resourceList.add(item);
-//            } while (result.moveToNext());
-//        }
-//        result.close();
-//        resourceDB.close();
-//        return resourceList;
-//    }
+    public Cursor queryVolunteer() {
 
-    public ArrayList<ResourceItem> getDataFromType(String county, String type){
-        ArrayList<ResourceItem> resourceList = new ArrayList();
+        String[] projection = {COL_ID, COL_NAME, COL_EMAIL, COL_PHONE, COL_VOL_URL};
+
+        return getReadableDatabase().query(TABLE_VOLUNTEER, projection, null, null, null, null, null);
+
+    }
+
+    public Cursor queryShelter() {
+
+        String[] projection = {COL_ID, COL_SHELTER_ADD, COL_CITY, COL_SHELTER_PHONE, COL_PERSON, COL_ORG};
+
+        return getReadableDatabase().query(TABLE_SHELTER, projection, null, null, null, null, null);
+
+    }
+
+    public Cursor queryMedia() {
+
+        String[] projection = {COL_ID, COL_FACEBOOK, COL_TWITTER, COL_EXTRA};
+
+        return getReadableDatabase().query(TABLE_MEDIA, projection, null, null, null, null, null);
+
+    }
+
+    public ArrayList<VolunteerItem> getVolunteerData(){
+
+        ArrayList<VolunteerItem> volunteerList = new ArrayList();
         SQLiteDatabase resourceDB = this.getReadableDatabase();
-        String query = "SELECT * FROM resources WHERE COUNTY=\"" + county + "\" AND TYPE=\"" + type + "\"";
+        String query = "SELECT * FROM " + TABLE_VOLUNTEER + "\"";
         Cursor result = resourceDB.rawQuery(query, null);
         if(result.moveToFirst()){
             do{
-                ResourceItem item = new ResourceItem();
+                VolunteerItem item = new VolunteerItem();
                 item.setName(result.getString(1));
-                item.setAddress(result.getString(2));
+                item.setEmail(result.getString(2));
                 item.setPhone(result.getString(3));
-                item.setOther(result.getString(4));
-                item.setType(result.getString(5));
-                resourceList.add(item);
+                item.setUrl(result.getString(4));
+                volunteerList.add(item);
             } while (result.moveToNext());
         }
         result.close();
         resourceDB.close();
-        return resourceList;
+        return volunteerList;
+    }
+
+    public ArrayList<ShelterItem> getShelterData(){
+        ArrayList<ShelterItem> shelterList = new ArrayList();
+        SQLiteDatabase resourceDB = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_SHELTER + "\"";
+        Cursor result = resourceDB.rawQuery(query, null);
+        if(result.moveToFirst()){
+            do{
+                ShelterItem item = new ShelterItem();
+                item.setAddress(result.getString(1));
+                item.setCity(result.getString(2));
+                item.setPhone(result.getString(3));
+                item.setContact(result.getString(4));
+                item.setOrganization(result.getString(5));
+                shelterList.add(item);
+            } while (result.moveToNext());
+        }
+        result.close();
+        resourceDB.close();
+        return shelterList;
+    }
+
+    public ArrayList<MediaItem> getMediaData(){
+        ArrayList<MediaItem> volunteerList = new ArrayList();
+        SQLiteDatabase resourceDB = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_MEDIA + "\"";
+        Cursor result = resourceDB.rawQuery(query, null);
+        if(result.moveToFirst()){
+            do{
+                MediaItem item = new MediaItem();
+                item.setFacebook(result.getString(1));
+                item.setTwitter(result.getString(2));
+                item.setExtra(result.getString(3));
+                volunteerList.add(item);
+            } while (result.moveToNext());
+        }
+        result.close();
+        resourceDB.close();
+        return volunteerList;
     }
 }

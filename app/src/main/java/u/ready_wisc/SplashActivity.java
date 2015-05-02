@@ -20,6 +20,7 @@
 
 package u.ready_wisc;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -28,6 +29,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -38,11 +40,13 @@ import u.ready_wisc.Emergency_Main.PutData;
 public class SplashActivity extends ActionBarActivity {
 
     static ReportsDatabaseHelper mDatabaseHelper;
+    static VolunteerDBHelper vDBHelper;
     boolean splashClose = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mDatabaseHelper = new ReportsDatabaseHelper(this);
+        vDBHelper = new VolunteerDBHelper(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
@@ -64,15 +68,11 @@ public class SplashActivity extends ActionBarActivity {
         }, time);
 
         if (isOnline()) {
-//TODO implement webDB update feature
-//            DBUpdateFromWeb foo = new DBUpdateFromWeb();
-//            Thread t = new Thread(foo);
-//            t.start();
-//            try {
-//                t.join();
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+
+            if(CountyPicker.countyIdCode != null) {
+                dbUpdate();
+            }
+
             Cursor damageCur;
             damageCur = mDatabaseHelper.query(ReportsDatabaseHelper.TABLE_USERS, null);
             String url;
@@ -106,6 +106,18 @@ public class SplashActivity extends ActionBarActivity {
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
+    public static void dbUpdate() {
+        vDBHelper.onUpgrade(vDBHelper.getReadableDatabase(), 0, 1);
+        DBUpdateFromWeb foo = new DBUpdateFromWeb();
+        Thread t = new Thread(foo);
+        Log.i("DB Update", "Starting Thread");
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -148,35 +160,76 @@ public class SplashActivity extends ActionBarActivity {
 
     }
 
-/*    protected static void addUser(String name, String email, long dateOfBirthMillis) {
+    protected static void addUser(String[][] data) {
 
-        //mDatabaseHelper.onUpgrade(mDatabaseHelper.getReadableDatabase(), 0, 1);
+        Log.i("DB Update","starting addUser");
 
-        ContentValues values = new ContentValues();
+        ContentValues volValues = new ContentValues();
 
-        values.put(MyDatabaseHelper.COL_JSON, name);
+        ContentValues shelValues = new ContentValues();
 
-        if (email != null) {
+        ContentValues medValues = new ContentValues();
 
-            values.put(MyDatabaseHelper.COL_EMAIL, email);
+        volValues.put(VolunteerDBHelper.COL_NAME, data[0][0]);
 
+        if (data[0][1] != null) {
+            volValues.put(VolunteerDBHelper.COL_PHONE, data[0][1]);
         }
 
-        if (dateOfBirthMillis != 0) {
+        if (data[0][2] != null) {
+            volValues.put(VolunteerDBHelper.COL_EMAIL, data[0][2]);
+        }
 
-            values.put(MyDatabaseHelper.COL_DOB, dateOfBirthMillis);
-
+        if (data[0][3] != null) {
+            volValues.put(VolunteerDBHelper.COL_VOL_URL, data[0][3]);
         }
 
         try {
-
-            mDatabaseHelper.insert(MyDatabaseHelper.TABLE_USERS, values);
-
-        } catch (MyDatabaseHelper.NotValidException e) {
-
-            Log.e("DB Error:", "Unable to insert into DB.");
-
+            vDBHelper.insert(VolunteerDBHelper.TABLE_VOLUNTEER, volValues);
+        } catch (VolunteerDBHelper.NotValidException e) {
+            Log.e("DB Error:", "Unable to insert volunteer into DB.");
         }
 
-    }*/
+        shelValues.put(VolunteerDBHelper.COL_SHELTER_ADD, data[1][0]);
+
+        if (data[1][1] != null) {
+            shelValues.put(VolunteerDBHelper.COL_CITY, data[1][1]);
+        }
+
+        if (data[1][2] != null) {
+            shelValues.put(VolunteerDBHelper.COL_SHELTER_PHONE, data[1][2]);
+        }
+
+        if (data[1][3] != null) {
+            shelValues.put(VolunteerDBHelper.COL_PERSON, data[1][3]);
+        }
+
+        if (data[1][4] != null) {
+            shelValues.put(VolunteerDBHelper.COL_ORG, data[1][4]);
+        }
+
+        try {
+            vDBHelper.insert(VolunteerDBHelper.TABLE_SHELTER, shelValues);
+        } catch (VolunteerDBHelper.NotValidException e) {
+            Log.e("DB Error:", "Unable to insert shelters into DB.");
+        }
+
+        medValues.put(VolunteerDBHelper.COL_FACEBOOK, data[2][0]);
+
+        if (data[2][1] != null) {
+            medValues.put(VolunteerDBHelper.COL_TWITTER, data[2][1]);
+        }
+
+        if (data[2][2] != null) {
+            medValues.put(VolunteerDBHelper.COL_EXTRA, data[2][2]);
+        }
+
+        try {
+            vDBHelper.insert(VolunteerDBHelper.TABLE_MEDIA, medValues);
+            Log.e("DB Error", "insert successful");
+        } catch (VolunteerDBHelper.NotValidException e) {
+            Log.e("DB Error:", "Unable to insert media into DB.");
+        }
+
+    }
 }
