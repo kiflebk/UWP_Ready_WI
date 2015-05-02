@@ -9,6 +9,16 @@ public class VolunteerItem {
     String phone;
     String url;
 
+    public VolunteerItem() {
+    }
+
+    public VolunteerItem(String name, String email, String phone, String url) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.url = url;
+    }
+
     public String getName() {return name;}
 
     public void setName(String name) {
@@ -31,15 +41,10 @@ public class VolunteerItem {
 
     public String getUrl(){return url;}
 
-    public void setUrl(String contact){ this.url = url;}
+    public void setUrl(String url){ this.url = url;}
 
-    public VolunteerItem() {
-    }
-
-    public VolunteerItem(String name, String email, String phone, String url) {
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.url = url;
+    @Override
+    public String toString(){
+        return name + " " + email + " " + phone + " " + url;
     }
 }

@@ -198,11 +198,12 @@ public class VolunteerDBHelper extends SQLiteOpenHelper {
 
     }
 
+    //TODO make adapter to display information in app
     public ArrayList<VolunteerItem> getVolunteerData(){
 
         ArrayList<VolunteerItem> volunteerList = new ArrayList();
         SQLiteDatabase resourceDB = this.getReadableDatabase();
-        String query = "SELECT * FROM " + TABLE_VOLUNTEER + "\"";
+        String query = "SELECT * FROM " + TABLE_VOLUNTEER + ";";
         Cursor result = resourceDB.rawQuery(query, null);
         if(result.moveToFirst()){
             do{
@@ -222,7 +223,7 @@ public class VolunteerDBHelper extends SQLiteOpenHelper {
     public ArrayList<ShelterItem> getShelterData(){
         ArrayList<ShelterItem> shelterList = new ArrayList();
         SQLiteDatabase resourceDB = this.getReadableDatabase();
-        String query = "SELECT * FROM " + TABLE_SHELTER + "\"";
+        String query = "SELECT * FROM " + TABLE_SHELTER + ";";
         Cursor result = resourceDB.rawQuery(query, null);
         if(result.moveToFirst()){
             do{
@@ -243,7 +244,7 @@ public class VolunteerDBHelper extends SQLiteOpenHelper {
     public ArrayList<MediaItem> getMediaData(){
         ArrayList<MediaItem> volunteerList = new ArrayList();
         SQLiteDatabase resourceDB = this.getReadableDatabase();
-        String query = "SELECT * FROM " + TABLE_MEDIA + "\"";
+        String query = "SELECT * FROM " + TABLE_MEDIA + ";";
         Cursor result = resourceDB.rawQuery(query, null);
         if(result.moveToFirst()){
             do{

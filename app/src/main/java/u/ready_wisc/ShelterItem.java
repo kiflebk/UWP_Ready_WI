@@ -10,6 +10,17 @@ public class ShelterItem {
     String contact;
     String organization;
 
+    public ShelterItem() {
+    }
+
+    public ShelterItem(String address, String city, String phone, String contact, String organization ) {
+        this.address = address;
+        this.city = city;
+        this.phone = phone;
+        this.contact = contact;
+        this.organization = organization;
+    }
+
     public String getAddress() {return address;}
 
     public void setAddress(String address) {
@@ -36,14 +47,8 @@ public class ShelterItem {
 
     public void setOrganization(String organization){this.organization = organization;}
 
-    public ShelterItem() {
-    }
-
-    public ShelterItem(String address, String city, String phone, String contact, String organization ) {
-        this.address = address;
-        this.city = city;
-        this.phone = phone;
-        this.contact = contact;
-        this.organization = organization;
+    @Override
+    public String toString(){
+        return address + " " + city + " " + phone + " " + contact + " " + organization;
     }
 }

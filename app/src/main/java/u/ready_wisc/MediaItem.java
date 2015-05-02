@@ -8,30 +8,6 @@ public class MediaItem {
     String twitter;
     String extra;
 
-    public String getFacebook() {
-        return facebook;
-    }
-
-    public void setFacebook(String name) {
-        this.facebook = facebook;
-    }
-
-    public String getTwitter() {
-        return twitter;
-    }
-
-    public void setTwitter(String other) {
-        this.twitter = twitter;
-    }
-
-    public String getExtra() {
-        return extra;
-    }
-
-    public void setExtra(String phone) {
-        this.extra = extra;
-    }
-
     public MediaItem() {
     }
 
@@ -39,5 +15,34 @@ public class MediaItem {
         this.facebook = facebook;
         this.twitter = twitter;
         this.extra = extra;
+    }
+
+    public String getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(String facebook) {
+        this.facebook = facebook;
+    }
+
+    public String getTwitter() {
+        return twitter;
+    }
+
+    public void setTwitter(String twitter) {
+        this.twitter = twitter;
+    }
+
+    public String getExtra() {
+        return extra;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra;
+    }
+
+    @Override
+    public String toString(){
+        return facebook + " " + twitter + " " + extra;
     }
 }
