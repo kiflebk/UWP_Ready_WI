@@ -71,7 +71,6 @@ public class VolunteerDBHelper extends SQLiteOpenHelper {
     }
 
     @Override
-
     public void onCreate(SQLiteDatabase db) {
 
         Log.i("DB Update", "Creating Tables");
@@ -133,6 +132,18 @@ public class VolunteerDBHelper extends SQLiteOpenHelper {
 
         onCreate(db);
 
+    }
+
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion){
+
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_VOLUNTEER + ";");
+
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SHELTER + ";");
+
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MEDIA + ";");
+
+        onCreate(db);
     }
 
     public long insert(String tableName, ContentValues values) throws NotValidException {

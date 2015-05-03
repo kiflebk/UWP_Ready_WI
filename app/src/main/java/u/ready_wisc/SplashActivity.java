@@ -88,7 +88,7 @@ public class SplashActivity extends ActionBarActivity {
                     throwable.printStackTrace();
                 }
 
-                mDatabaseHelper.onUpgrade(mDatabaseHelper.getReadableDatabase(), 0, 1);
+                mDatabaseHelper.onDowngrade(mDatabaseHelper.getReadableDatabase(), 0, 1);
             }
         }
 
@@ -109,7 +109,7 @@ public class SplashActivity extends ActionBarActivity {
     }
 
     public static void dbUpdate() {
-        vDBHelper.onUpgrade(vDBHelper.getReadableDatabase(), 0, 1);
+        vDBHelper.onUpgrade(vDBHelper.getReadableDatabase(), 0, 0);
         DBUpdateFromWeb foo = new DBUpdateFromWeb();
         Thread t = new Thread(foo);
         Log.i("DB Update", "Starting Thread");

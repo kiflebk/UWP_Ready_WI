@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/list_selector"
+    android:id="@+id/rel">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/shelterIcon"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:maxHeight="75dp"
+        android:maxWidth="75dp"
+        android:minHeight="75dp"
+        android:minWidth="75dp"
+        android:paddingRight="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/shelterName"
+        android:layout_toRightOf="@+id/shelterIcon"
+        android:layout_toEndOf="@+id/shelterIcon"
+        android:layout_alignParentTop="true"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/shelterPerson"
+        android:layout_below="@+id/shelterName"
+        android:layout_toRightOf="@+id/shelterIcon"
+        android:layout_toEndOf="@+id/shelterIcon"
+        android:textSize="15sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/shelterAddress"
+        android:layout_below="@+id/shelterPerson"
+        android:layout_toRightOf="@+id/shelterIcon"
+        android:layout_toEndOf="@+id/shelterIcon"
+        android:textSize="15sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/shelterCity"
+        android:layout_below="@+id/shelterAddress"
+        android:layout_toRightOf="@+id/shelterIcon"
+        android:layout_toEndOf="@+id/shelterIcon"
+        android:textSize="15sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/shelterPhone"
+        android:layout_below="@+id/shelterCity"
+        android:layout_toRightOf="@+id/shelterIcon"
+        android:layout_toEndOf="@+id/shelterIcon"
+        android:textSize="15sp" />
+
+</RelativeLayout>

@@ -128,8 +128,9 @@ public class CountyPicker extends Activity implements AdapterViewCompat.OnItemSe
                     appID = "553ffa3f17795912158b4584";
                 }
 
-                if (isOnline())
+                if (isOnline()) {
                     SplashActivity.dbUpdate();
+                }
 
                 startUI(getCurrentFocus());
             }
