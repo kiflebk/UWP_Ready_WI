@@ -57,7 +57,7 @@ public class DBUpdateFromWeb implements Runnable{
                 asking for the info we need.  The url listed will display
                 the results in JSON format for java to read.
              */
-            HttpPost httppost = new HttpPost("http://piela.co/database/");
+            HttpPost httppost = new HttpPost("http://joshuaolufs.com/");
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             HttpResponse response = httpclient.execute(httppost);
             HttpEntity entity = response.getEntity();
@@ -94,7 +94,7 @@ public class DBUpdateFromWeb implements Runnable{
                 ct_name[i][1] = json_data.getString("email"); //gets the email column
 
                 // inserts data into the local database
-                MainActivity.addUser(ct_name[i][0], ct_name[i][1], 0);
+                SplashActivity.addUser(ct_name[i][0], ct_name[i][1], 0);
             }
         } catch (JSONException e1) {
                 Log.e("IDK","Database Problem");

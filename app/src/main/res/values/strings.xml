@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Ready_Wisc</string>
+    <string name="app_name">Ready Badger</string>
 
     <string name="dateof">Date of Occurrence</string>
     <string name="type">Type of Occurrence</string>
@@ -59,6 +59,15 @@
     <string name="activity_checklist_create_row_textview">Empty</string>
     <string name="title_activity_checklist__create__item__add">Checklist_Create_Item_Add</string>
     <string name="menu_checklist_edit">Edit Mode</string>
+    <string name="title_activity_rss">Alerts and Warnings</string>
+    <string name="title_activity_county_picker">CountyPicker</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="supplyType">Supply Type</string>
+    <string name="DisasterPlan">Disaster Plan</string>
+    <string name="cancel">Cancel</string>
+    <string name="okay">Okay</string>
+    <string name="RuInsured">Your Insurance Deductible</string>
 
 
 </resources>

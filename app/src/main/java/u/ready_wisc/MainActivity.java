@@ -17,7 +17,6 @@ import android.widget.SimpleCursorAdapter;
 
 
 public class MainActivity extends ActionBarActivity {
-
     static MyDatabaseHelper mDatabaseHelper;
     private Button DisplayButton, UpdateButton, getDBButton;
     static Context ctx;
@@ -26,6 +25,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
