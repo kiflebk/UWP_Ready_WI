@@ -18,7 +18,11 @@ public class MediaItem {
     }
 
     public String getFacebook() {
-        return facebook;
+
+        if(facebook != null && !facebook.equals("null"))
+            return facebook;
+        else
+            return "No Facebook Account Listed";
     }
 
     public void setFacebook(String facebook) {
@@ -26,7 +30,11 @@ public class MediaItem {
     }
 
     public String getTwitter() {
-        return twitter;
+
+        if(twitter != null && !twitter.equals("null"))
+            return twitter;
+        else
+            return "No Shelters Listed";
     }
 
     public void setTwitter(String twitter) {
@@ -34,7 +42,11 @@ public class MediaItem {
     }
 
     public String getExtra() {
-        return extra;
+
+        if(extra != null && !extra.equals("null"))
+            return extra;
+        else
+            return " ";
     }
 
     public void setExtra(String extra) {

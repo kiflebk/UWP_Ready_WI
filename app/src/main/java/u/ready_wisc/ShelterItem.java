@@ -21,29 +21,51 @@ public class ShelterItem {
         this.organization = organization;
     }
 
-    public String getAddress() {return address;}
+    public String getAddress() {
+        if(address != null && !address.equals("null"))
+            return address;
+        else
+            return " ";
+    }
 
     public void setAddress(String address) {
         this.address = address;
     }
 
     public String getCity() {
-        return city;
+        if(city != null && !city.equals("null"))
+            return city;
+        else
+            return " ";
     }
 
     public void setCity(String city) {
         this.city = city;
     }
 
-    public String getPhone() {return phone;}
+    public String getPhone() {
+        if(phone != null && !phone.equals("null"))
+            return phone;
+        else
+            return " ";}
 
     public void setPhone(String phone) {this.phone = phone;}
 
-    public String getContact(){return contact;}
+    public String getContact(){
+        if(contact != null && !contact.equals("null"))
+            return contact;
+        else
+            return " ";
+    }
 
     public void setContact(String contact){ this.contact = contact;}
 
-    public String getOrganization(){return organization;}
+    public String getOrganization(){
+        if(organization != null && !organization.equals("null"))
+            return organization;
+        else
+            return "No Shelters Listed";
+    }
 
     public void setOrganization(String organization){this.organization = organization;}
 

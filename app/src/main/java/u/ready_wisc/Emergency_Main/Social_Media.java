@@ -19,8 +19,111 @@
 
 package u.ready_wisc.Emergency_Main;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+
+import u.ready_wisc.MediaItem;
+import u.ready_wisc.R;
+import u.ready_wisc.VolunteerDBHelper;
+
 /**
  * Created by OZAN on 3/15/2015.
  */
-public class Social_Media {
+public class Social_Media extends ActionBarActivity{
+
+    ArrayList<MediaItem> mediaList;
+    ListView mediaView;
+    static VolunteerDBHelper vdbHelper;
+    static Button facebookButt;
+    static Button twitterButt;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_media);
+        vdbHelper = new VolunteerDBHelper(this);
+        final MediaItem item = vdbHelper.getMediaData().get(0);
+        ;
+
+        //Database query to populate listview
+        //Need local DB + working activity
+        facebookButt = (Button) findViewById(R.id.button2);
+        twitterButt = (Button) findViewById(R.id.button3);
+
+        facebookButt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!item.getFacebook().equals(" ")) {
+                    Uri uri;
+                    if (!item.getFacebook().contains("http://")) {
+                        uri = Uri.parse("http://" + item.getFacebook());
+                    } else {
+                        uri = Uri.parse(item.getFacebook());
+                    }
+
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        twitterButt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!item.getTwitter().equals(" ")) {
+                    Uri uri;
+                    if (!item.getTwitter().contains("http://")) {
+                        uri = Uri.parse("http://" + item.getTwitter());
+                    } else {
+                        uri = Uri.parse(item.getTwitter());
+                    }
+
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                }
+            }
+        });
+    }
+
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_resources, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+
 }

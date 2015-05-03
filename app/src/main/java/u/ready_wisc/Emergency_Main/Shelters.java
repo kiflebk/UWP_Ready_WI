@@ -19,9 +19,90 @@
 
 package u.ready_wisc.Emergency_Main;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+
+import u.ready_wisc.R;
+import u.ready_wisc.ShelterItem;
+import u.ready_wisc.VolunteerDBHelper;
+
 /**
  * Created by OZAN on 3/15/2015.
  */
-public class Shelters {
+public class Shelters extends ActionBarActivity implements AdapterView.OnItemClickListener {
+
+    ArrayList<ShelterItem> shelterList;
+    ListView shelterView;
+    static VolunteerDBHelper vdbHelper;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_shelter);
+        vdbHelper = new VolunteerDBHelper(this);
+
+        shelterView = (ListView) findViewById(R.id.shelterListView);
+
+        //Database query to populate listview
+        //Need local DB + working activity
+        shelterList = vdbHelper.getShelterData();
+//        Log.i("shelter pop", shelterList.get(0).toString());
+        ShelterAdapter adapter = new ShelterAdapter(this, shelterList);
+        shelterView.setAdapter(adapter);
+
+        shelterView.setClickable(true);
+        shelterView.setOnItemClickListener(this);
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_resources, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    // If a listitem is clicked, the details of the item are loaded into a seperate intent and started
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        ShelterAdapter adapter = (ShelterAdapter) parent.getAdapter();
+        ShelterItem item = (ShelterItem) adapter.getItem(position);
+
+        if (!item.getPhone().equals(" ")) {
+            Intent i = new Intent(Intent.ACTION_DIAL);
+            i.setData(Uri.parse("tel:"+item.getPhone()));
+            startActivity(i);
+        }
+
+    }
 
 }

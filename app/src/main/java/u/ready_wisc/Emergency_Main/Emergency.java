@@ -76,17 +76,30 @@ public class Emergency extends ActionBarActivity {
                 PackageManager pm = context.getPackageManager();
 
                 if (x.equals("Report Damage")) {
-                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     Intent i = new Intent(Emergency.this, DamageReports.class);
                     Emergency.this.startActivity(i);
                 }
 
                 if (x.equals("Emergency Map")) {
                     //Calls emergency map
-
                     Uri uri = Uri.parse(Config.EMERGENCY_MAP_URL + CountyPicker.countyName + "+wi");
                     Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                     startActivity(intent);
+                }
+
+                if (x.equals("Shelters")) {
+                    Intent i = new Intent(Emergency.this, Shelters.class);
+                    Emergency.this.startActivity(i);
+                }
+
+                if (x.equals("Volunteer")) {
+                    Intent i = new Intent(Emergency.this, Volunteer.class);
+                    Emergency.this.startActivity(i);
+                }
+
+                if (x.equals("Social Media")) {
+                    Intent i = new Intent(Emergency.this, Social_Media.class);
+                    Emergency.this.startActivity(i);
                 }
 
                 //if sos tone button is pressed play sound, if sound is playing pause sound
@@ -152,29 +165,6 @@ public class Emergency extends ActionBarActivity {
                         }
                     }
                 }
-//                 else if (x.equals("Shelters")) {
-//                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//                    Intent i = new Intent(Emergency.this, Shelters.class);
-//                    Emergency.this.startActivity(i);
-//                } else if (x.equals("Disaster Info")) {
-//                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//                    Intent i = new Intent(Emergency.this, RssActivity.class);
-//                    Emergency.this.startActivity(i);
-//                } else if (x.equals("Volunteer")) {
-//                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//                    Intent i = new Intent(Emergency.this, Volunteer.class);
-//                    Emergency.this.startActivity(i);
-//                } else if (x.equals("Emergency Map")) {
-//                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//                    Intent i = new Intent(Emergency.this, Emergency_Map.class);
-//                    Emergency.this.startActivity(i);
-//                } else if(x.equals("Social Media")){
-//                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//                    Intent i = new Intent(Emergency.this, Social_Media.class);
-//                    Emergency.this.startActivity(i);
-//                }
-
-
             }
         });
 

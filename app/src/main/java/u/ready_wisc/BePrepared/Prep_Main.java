@@ -39,6 +39,7 @@ import u.ready_wisc.BePrepared.BasicKit.FirstAid;
 import u.ready_wisc.BePrepared.BasicKit.Food;
 import u.ready_wisc.BePrepared.BasicKit.SanitationSupp;
 import u.ready_wisc.BePrepared.BasicKit.Water;
+import u.ready_wisc.Emergency_Main.Volunteer;
 import u.ready_wisc.R;
 import u.ready_wisc.myAdapter;
 
@@ -79,10 +80,8 @@ public class Prep_Main extends ActionBarActivity {
                         break;
                     }
                     case "Volunteer":
-                        //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//TODO Add volunteer activity
-//                    Intent i = new Intent(Prep_Main.this, Volunteer.class);
-//                    Prep_Main.this.startActivity(i);
+                        i = new Intent(Prep_Main.this, Volunteer.class);
+                        Prep_Main.this.startActivity(i);
                         break;
                     case "Basic Kit Supplies": {
                         AlertDialog dialog = buildDialog(x);

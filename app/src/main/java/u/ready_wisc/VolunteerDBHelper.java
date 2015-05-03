@@ -209,7 +209,6 @@ public class VolunteerDBHelper extends SQLiteOpenHelper {
 
     }
 
-    //TODO make adapter to display information in app
     public ArrayList<VolunteerItem> getVolunteerData(){
 
         ArrayList<VolunteerItem> volunteerList = new ArrayList();

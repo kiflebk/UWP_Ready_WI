@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@drawable/list_selector"
-    android:id="@+id/rel">
+    android:id="@+id/shel">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -18,50 +18,55 @@
         android:paddingRight="5dp" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/shelterName"
+        android:text="No Shelters Listed"
         android:layout_toRightOf="@+id/shelterIcon"
         android:layout_toEndOf="@+id/shelterIcon"
         android:layout_alignParentTop="true"
         android:textStyle="bold" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/shelterPerson"
+        android:text=" "
         android:layout_below="@+id/shelterName"
         android:layout_toRightOf="@+id/shelterIcon"
         android:layout_toEndOf="@+id/shelterIcon"
         android:textSize="15sp" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/shelterAddress"
+        android:text=" "
         android:layout_below="@+id/shelterPerson"
         android:layout_toRightOf="@+id/shelterIcon"
         android:layout_toEndOf="@+id/shelterIcon"
         android:textSize="15sp" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/shelterCity"
+        android:text=" "
         android:layout_below="@+id/shelterAddress"
         android:layout_toRightOf="@+id/shelterIcon"
         android:layout_toEndOf="@+id/shelterIcon"
         android:textSize="15sp" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/shelterPhone"
+        android:text=" "
         android:layout_below="@+id/shelterCity"
         android:layout_toRightOf="@+id/shelterIcon"
         android:layout_toEndOf="@+id/shelterIcon"

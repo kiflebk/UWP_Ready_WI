@@ -1,6 +1,7 @@
 package u.ready_wisc.Emergency_Main;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,7 @@ public class ShelterAdapter extends ArrayAdapter<ShelterItem> {
 
     public View getView(int position, View convertView, ViewGroup parent){
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View row = inflater.inflate(R.layout.resources_listadapt,parent,false);
+        View row = inflater.inflate(R.layout.shelter_list_adapter,parent,false);
 
         TextView nameText = (TextView) row.findViewById(R.id.shelterName);
         TextView addressText = (TextView) row.findViewById(R.id.shelterAddress);
@@ -38,6 +39,7 @@ public class ShelterAdapter extends ArrayAdapter<ShelterItem> {
         TextView cityText = (TextView) row.findViewById(R.id.shelterCity);
         ImageView shelterIcon = (ImageView) row.findViewById(R.id.shelterIcon);
 
+        Log.i("Null debut",shelterList.get(position).getOrganization() );
         nameText.setText(shelterList.get(position).getOrganization());
         addressText.setText(shelterList.get(position).getAddress());
         phoneText.setText(shelterList.get(position).getPhone());

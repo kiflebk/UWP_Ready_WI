@@ -34,8 +34,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 import u.ready_wisc.Emergency_Main.PutData;
 
 
@@ -232,14 +230,6 @@ public class SplashActivity extends ActionBarActivity {
         } catch (VolunteerDBHelper.NotValidException e) {
             Log.e("DB Error:", "Unable to insert media into DB.");
         }
-
-        //TODO used for debugging, remove once everything is working together.
-//        ArrayList<MediaItem> testList = vDBHelper.getMediaData();
-//        Log.i("DB Update", testList.get(0).toString());
-//        ArrayList<ShelterItem> testList2 = vDBHelper.getShelterData();
-//        Log.i("DB Update", testList2.get(0).toString());
-//        ArrayList<VolunteerItem> testList3 = vDBHelper.getVolunteerData();
-//        Log.i("DB Update", testList3.get(0).toString());
 
     }
 }

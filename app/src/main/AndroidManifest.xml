@@ -349,6 +349,24 @@
         <!-- Above is all used for push notifications -->
 
         <activity
+            android:name=".Emergency_Main.Shelters"
+            android:label="Shelters"
+            android:parentActivityName=".Emergency_Main.Emergency">
+        </activity>
+
+        <activity
+            android:name=".Emergency_Main.Volunteer"
+            android:label="Volunteer"
+            android:parentActivityName=".Emergency_Main.Emergency">
+        </activity>
+
+        <activity
+            android:name=".Emergency_Main.Social_Media"
+            android:label="Social Media"
+            android:parentActivityName=".Emergency_Main.Emergency">
+        </activity>
+
+        <activity
             android:name=".BePrepared.SanitationSupp"
             android:label="@string/title_activity_sanitation_supp"></activity>
         <activity

@@ -136,7 +136,7 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     public void onClick(View v)
     {
-        //TODO fix action bar or disable completely
+
         if ((v.getId() == (R.id.prepareButton)) || (v.getId() == (R.id.prepareMenuButton))) {
             Intent i = new Intent(MenuActivity.this, Prep_Main.class);
             startActivity(i);

@@ -19,14 +19,23 @@ public class VolunteerItem {
         this.url = url;
     }
 
-    public String getName() {return name;}
+    public String getName() {
+        if(name != null && !name.equals("null"))
+            return name;
+        else
+            return "No Volunteer Activities Listed";
+    }
 
     public void setName(String name) {
         this.name = name;
     }
 
     public String getEmail() {
-        return email;
+
+        if(email != null && !email.equals("null"))
+            return email;
+        else
+            return " ";
     }
 
     public void setEmail(String email) {
@@ -34,12 +43,21 @@ public class VolunteerItem {
     }
 
     public String getPhone() {
-        return phone;
+
+        if(phone != null && !phone.equals("null"))
+            return phone;
+        else
+            return " ";
     }
 
     public void setPhone(String phone) {this.phone = phone;}
 
-    public String getUrl(){return url;}
+    public String getUrl(){
+
+        if(url != null && !url.equals("null"))
+            return url;
+        else
+            return " ";}
 
     public void setUrl(String url){ this.url = url;}
 
