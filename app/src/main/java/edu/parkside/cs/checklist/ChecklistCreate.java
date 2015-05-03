@@ -260,10 +260,15 @@ public class ChecklistCreate extends ActionBarActivity {
      * @TODO Change the visual state of the application to indicate edit mode.
      */
     public void menuEditButtonPressed(MenuItem menuItem) {
-        isInEditMode = (isInEditMode == true) ? false : true;
-
-        // Change the visual state of the application to indicate edit mode.
-
+        if (isInEditMode) {
+            // Change the visual state of the application to indicate edit mode.
+            menuItem.setIcon(getResources().getDrawable(R.drawable.edit_add));
+            isInEditMode = false;
+        }
+        else {
+            menuItem.setIcon(getResources().getDrawable(R.drawable.edit_remove));
+            isInEditMode = true;
+        }
     }
 
     /**
