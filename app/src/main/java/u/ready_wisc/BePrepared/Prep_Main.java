@@ -74,18 +74,24 @@ public class Prep_Main extends ActionBarActivity {
                         Intent i = new Intent(Prep_Main.this, Checklist.class);
                         Prep_Main.this.startActivity(i);
                         break;
-                    case "Make A Plan": {
-                        AlertDialog dialog = buildDialog(x);
-                        dialog.show();
+                    case "Make A Plan":
+//                        AlertDialog dialog = buildDialog(x);
+//                        dialog.show();
+                        i = new Intent(Prep_Main.this, PrepWebView.class);
+                        i.putExtra("webview", "plan");
+                        startActivity(i);
                         break;
-                    }
+
                     case "Volunteer":
                         i = new Intent(Prep_Main.this, Volunteer.class);
                         Prep_Main.this.startActivity(i);
                         break;
                     case "Basic Kit Supplies": {
-                        AlertDialog dialog = buildDialog(x);
-                        dialog.show();
+//                        AlertDialog dialog = buildDialog(x);
+//                        dialog.show();
+                        i = new Intent(Prep_Main.this, PrepWebView.class);
+                        i.putExtra("webview", "kit");
+                        startActivity(i);
                         break;
                     }
                 }

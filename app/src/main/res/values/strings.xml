@@ -71,5 +71,7 @@
     <string name="title_activity_food">Food</string>
     <string name="title_activity_first_aid">FirstAid</string>
     <string name="title_activity_bedding">Bedding</string>
+    <string name="title_activity_prep_web_view">PrepWebView</string>
+    <string name="title_activity_info_display">InfoDisplay</string>
 
 </resources>
