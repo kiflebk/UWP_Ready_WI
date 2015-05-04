@@ -20,8 +20,6 @@
 
 package u.ready_wisc.BePrepared;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -33,12 +31,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import edu.parkside.cs.checklist.Checklist;
-import u.ready_wisc.BePrepared.BasicKit.Bedding;
-import u.ready_wisc.BePrepared.BasicKit.Essentials;
-import u.ready_wisc.BePrepared.BasicKit.FirstAid;
-import u.ready_wisc.BePrepared.BasicKit.Food;
-import u.ready_wisc.BePrepared.BasicKit.SanitationSupp;
-import u.ready_wisc.BePrepared.BasicKit.Water;
 import u.ready_wisc.Emergency_Main.Volunteer;
 import u.ready_wisc.R;
 import u.ready_wisc.myAdapter;
@@ -66,8 +58,6 @@ public class Prep_Main extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String x = String.valueOf(parent.getItemAtPosition(position));
-                String disasterPicked = "You selected " + x;
-                //Toast.makeText(Prep_Main.this, disasterPicked, Toast.LENGTH_SHORT).show();
 
                 switch (x) {
                     case "Custom List":
@@ -99,59 +89,6 @@ public class Prep_Main extends ActionBarActivity {
         });
     }
 
-    private AlertDialog buildDialog(String type) {
-        int list = 0;
-        AlertDialog.Builder builder = new AlertDialog.Builder(Prep_Main.this);
-        if (type.equals("Basic Kit Supplies")) {
-            list = R.array.buildList;
-            builder.setTitle(R.string.supplyType);
-            // Open the activity that the user picks from the Basic Kit Supplies list
-            builder.setItems(list, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent i;
-
-                    switch (which) {
-                        case 0:
-                            i = new Intent(Prep_Main.this, Essentials.class);
-                            Prep_Main.this.startActivity(i);
-                            break;
-                        case 1:
-                            i = new Intent(Prep_Main.this, Water.class);
-                            Prep_Main.this.startActivity(i);
-                            break;
-                        case 2:
-                            i = new Intent(Prep_Main.this, Food.class);
-                            Prep_Main.this.startActivity(i);
-                            break;
-                        case 3:
-                            i = new Intent(Prep_Main.this, FirstAid.class);
-                            Prep_Main.this.startActivity(i);
-                            break;
-                        case 4:
-                            i = new Intent(Prep_Main.this, Bedding.class);
-                            Prep_Main.this.startActivity(i);
-                            break;
-                        case 5:
-                            i = new Intent(Prep_Main.this, SanitationSupp.class);
-                            Prep_Main.this.startActivity(i);
-                            break;
-                    }
-                    //Toast.makeText(Prep_Main.this, "You chose " + which, Toast.LENGTH_SHORT).show();
-                }
-            });
-        } else if (type.equals("Make A Plan")) {
-            list = R.array.planList;
-            builder.setTitle(R.string.DisasterPlan);
-        }
-//        builder.setItems(list, new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        Toast.makeText(Prep_Main.this, "You chose " + which, Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-        return builder.create();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

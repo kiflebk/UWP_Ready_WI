@@ -58,7 +58,7 @@ public class Emergency extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disaster_info_layout);
 
-        String[] disasterList = {"Emergency Map", "Shelters", "Disaster Info", "Volunteer", "Report Damage", "Social Media", "Flashlight", "SOS Tone"};
+        String[] disasterList = {"Emergency Map", "Shelters", "Volunteer", "Report Damage", "Social Media", "Flashlight", "SOS Tone"};
 
         final ListAdapter disasterAdapt = new myAdapter(this, disasterList);
 
