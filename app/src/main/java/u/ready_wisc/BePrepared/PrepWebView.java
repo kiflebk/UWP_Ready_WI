@@ -1,6 +1,7 @@
 package u.ready_wisc.BePrepared;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,6 +9,7 @@ import android.view.MenuItem;
 import android.webkit.WebView;
 
 import u.ready_wisc.Config;
+import u.ready_wisc.CountyPicker;
 import u.ready_wisc.R;
 
 public class PrepWebView extends ActionBarActivity {
@@ -21,10 +23,14 @@ public class PrepWebView extends ActionBarActivity {
         String webview = i.getStringExtra("webview");
         switch (webview) {
             case "plan":
-                myWebView.loadUrl(Config.MAKE_PLAN_URL);
+                Uri uri = Uri.parse(Config.MAKE_PLAN_URL);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
                 break;
             case "kit":
-                myWebView.loadUrl(Config.GET_KIT_URL);
+                uri = Uri.parse(Config.GET_KIT_URL);
+                intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
                 break;
         }
 //        myWebView.loadUrl("http://www.example.com");
