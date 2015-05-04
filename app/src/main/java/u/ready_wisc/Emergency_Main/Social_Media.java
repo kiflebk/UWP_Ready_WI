@@ -51,8 +51,8 @@ public class Social_Media extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_media);
         vdbHelper = new VolunteerDBHelper(this);
+
         final MediaItem item = vdbHelper.getMediaData().get(0);
-        ;
 
         //Database query to populate listview
         //Need local DB + working activity

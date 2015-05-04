@@ -190,6 +190,55 @@ public class SplashActivity extends ActionBarActivity {
             Log.e("DB Error:", "Unable to insert volunteer into DB.");
         }
 
+//        shelValues.put(VolunteerDBHelper.COL_SHELTER_ADD, data[1][0]);
+//
+//        if (data[1][1] != null) {
+//            shelValues.put(VolunteerDBHelper.COL_CITY, data[1][1]);
+//        }
+//
+//        if (data[1][2] != null) {
+//            shelValues.put(VolunteerDBHelper.COL_SHELTER_PHONE, data[1][2]);
+//        }
+//
+//        if (data[1][3] != null) {
+//            shelValues.put(VolunteerDBHelper.COL_PERSON, data[1][3]);
+//        }
+//
+//        if (data[1][4] != null) {
+//            shelValues.put(VolunteerDBHelper.COL_ORG, data[1][4]);
+//        }
+//
+//        try {
+//            vDBHelper.insert(VolunteerDBHelper.TABLE_SHELTER, shelValues);
+//        } catch (VolunteerDBHelper.NotValidException e) {
+//            Log.e("DB Error:", "Unable to insert shelters into DB.");
+//        }
+
+        medValues.put(VolunteerDBHelper.COL_FACEBOOK, data[2][0]);
+
+        if (data[2][1] != null) {
+            medValues.put(VolunteerDBHelper.COL_TWITTER, data[2][1]);
+        }
+
+        if (data[2][2] != null) {
+            medValues.put(VolunteerDBHelper.COL_EXTRA, data[2][2]);
+        }
+
+        try {
+            vDBHelper.insert(VolunteerDBHelper.TABLE_MEDIA, medValues);
+            Log.e("DB Error", "insert successful");
+        } catch (VolunteerDBHelper.NotValidException e) {
+            Log.e("DB Error:", "Unable to insert media into DB.");
+        }
+
+    }
+
+    protected static void addUser2(String[][] data) {
+
+        //mDatabaseHelper.onUpgrade(mDatabaseHelper.getReadableDatabase(), 0, 1);
+
+        ContentValues shelValues = new ContentValues();
+
         shelValues.put(VolunteerDBHelper.COL_SHELTER_ADD, data[1][0]);
 
         if (data[1][1] != null) {
@@ -212,23 +261,6 @@ public class SplashActivity extends ActionBarActivity {
             vDBHelper.insert(VolunteerDBHelper.TABLE_SHELTER, shelValues);
         } catch (VolunteerDBHelper.NotValidException e) {
             Log.e("DB Error:", "Unable to insert shelters into DB.");
-        }
-
-        medValues.put(VolunteerDBHelper.COL_FACEBOOK, data[2][0]);
-
-        if (data[2][1] != null) {
-            medValues.put(VolunteerDBHelper.COL_TWITTER, data[2][1]);
-        }
-
-        if (data[2][2] != null) {
-            medValues.put(VolunteerDBHelper.COL_EXTRA, data[2][2]);
-        }
-
-        try {
-            vDBHelper.insert(VolunteerDBHelper.TABLE_MEDIA, medValues);
-            Log.e("DB Error", "insert successful");
-        } catch (VolunteerDBHelper.NotValidException e) {
-            Log.e("DB Error:", "Unable to insert media into DB.");
         }
 
     }

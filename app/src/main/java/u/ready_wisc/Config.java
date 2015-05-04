@@ -40,6 +40,8 @@ public class Config {
 
         public static final String DB_UPDATE_URL = "http://www.joshuaolufs.com/php/query_Contacts_select.php?x=";
 
+        public static final String SHELTER_UPDATE_URL = "http://www.joshuaolufs.com/php/query_Shelters_select.php?x=";
+
 
         // URLs portions for the county RSS feeds
         // Additional codes can be found at https://alerts.weather.gov/cap/wi.php?x=3
