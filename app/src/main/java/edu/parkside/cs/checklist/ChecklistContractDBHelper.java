@@ -446,7 +446,7 @@ public class ChecklistContractDBHelper extends SQLiteOpenHelper {
      */
     public int addChecklist(ChecklistRow checklist_row) {
 
-        boolean transaction_success = false;
+        boolean transaction_success = true;
         SQLiteDatabase database = this.getWritableDatabase();
 
         try {
@@ -533,7 +533,7 @@ public class ChecklistContractDBHelper extends SQLiteOpenHelper {
      *
      * @param item
      * @return
-     * @todo Finish exception handling. Should return null if error occurs.
+     *
      */
     public String returnDescriptionFromItem(ChecklistItemRow item) {
 

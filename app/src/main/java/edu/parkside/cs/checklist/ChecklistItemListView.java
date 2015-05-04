@@ -204,6 +204,7 @@
 
 package edu.parkside.cs.checklist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -225,6 +226,8 @@ public class ChecklistItemListView extends ActionBarActivity {
 
     /* INSTANCE VARIABLE BLOCK BEGIN */
     public static final String EXTRA_MESSAGE = "edu.parkside.cs.checklist_item_listview";
+    // The request code required by the returning activity callback.
+    static final int NEW = 1;
 
     ChecklistItemArrayAdapter checklist_item_arrayAdapter;
     ListView checklist_item_listView;
@@ -264,7 +267,7 @@ public class ChecklistItemListView extends ActionBarActivity {
      * passed checklist object from the passed message.
      *
      * @param savedInstanceState
-     * @todo Known error occurs when user presses back button in the navigation bar instead of cancel.
+     * @XXX Known error occurs when user presses back button in the navigation bar instead of cancel.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -342,6 +345,7 @@ public class ChecklistItemListView extends ActionBarActivity {
         // The activity is about to be destroyed.
     }
 
+
     /**
      * Populates the array adapter with the contents of the appropriate database table.
      * Notifies the listview that the contents have changed so the listview can update the appropriate
@@ -363,7 +367,7 @@ public class ChecklistItemListView extends ActionBarActivity {
      * When called changes the editMode boolean instance variable.
      *
      * @param menuItem
-     * @todo Update the user of the mode change in some visual mannor.
+     *
      */
     public void menuEditButtonPressed(MenuItem menuItem) {
         if (isInEditMode) {

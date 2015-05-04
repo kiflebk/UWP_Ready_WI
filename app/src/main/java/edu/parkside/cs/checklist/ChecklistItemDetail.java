@@ -206,6 +206,7 @@ package edu.parkside.cs.checklist;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
@@ -341,7 +342,6 @@ public class ChecklistItemDetail extends ActionBarActivity {
     /**
      * Retrieve the description text from the database and populate the description text view.
      *
-     * @todo Alert user if error occurs.
      */
     private void populateDescriptionTextField() {
         EditText descriptionTextField = (EditText) findViewById(R.id.activity_checklist_item_detail_decription_edittext);
@@ -351,6 +351,17 @@ public class ChecklistItemDetail extends ActionBarActivity {
             descriptionTextField.setText(description);
 
         }
+        else {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+            alertDialog.setTitle("Error");
+            alertDialog.setIcon(-1).setIcon(this.getResources().getDrawable(R.mipmap.warning_image));
+            alertDialog.setMessage("An error occured while trying to retrieve the description.\n Please try again.");
+            alertDialog.setNeutralButton("OK", null);
+            alertDialog.setCancelable(true);
+            alertDialog.create();
+            alertDialog.show();
+        }
 
     }
 
@@ -359,7 +370,6 @@ public class ChecklistItemDetail extends ActionBarActivity {
      * Saves the item and detail information to the application local database.
      *
      * @param view
-     * @todo Alert user if error occurs.
      */
     public void updateButtonPressed(View view) {
         EditText nameTextField = (EditText) findViewById(R.id.activity_checklist_item_detail_name_edittext);
@@ -372,7 +382,16 @@ public class ChecklistItemDetail extends ActionBarActivity {
                 ((EditText) findViewById(R.id.activity_checklist_item_detail_decription_edittext)).getText().toString());
 
         if (status == ChecklistContractDBHelper.FAILURE) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 
+            alertDialog.setTitle("Error");
+            alertDialog.setIcon(-1).setIcon(this.getResources().getDrawable(R.mipmap.warning_image));
+            alertDialog.setMessage("An error occured while trying to retrieve the item details.\n" +
+                    "Please navigate to the previous screen and try again.");
+            alertDialog.setNeutralButton("OK", null);
+            alertDialog.setCancelable(true);
+            alertDialog.create();
+            alertDialog.show();
         } else
             finish();
     }
