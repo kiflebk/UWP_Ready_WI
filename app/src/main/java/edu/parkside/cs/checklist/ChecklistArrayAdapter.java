@@ -19,18 +19,25 @@
 
 package edu.parkside.cs.checklist;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.util.LayoutDirection;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import u.ready_wisc.R;
+
+import static android.view.View.LAYOUT_DIRECTION_LTR;
 
 /**
  * Maps the activity_checklist.xml to the ChecklistRow objects.
@@ -88,8 +95,6 @@ public class ChecklistArrayAdapter extends ArrayAdapter {
      * @param convertView
      * @param parent
      * @return
-     * @TODO Error condition needs to be implemented!
-     * @TODO Replace string comparisons with index or Object type.
      */
     @Override
     public View getView(final int position, final View convertView, final ViewGroup parent) {
@@ -105,16 +110,27 @@ public class ChecklistArrayAdapter extends ArrayAdapter {
         title.setText(this.list.get(position).getTitle());
         progressBar.setProgress(this.list.get(position).getProgress());
 
+        // If the item is not the Add Checklist row, allow removal.
         rowView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 if (((Checklist) context).isInEditMode) {
-                    // If the item is not the Add Checklist row, allow removal.
                     if (position != list.size() - 1) {
                         int status = ChecklistContractDBHelper.getDb_helper(context).deleteChecklist(list.get(position));
                         if (status == ChecklistContractDBHelper.FAILURE) {
-                            // Handle error. Possible display an alertView to notify user.
+                            // Alert user to error.
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+
+                            alertDialog.setTitle("Error");
+                            alertDialog.setIcon(-1).setIcon(context.getResources().getDrawable(R.mipmap.warning_image));
+                            alertDialog.setMessage("The " + list.get(position).getTitle() +
+                                    " checklist could not be deleted.");
+
+                            alertDialog.setNeutralButton("OK", null);
+                            alertDialog.setCancelable(true);
+                            alertDialog.create();
+                            alertDialog.show();
                         } else {
                             // Remove row and notify listeners that the adapter contents have changed.
                             list.remove(position);

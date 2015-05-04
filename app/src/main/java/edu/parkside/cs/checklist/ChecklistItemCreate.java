@@ -19,6 +19,10 @@
 
 package edu.parkside.cs.checklist;
 
+import android.app.ActionBar;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
@@ -39,9 +43,10 @@ import u.ready_wisc.R;
  * @version 1.0v Build * March 18 2015
  * @email krawchukdavid@gmail.com
  */
-public class ChecklistItemCreate extends ActionBarActivity {
+public class ChecklistItemCreate extends Activity {
 
     /* INSTANCE VARIABLE BLOCK BEGIN */
+    public static final String RETURN_MESSAGE = "edu.parkside.cs.checklist_item_create";
     ChecklistRow checklist_row;
     boolean nameTextFieldHasBeenEdited;
     boolean qtyTextFieldHasBeenEdited;
@@ -67,6 +72,7 @@ public class ChecklistItemCreate extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_checklist__item__create, menu);
+
         return true;
     }
 
@@ -94,7 +100,7 @@ public class ChecklistItemCreate extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // The activity has become visible (it is now "resumed").
+        // The activity has become visible (it is now "resumed")
     }
 
     @Override
@@ -119,8 +125,6 @@ public class ChecklistItemCreate extends ActionBarActivity {
      * Called by the activity when the user presses the save button.
      *
      * @param view
-     * @todo Update the Checklist progress value.
-     * @todo Notify user when database error occurs.
      */
     public void saveButtonPressed(View view) {
         // Retrieve input values from editText fields.
@@ -141,7 +145,22 @@ public class ChecklistItemCreate extends ActionBarActivity {
         // If successful return to previous activity.
         if (status == ChecklistContractDBHelper.FAILURE) {
             /* Notify user of error. */
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+            alertDialog.setTitle("Error");
+            alertDialog.setIcon(-1).setIcon(this.getResources().getDrawable(R.mipmap.warning_image));
+            alertDialog.setMessage("The checklist item was unable to be created. Please try again.");
+            alertDialog.setNeutralButton("OK", null);
+            alertDialog.setCancelable(true);
+            alertDialog.create();
+            alertDialog.show();
+
         } else {
+            // Create and return the populated item and description to the calling activity.
+            Intent intent = new Intent();
+            //intent.putExtra(RETURN_MESSAGE, checklist_row.);
+            setResult(RESULT_OK, intent);
+
             finish();
         }
     }

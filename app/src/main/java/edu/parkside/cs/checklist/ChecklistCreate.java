@@ -19,6 +19,8 @@
 
 package edu.parkside.cs.checklist;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -43,7 +45,7 @@ import u.ready_wisc.R;
  * @version 1.0v Build * March 18 2015 *
  * @email krawchukdavid@gmail.com
  */
-public class ChecklistCreate extends ActionBarActivity {
+public class ChecklistCreate extends Activity {
     /* INSTANCE VARIABLE BLOCK BEGIN */
     public static final String EXTRA_MESSAGE = "edu.parkside.cs.checklist_create";
     // The request code required by the returning activity callback.
@@ -257,7 +259,7 @@ public class ChecklistCreate extends ActionBarActivity {
      * When called changes the editMode boolean instance variable.
      *
      * @param menuItem
-     * @TODO Change the visual state of the application to indicate edit mode.
+     *
      */
     public void menuEditButtonPressed(MenuItem menuItem) {
         if (isInEditMode) {
@@ -295,15 +297,35 @@ public class ChecklistCreate extends ActionBarActivity {
      * Called when the user presses the save button.
      *
      * @param button
-     * @TODO Implement Error handling / AlertViews.
      */
     public void saveButtonPressed(View button) {
 
         if (createChecklist() == CHECKLIST_INSERT_ERROR) {
             // alert user of error and break on some condition.
+            // Alert user to error.
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+            alertDialog.setTitle("Error");
+            alertDialog.setIcon(-1).setIcon(this.getResources().getDrawable(R.mipmap.warning_image));
+            alertDialog.setMessage("The checklist was unable to be created. Please try again.");
+            alertDialog.setNeutralButton("OK", null);
+            alertDialog.setCancelable(true);
+            alertDialog.create();
+            alertDialog.show();
+            return;
         }
         if (createChecklistRows() == CHECKLIST_ROW_INSERT_ERROR) {
             // alert user of error and break on some condition.
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+            alertDialog.setTitle("Error");
+            alertDialog.setIcon(-1).setIcon(this.getResources().getDrawable(R.mipmap.warning_image));
+            alertDialog.setMessage("The checklist item was unable to be created. Please try again.");
+            alertDialog.setNeutralButton("OK", null);
+            alertDialog.setCancelable(true);
+            alertDialog.create();
+            alertDialog.show();
+            return;
         }
 
         // If control reaches this point all is ok. Return.

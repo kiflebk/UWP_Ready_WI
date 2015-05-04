@@ -19,6 +19,7 @@
 
 package edu.parkside.cs.checklist;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -91,7 +92,6 @@ public class ChecklistItemArrayAdapter extends ArrayAdapter<ChecklistItemRow> {
      * @param convertView
      * @param parent
      * @return
-     * @TODO Error condition needs to be implemented!
      */
     @Override
     public View getView(final int position, final View convertView, ViewGroup parent) {
@@ -167,7 +167,6 @@ public class ChecklistItemArrayAdapter extends ArrayAdapter<ChecklistItemRow> {
      * Updates the checklist percentage attribute.
      *
      * @param context
-     * @todo Add alert dialog to notify user of error.
      */
     public void updateChecklistCompletePercentage(Context context) {
         // Retrieve Checklist from context.
@@ -194,6 +193,15 @@ public class ChecklistItemArrayAdapter extends ArrayAdapter<ChecklistItemRow> {
         // If an error occurs in the transaction notify the user.
         if (returnStatus == ChecklistContractDBHelper.FAILURE) {
             //Insert Alert Dialog
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+
+            alertDialog.setTitle("Error");
+            alertDialog.setIcon(-1).setIcon(context.getResources().getDrawable(R.mipmap.warning_image));
+            alertDialog.setMessage("The checklist was unable to be updated. Please try again.");
+            alertDialog.setNeutralButton("OK", null);
+            alertDialog.setCancelable(true);
+            alertDialog.create();
+            alertDialog.show();
         }
     }
 }
