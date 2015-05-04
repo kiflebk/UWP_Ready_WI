@@ -21,6 +21,7 @@
 package u.ready_wisc.BePrepared;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -31,6 +32,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import edu.parkside.cs.checklist.Checklist;
+import u.ready_wisc.Config;
 import u.ready_wisc.Emergency_Main.Volunteer;
 import u.ready_wisc.R;
 import u.ready_wisc.myAdapter;
@@ -67,9 +69,9 @@ public class Prep_Main extends ActionBarActivity {
                     case "Make A Plan":
 //                        AlertDialog dialog = buildDialog(x);
 //                        dialog.show();
-                        i = new Intent(Prep_Main.this, PrepWebView.class);
-                        i.putExtra("webview", "plan");
-                        startActivity(i);
+                        Uri uri = Uri.parse(Config.MAKE_PLAN_URL);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(intent);
                         break;
 
                     case "Volunteer":
@@ -79,9 +81,9 @@ public class Prep_Main extends ActionBarActivity {
                     case "Basic Kit Supplies": {
 //                        AlertDialog dialog = buildDialog(x);
 //                        dialog.show();
-                        i = new Intent(Prep_Main.this, PrepWebView.class);
-                        i.putExtra("webview", "kit");
-                        startActivity(i);
+                        uri = Uri.parse(Config.GET_KIT_URL);
+                        intent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(intent);
                         break;
                     }
                 }

@@ -364,58 +364,6 @@
             android:parentActivityName=".Emergency_Main.Emergency" >
         </activity>
         <activity
-            android:name=".BePrepared.BasicKit.Essentials"
-            android:label="@string/title_activity_essentials"
-            android:parentActivityName=".BePrepared.Prep_Main" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="u.ready_wisc.BePrepared.Prep_Main" />
-        </activity>
-        <activity
-            android:name=".BePrepared.BasicKit.Water"
-            android:label="@string/title_activity_water"
-            android:parentActivityName=".BePrepared.Prep_Main" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="u.ready_wisc.BePrepared.Prep_Main" />
-        </activity>
-        <activity
-            android:name=".BePrepared.BasicKit.Food"
-            android:label="@string/title_activity_food"
-            android:parentActivityName=".BePrepared.Prep_Main" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="u.ready_wisc.BePrepared.Prep_Main" />
-        </activity>
-        <activity
-            android:name=".BePrepared.BasicKit.FirstAid"
-            android:label="@string/title_activity_first_aid"
-            android:parentActivityName=".BePrepared.Prep_Main" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="u.ready_wisc.BePrepared.Prep_Main" />
-        </activity>
-        <activity
-            android:name=".BePrepared.BasicKit.Bedding"
-            android:label="@string/title_activity_bedding"
-            android:parentActivityName=".BePrepared.Prep_Main" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="u.ready_wisc.BePrepared.Prep_Main" />
-        </activity>
-        <activity
-            android:name=".BePrepared.BasicKit.SanitationSupp"
-            android:label="@string/title_activity_sanitation_supp"
-            android:parentActivityName=".BePrepared.Prep_Main" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="u.ready_wisc.BePrepared.Prep_Main" />
-        </activity>
-        <activity
-            android:name=".BePrepared.PrepWebView"
-            android:label="@string/title_activity_prep_web_view" >
-        </activity>
-        <activity
             android:name=".disasterTypes.InfoDisplay"
             android:label="@string/title_activity_info_display" >
         </activity>
