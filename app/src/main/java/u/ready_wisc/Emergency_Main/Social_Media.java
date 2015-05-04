@@ -27,21 +27,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
-
-import java.util.ArrayList;
-
 import u.ready_wisc.MediaItem;
 import u.ready_wisc.R;
 import u.ready_wisc.VolunteerDBHelper;
 
 /**
- * Created by OZAN on 3/15/2015.
+ * Holds social media item which will populate a listview
  */
 public class Social_Media extends ActionBarActivity{
 
-    ArrayList<MediaItem> mediaList;
-    ListView mediaView;
     static VolunteerDBHelper vdbHelper;
     static Button facebookButt;
     static Button twitterButt;
@@ -54,14 +48,16 @@ public class Social_Media extends ActionBarActivity{
 
         final MediaItem item = vdbHelper.getMediaData().get(0);
 
-        //Database query to populate listview
-        //Need local DB + working activity
+        // Database query to populate listview
+        // Need local DB + working activity
         facebookButt = (Button) findViewById(R.id.button2);
         twitterButt = (Button) findViewById(R.id.button3);
 
         facebookButt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // must add http:// prefix to url before it will open
                 if (!item.getFacebook().equals(" ")) {
                     Uri uri;
                     if (!item.getFacebook().contains("http://")) {
@@ -79,6 +75,8 @@ public class Social_Media extends ActionBarActivity{
         twitterButt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // must add http:// prefix to url before it will open
                 if (!item.getTwitter().equals(" ")) {
                     Uri uri;
                     if (!item.getTwitter().contains("http://")) {
@@ -113,6 +111,7 @@ public class Social_Media extends ActionBarActivity{
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement

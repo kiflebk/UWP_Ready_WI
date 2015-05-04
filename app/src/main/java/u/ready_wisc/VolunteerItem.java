@@ -1,7 +1,7 @@
 package u.ready_wisc;
 
 /**
- * Created by Ben on 5/1/2015.
+ * Holds volunteer item for listview adapter
  */
 public class VolunteerItem {
     String name;
@@ -19,6 +19,7 @@ public class VolunteerItem {
         this.url = url;
     }
 
+    // if no activity is found a label is displayed
     public String getName() {
         if(name != null && !name.equals("null"))
             return name;

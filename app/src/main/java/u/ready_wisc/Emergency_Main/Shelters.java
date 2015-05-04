@@ -36,7 +36,7 @@ import u.ready_wisc.ShelterItem;
 import u.ready_wisc.VolunteerDBHelper;
 
 /**
- * Created by OZAN on 3/15/2015.
+ *
  */
 public class Shelters extends ActionBarActivity implements AdapterView.OnItemClickListener {
 
@@ -52,13 +52,20 @@ public class Shelters extends ActionBarActivity implements AdapterView.OnItemCli
 
         shelterView = (ListView) findViewById(R.id.shelterListView);
 
-        //Database query to populate listview
-        //Need local DB + working activity
+        // Database query to populate listview
+        // Need local DB + working activity
         shelterList = vdbHelper.getShelterData();
-//        Log.i("shelter pop", shelterList.get(0).toString());
+
+        // if no shelters are found, the default constructor is called to
+        // show the no shelters found object
+        if (shelterList.isEmpty()){
+            shelterList.add(new ShelterItem());
+        }
+
         ShelterAdapter adapter = new ShelterAdapter(this, shelterList);
         shelterView.setAdapter(adapter);
 
+        // enable the item to be clicked
         shelterView.setClickable(true);
         shelterView.setOnItemClickListener(this);
 
@@ -83,7 +90,7 @@ public class Shelters extends ActionBarActivity implements AdapterView.OnItemCli
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        // noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -92,11 +99,12 @@ public class Shelters extends ActionBarActivity implements AdapterView.OnItemCli
     }
 
     @Override
-    // If a listitem is clicked, the details of the item are loaded into a seperate intent and started
+    // If a listitem is clicked, the details of the item are loaded into a separate intent and started
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         ShelterAdapter adapter = (ShelterAdapter) parent.getAdapter();
-        ShelterItem item = (ShelterItem) adapter.getItem(position);
+        ShelterItem item = adapter.getItem(position);
 
+        // the prefix tel: needs to be added to the number to be used by the phone dialer
         if (!item.getPhone().equals(" ")) {
             Intent i = new Intent(Intent.ACTION_DIAL);
             i.setData(Uri.parse("tel:"+item.getPhone()));

@@ -160,13 +160,14 @@ public class SplashActivity extends ActionBarActivity {
 
     }
 
+    // used to load the volunteer and social media info from the web db into the local db
+    // two add user methods exist because there are two PHP scripts we are reading the data
+    // from and it was easier to use two methods to handle input.
     protected static void addUser(String[][] data) {
 
         Log.i("DB Update","starting addUser");
 
         ContentValues volValues = new ContentValues();
-
-        ContentValues shelValues = new ContentValues();
 
         ContentValues medValues = new ContentValues();
 
@@ -190,30 +191,6 @@ public class SplashActivity extends ActionBarActivity {
             Log.e("DB Error:", "Unable to insert volunteer into DB.");
         }
 
-//        shelValues.put(VolunteerDBHelper.COL_SHELTER_ADD, data[1][0]);
-//
-//        if (data[1][1] != null) {
-//            shelValues.put(VolunteerDBHelper.COL_CITY, data[1][1]);
-//        }
-//
-//        if (data[1][2] != null) {
-//            shelValues.put(VolunteerDBHelper.COL_SHELTER_PHONE, data[1][2]);
-//        }
-//
-//        if (data[1][3] != null) {
-//            shelValues.put(VolunteerDBHelper.COL_PERSON, data[1][3]);
-//        }
-//
-//        if (data[1][4] != null) {
-//            shelValues.put(VolunteerDBHelper.COL_ORG, data[1][4]);
-//        }
-//
-//        try {
-//            vDBHelper.insert(VolunteerDBHelper.TABLE_SHELTER, shelValues);
-//        } catch (VolunteerDBHelper.NotValidException e) {
-//            Log.e("DB Error:", "Unable to insert shelters into DB.");
-//        }
-
         medValues.put(VolunteerDBHelper.COL_FACEBOOK, data[2][0]);
 
         if (data[2][1] != null) {
@@ -233,9 +210,8 @@ public class SplashActivity extends ActionBarActivity {
 
     }
 
+    // used to load the shelter info from the web db into the local db
     protected static void addUser2(String[][] data) {
-
-        //mDatabaseHelper.onUpgrade(mDatabaseHelper.getReadableDatabase(), 0, 1);
 
         ContentValues shelValues = new ContentValues();
 

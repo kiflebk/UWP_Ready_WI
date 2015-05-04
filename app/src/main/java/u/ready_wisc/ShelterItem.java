@@ -1,7 +1,7 @@
 package u.ready_wisc;
 
 /**
- * Created by Ben on 5/1/2015.
+ * Item to hold shelter info from the database for a listview
  */
 public class ShelterItem {
     String address;
@@ -60,6 +60,7 @@ public class ShelterItem {
 
     public void setContact(String contact){ this.contact = contact;}
 
+    // if no data is found no shelters listed is displayed
     public String getOrganization(){
         if(organization != null && !organization.equals("null"))
             return organization;

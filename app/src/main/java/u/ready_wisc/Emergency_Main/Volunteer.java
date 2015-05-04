@@ -36,7 +36,7 @@ import u.ready_wisc.VolunteerDBHelper;
 import u.ready_wisc.VolunteerItem;
 
 /**
- * Created by OZAN on 3/15/2015.
+ * Volunteer activity to load volunteer list from the local db
  */
 public class Volunteer extends ActionBarActivity implements AdapterView.OnItemClickListener {
 
@@ -52,8 +52,9 @@ public class Volunteer extends ActionBarActivity implements AdapterView.OnItemCl
 
         volunteerView = (ListView) findViewById(R.id.volunteerListView);
 
-        //Database query to populate listview
-        //Need local DB + working activity
+        // Database query to populate listview
+        // Need local DB + working activity
+
         volunteerList = vdbHelper.getVolunteerData();
         VolunteerAdapter adapter = new VolunteerAdapter(this, volunteerList);
         volunteerView.setAdapter(adapter);
@@ -94,11 +95,13 @@ public class Volunteer extends ActionBarActivity implements AdapterView.OnItemCl
     // If a listitem is clicked, the details of the item are loaded into a seperate intent and started
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         VolunteerAdapter adapter = (VolunteerAdapter) parent.getAdapter();
-        VolunteerItem item = (VolunteerItem) adapter.getItem(position);
+        VolunteerItem item = adapter.getItem(position);
 
+        //Checks the the url is not empty
         if (!item.getUrl().equals(" ")) {
             Uri uri;
 
+            // the url must had the http:// prefix to be loaded by the android browser
             if(!item.getUrl().contains("http://")){
                 uri = Uri.parse("http://" + item.getUrl());
             } else {

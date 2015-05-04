@@ -15,7 +15,7 @@ import u.ready_wisc.R;
 import u.ready_wisc.ShelterItem;
 
 /**
- * Created by Ben on 5/2/2015.
+ * Adapts shelter items into listview
  */
 public class ShelterAdapter extends ArrayAdapter<ShelterItem> {
 

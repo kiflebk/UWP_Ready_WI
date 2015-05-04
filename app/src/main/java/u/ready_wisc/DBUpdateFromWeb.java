@@ -135,7 +135,6 @@ public class DBUpdateFromWeb implements Runnable{
 
         //converts JSON object to the string array we need
         try {
-//            jArray = new JSONArray(result);
             jArray2 = new JSONArray(result2);
             JSONObject json_data;
             JSONObject json_data2;
@@ -146,12 +145,6 @@ public class DBUpdateFromWeb implements Runnable{
             ct_name[0][2] = json_data.getString("vol_email_add");
             ct_name[0][3] = json_data.getString("vol_website");
 
-//            ct_name[1][0] = json_data.getString("shel_add");
-//            ct_name[1][1] = json_data.getString("shel_city");
-//            ct_name[1][2] = json_data.getString("shel_phone");
-//            ct_name[1][3] = json_data.getString("shel_PIC");
-//            ct_name[1][4] = json_data.getString("shel_org");
-
             ct_name[2][0] = json_data.getString("soc_facebook");
             ct_name[2][1] = json_data.getString("soc_twit");
             ct_name[2][2] = json_data.getString("soc_extra");
@@ -160,7 +153,6 @@ public class DBUpdateFromWeb implements Runnable{
             // inserts data into the local database
             SplashActivity.addUser(ct_name);
 
-            //ct_name = new String[jArray.length()];
             for (int i = 0; i < jArray2.length(); i++) {
                 json_data2 = jArray2.getJSONObject(i);
 

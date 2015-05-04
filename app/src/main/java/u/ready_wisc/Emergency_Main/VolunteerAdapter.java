@@ -13,7 +13,7 @@ import u.ready_wisc.R;
 import u.ready_wisc.VolunteerItem;
 
 /**
- * Created by Ben on 5/2/2015.
+ * Adapter for volunteer item listview
  */
 public class VolunteerAdapter extends ArrayAdapter<VolunteerItem> {
 
