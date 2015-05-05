@@ -31,13 +31,11 @@ public class ResourceAdapter extends ArrayAdapter<ResourceItem>{
         TextView nameText = (TextView) row.findViewById(R.id.resourceName);
         TextView addressText = (TextView) row.findViewById(R.id.resourceAddress);
         TextView phoneText = (TextView) row.findViewById(R.id.resourcePhone);
-        TextView otherText = (TextView) row.findViewById(R.id.resourceOther);
         ImageView resourceIcon = (ImageView) row.findViewById(R.id.resourceIcon);
 
         nameText.setText(resourceList.get(position).getName());
         addressText.setText(resourceList.get(position).getAddress());
         phoneText.setText(resourceList.get(position).getPhone());
-        otherText.setText(resourceList.get(position).getOther());
 
 //        Icon decider to be implemented, basic idea here
         String iconType = resourceList.get(position).getType();

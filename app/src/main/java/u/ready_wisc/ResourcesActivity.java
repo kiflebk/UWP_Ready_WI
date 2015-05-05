@@ -52,8 +52,6 @@ public class ResourcesActivity extends ActionBarActivity {
             }
         });
 
-        //Database query to populate listview
-        //Need local DB + working activity
         resourceList = rDBHelper.getDataFromCounty(county);
         ResourceAdapter adapter = new ResourceAdapter(this, resourceList);
         resourcesListView.setAdapter(adapter);
