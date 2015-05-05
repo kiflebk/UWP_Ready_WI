@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -153,11 +152,16 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    // Retrieves resource data for a specific county
     public ArrayList<ResourceItem> getDataFromCounty(String county){
-        ArrayList<ResourceItem> resourceList = new ArrayList();
-        SQLiteDatabase resourceDB = this.getReadableDatabase();
+        ArrayList<ResourceItem> resourceList = new ArrayList(); // Create array of items
+        SQLiteDatabase resourceDB = this.getReadableDatabase(); // Get database
+
+        // Query database for all data from a specific county
         String query = "SELECT * FROM " + TABLE_RESOURCES + " WHERE " + COL_COUNTY + "=\"" + county + "\"";
         Cursor result = resourceDB.rawQuery(query, null);
+
+        // For every row returned, create an empty item, add info from each column, and put the item in the array
         if(result.moveToFirst()){
             do{
                 ResourceItem item = new ResourceItem();
@@ -168,16 +172,23 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 resourceList.add(item);
             } while (result.moveToNext());
         }
+
+        // No memory leaks
         result.close();
         resourceDB.close();
-        return resourceList;
+        return resourceList; // Return the array of resources
     }
 
+    // Retrieves resource data for a specific county and type of resource
     public ArrayList<ResourceItem> getDataFromType(String county, String type){
-        ArrayList<ResourceItem> resourceList = new ArrayList();
-        SQLiteDatabase resourceDB = this.getReadableDatabase();
+        ArrayList<ResourceItem> resourceList = new ArrayList(); // Create array of items
+        SQLiteDatabase resourceDB = this.getReadableDatabase(); // Get database
+
+        // Query database for all data from a specific county and of a specific type
         String query = "SELECT * FROM resources WHERE COUNTY=\"" + county + "\" AND TYPE=\"" + type + "\"";
         Cursor result = resourceDB.rawQuery(query, null);
+
+        // For every row returned, create an empty item, add info from each column, and put the item in the array
         if(result.moveToFirst()){
             do{
                 ResourceItem item = new ResourceItem();
@@ -188,9 +199,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 resourceList.add(item);
             } while (result.moveToNext());
         }
+
+        // No memory leaks
         result.close();
         resourceDB.close();
-        return resourceList;
+        return resourceList; // Return the array of resources
     }
 
     // Populates resource table with available data

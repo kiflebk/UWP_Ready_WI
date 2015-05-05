@@ -21,9 +21,6 @@ import android.widget.ImageButton;
 
 import com.pushbots.push.Pushbots;
 
-import java.io.IOException;
-
-import edu.parkside.cs.checklist.Checklist;
 import rss.RssFragment;
 import u.ready_wisc.BePrepared.Prep_Main;
 import u.ready_wisc.Emergency_Main.Emergency;

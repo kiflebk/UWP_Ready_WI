@@ -3,6 +3,9 @@ package u.ready_wisc;
 /**
  * Created by Jake on 3/11/2015.
  */
+
+// Used to hold information of singular resources in the Disaster Resources ListView
+// Methods and constructor are auto-generated
 public class ResourceItem {
     String name;
     String address;

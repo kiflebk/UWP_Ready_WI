@@ -14,9 +14,6 @@ import android.view.MenuItem;
 
 //import com.pushbots.push.Pushbots;
 
-import u.ready_wisc.MenuActivity;
-import u.ready_wisc.R;
-
 public class SplashActivity extends ActionBarActivity {
 
     private final int time = 2000;
