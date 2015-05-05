@@ -57,9 +57,9 @@ public class ResourcesActivity extends ActionBarActivity {
         // Populate county only the first time this activity loads
         // Prevents empty lists when the activity is loaded multiple times in one session
 
-            rDBHelper.addResourceData();
-            Intent i = getIntent();
-            county = i.getStringExtra("county");
+//            rDBHelper.addResourceData();
+        Intent i = getIntent();
+        county = i.getStringExtra("county");
 
         Log.d("DB resource", county);
         Log.d("DB resource st", CountyPicker.countyName);

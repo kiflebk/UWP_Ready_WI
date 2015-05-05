@@ -41,12 +41,15 @@ public class SplashActivity extends ActionBarActivity {
 
     static ReportsDatabaseHelper mDatabaseHelper;
     static VolunteerDBHelper vDBHelper;
+    static MyDatabaseHelper rDBHelper;
     boolean splashClose = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mDatabaseHelper = new ReportsDatabaseHelper(this);
         vDBHelper = new VolunteerDBHelper(this);
+        rDBHelper = new MyDatabaseHelper(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
@@ -66,6 +69,8 @@ public class SplashActivity extends ActionBarActivity {
                 splashClose = true;
             }
         }, time);
+
+        rDBHelper.addResourceData();
 
         if (isOnline()) {
 
