@@ -20,10 +20,10 @@
 package u.ready_wisc;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,12 +33,10 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Set;
 
 
-public class ResourcesActivity extends ActionBarActivity implements Runnable{
-    String county = "";
+public class ResourcesActivity extends ActionBarActivity {
+    static String county = "";
     ArrayList<ResourceItem> resourceList;
     ListView resourcesListView;
     Button callButton;
@@ -58,10 +56,13 @@ public class ResourcesActivity extends ActionBarActivity implements Runnable{
 
         // Populate county only the first time this activity loads
         // Prevents empty lists when the activity is loaded multiple times in one session
-        Intent i = getIntent();
-        if(county.isEmpty() || i.getStringExtra("county")!=null) {
+
+            rDBHelper.addResourceData();
+            Intent i = getIntent();
             county = i.getStringExtra("county");
-        }
+
+        Log.d("DB resource", county);
+        Log.d("DB resource st", CountyPicker.countyName);
 
         // Set 911 button to load the dialer with "911" pre-loaded when pressed
         Button callButton = (Button) findViewById(R.id.callButton);
@@ -125,10 +126,5 @@ public class ResourcesActivity extends ActionBarActivity implements Runnable{
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void run() {
-
     }
 }
