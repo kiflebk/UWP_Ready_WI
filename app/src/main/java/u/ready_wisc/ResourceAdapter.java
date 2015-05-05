@@ -33,6 +33,8 @@ import java.util.ArrayList;
 /**
  * Created by Jake on 3/11/2015.
  */
+
+// Adapts a list of resources to the Disaster Resource ListView
 public class ResourceAdapter extends ArrayAdapter<ResourceItem>{
 
     private final Context context;
@@ -45,21 +47,24 @@ public class ResourceAdapter extends ArrayAdapter<ResourceItem>{
     }
 
     public View getView(int position, View convertView, ViewGroup parent){
+
+        // Set up
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View row = inflater.inflate(R.layout.resources_listadapt,parent,false);
 
+        // Identify widgets
         TextView nameText = (TextView) row.findViewById(R.id.resourceName);
         TextView addressText = (TextView) row.findViewById(R.id.resourceAddress);
         TextView phoneText = (TextView) row.findViewById(R.id.resourcePhone);
-        TextView otherText = (TextView) row.findViewById(R.id.resourceOther);
         ImageView resourceIcon = (ImageView) row.findViewById(R.id.resourceIcon);
 
+        // Populate widgets
         nameText.setText(resourceList.get(position).getName());
         addressText.setText(resourceList.get(position).getAddress());
         phoneText.setText(resourceList.get(position).getPhone());
-        otherText.setText(resourceList.get(position).getOther());
 
-//        Icon decider to be implemented, basic idea here
+        // Icon decider
+        // Adds an image to the row based on resource type
         String iconType = resourceList.get(position).getType();
         switch(iconType.toLowerCase()){
             case "hospital":
@@ -68,9 +73,6 @@ public class ResourceAdapter extends ArrayAdapter<ResourceItem>{
             case "sheriff":
                 resourceIcon.setImageResource(R.drawable.resheriff75);
                 break;
-//            case "shelter":
-//                resourceIcon.setImageResource(R.id.shelter_icon);
-//                break;
             case "fire":
                 resourceIcon.setImageResource(R.drawable.resfire75);
                 break;

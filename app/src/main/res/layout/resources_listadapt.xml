@@ -51,14 +51,4 @@
         android:layout_toEndOf="@+id/resourceIcon"
         android:textSize="15dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Other"
-        android:id="@+id/resourceOther"
-        android:layout_below="@+id/resourcePhone"
-        android:layout_toRightOf="@+id/resourceIcon"
-        android:layout_toEndOf="@+id/resourceIcon"
-        android:textSize="15dp" />
-
 </RelativeLayout>

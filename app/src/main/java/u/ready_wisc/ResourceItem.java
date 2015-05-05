@@ -23,11 +23,13 @@ package u.ready_wisc;
 /**
  * Created by Jake on 3/11/2015.
  */
+
+// Used to hold information of singular resources in the Disaster Resources ListView
+// Methods and constructor are auto-generated
 public class ResourceItem {
     String name;
     String address;
     String phone;
-    String other;
     String county;
     String type;
 
@@ -37,14 +39,6 @@ public class ResourceItem {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getOther() {
-        return other;
-    }
-
-    public void setOther(String other) {
-        this.other = other;
     }
 
     public String getPhone() {
@@ -82,11 +76,10 @@ public class ResourceItem {
     public ResourceItem() {
     }
 
-    public ResourceItem(String name, String address, String phone, String other, String county, String type) {
+    public ResourceItem(String name, String address, String phone, String county, String type) {
         this.name = name;
         this.address = address;
         this.phone = phone;
-        this.other = other;
         this.county = county;
         this.type = type;
     }

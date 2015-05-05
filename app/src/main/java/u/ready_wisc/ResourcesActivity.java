@@ -46,16 +46,23 @@ public class ResourcesActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resources);
-        rDBHelper = new MyDatabaseHelper(this);
 
+        rDBHelper = new MyDatabaseHelper(this); // Get database helper for queries
+
+        // Retrieve widgets
         final ListView resourcesListView = (ListView) findViewById(R.id.resourcesListView);
         final Spinner resourceSpinner = (Spinner) findViewById(R.id.resourceSpinner);
 
+        // Populate county only the first time this activity loads
+        // Prevents empty lists when the activity is loaded multiple times in one session
         if(county.isEmpty()) {
+            rDBHelper.addResourceData();
             Intent i = getIntent();
             county = i.getStringExtra("county");
         }
+        System.out.println(county);
 
+        // Set 911 button to load the dialer with "911" pre-loaded when pressed
         Button callButton = (Button) findViewById(R.id.callButton);
         callButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,17 +73,20 @@ public class ResourcesActivity extends ActionBarActivity {
             }
         });
 
-        //Database query to populate listview
-        //Need local DB + working activity
-        resourceList = rDBHelper.getDataFromCounty(county);
+        resourceList = rDBHelper.getDataFromCounty(county); // Retrieve resources from database based on county and add them to an array
+
+        // Set ListView to display the data retrieved from the database using specific adapter
         ResourceAdapter adapter = new ResourceAdapter(this, resourceList);
         resourcesListView.setAdapter(adapter);
 
+        // When a resource type is selected in the spinner, display only those resources
         resourceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String resource = parent.getItemAtPosition(position).toString();
-                resourceList = rDBHelper.getDataFromType(county,resource);
+                String resource = parent.getItemAtPosition(position).toString(); // Retrieve type
+                resourceList = rDBHelper.getDataFromType(county,resource); // Retrieve resources based on county and type
+
+                // Set ListView to display the data retrieved from the database using specific adapter
                 ResourceAdapter adapter = new ResourceAdapter(ResourcesActivity.this, resourceList);
                 resourcesListView.setAdapter(adapter);
             }
@@ -88,6 +98,7 @@ public class ResourcesActivity extends ActionBarActivity {
     }
 
     @Override
+    // Saves the county taken from the intent when user leaves the view
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString("county",county);
