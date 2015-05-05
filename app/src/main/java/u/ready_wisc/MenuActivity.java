@@ -35,7 +35,7 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
     Context context;
     MediaPlayer mp;
     PackageManager pm;
-    String county;
+    static String county = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +47,12 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
         if ((savedInstanceState == null) && isOnline()) {
             addRssFragment();
         }
-        Intent oldIntent = getIntent();
-        county = oldIntent.getStringExtra("county");
+
+        // Ensure county is always populated
+        if(county.isEmpty()) {
+            Intent i = getIntent();
+            county = i.getStringExtra("county");
+        }
 
         context = getApplicationContext();
         pm = context.getPackageManager();

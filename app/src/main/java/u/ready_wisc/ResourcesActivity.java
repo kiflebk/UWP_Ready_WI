@@ -37,9 +37,11 @@ public class ResourcesActivity extends ActionBarActivity {
         // Populate county only the first time this activity loads
         // Prevents empty lists when the activity is loaded multiple times in one session
         if(county.isEmpty()) {
+            rDBHelper.addResourceData();
             Intent i = getIntent();
             county = i.getStringExtra("county");
         }
+        System.out.println(county);
 
         // Set 911 button to load the dialer with "911" pre-loaded when pressed
         Button callButton = (Button) findViewById(R.id.callButton);

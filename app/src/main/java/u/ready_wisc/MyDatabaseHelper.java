@@ -77,8 +77,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 + COL_TYPE + " TEXT"
 
                 + ");");
-
-        addResourceData(db);
     }
 
     @Override
@@ -208,8 +206,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     // Populates resource table with available data
     // TODO: Move data to web database and update local database on start, to provide easier updates and expansions to data
-    public void addResourceData(SQLiteDatabase db){
+    public void addResourceData(){
 
+        SQLiteDatabase db = this.getWritableDatabase();
         // Sheriff Departments
         db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Kenosha County Sheriff's Department\", " +
                 "\"1000 55th Street, Kenosha, WI 53140\", " +
