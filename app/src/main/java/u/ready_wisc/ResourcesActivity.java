@@ -1,6 +1,7 @@
 package u.ready_wisc;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -13,10 +14,12 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
 
-public class ResourcesActivity extends ActionBarActivity {
-    static String county = "";
+public class ResourcesActivity extends ActionBarActivity implements Runnable{
+    String county = "";
     ArrayList<ResourceItem> resourceList;
     ListView resourcesListView;
     Button callButton;
@@ -36,12 +39,10 @@ public class ResourcesActivity extends ActionBarActivity {
 
         // Populate county only the first time this activity loads
         // Prevents empty lists when the activity is loaded multiple times in one session
-        if(county.isEmpty()) {
-            rDBHelper.addResourceData();
-            Intent i = getIntent();
+        Intent i = getIntent();
+        if(county.isEmpty() || i.getStringExtra("county")!=null) {
             county = i.getStringExtra("county");
         }
-        System.out.println(county);
 
         // Set 911 button to load the dialer with "911" pre-loaded when pressed
         Button callButton = (Button) findViewById(R.id.callButton);
@@ -105,5 +106,10 @@ public class ResourcesActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void run() {
+
     }
 }

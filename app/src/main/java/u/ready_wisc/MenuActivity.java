@@ -48,9 +48,9 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
             addRssFragment();
         }
 
+        Intent i = getIntent();
         // Ensure county is always populated
-        if(county.isEmpty()) {
-            Intent i = getIntent();
+        if(county.isEmpty() || i.getStringExtra("county")!=null) {
             county = i.getStringExtra("county");
         }
 
