@@ -70,7 +70,12 @@ public class SplashActivity extends ActionBarActivity {
             }
         }, time);
 
-        rDBHelper.addResourceData();
+        Cursor resourceCur;
+        resourceCur = rDBHelper.query(MyDatabaseHelper.TABLE_USERS, null);
+        if (!resourceCur.moveToFirst()) {
+            rDBHelper.addResourceData();
+        }
+
 
         if (isOnline()) {
 
