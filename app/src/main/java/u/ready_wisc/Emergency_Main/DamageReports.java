@@ -35,15 +35,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -60,6 +63,7 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 
 import u.ready_wisc.Config;
@@ -100,6 +104,8 @@ public class DamageReports extends ActionBarActivity {
     int disasterType;
     int rentOrOwned;
     static ReportsDatabaseHelper mDatabaseHelper;
+    Bitmap thumbnail;
+    String encodedString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -205,8 +211,9 @@ public class DamageReports extends ActionBarActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == CAM_REQUEST) {
-            Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+            thumbnail = (Bitmap) data.getExtras().get("data");
             imgTakenPhoto.setImageBitmap(thumbnail);
+            encodeImagetoString();
         }
     }
 
@@ -311,22 +318,25 @@ public class DamageReports extends ActionBarActivity {
                 // HTTP GET URL format.
                 // TODO the space replace may need to be changed once HTTP POST is implemented
                 obj.put("deviceid", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
-                obj.put("type_of_occurrence", (disasterType+"").replace(" ","%20"));
+                obj.put("type_of_occurrence", (disasterType+"").replace(" ", "%20"));
                 obj.put("date", String.valueOf(text9.getText()).replace(" ", "%20"));
                 obj.put("name", name.getText().toString().replace(" ", "%20"));
                 obj.put("address", address.getText().toString().replace(" ", "%20"));
                 obj.put("city", city.getText().toString().replace(" ", "%20"));
                 obj.put("add_state", state.getText().toString().replace(" ", "%20"));
                 obj.put("zip", zip.getText().toString().replace(" ", "%20"));
-                obj.put("own_or_rent", (rentOrOwned+"").replace(" ","%20"));
+                obj.put("own_or_rent", (rentOrOwned+"").replace(" ", "%20"));
                 obj.put("insurance_deductible", insurDeductAmt.getText().toString().replace(" ", "%20"));
                 obj.put("damage_cost", damageCost.getText().toString().replace(" ", "%20"));
                 obj.put("loss_percent", loss_percent.getText().toString().replace(" ", "%20"));
-                obj.put("habitable", (checked(habitable)+"").replace(" ","%20"));
+                obj.put("habitable", (checked(habitable)+"").replace(" ", "%20"));
                 obj.put("basement_water", (checked(basement_water)+"").replace(" ","%20"));
                 obj.put("water_depth", water_depth.getText().toString().replace(" ", "%20"));
-                obj.put("basement_resident", (checked(basement_resident)+"").replace(" ","%20"));
+                obj.put("basement_resident", (checked(basement_resident)+"").replace(" ", "%20"));
                 obj.put("damage_desc", damage_desc.getText().toString().replace(" ", "%20"));
+
+                //TODO apache server needs to have url length parameter changed
+                //obj.put("encoded_image", encodedString.replace("/","%2F").replace("+","%2B"));
 
                 if (isOnline()) {
                     obj.put("longitude", (loc.getLongitude()+"").replace(" ","%20"));
@@ -343,12 +353,14 @@ public class DamageReports extends ActionBarActivity {
         public void putDataToServer(String json) throws Throwable {
 
             String reportAccepted;
+            Log.d("Send pic",json);
             PutData httpGet = new PutData(json);
             Thread t = new Thread(httpGet);
             t.start();
             t.join();
 
             reportAccepted = httpGet.getDataAccepted();
+            Log.d("Send pic",reportAccepted);
 
             if (reportAccepted.equals("1")) {
                 Toast.makeText(getApplicationContext(), "Report Submitted Successfully", Toast.LENGTH_LONG).show();
@@ -433,6 +445,35 @@ public class DamageReports extends ActionBarActivity {
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    public void encodeImagetoString() {
+        new AsyncTask<Void, Void, String>() {
+
+            protected void onPreExecute() {
+
+            };
+
+            @Override
+            protected String doInBackground(Void... params) {
+                BitmapFactory.Options options = null;
+                options = new BitmapFactory.Options();
+                options.inSampleSize = 3;
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                // Must compress the Image to reduce image size to make upload easy
+                thumbnail.compress(Bitmap.CompressFormat.PNG, 50, stream);
+                byte[] byte_arr = stream.toByteArray();
+                // Encode Image to String
+                encodedString = Base64.encodeToString(byte_arr, 0);
+                Log.d("Pic encode2", encodedString);
+                return "";
+            }
+
+            @Override
+            protected void onPostExecute(String msg) {
+
+            }
+        }.execute(null, null, null);
     }
 
 }
