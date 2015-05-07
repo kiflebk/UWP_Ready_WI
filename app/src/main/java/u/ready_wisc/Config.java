@@ -29,18 +29,27 @@ public class Config {
                 throw new AssertionError();
         }
 
-        // URL to send damage report
-        public static final String DAMAGE_REPORT_URL = "http://www.joshuaolufs.com/php/query_damageReports_insert.php?";
+//        TODO URLs are for dev server, must be changed to new address if dev server is being used.
+//        public static final String DAMAGE_REPORT_URL = "http://www.joshuaolufs.com/php/query_damageReports_insert.php?";
+//
+//        public static final String DB_UPDATE_URL = "http://www.joshuaolufs.com/php/query_Contacts_select.php?x=";
+//
+//        public static final String SHELTER_UPDATE_URL = "http://www.joshuaolufs.com/php/query_Shelters_select.php?x=";
+
+        // URL to the production server
+        public static final String DAMAGE_REPORT_URL = "http://www.eagleweather.com/readyBadger//php/query_damageReports_insert.php?";
+
+        public static final String DB_UPDATE_URL = "http://www.eagleweather.com/readyBadger//php/query_Contacts_select.php?x=";
+
+        public static final String SHELTER_UPDATE_URL = "http://www.eagleweather.com/readyBadger//php/query_Shelters_select.php?x=";
+
+
 
         public static final String EMERGENCY_MAP_URL = "https://www.google.com/maps/search/emergency+";
 
         public static final String GET_KIT_URL = "http://readywisconsin.wi.gov/kit/GetKit.asp";
 
         public static final String MAKE_PLAN_URL = "http://readywisconsin.wi.gov/Plan/Plan.asp?maintab=0";
-
-        public static final String DB_UPDATE_URL = "http://www.joshuaolufs.com/php/query_Contacts_select.php?x=";
-
-        public static final String SHELTER_UPDATE_URL = "http://www.joshuaolufs.com/php/query_Shelters_select.php?x=";
 
 
         // URLs portions for the county RSS feeds

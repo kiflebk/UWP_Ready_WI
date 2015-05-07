@@ -19,8 +19,6 @@
 
 package edu.parkside.cs.checklist;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;

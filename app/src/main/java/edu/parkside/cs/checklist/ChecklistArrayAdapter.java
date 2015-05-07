@@ -22,22 +22,16 @@ package edu.parkside.cs.checklist;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.util.LayoutDirection;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import u.ready_wisc.R;
-
-import static android.view.View.LAYOUT_DIRECTION_LTR;
 
 /**
  * Maps the activity_checklist.xml to the ChecklistRow objects.

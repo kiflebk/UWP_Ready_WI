@@ -20,8 +20,6 @@
 
 package u.ready_wisc;
 
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import org.apache.http.HttpEntity;
