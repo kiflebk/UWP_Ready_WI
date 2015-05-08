@@ -30,18 +30,18 @@ public class Config {
         }
 
 //        TODO URLs are for dev server, must be changed to new address if dev server is being used.
-//        public static final String DAMAGE_REPORT_URL = "http://www.joshuaolufs.com/php/query_damageReports_insert.php?";
+public static final String DAMAGE_REPORT_URL = "http://www.joshuaolufs.com/php/query_damageReports_insert.php?";
+
+    public static final String DB_UPDATE_URL = "http://www.joshuaolufs.com/php/query_Contacts_select.php?x=";
+
+    public static final String SHELTER_UPDATE_URL = "http://www.joshuaolufs.com/php/query_Shelters_select.php?x=";
+
+    // URL to the production server
+//        public static final String DAMAGE_REPORT_URL = "http://www.eagleweather.com/readyBadger//php/query_damageReports_insert.php?";
 //
-//        public static final String DB_UPDATE_URL = "http://www.joshuaolufs.com/php/query_Contacts_select.php?x=";
+//        public static final String DB_UPDATE_URL = "http://www.eagleweather.com/readyBadger//php/query_Contacts_select.php?x=";
 //
-//        public static final String SHELTER_UPDATE_URL = "http://www.joshuaolufs.com/php/query_Shelters_select.php?x=";
-
-        // URL to the production server
-        public static final String DAMAGE_REPORT_URL = "http://www.eagleweather.com/readyBadger//php/query_damageReports_insert.php?";
-
-        public static final String DB_UPDATE_URL = "http://www.eagleweather.com/readyBadger//php/query_Contacts_select.php?x=";
-
-        public static final String SHELTER_UPDATE_URL = "http://www.eagleweather.com/readyBadger//php/query_Shelters_select.php?x=";
+//        public static final String SHELTER_UPDATE_URL = "http://www.eagleweather.com/readyBadger//php/query_Shelters_select.php?x=";
 
 
 

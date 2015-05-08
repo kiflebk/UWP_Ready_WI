@@ -70,6 +70,8 @@ import u.ready_wisc.Config;
 import u.ready_wisc.R;
 import u.ready_wisc.ReportsDatabaseHelper;
 
+import static android.graphics.Bitmap.createScaledBitmap;
+
 public class DamageReports extends ActionBarActivity {
 
     //Variable declare.
@@ -336,7 +338,7 @@ public class DamageReports extends ActionBarActivity {
                 obj.put("damage_desc", damage_desc.getText().toString().replace(" ", "%20"));
 
                 //TODO apache server needs to have url length parameter changed
-                //obj.put("encoded_image", encodedString.replace("/","%2F").replace("+","%2B"));
+                obj.put("encoded_image", encodedString.replace("/", "%2F").replace("+", "%2B"));
 
                 if (isOnline()) {
                     obj.put("longitude", (loc.getLongitude()+"").replace(" ","%20"));
@@ -461,7 +463,7 @@ public class DamageReports extends ActionBarActivity {
                 options.inSampleSize = 3;
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 // Must compress the Image to reduce image size to make upload easy
-                thumbnail.compress(Bitmap.CompressFormat.PNG, 50, stream);
+                thumbnail.compress(Bitmap.CompressFormat.JPEG, 10, stream);  /// I changed this from PNG and 50
                 byte[] byte_arr = stream.toByteArray();
                 // Encode Image to String
                 encodedString = Base64.encodeToString(byte_arr, 0);
