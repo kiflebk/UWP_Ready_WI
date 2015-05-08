@@ -144,7 +144,9 @@ public class ChecklistCreate extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_checklist__kit__create, menu);
+
+        //TODO add options menu
+        // getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
