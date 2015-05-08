@@ -107,12 +107,22 @@ public class Shelters extends ActionBarActivity implements AdapterView.OnItemCli
         ShelterItem item = adapter.getItem(position);
 
         // the prefix tel: needs to be added to the number to be used by the phone dialer
-        if (!item.getPhone().equals(" ")) {
-            Intent i = new Intent(Intent.ACTION_DIAL);
-            i.setData(Uri.parse("tel:"+item.getPhone()));
-            startActivity(i);
-        }
+//        if (!item.getPhone().equals(" ")) {
+//            Intent i = new Intent(Intent.ACTION_DIAL);
+//            i.setData(Uri.parse("tel:"+item.getPhone()));
+//            startActivity(i);
+//        }
 
+        //Checks the the url is not empty
+        String address = item.getAddress();
+        Uri uri;
+
+        uri = Uri.parse("http://google.com/#q=" + address);
+
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
     }
 
 }
+
+
