@@ -122,6 +122,15 @@ public class ReportsDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    //deletes the table and creates a new one
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS + ";");
+
+        onCreate(db);
+    }
+
     public Cursor query(String tableName, String orderedBy) {
 
         String[] projection = {COL_ID, COL_JSON};

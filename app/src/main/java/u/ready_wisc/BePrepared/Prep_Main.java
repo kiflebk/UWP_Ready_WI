@@ -31,7 +31,12 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import edu.parkside.cs.checklist.Checklist;
+import u.ready_wisc.AnalyticsApp;
 import u.ready_wisc.Config;
 import u.ready_wisc.Emergency_Main.Volunteer;
 import u.ready_wisc.R;
@@ -47,6 +52,10 @@ public class Prep_Main extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disaster_info_layout);
 
+        // Google Analytics
+        // copy these two lines along with the onStart() and onStop() methods below
+        Tracker t = ((AnalyticsApp) getApplication()).getTracker(AnalyticsApp.TrackerName.APP_TRACKER);
+        t.send(new HitBuilders.ScreenViewBuilder().build());
 
         String[] disasterList = {"Basic Kit Supplies", "Make A Plan", "Volunteer", "Custom List"};
 
@@ -115,4 +124,18 @@ public class Prep_Main extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    //Overridden onStart()/onStop() functions for Google Analytics
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
+    }
+
 }

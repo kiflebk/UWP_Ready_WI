@@ -59,7 +59,7 @@ public class DisastersType extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String x = String.valueOf(parent.getItemAtPosition(position));
                 String disasterPicked = "You selected " + x;
-                Toast.makeText(DisastersType.this, disasterPicked, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(DisastersType.this, disasterPicked, Toast.LENGTH_SHORT).show();
 
                 if (x.equals("Tornado")) {
                     //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

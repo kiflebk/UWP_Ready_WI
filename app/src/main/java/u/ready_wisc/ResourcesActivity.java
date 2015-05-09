@@ -61,9 +61,6 @@ public class ResourcesActivity extends ActionBarActivity {
         Intent i = getIntent();
         county = i.getStringExtra("county");
 
-        Log.d("DB resource", county);
-        Log.d("DB resource st", CountyPicker.countyName);
-
         // Set 911 button to load the dialer with "911" pre-loaded when pressed
         Button callButton = (Button) findViewById(R.id.callButton);
         callButton.setOnClickListener(new View.OnClickListener() {

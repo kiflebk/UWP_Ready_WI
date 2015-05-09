@@ -330,8 +330,9 @@ public class DamageReports extends ActionBarActivity {
                         || (address.getText() == null || address.getText().equals("")) ||
                         (city.getText() == null || city.getText().equals("")) ||
                         (damageCost.getText() == null || damageCost.getText().equals(""))
-                        || (loss_percent.getText() == null || loss_percent.getText().equals(""))) {
-                    Toast.makeText(getApplicationContext(), "Please fill out all fields ", Toast.LENGTH_LONG).show();
+                        || (loss_percent.getText() == null || loss_percent.getText().equals(""))
+                        || (encodedString == null || encodedString.equals(""))) {
+                    Toast.makeText(getApplicationContext(), "Please fill out all fields and take a picture.", Toast.LENGTH_LONG).show();
 
                 }
 

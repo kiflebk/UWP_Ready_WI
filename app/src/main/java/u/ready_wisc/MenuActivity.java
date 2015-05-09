@@ -22,6 +22,7 @@ package u.ready_wisc;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.media.AudioManager;
@@ -39,6 +40,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.pushbots.push.Pushbots;
 
 import rss.RssFragment;
@@ -47,16 +51,16 @@ import u.ready_wisc.Emergency_Main.Emergency;
 import u.ready_wisc.disasterTypes.DisastersType;
 
 
-public class MenuActivity extends ActionBarActivity implements View.OnClickListener {
-    public static boolean isSosToneOn = false;
-    public static MediaPlayer mp;
-    static String county = "";
+public class MenuActivity extends ActionBarActivity implements View.OnClickListener{
     Button resourcesbutton, reportButton, checklistButton, disasterButton;
-    ImageButton sosMenuButton, flashlightButton;
-    Context context;
-    PackageManager pm;
+    ImageButton prepareMenuButton, emergMenuButton, sosMenuButton, flashlightButton;
+    public static boolean isSosToneOn = false;
     private boolean isFlashOn = false;
     private Camera camera = null;
+    Context context;
+    public static MediaPlayer mp;
+    PackageManager pm;
+    public static String county = "";
 
     @Override
 
@@ -64,6 +68,11 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainmenu);
+
+        // Google Analytics
+        // copy these two lines along with the onStart() and onStop() methods below
+        Tracker t = ((AnalyticsApp) getApplication()).getTracker(AnalyticsApp.TrackerName.APP_TRACKER);
+        t.send(new HitBuilders.ScreenViewBuilder().build());
 
         // Code used to start pushbots and change to correct county account
         Pushbots.sharedInstance().setAppId(CountyPicker.appID);
@@ -74,11 +83,9 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
             addRssFragment();
         }
 
-        Intent i = getIntent();
-        // Ensure county is always populated
-        if (county.isEmpty() || i.getStringExtra("county") != null) {
-            county = i.getStringExtra("county");
-        }
+        // Loads in the county from the preferences
+        SharedPreferences settings = getSharedPreferences(SplashActivity.PREFS_NAME, 0);
+        county = settings.getString("countyName", "");
 
         context = getApplicationContext();
 
@@ -101,15 +108,7 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
         reportButton.setOnClickListener(this);
         checklistButton.setOnClickListener(this);
         sosMenuButton.setOnClickListener(this);
-
-        resourcesbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MenuActivity.this, ResourcesActivity.class);
-                i.putExtra("county", county);
-                MenuActivity.this.startActivity(i);
-            }
-        });
+        resourcesbutton.setOnClickListener(this);
 
     }
 
@@ -124,6 +123,7 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
             MenuActivity.this.startActivity(i);
         } else if (v.getId() == (R.id.disasterResourcesButton) || v.getId() == (R.id.disasterMenuButton)) {
             Intent i = new Intent(MenuActivity.this, ResourcesActivity.class);
+            i.putExtra("county",county);
             MenuActivity.this.startActivity(i);
         } else if (v.getId() == (R.id.typeDisasterButton)) {
             Intent i = new Intent(MenuActivity.this, DisastersType.class);
@@ -143,10 +143,10 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
                 mp.setLooping(true);
                 isSosToneOn = true;
                 mp.start();
-            } else {
+            } else{
 
                 //stops looping sound
-                Log.d("Sound test", "Stopping sound");
+                Log.d("Sound test","Stopping sound");
                 mp.setLooping(false);
                 mp.pause();
                 isSosToneOn = false;
@@ -154,7 +154,7 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
 
         } else if (v.getId() == (R.id.FlashlightMenuButton)) {
             //check to see if device has a camera with flash
-            if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+            if(!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
 
                 Log.e("err", "Device has no camera!");
                 //Return from the method, do nothing after this code block
@@ -229,6 +229,20 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean("fragment_added", true);
+    }
+
+    //Overridden onStart()/onStop() functions for Google Analytics
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
+
     }
 
 

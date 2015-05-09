@@ -30,6 +30,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import rss.RssFragment;
 
 
@@ -43,6 +47,11 @@ public class RssActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rss);
+
+        // Google Analytics
+        // copy these two lines along with the onStart() and onStop() methods below
+        Tracker t = ((AnalyticsApp) getApplication()).getTracker(AnalyticsApp.TrackerName.APP_TRACKER);
+        t.send(new HitBuilders.ScreenViewBuilder().build());
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -90,4 +99,18 @@ public class RssActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    //Overridden onStart()/onStop() functions for Google Analytics
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
+    }
+
 }

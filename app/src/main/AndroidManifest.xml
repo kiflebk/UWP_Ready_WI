@@ -15,6 +15,8 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
 
+
+
     <permission
         android:name="u.ready_wisc.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
@@ -41,6 +43,7 @@
 
     <!-- Above are all permissions for the app -->
     <application
+        android:name="u.ready_wisc.AnalyticsApp"
         android:allowBackup="true"
         android:icon="@drawable/alt_wi"
         android:label="@string/app_name"
@@ -233,7 +236,8 @@
         <activity
             android:name=".RssActivity"
             android:label="@string/title_activity_rss"
-            android:parentActivityName=".MenuActivity" >
+            android:parentActivityName=".MenuActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="u.ready_wisc.MenuActivity" />
@@ -244,7 +248,8 @@
         <activity
             android:name=".BePrepared.Prep_Main"
             android:label="Prepare Now"
-            android:parentActivityName=".MenuActivity" >
+            android:parentActivityName=".MenuActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
@@ -252,7 +257,8 @@
         <activity
             android:name=".BePrepared.Build_Kits"
             android:label="Prepare Now Rather Than Later"
-            android:parentActivityName=".BePrepared.Prep_Main" >
+            android:parentActivityName=".BePrepared.Prep_Main"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BePrepared.Prep_Main" />
@@ -260,7 +266,8 @@
         <activity
             android:name=".BePrepared.Plan"
             android:label="Prepare Now Rather Than Later"
-            android:parentActivityName=".BePrepared.Prep_Main" >
+            android:parentActivityName=".BePrepared.Prep_Main"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BePrepared.Prep_Main" />
@@ -351,22 +358,29 @@
         <activity
             android:name=".Emergency_Main.Shelters"
             android:label="Shelters"
-            android:parentActivityName=".Emergency_Main.Emergency" >
+            android:parentActivityName=".Emergency_Main.Emergency"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".Emergency_Main.Volunteer"
             android:label="Volunteer"
-            android:parentActivityName=".Emergency_Main.Emergency" >
+            android:parentActivityName=".Emergency_Main.Emergency"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".Emergency_Main.Social_Media"
             android:label="Social Media"
-            android:parentActivityName=".Emergency_Main.Emergency" >
+            android:parentActivityName=".Emergency_Main.Emergency"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".disasterTypes.InfoDisplay"
-            android:label="@string/title_activity_info_display" >
+            android:label="@string/title_activity_info_display"
+            android:screenOrientation="portrait">
         </activity>
+        <meta-data android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
     </application>
 
 </manifest>

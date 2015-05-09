@@ -27,6 +27,14 @@
         android:src="@drawable/alt_wi" />
 
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:id="@+id/parksideView"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/parkside"
+        android:adjustViewBounds="false" />
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleLarge"
@@ -34,5 +42,6 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="center" />
+
 
 </LinearLayout>

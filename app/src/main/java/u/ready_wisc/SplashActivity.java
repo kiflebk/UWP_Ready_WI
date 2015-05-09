@@ -23,6 +23,7 @@ package u.ready_wisc;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -43,6 +44,8 @@ public class SplashActivity extends ActionBarActivity {
     static VolunteerDBHelper vDBHelper;
     static MyDatabaseHelper rDBHelper;
     boolean splashClose = false;
+    public static final String PREFS_NAME = "MyPrefsFile";
+    public static String county = "";
 
     public static void dbUpdate() {
         vDBHelper.onUpgrade(vDBHelper.getReadableDatabase(), 0, 0);
@@ -147,12 +150,18 @@ public class SplashActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
-        int time = 2000;
+        // Loads in the county from the preferences
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        county = settings.getString("countyName", "");
+        CountyPicker.countyName = settings.getString("countyName", "");
+        CountyPicker.countyIdCode = settings.getString("countyIdCode", "");
+
+        int time = 4000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
 
-                if (CountyPicker.countyIdCode != null) {
+                if (!(county.isEmpty())) {
                     Intent intent = new Intent(SplashActivity.this, MenuActivity.class);
                     SplashActivity.this.startActivity(intent);
                 } else {
@@ -245,4 +254,18 @@ public class SplashActivity extends ActionBarActivity {
             Toast.makeText(getApplicationContext(), "Report Not Sent", Toast.LENGTH_LONG).show();
 
     }
+
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//
+//        // saving the county
+//        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+//        SharedPreferences.Editor editor = settings.edit();
+//        editor.putString("county", county);
+//
+//        Log.d("County", CountyPicker.countyName);
+//
+//        editor.apply();
+//    }
 }
