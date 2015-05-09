@@ -22,15 +22,15 @@ public class ShelterAdapter extends ArrayAdapter<ShelterItem> {
     private final Context context;
     private final ArrayList<ShelterItem> shelterList;
 
-    public ShelterAdapter(Context context, ArrayList<ShelterItem> shelterList){
+    public ShelterAdapter(Context context, ArrayList<ShelterItem> shelterList) {
         super(context, R.layout.shelter_list_adapter, shelterList);
         this.context = context;
         this.shelterList = shelterList;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View row = inflater.inflate(R.layout.shelter_list_adapter,parent,false);
+        View row = inflater.inflate(R.layout.shelter_list_adapter, parent, false);
 
         TextView nameText = (TextView) row.findViewById(R.id.shelterName);
         TextView addressText = (TextView) row.findViewById(R.id.shelterAddress);
@@ -39,7 +39,7 @@ public class ShelterAdapter extends ArrayAdapter<ShelterItem> {
         TextView cityText = (TextView) row.findViewById(R.id.shelterCity);
         ImageView shelterIcon = (ImageView) row.findViewById(R.id.shelterIcon);
 
-        Log.i("Null debut",shelterList.get(position).getOrganization() );
+        Log.i("Null debut", shelterList.get(position).getOrganization());
         nameText.setText(shelterList.get(position).getOrganization());
         addressText.setText(shelterList.get(position).getAddress());
         phoneText.setText(shelterList.get(position).getPhone());

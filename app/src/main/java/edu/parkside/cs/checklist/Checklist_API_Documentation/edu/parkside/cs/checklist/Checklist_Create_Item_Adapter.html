@@ -15,6 +15,7 @@
     }
 //-->
 
+
 </script>
 <noscript>
     <div>JavaScript is disabled on your browser.</div>
@@ -64,6 +65,7 @@
   }
   //-->
 
+
         </script>
     </div>
     <div>
@@ -92,358 +94,365 @@
         Checklist_Create_Item_Adapter</h2>
 </div>
 <div class="contentContainer">
-<ul class="inheritance">
-    <li>java.lang.Object</li>
-    <li>
-        <ul class="inheritance">
-            <li>android.widget.BaseAdapter</li>
-            <li>
-                <ul class="inheritance">
-                    <li>android.widget.ArrayAdapter&lt;<a
-                            href="../../../../edu/parkside/cs/checklist/Checklist_Item_Row.html"
-                            title="class in edu.parkside.cs.checklist">Checklist_Item_Row</a>&gt;
+    <ul class="inheritance">
+        <li>java.lang.Object</li>
+        <li>
+            <ul class="inheritance">
+                <li>android.widget.BaseAdapter</li>
+                <li>
+                    <ul class="inheritance">
+                        <li>android.widget.ArrayAdapter&lt;<a
+                                href="../../../../edu/parkside/cs/checklist/Checklist_Item_Row.html"
+                                title="class in edu.parkside.cs.checklist">Checklist_Item_Row</a>&gt;
+                        </li>
+                        <li>
+                            <ul class="inheritance">
+                                <li>
+                                    <a href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html"
+                                       title="class in edu.parkside.cs.checklist">edu.parkside.cs.checklist.ChecklistItemArrayAdapter</a>
+                                </li>
+                                <li>
+                                    <ul class="inheritance">
+                                        <li>edu.parkside.cs.checklist.ChecklistCreateItemAdapter
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <div class="description">
+        <ul class="blockList">
+            <li class="blockList">
+                <dl>
+                    <dt>All Implemented Interfaces:</dt>
+                    <dd>android.widget.Adapter, android.widget.Filterable,
+                        android.widget.ListAdapter,
+                        android.widget.SpinnerAdapter
+                    </dd>
+                </dl>
+                <hr>
+                <br>
+<pre>public class <span class="strong">Checklist_Create_Item_Adapter</span>
+extends <a href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html"
+           title="class in edu.parkside.cs.checklist">Checklist_Item_ArrayAdapter</a></pre>
+                <dl>
+                    <dt><span class="strong">Version:</span></dt>
+                    <dd>1.0v Build * March 18 2015 *
+                        <p/>
+                        Description:
+                        The data source for the checklist create item listview.
+                        Provides the listeners for displaying item details and deletion upon
+                        clicking
+                        the checkbox.
+                    </dd>
+                    <dt><span class="strong">Author:</span></dt>
+                    <dd>David Krawchuk</dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+    <div class="summary">
+        <ul class="blockList">
+            <li class="blockList">
+                <!-- =========== FIELD SUMMARY =========== -->
+                <ul class="blockList">
+                    <li class="blockList"><a name="field_summary">
+                        <!--   -->
+                    </a>
+
+                        <h3>Field Summary</h3>
+                        <table class="overviewSummary" border="0" cellpadding="3" cellspacing="0"
+                               summary="Field Summary table, listing fields, and an explanation">
+                            <caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
+                            <tr>
+                                <th class="colFirst" scope="col">Modifier and Type</th>
+                                <th class="colLast" scope="col">Field and Description</th>
+                            </tr>
+                            <tr class="altColor">
+                                <td class="colFirst"><code>(package private) java.util.ArrayList&lt;java.lang.String&gt;</code>
+                                </td>
+                                <td class="colLast"><code><strong><a
+                                        href="../../../../edu/parkside/cs/checklist/Checklist_Create_Item_Adapter.html#arrayOfDescriptions">arrayOfDescriptions</a></strong></code>&nbsp;
+                                </td>
+                            </tr>
+                        </table>
+                        <ul class="blockList">
+                            <li class="blockList"><a
+                                    name="fields_inherited_from_class_edu.parkside.cs.checklist.ChecklistItemArrayAdapter">
+                                <!--   -->
+                            </a>
+
+                                <h3>Fields inherited from class&nbsp;edu.parkside.cs.checklist.<a
+                                        href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html"
+                                        title="class in edu.parkside.cs.checklist">Checklist_Item_ArrayAdapter</a>
+                                </h3>
+                                <code><a
+                                        href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html#checklist_item_rowArrayList">checklist_item_rowArrayList</a>,
+                                    <a href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html#context">context</a>,
+                                    <a href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html#resourceID">resourceID</a></code>
+                            </li>
+                        </ul>
+                        <ul class="blockList">
+                            <li class="blockList"><a
+                                    name="fields_inherited_from_class_android.widget.Adapter">
+                                <!--   -->
+                            </a>
+
+                                <h3>Fields inherited from interface&nbsp;android.widget.Adapter</h3>
+                                <code>IGNORE_ITEM_VIEW_TYPE, NO_SELECTION</code></li>
+                        </ul>
                     </li>
-                    <li>
-                        <ul class="inheritance">
-                            <li>
-                                <a href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html"
-                                   title="class in edu.parkside.cs.checklist">edu.parkside.cs.checklist.ChecklistItemArrayAdapter</a>
+                </ul>
+                <!-- ======== CONSTRUCTOR SUMMARY ======== -->
+                <ul class="blockList">
+                    <li class="blockList"><a name="constructor_summary">
+                        <!--   -->
+                    </a>
+
+                        <h3>Constructor Summary</h3>
+                        <table class="overviewSummary" border="0" cellpadding="3" cellspacing="0"
+                               summary="Constructor Summary table, listing constructors, and an explanation">
+                            <caption><span>Constructors</span><span class="tabEnd">&nbsp;</span>
+                            </caption>
+                            <tr>
+                                <th class="colOne" scope="col">Constructor and Description</th>
+                            </tr>
+                            <tr class="altColor">
+                                <td class="colOne"><code><strong><a
+                                        href="../../../../edu/parkside/cs/checklist/Checklist_Create_Item_Adapter.html#Checklist_Create_Item_Adapter(android.content.Context,%20int)">Checklist_Create_Item_Adapter</a></strong>(android.content.Context&nbsp;context,
+                                    int&nbsp;resource)</code>
+
+                                    <div class="block">Constructor.</div>
+                                </td>
+                            </tr>
+                            <tr class="rowColor">
+                                <td class="colOne"><code><strong><a
+                                        href="../../../../edu/parkside/cs/checklist/Checklist_Create_Item_Adapter.html#Checklist_Create_Item_Adapter(android.content.Context,%20int,%20java.util.ArrayList,%20java.util.ArrayList)">Checklist_Create_Item_Adapter</a></strong>(android.content.Context&nbsp;context,
+                                    int&nbsp;resource,
+                                    java.util.ArrayList&lt;<a
+                                            href="../../../../edu/parkside/cs/checklist/Checklist_Item_Row.html"
+                                            title="class in edu.parkside.cs.checklist">Checklist_Item_Row</a>&gt;&nbsp;objects,
+                                    java.util.ArrayList&lt;java.lang.String&gt;&nbsp;arrayOfDescriptions)</code>
+
+                                    <div class="block">Constructor.</div>
+                                </td>
+                            </tr>
+                        </table>
+                    </li>
+                </ul>
+                <!-- ========== METHOD SUMMARY =========== -->
+                <ul class="blockList">
+                    <li class="blockList"><a name="method_summary">
+                        <!--   -->
+                    </a>
+
+                        <h3>Method Summary</h3>
+                        <table class="overviewSummary" border="0" cellpadding="3" cellspacing="0"
+                               summary="Method Summary table, listing methods, and an explanation">
+                            <caption><span>Methods</span><span class="tabEnd">&nbsp;</span>
+                            </caption>
+                            <tr>
+                                <th class="colFirst" scope="col">Modifier and Type</th>
+                                <th class="colLast" scope="col">Method and Description</th>
+                            </tr>
+                            <tr class="altColor">
+                                <td class="colFirst"><code>android.view.View</code></td>
+                                <td class="colLast"><code><strong><a
+                                        href="../../../../edu/parkside/cs/checklist/Checklist_Create_Item_Adapter.html#getView(int,%20android.view.View,%20android.view.ViewGroup)">getView</a></strong>(int&nbsp;position,
+                                    android.view.View&nbsp;convertView,
+                                    android.view.ViewGroup&nbsp;parent)</code>
+
+                                    <div class="block">Provides the data to the source listview that
+                                        requests the data.
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <ul class="blockList">
+                            <li class="blockList"><a
+                                    name="methods_inherited_from_class_edu.parkside.cs.checklist.ChecklistItemArrayAdapter">
+                                <!--   -->
+                            </a>
+
+                                <h3>Methods inherited from class&nbsp;edu.parkside.cs.checklist.<a
+                                        href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html"
+                                        title="class in edu.parkside.cs.checklist">Checklist_Item_ArrayAdapter</a>
+                                </h3>
+                                <code><a
+                                        href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html#setList(java.util.ArrayList)">setList</a>,
+                                    <a href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html#updateChecklistCompletePercentage(android.content.Context)">updateChecklistCompletePercentage</a></code>
                             </li>
-                            <li>
-                                <ul class="inheritance">
-                                    <li>edu.parkside.cs.checklist.ChecklistCreateItemAdapter</li>
-                                </ul>
-                            </li>
+                        </ul>
+                        <ul class="blockList">
+                            <li class="blockList"><a
+                                    name="methods_inherited_from_class_android.widget.ArrayAdapter">
+                                <!--   -->
+                            </a>
+
+                                <h3>Methods inherited from
+                                    class&nbsp;android.widget.ArrayAdapter</h3>
+                                <code>add, addAll, addAll, clear, createFromResource, getContext,
+                                    getCount, getDropDownView, getFilter, getItem, getItemId,
+                                    getPosition, insert, notifyDataSetChanged, remove,
+                                    setDropDownViewResource, setNotifyOnChange, sort</code></li>
+                        </ul>
+                        <ul class="blockList">
+                            <li class="blockList"><a
+                                    name="methods_inherited_from_class_android.widget.BaseAdapter">
+                                <!--   -->
+                            </a>
+
+                                <h3>Methods inherited from
+                                    class&nbsp;android.widget.BaseAdapter</h3>
+                                <code>areAllItemsEnabled, getItemViewType, getViewTypeCount,
+                                    hasStableIds, isEmpty, isEnabled, notifyDataSetInvalidated,
+                                    registerDataSetObserver, unregisterDataSetObserver</code></li>
+                        </ul>
+                        <ul class="blockList">
+                            <li class="blockList"><a
+                                    name="methods_inherited_from_class_java.lang.Object">
+                                <!--   -->
+                            </a>
+
+                                <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
+                                <code>clone, equals, finalize, getClass, hashCode, notify,
+                                    notifyAll,
+                                    toString, wait, wait, wait</code></li>
                         </ul>
                     </li>
                 </ul>
             </li>
         </ul>
-    </li>
-</ul>
-<div class="description">
-    <ul class="blockList">
-        <li class="blockList">
-            <dl>
-                <dt>All Implemented Interfaces:</dt>
-                <dd>android.widget.Adapter, android.widget.Filterable, android.widget.ListAdapter,
-                    android.widget.SpinnerAdapter
-                </dd>
-            </dl>
-            <hr>
-            <br>
-<pre>public class <span class="strong">Checklist_Create_Item_Adapter</span>
-extends <a href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html"
-           title="class in edu.parkside.cs.checklist">Checklist_Item_ArrayAdapter</a></pre>
-            <dl>
-                <dt><span class="strong">Version:</span></dt>
-                <dd>1.0v Build * March 18 2015 *
-                    <p/>
-                    Description:
-                    The data source for the checklist create item listview.
-                    Provides the listeners for displaying item details and deletion upon clicking
-                    the checkbox.
-                </dd>
-                <dt><span class="strong">Author:</span></dt>
-                <dd>David Krawchuk</dd>
-            </dl>
-        </li>
-    </ul>
-</div>
-<div class="summary">
-    <ul class="blockList">
-        <li class="blockList">
-            <!-- =========== FIELD SUMMARY =========== -->
-            <ul class="blockList">
-                <li class="blockList"><a name="field_summary">
-                    <!--   -->
-                </a>
-
-                    <h3>Field Summary</h3>
-                    <table class="overviewSummary" border="0" cellpadding="3" cellspacing="0"
-                           summary="Field Summary table, listing fields, and an explanation">
-                        <caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
-                        <tr>
-                            <th class="colFirst" scope="col">Modifier and Type</th>
-                            <th class="colLast" scope="col">Field and Description</th>
-                        </tr>
-                        <tr class="altColor">
-                            <td class="colFirst"><code>(package private) java.util.ArrayList&lt;java.lang.String&gt;</code>
-                            </td>
-                            <td class="colLast"><code><strong><a
-                                    href="../../../../edu/parkside/cs/checklist/Checklist_Create_Item_Adapter.html#arrayOfDescriptions">arrayOfDescriptions</a></strong></code>&nbsp;
-                            </td>
-                        </tr>
-                    </table>
-                    <ul class="blockList">
-                        <li class="blockList"><a
-                                name="fields_inherited_from_class_edu.parkside.cs.checklist.ChecklistItemArrayAdapter">
-                            <!--   -->
-                        </a>
-
-                            <h3>Fields inherited from class&nbsp;edu.parkside.cs.checklist.<a
-                                    href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html"
-                                    title="class in edu.parkside.cs.checklist">Checklist_Item_ArrayAdapter</a>
-                            </h3>
-                            <code><a
-                                    href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html#checklist_item_rowArrayList">checklist_item_rowArrayList</a>,
-                                <a href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html#context">context</a>,
-                                <a href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html#resourceID">resourceID</a></code>
-                        </li>
-                    </ul>
-                    <ul class="blockList">
-                        <li class="blockList"><a
-                                name="fields_inherited_from_class_android.widget.Adapter">
-                            <!--   -->
-                        </a>
-
-                            <h3>Fields inherited from interface&nbsp;android.widget.Adapter</h3>
-                            <code>IGNORE_ITEM_VIEW_TYPE, NO_SELECTION</code></li>
-                    </ul>
-                </li>
-            </ul>
-            <!-- ======== CONSTRUCTOR SUMMARY ======== -->
-            <ul class="blockList">
-                <li class="blockList"><a name="constructor_summary">
-                    <!--   -->
-                </a>
-
-                    <h3>Constructor Summary</h3>
-                    <table class="overviewSummary" border="0" cellpadding="3" cellspacing="0"
-                           summary="Constructor Summary table, listing constructors, and an explanation">
-                        <caption><span>Constructors</span><span class="tabEnd">&nbsp;</span>
-                        </caption>
-                        <tr>
-                            <th class="colOne" scope="col">Constructor and Description</th>
-                        </tr>
-                        <tr class="altColor">
-                            <td class="colOne"><code><strong><a
-                                    href="../../../../edu/parkside/cs/checklist/Checklist_Create_Item_Adapter.html#Checklist_Create_Item_Adapter(android.content.Context,%20int)">Checklist_Create_Item_Adapter</a></strong>(android.content.Context&nbsp;context,
-                                int&nbsp;resource)</code>
-
-                                <div class="block">Constructor.</div>
-                            </td>
-                        </tr>
-                        <tr class="rowColor">
-                            <td class="colOne"><code><strong><a
-                                    href="../../../../edu/parkside/cs/checklist/Checklist_Create_Item_Adapter.html#Checklist_Create_Item_Adapter(android.content.Context,%20int,%20java.util.ArrayList,%20java.util.ArrayList)">Checklist_Create_Item_Adapter</a></strong>(android.content.Context&nbsp;context,
-                                int&nbsp;resource,
-                                java.util.ArrayList&lt;<a
-                                        href="../../../../edu/parkside/cs/checklist/Checklist_Item_Row.html"
-                                        title="class in edu.parkside.cs.checklist">Checklist_Item_Row</a>&gt;&nbsp;objects,
-                                java.util.ArrayList&lt;java.lang.String&gt;&nbsp;arrayOfDescriptions)</code>
-
-                                <div class="block">Constructor.</div>
-                            </td>
-                        </tr>
-                    </table>
-                </li>
-            </ul>
-            <!-- ========== METHOD SUMMARY =========== -->
-            <ul class="blockList">
-                <li class="blockList"><a name="method_summary">
-                    <!--   -->
-                </a>
-
-                    <h3>Method Summary</h3>
-                    <table class="overviewSummary" border="0" cellpadding="3" cellspacing="0"
-                           summary="Method Summary table, listing methods, and an explanation">
-                        <caption><span>Methods</span><span class="tabEnd">&nbsp;</span></caption>
-                        <tr>
-                            <th class="colFirst" scope="col">Modifier and Type</th>
-                            <th class="colLast" scope="col">Method and Description</th>
-                        </tr>
-                        <tr class="altColor">
-                            <td class="colFirst"><code>android.view.View</code></td>
-                            <td class="colLast"><code><strong><a
-                                    href="../../../../edu/parkside/cs/checklist/Checklist_Create_Item_Adapter.html#getView(int,%20android.view.View,%20android.view.ViewGroup)">getView</a></strong>(int&nbsp;position,
-                                android.view.View&nbsp;convertView,
-                                android.view.ViewGroup&nbsp;parent)</code>
-
-                                <div class="block">Provides the data to the source listview that
-                                    requests the data.
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                    <ul class="blockList">
-                        <li class="blockList"><a
-                                name="methods_inherited_from_class_edu.parkside.cs.checklist.ChecklistItemArrayAdapter">
-                            <!--   -->
-                        </a>
-
-                            <h3>Methods inherited from class&nbsp;edu.parkside.cs.checklist.<a
-                                    href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html"
-                                    title="class in edu.parkside.cs.checklist">Checklist_Item_ArrayAdapter</a>
-                            </h3>
-                            <code><a
-                                    href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html#setList(java.util.ArrayList)">setList</a>,
-                                <a href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html#updateChecklistCompletePercentage(android.content.Context)">updateChecklistCompletePercentage</a></code>
-                        </li>
-                    </ul>
-                    <ul class="blockList">
-                        <li class="blockList"><a
-                                name="methods_inherited_from_class_android.widget.ArrayAdapter">
-                            <!--   -->
-                        </a>
-
-                            <h3>Methods inherited from class&nbsp;android.widget.ArrayAdapter</h3>
-                            <code>add, addAll, addAll, clear, createFromResource, getContext,
-                                getCount, getDropDownView, getFilter, getItem, getItemId,
-                                getPosition, insert, notifyDataSetChanged, remove,
-                                setDropDownViewResource, setNotifyOnChange, sort</code></li>
-                    </ul>
-                    <ul class="blockList">
-                        <li class="blockList"><a
-                                name="methods_inherited_from_class_android.widget.BaseAdapter">
-                            <!--   -->
-                        </a>
-
-                            <h3>Methods inherited from class&nbsp;android.widget.BaseAdapter</h3>
-                            <code>areAllItemsEnabled, getItemViewType, getViewTypeCount,
-                                hasStableIds, isEmpty, isEnabled, notifyDataSetInvalidated,
-                                registerDataSetObserver, unregisterDataSetObserver</code></li>
-                    </ul>
-                    <ul class="blockList">
-                        <li class="blockList"><a
-                                name="methods_inherited_from_class_java.lang.Object">
-                            <!--   -->
-                        </a>
-
-                            <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-                            <code>clone, equals, finalize, getClass, hashCode, notify, notifyAll,
-                                toString, wait, wait, wait</code></li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-    </ul>
-</div>
-<div class="details">
-    <ul class="blockList">
-        <li class="blockList">
-            <!-- ============ FIELD DETAIL =========== -->
-            <ul class="blockList">
-                <li class="blockList"><a name="field_detail">
-                    <!--   -->
-                </a>
-
-                    <h3>Field Detail</h3>
-                    <a name="arrayOfDescriptions">
+    </div>
+    <div class="details">
+        <ul class="blockList">
+            <li class="blockList">
+                <!-- ============ FIELD DETAIL =========== -->
+                <ul class="blockList">
+                    <li class="blockList"><a name="field_detail">
                         <!--   -->
                     </a>
-                    <ul class="blockListLast">
-                        <li class="blockList">
-                            <h4>arrayOfDescriptions</h4>
-                            <pre>java.util.ArrayList&lt;java.lang.String&gt; arrayOfDescriptions</pre>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <!-- ========= CONSTRUCTOR DETAIL ======== -->
-            <ul class="blockList">
-                <li class="blockList"><a name="constructor_detail">
-                    <!--   -->
-                </a>
 
-                    <h3>Constructor Detail</h3>
-                    <a name="Checklist_Create_Item_Adapter(android.content.Context, int)">
+                        <h3>Field Detail</h3>
+                        <a name="arrayOfDescriptions">
+                            <!--   -->
+                        </a>
+                        <ul class="blockListLast">
+                            <li class="blockList">
+                                <h4>arrayOfDescriptions</h4>
+                                <pre>java.util.ArrayList&lt;java.lang.String&gt; arrayOfDescriptions</pre>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- ========= CONSTRUCTOR DETAIL ======== -->
+                <ul class="blockList">
+                    <li class="blockList"><a name="constructor_detail">
                         <!--   -->
                     </a>
-                    <ul class="blockList">
-                        <li class="blockList">
-                            <h4>Checklist_Create_Item_Adapter</h4>
+
+                        <h3>Constructor Detail</h3>
+                        <a name="Checklist_Create_Item_Adapter(android.content.Context, int)">
+                            <!--   -->
+                        </a>
+                        <ul class="blockList">
+                            <li class="blockList">
+                                <h4>Checklist_Create_Item_Adapter</h4>
 <pre>public&nbsp;Checklist_Create_Item_Adapter(android.content.Context&nbsp;context,
                              int&nbsp;resource)</pre>
-                            <div class="block">Constructor.</div>
-                            <dl>
-                                <dt><span class="strong">Parameters:</span></dt>
-                                <dd><code>context</code> -</dd>
-                                <dd><code>resource</code> -</dd>
-                                <dt><span class="strong">See Also:</span></dt>
-                                <dd>
-                                    <a href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html"
-                                       title="class in edu.parkside.cs.checklist"><code>Checklist_Item_ArrayAdapter</code></a>
-                                </dd>
-                            </dl>
-                        </li>
-                    </ul>
-                    <a name="Checklist_Create_Item_Adapter(android.content.Context, int, java.util.ArrayList, java.util.ArrayList)">
-                        <!--   -->
-                    </a>
-                    <ul class="blockListLast">
-                        <li class="blockList">
-                            <h4>Checklist_Create_Item_Adapter</h4>
+                                <div class="block">Constructor.</div>
+                                <dl>
+                                    <dt><span class="strong">Parameters:</span></dt>
+                                    <dd><code>context</code> -</dd>
+                                    <dd><code>resource</code> -</dd>
+                                    <dt><span class="strong">See Also:</span></dt>
+                                    <dd>
+                                        <a href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html"
+                                           title="class in edu.parkside.cs.checklist"><code>Checklist_Item_ArrayAdapter</code></a>
+                                    </dd>
+                                </dl>
+                            </li>
+                        </ul>
+                        <a name="Checklist_Create_Item_Adapter(android.content.Context, int, java.util.ArrayList, java.util.ArrayList)">
+                            <!--   -->
+                        </a>
+                        <ul class="blockListLast">
+                            <li class="blockList">
+                                <h4>Checklist_Create_Item_Adapter</h4>
 <pre>public&nbsp;Checklist_Create_Item_Adapter(android.content.Context&nbsp;context,
                              int&nbsp;resource,
                              java.util.ArrayList&lt;<a
             href="../../../../edu/parkside/cs/checklist/Checklist_Item_Row.html"
             title="class in edu.parkside.cs.checklist">Checklist_Item_Row</a>&gt;&nbsp;objects,
                              java.util.ArrayList&lt;java.lang.String&gt;&nbsp;arrayOfDescriptions)</pre>
-                            <div class="block">Constructor.</div>
-                            <dl>
-                                <dt><span class="strong">Parameters:</span></dt>
-                                <dd><code>context</code> -</dd>
-                                <dd><code>resource</code> -</dd>
-                                <dd><code>objects</code> -</dd>
-                                <dd><code>arrayOfDescriptions</code> -</dd>
-                                <dt><span class="strong">See Also:</span></dt>
-                                <dd>
-                                    <a href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html"
-                                       title="class in edu.parkside.cs.checklist"><code>Checklist_Item_ArrayAdapter</code></a>
-                                </dd>
-                            </dl>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <!-- ============ METHOD DETAIL ========== -->
-            <ul class="blockList">
-                <li class="blockList"><a name="method_detail">
-                    <!--   -->
-                </a>
-
-                    <h3>Method Detail</h3>
-                    <a name="getView(int, android.view.View, android.view.ViewGroup)">
+                                <div class="block">Constructor.</div>
+                                <dl>
+                                    <dt><span class="strong">Parameters:</span></dt>
+                                    <dd><code>context</code> -</dd>
+                                    <dd><code>resource</code> -</dd>
+                                    <dd><code>objects</code> -</dd>
+                                    <dd><code>arrayOfDescriptions</code> -</dd>
+                                    <dt><span class="strong">See Also:</span></dt>
+                                    <dd>
+                                        <a href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html"
+                                           title="class in edu.parkside.cs.checklist"><code>Checklist_Item_ArrayAdapter</code></a>
+                                    </dd>
+                                </dl>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- ============ METHOD DETAIL ========== -->
+                <ul class="blockList">
+                    <li class="blockList"><a name="method_detail">
                         <!--   -->
                     </a>
-                    <ul class="blockListLast">
-                        <li class="blockList">
-                            <h4>getView</h4>
+
+                        <h3>Method Detail</h3>
+                        <a name="getView(int, android.view.View, android.view.ViewGroup)">
+                            <!--   -->
+                        </a>
+                        <ul class="blockListLast">
+                            <li class="blockList">
+                                <h4>getView</h4>
 <pre>public&nbsp;android.view.View&nbsp;getView(int&nbsp;position,
                         android.view.View&nbsp;convertView,
                         android.view.ViewGroup&nbsp;parent)</pre>
-                            <div class="block">Provides the data to the source listview that
-                                requests the data.
-                                Attaches onclick listeners to the items in order to view item
-                                details or delete items when
-                                item checkbox is clicked.
-                            </div>
-                            <dl>
-                                <dt><strong>Specified by:</strong></dt>
-                                <dd><code>getView</code>&nbsp;in interface&nbsp;<code>android.widget.Adapter</code>
-                                </dd>
-                                <dt><strong>Overrides:</strong></dt>
-                                <dd><code><a
-                                        href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html#getView(int,%20android.view.View,%20android.view.ViewGroup)">getView</a></code>&nbsp;in
-                                    class&nbsp;<code><a
-                                            href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html"
-                                            title="class in edu.parkside.cs.checklist">Checklist_Item_ArrayAdapter</a></code>
-                                </dd>
-                                <dt><span class="strong">Parameters:</span></dt>
-                                <dd><code>position</code> -</dd>
-                                <dd><code>convertView</code> -</dd>
-                                <dd><code>parent</code> -</dd>
-                                <dt><span class="strong">Returns:</span></dt>
-                                <dd></dd>
-                            </dl>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-    </ul>
-</div>
+                                <div class="block">Provides the data to the source listview that
+                                    requests the data.
+                                    Attaches onclick listeners to the items in order to view item
+                                    details or delete items when
+                                    item checkbox is clicked.
+                                </div>
+                                <dl>
+                                    <dt><strong>Specified by:</strong></dt>
+                                    <dd><code>getView</code>&nbsp;in interface&nbsp;<code>android.widget.Adapter</code>
+                                    </dd>
+                                    <dt><strong>Overrides:</strong></dt>
+                                    <dd><code><a
+                                            href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html#getView(int,%20android.view.View,%20android.view.ViewGroup)">getView</a></code>&nbsp;in
+                                        class&nbsp;<code><a
+                                                href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapter.html"
+                                                title="class in edu.parkside.cs.checklist">Checklist_Item_ArrayAdapter</a></code>
+                                    </dd>
+                                    <dt><span class="strong">Parameters:</span></dt>
+                                    <dd><code>position</code> -</dd>
+                                    <dd><code>convertView</code> -</dd>
+                                    <dd><code>parent</code> -</dd>
+                                    <dt><span class="strong">Returns:</span></dt>
+                                    <dd></dd>
+                                </dl>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 </div>
 <!-- ========= END OF CLASS DATA ========= -->
 <!-- ======= START OF BOTTOM NAVBAR ====== -->
@@ -491,6 +500,7 @@ extends <a href="../../../../edu/parkside/cs/checklist/Checklist_Item_ArrayAdapt
     allClassesLink.style.display = "none";
   }
   //-->
+
 
         </script>
     </div>

@@ -38,8 +38,38 @@ import android.widget.SimpleCursorAdapter;
 
 public class MainActivity extends ActionBarActivity {
     static ReportsDatabaseHelper mDatabaseHelper;
-    private Button DisplayButton, UpdateButton, getDBButton;
     static Context ctx;
+    private Button DisplayButton, UpdateButton, getDBButton;
+
+    protected static void addUser(String name, String email, long dateOfBirthMillis) {
+
+        ContentValues values = new ContentValues();
+
+        values.put(ReportsDatabaseHelper.COL_JSON, name);
+
+        if (email != null) {
+
+            values.put(ReportsDatabaseHelper.COL_EMAIL, email);
+
+        }
+
+        if (dateOfBirthMillis != 0) {
+
+            values.put(ReportsDatabaseHelper.COL_DOB, dateOfBirthMillis);
+
+        }
+
+        try {
+
+            mDatabaseHelper.insert(mDatabaseHelper.TABLE_USERS, values);
+
+        } catch (ReportsDatabaseHelper.NotValidException e) {
+
+            Log.e("DB Error:", "Unable to insert into DB.");
+
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +109,7 @@ public class MainActivity extends ActionBarActivity {
 
                 String[] from = new String[]{ReportsDatabaseHelper.COL_JSON, ReportsDatabaseHelper.COL_EMAIL};
 
-                int[] to = { android.R.id.text1, android.R.id.text2 };
+                int[] to = {android.R.id.text1, android.R.id.text2};
 
                 final SimpleCursorAdapter adapter = new SimpleCursorAdapter(ctx, android.R.layout.simple_list_item_2, c, from, to, 0);
 
@@ -100,7 +130,7 @@ public class MainActivity extends ActionBarActivity {
                 //new runnable object used to pull the data from the web.
                 //android will only let you do json calls from a thread other
                 //than the main
-                
+
 
                 DBUpdateFromWeb foo = new DBUpdateFromWeb();
                 Thread t = new Thread(foo);
@@ -108,37 +138,6 @@ public class MainActivity extends ActionBarActivity {
 
             }
         });
-    }
-
-
-    protected static void addUser(String name, String email, long dateOfBirthMillis) {
-
-        ContentValues values = new ContentValues();
-
-        values.put(ReportsDatabaseHelper.COL_JSON, name);
-
-        if (email != null) {
-
-            values.put(ReportsDatabaseHelper.COL_EMAIL, email);
-
-        }
-
-        if (dateOfBirthMillis != 0) {
-
-            values.put(ReportsDatabaseHelper.COL_DOB, dateOfBirthMillis);
-
-        }
-
-        try {
-
-            mDatabaseHelper.insert(mDatabaseHelper.TABLE_USERS, values);
-
-        } catch (ReportsDatabaseHelper.NotValidException e) {
-
-            Log.e("DB Error:", "Unable to insert into DB.");
-
-        }
-
     }
 
     @Override

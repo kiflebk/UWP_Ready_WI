@@ -348,7 +348,6 @@ public class ChecklistContractDBHelper extends SQLiteOpenHelper {
      *
      * @param item
      * @return
-     *
      */
     public String returnDescriptionFromItem(ChecklistItemRow item) {
 

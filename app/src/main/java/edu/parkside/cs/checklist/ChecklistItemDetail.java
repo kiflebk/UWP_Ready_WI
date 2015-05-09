@@ -22,7 +22,6 @@ package edu.parkside.cs.checklist;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -155,7 +154,6 @@ public class ChecklistItemDetail extends Activity {
 
     /**
      * Retrieve the description text from the database and populate the description text view.
-     *
      */
     private void populateDescriptionTextField() {
         EditText descriptionTextField = (EditText) findViewById(R.id.activity_checklist_item_detail_decription_edittext);
@@ -164,8 +162,7 @@ public class ChecklistItemDetail extends Activity {
         if (description != null) {
             descriptionTextField.setText(description);
 
-        }
-        else {
+        } else {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 
             alertDialog.setTitle("Error");

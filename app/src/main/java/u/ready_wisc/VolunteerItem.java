@@ -21,7 +21,7 @@ public class VolunteerItem {
 
     // if no activity is found a label is displayed
     public String getName() {
-        if(name != null && !name.equals("null"))
+        if (name != null && !name.equals("null"))
             return name;
         else
             return "No Volunteer Activities Listed";
@@ -33,7 +33,7 @@ public class VolunteerItem {
 
     public String getEmail() {
 
-        if(email != null && !email.equals("null"))
+        if (email != null && !email.equals("null"))
             return email;
         else
             return " ";
@@ -45,25 +45,30 @@ public class VolunteerItem {
 
     public String getPhone() {
 
-        if(phone != null && !phone.equals("null"))
+        if (phone != null && !phone.equals("null"))
             return phone;
         else
             return " ";
     }
 
-    public void setPhone(String phone) {this.phone = phone;}
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-    public String getUrl(){
+    public String getUrl() {
 
-        if(url != null && !url.equals("null"))
+        if (url != null && !url.equals("null"))
             return url;
         else
-            return " ";}
+            return " ";
+    }
 
-    public void setUrl(String url){ this.url = url;}
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     @Override
-    public String toString(){
+    public String toString() {
         return name + " " + email + " " + phone + " " + url;
     }
 }

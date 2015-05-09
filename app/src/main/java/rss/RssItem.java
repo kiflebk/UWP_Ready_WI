@@ -21,8 +21,8 @@
 package rss;
 
 
- //RSS object to hold each items attributes
- 
+//RSS object to hold each items attributes
+
 
 public class RssItem {
 
@@ -44,5 +44,7 @@ public class RssItem {
         return link;
     }
 
-    public String getDesc() {return desc;}
+    public String getDesc() {
+        return desc;
+    }
 }

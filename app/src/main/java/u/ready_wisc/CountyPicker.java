@@ -22,19 +22,20 @@ package u.ready_wisc;
 
 /**
  * Copyright [2015] [University of Wisconsin - Parkside]
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
+ * <p/>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p/>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p/>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -53,11 +54,11 @@ import android.widget.Spinner;
 public class CountyPicker extends Activity implements AdapterViewCompat.OnItemSelectedListener {
 
 
-    Spinner counties;
-    Button pick;
     public static String countyIdCode;
     public static String countyName;
     public static String appID;
+    Spinner counties;
+    Button pick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,47 +85,47 @@ public class CountyPicker extends Activity implements AdapterViewCompat.OnItemSe
                 // easy updating and additions
                 if (countyInt == 0) {
                     countyIdCode = Config.RSS_DANE;
-                    countyName= "dane";
+                    countyName = "dane";
                     appID = "553feb2717795996028b457e";
-                }else if (countyInt == 1) {
+                } else if (countyInt == 1) {
                     countyIdCode = Config.RSS_JEFFERSON;
-                    countyName= "jefferson";
+                    countyName = "jefferson";
                     appID = "553fec3217795996028b4580";
-                }else if (countyInt == 2) {
+                } else if (countyInt == 2) {
                     countyIdCode = Config.RSS_KENOSHA;
-                    countyName= "kenosha";
+                    countyName = "kenosha";
                     appID = "553fe6fd177959ac0e8b457f";
-                }else if (countyInt == 3) {
+                } else if (countyInt == 3) {
                     countyIdCode = Config.RSS_MILWAUKEE;
-                    countyName= "milwaukee";
+                    countyName = "milwaukee";
                     appID = "553fed2c17795996028b4584";
-                }else if (countyInt == 4) {
+                } else if (countyInt == 4) {
                     countyIdCode = Config.RSS_OZAUKEE;
-                    countyName= "ozaukee";
+                    countyName = "ozaukee";
                     appID = "553ff12617795996028b4585";
-                }else if (countyInt == 5) {
+                } else if (countyInt == 5) {
                     countyIdCode = Config.RSS_RACINE;
-                    countyName= "racine";
+                    countyName = "racine";
                     appID = "553fea39177959ac0e8b4581";
-                }else if (countyInt == 6) {
+                } else if (countyInt == 6) {
                     countyIdCode = Config.RSS_ROCK;
-                    countyName= "rock";
+                    countyName = "rock";
                     appID = "553ff3bb1779597b408b4569";
-                }else if (countyInt == 7) {
+                } else if (countyInt == 7) {
                     countyIdCode = Config.RSS_SAUK;
-                    countyName= "sauk";
+                    countyName = "sauk";
                     appID = "553ff53617795912158b457a";
-                }else if (countyInt == 8) {
+                } else if (countyInt == 8) {
                     countyIdCode = Config.RSS_WALWORTH;
-                    countyName= "walworth";
+                    countyName = "walworth";
                     appID = "553ff6e91779597b408b4572";
-                }else if (countyInt == 9) {
+                } else if (countyInt == 9) {
                     countyIdCode = Config.RSS_WASHINGTON;
-                    countyName= "washington";
+                    countyName = "washington";
                     appID = "553ff97e1779597b408b4574";
-                }else if (countyInt == 10) {
+                } else if (countyInt == 10) {
                     countyIdCode = Config.RSS_WAUKESHA;
-                    countyName= "waukesha";
+                    countyName = "waukesha";
                     appID = "553ffa3f17795912158b4584";
                 }
 
@@ -146,15 +147,16 @@ public class CountyPicker extends Activity implements AdapterViewCompat.OnItemSe
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
-    public void startUI(View v){
+    public void startUI(View v) {
 
         Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-        intent.putExtra("county",counties.getSelectedItem().toString());
+        intent.putExtra("county", counties.getSelectedItem().toString());
 
         startActivity(intent);
         finish();
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

@@ -31,9 +31,8 @@ import java.util.List;
 import u.ready_wisc.R;
 
 
- 
- // Adapter for RSS listview object
- 
+// Adapter for RSS listview object
+
 
 public class RssAdapter extends BaseAdapter {
 

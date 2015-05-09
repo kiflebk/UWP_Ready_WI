@@ -37,11 +37,11 @@ import java.util.ArrayList;
 
 public class ResourcesActivity extends ActionBarActivity {
     static String county = "";
+    static MyDatabaseHelper rDBHelper;
     ArrayList<ResourceItem> resourceList;
     ListView resourcesListView;
     Button callButton;
     Spinner resourceSpinner;
-    static MyDatabaseHelper rDBHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +86,7 @@ public class ResourcesActivity extends ActionBarActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String resource = parent.getItemAtPosition(position).toString(); // Retrieve type
-                resourceList = rDBHelper.getDataFromType(county,resource); // Retrieve resources based on county and type
+                resourceList = rDBHelper.getDataFromType(county, resource); // Retrieve resources based on county and type
 
                 // Set ListView to display the data retrieved from the database using specific adapter
                 ResourceAdapter adapter = new ResourceAdapter(ResourcesActivity.this, resourceList);
@@ -103,7 +103,7 @@ public class ResourcesActivity extends ActionBarActivity {
     // Saves the county taken from the intent when user leaves the view
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString("county",county);
+        outState.putString("county", county);
     }
 
     @Override

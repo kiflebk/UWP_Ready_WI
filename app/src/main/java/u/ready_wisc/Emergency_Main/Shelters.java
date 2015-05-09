@@ -40,9 +40,9 @@ import u.ready_wisc.VolunteerDBHelper;
  */
 public class Shelters extends ActionBarActivity implements AdapterView.OnItemClickListener {
 
+    static VolunteerDBHelper vdbHelper;
     ArrayList<ShelterItem> shelterList;
     ListView shelterView;
-    static VolunteerDBHelper vdbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class Shelters extends ActionBarActivity implements AdapterView.OnItemCli
 
         // if no shelters are found, the default constructor is called to
         // show the no shelters found object
-        if (shelterList.isEmpty()){
+        if (shelterList.isEmpty()) {
             shelterList.add(new ShelterItem());
         }
 
@@ -115,9 +115,10 @@ public class Shelters extends ActionBarActivity implements AdapterView.OnItemCli
 
         //Checks the the url is not empty
         String address = item.getAddress();
+        String city = item.getCity();
         Uri uri;
 
-        uri = Uri.parse("http://google.com/#q=" + address);
+        uri = Uri.parse("http://google.com/#q=" + address + " " + city);
 
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);

@@ -33,6 +33,17 @@ public class ResourceItem {
     String county;
     String type;
 
+    public ResourceItem() {
+    }
+
+    public ResourceItem(String name, String address, String phone, String county, String type) {
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.county = county;
+        this.type = type;
+    }
+
     public String getName() {
         return name;
     }
@@ -70,17 +81,6 @@ public class ResourceItem {
     }
 
     public void setType(String type) {
-        this.type = type;
-    }
-
-    public ResourceItem() {
-    }
-
-    public ResourceItem(String name, String address, String phone, String county, String type) {
-        this.name = name;
-        this.address = address;
-        this.phone = phone;
-        this.county = county;
         this.type = type;
     }
 }

@@ -35,22 +35,22 @@ import java.util.ArrayList;
  */
 
 // Adapts a list of resources to the Disaster Resource ListView
-public class ResourceAdapter extends ArrayAdapter<ResourceItem>{
+public class ResourceAdapter extends ArrayAdapter<ResourceItem> {
 
     private final Context context;
     private final ArrayList<ResourceItem> resourceList;
 
-    public ResourceAdapter(Context context, ArrayList<ResourceItem> resourceList){
+    public ResourceAdapter(Context context, ArrayList<ResourceItem> resourceList) {
         super(context, R.layout.resources_listadapt, resourceList);
         this.context = context;
         this.resourceList = resourceList;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(int position, View convertView, ViewGroup parent) {
 
         // Set up
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View row = inflater.inflate(R.layout.resources_listadapt,parent,false);
+        View row = inflater.inflate(R.layout.resources_listadapt, parent, false);
 
         // Identify widgets
         TextView nameText = (TextView) row.findViewById(R.id.resourceName);
@@ -66,7 +66,7 @@ public class ResourceAdapter extends ArrayAdapter<ResourceItem>{
         // Icon decider
         // Adds an image to the row based on resource type
         String iconType = resourceList.get(position).getType();
-        switch(iconType.toLowerCase()){
+        switch (iconType.toLowerCase()) {
             case "hospital":
                 resourceIcon.setImageResource(R.drawable.reshosp75);
                 break;

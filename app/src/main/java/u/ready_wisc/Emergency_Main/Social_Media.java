@@ -35,7 +35,7 @@ import u.ready_wisc.VolunteerDBHelper;
 /**
  * Holds social media item which will populate a listview
  */
-public class Social_Media extends ActionBarActivity{
+public class Social_Media extends ActionBarActivity {
 
     static VolunteerDBHelper vdbHelper;
     static Button facebookButt;
@@ -94,7 +94,6 @@ public class Social_Media extends ActionBarActivity{
     }
 
 
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -124,8 +123,6 @@ public class Social_Media extends ActionBarActivity{
 
         return super.onOptionsItemSelected(item);
     }
-
-
 
 
 }

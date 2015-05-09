@@ -58,7 +58,7 @@ public class ReportsDatabaseHelper extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db) {
 
-        Log.i("DB Error","Table dropped");
+        Log.i("DB Error", "Table dropped");
 
         db.execSQL("CREATE TABLE " + TABLE_USERS + " ("
 
@@ -122,6 +122,14 @@ public class ReportsDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public Cursor query(String tableName, String orderedBy) {
+
+        String[] projection = {COL_ID, COL_JSON};
+
+        return getReadableDatabase().query(tableName, projection, null, null, null, null, orderedBy);
+
+    }
+
     public static class NotValidException extends Throwable {
 
         public NotValidException(String msg) {
@@ -129,14 +137,6 @@ public class ReportsDatabaseHelper extends SQLiteOpenHelper {
             super(msg);
 
         }
-
-    }
-
-    public Cursor query(String tableName, String orderedBy) {
-
-        String[] projection = {COL_ID, COL_JSON};
-
-        return getReadableDatabase().query(tableName, projection, null, null, null, null, orderedBy);
 
     }
 }

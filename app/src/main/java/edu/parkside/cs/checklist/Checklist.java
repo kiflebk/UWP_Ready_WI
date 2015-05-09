@@ -181,8 +181,7 @@ public class Checklist extends ActionBarActivity {
             // Change the visual state of the application to indicate edit mode.
             menuItem.setIcon(getResources().getDrawable(R.drawable.edit_add));
             isInEditMode = false;
-        }
-        else {
+        } else {
             menuItem.setIcon(getResources().getDrawable(R.drawable.edit_remove));
             isInEditMode = true;
         }

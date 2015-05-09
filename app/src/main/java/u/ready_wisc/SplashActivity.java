@@ -44,73 +44,6 @@ public class SplashActivity extends ActionBarActivity {
     static MyDatabaseHelper rDBHelper;
     boolean splashClose = false;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        mDatabaseHelper = new ReportsDatabaseHelper(this);
-        vDBHelper = new VolunteerDBHelper(this);
-        rDBHelper = new MyDatabaseHelper(this);
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash);
-
-        int time = 2000;
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                if (CountyPicker.countyIdCode != null) {
-                    Intent intent = new Intent(SplashActivity.this, MenuActivity.class);
-                    SplashActivity.this.startActivity(intent);
-                } else {
-                    Intent intent = new Intent(SplashActivity.this, CountyPicker.class);
-                    SplashActivity.this.startActivity(intent);
-                }
-
-                splashClose = true;
-            }
-        }, time);
-
-        rDBHelper.addResourceData();
-
-        if (isOnline()) {
-
-            if(CountyPicker.countyIdCode != null) {
-                dbUpdate();
-            }
-
-            Cursor damageCur;
-            damageCur = mDatabaseHelper.query(ReportsDatabaseHelper.TABLE_USERS, null);
-            String url;
-            if (damageCur.moveToFirst()) {
-                int placeColumn = damageCur.getColumnIndex(ReportsDatabaseHelper.COL_JSON);
-                url = damageCur.getString(placeColumn);
-
-                try {
-                    putDataToServer(url);
-                } catch (Throwable throwable) {
-                    throwable.printStackTrace();
-                }
-
-                mDatabaseHelper.onDowngrade(mDatabaseHelper.getReadableDatabase(), 0, 1);
-            }
-        }
-
-    }
-
-    protected void onResume() {
-        super.onResume();
-        if (splashClose)
-            SplashActivity.this.finish();
-    }
-
-    // returns true or false based on if device has an internet connection.
-    public boolean isOnline() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
-    }
-
     public static void dbUpdate() {
         vDBHelper.onUpgrade(vDBHelper.getReadableDatabase(), 0, 0);
         DBUpdateFromWeb foo = new DBUpdateFromWeb();
@@ -124,53 +57,12 @@ public class SplashActivity extends ActionBarActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_splash_activity, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    //Method to send data to server via HTTP Post
-    public void putDataToServer(String json) throws Throwable {
-
-        String reportAccepted;
-        PutData httpGet = new PutData(json);
-        Thread t = new Thread(httpGet);
-        t.start();
-        t.join();
-
-        reportAccepted = httpGet.getDataAccepted();
-
-        if (reportAccepted.equals("1")) {
-            Toast.makeText(getApplicationContext(), "Saved Report Submitted Successfully", Toast.LENGTH_LONG).show();
-
-        }else
-            Toast.makeText(getApplicationContext(), "Report Not Sent", Toast.LENGTH_LONG).show();
-
-    }
-
     // used to load the volunteer and social media info from the web db into the local db
     // two add user methods exist because there are two PHP scripts we are reading the data
     // from and it was easier to use two methods to handle input.
     protected static void addUser(String[][] data) {
 
-        Log.i("DB Update","starting addUser");
+        Log.i("DB Update", "starting addUser");
 
         ContentValues volValues = new ContentValues();
 
@@ -243,6 +135,114 @@ public class SplashActivity extends ActionBarActivity {
         } catch (VolunteerDBHelper.NotValidException e) {
             Log.e("DB Error:", "Unable to insert shelters into DB.");
         }
+
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        mDatabaseHelper = new ReportsDatabaseHelper(this);
+        vDBHelper = new VolunteerDBHelper(this);
+        rDBHelper = new MyDatabaseHelper(this);
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.splash);
+
+        int time = 2000;
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                if (CountyPicker.countyIdCode != null) {
+                    Intent intent = new Intent(SplashActivity.this, MenuActivity.class);
+                    SplashActivity.this.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(SplashActivity.this, CountyPicker.class);
+                    SplashActivity.this.startActivity(intent);
+                }
+
+                splashClose = true;
+            }
+        }, time);
+
+        rDBHelper.addResourceData();
+
+        if (isOnline()) {
+
+            if (CountyPicker.countyIdCode != null) {
+                dbUpdate();
+            }
+
+            Cursor damageCur;
+            damageCur = mDatabaseHelper.query(ReportsDatabaseHelper.TABLE_USERS, null);
+            String url;
+            if (damageCur.moveToFirst()) {
+                int placeColumn = damageCur.getColumnIndex(ReportsDatabaseHelper.COL_JSON);
+                url = damageCur.getString(placeColumn);
+
+                try {
+                    putDataToServer(url);
+                } catch (Throwable throwable) {
+                    throwable.printStackTrace();
+                }
+
+                mDatabaseHelper.onDowngrade(mDatabaseHelper.getReadableDatabase(), 0, 1);
+            }
+        }
+
+    }
+
+    protected void onResume() {
+        super.onResume();
+        if (splashClose)
+            SplashActivity.this.finish();
+    }
+
+    // returns true or false based on if device has an internet connection.
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_splash_activity, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    //Method to send data to server via HTTP Post
+    public void putDataToServer(String json) throws Throwable {
+
+        String reportAccepted;
+        PutData httpGet = new PutData(json);
+        Thread t = new Thread(httpGet);
+        t.start();
+        t.join();
+
+        reportAccepted = httpGet.getDataAccepted();
+
+        if (reportAccepted.equals("1")) {
+            Toast.makeText(getApplicationContext(), "Saved Report Submitted Successfully", Toast.LENGTH_LONG).show();
+
+        } else
+            Toast.makeText(getApplicationContext(), "Report Not Sent", Toast.LENGTH_LONG).show();
 
     }
 }

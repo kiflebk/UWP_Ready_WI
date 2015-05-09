@@ -21,7 +21,6 @@
 package u.ready_wisc.Emergency_Main;
 
 
-
 //This class builds damageReports
 //Then calls a post method that will send
 //the data to the sever as a HTTP GET.
@@ -70,19 +69,18 @@ import u.ready_wisc.Config;
 import u.ready_wisc.R;
 import u.ready_wisc.ReportsDatabaseHelper;
 
-import static android.graphics.Bitmap.createScaledBitmap;
-
 public class DamageReports extends ActionBarActivity {
 
+    private static final int CAM_REQUEST = 1313;
+    static LocationManager locationManager;
+    static Location loc;
+    static LocationListener locationListener;
+    static ReportsDatabaseHelper mDatabaseHelper;
     //Variable declare.
     private static EditText text9;
     Button btnTakePhoto;
     ImageView imgTakenPhoto;
     Button btnSubmit;
-    private static final int CAM_REQUEST = 1313;
-    static LocationManager locationManager;
-    static Location loc;
-    static LocationListener locationListener;
     RadioButton fireButton;
     RadioButton floodBox;
     RadioButton severeBox;
@@ -105,7 +103,6 @@ public class DamageReports extends ActionBarActivity {
     EditText insurDeductAmt;
     int disasterType;
     int rentOrOwned;
-    static ReportsDatabaseHelper mDatabaseHelper;
     Bitmap thumbnail;
     String encodedString;
 
@@ -182,7 +179,6 @@ public class DamageReports extends ActionBarActivity {
         }
 
 
-
     }
 
 
@@ -221,6 +217,101 @@ public class DamageReports extends ActionBarActivity {
         }
     }
 
+    //Date picker method that will show the date picker.
+    public void showDatePickerDialog(View v) {
+        InputMethodManager imm = (InputMethodManager) getSystemService( //hides keyboard since its not needed
+                Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(text9.getWindowToken(), 0);
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getFragmentManager(), "datepicker");
+
+    }
+
+    protected void addUser(String name) {
+
+        Log.i("DB Error", "Starting addUser");
+
+        ContentValues values = new ContentValues();
+
+        values.put(ReportsDatabaseHelper.COL_JSON, name);
+
+        try {
+            Log.i("DB Error", "Insertion Start");
+
+            mDatabaseHelper.insert(mDatabaseHelper.TABLE_USERS, values);
+
+            Log.i("DB Error", "Insertion Successful");
+
+        } catch (ReportsDatabaseHelper.NotValidException e) {
+
+            Log.e("DB Error:", "Unable to insert into DB.");
+
+        }
+
+    }
+
+    // returns true or false based on if device has an internet connection.
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    public void encodeImagetoString() {
+        new AsyncTask<Void, Void, String>() {
+
+            protected void onPreExecute() {
+
+            }
+
+            ;
+
+            @Override
+            protected String doInBackground(Void... params) {
+                BitmapFactory.Options options = null;
+                options = new BitmapFactory.Options();
+                options.inSampleSize = 3;
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                // Must compress the Image to reduce image size to make upload easy
+                thumbnail.compress(Bitmap.CompressFormat.JPEG, 8, stream);  /// I changed this from PNG and 50
+                byte[] byte_arr = stream.toByteArray();
+                // Encode Image to String
+                encodedString = Base64.encodeToString(byte_arr, 0);
+                Log.d("Pic encode2", encodedString);
+                return "";
+            }
+
+            @Override
+            protected void onPostExecute(String msg) {
+
+            }
+        }.execute(null, null, null);
+    }
+
+    /*Class to create a date picker fragment.*/
+    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+
+        //Method that sets default date on creation of the date picker.
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current date as the default date in the picker
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            // Create a new instance of DatePickerDialog and return it
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        //Method to set the text field for date to the user picked date.
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            DamageReports.text9.setText(month + 1 + "/" + day + "/" + year);
+        }
+    }
+
     /*Class for button click of the "submit" button.*/
     class btnSubmit implements Button.OnClickListener {
 
@@ -249,10 +340,10 @@ public class DamageReports extends ActionBarActivity {
                     JSONObject jObject = createJObject();
 
                     // Convert JSON object to url string
-                    String url = Config.DAMAGE_REPORT_URL + jObject.toString().replace('{', ' ').replace('}',' ').replace(backspace, ' ').trim().replace('"', ' ').replace(" ", "").replace(':','=').replace(',','&');
+                    String url = Config.DAMAGE_REPORT_URL + jObject.toString().replace('{', ' ').replace('}', ' ').replace(backspace, ' ').trim().replace('"', ' ').replace(" ", "").replace(':', '=').replace(',', '&');
 
                     // The JSON object is passed over to be sent
-                    if(isConnected)
+                    if (isConnected)
                         putDataToServer(url);
                     else {
                         addUser(url);
@@ -322,29 +413,29 @@ public class DamageReports extends ActionBarActivity {
                 // HTTP GET URL format.
                 // TODO the space replace may need to be changed once HTTP POST is implemented
                 obj.put("deviceid", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
-                obj.put("type_of_occurrence", (disasterType+"").replace(" ", "%20"));
+                obj.put("type_of_occurrence", (disasterType + "").replace(" ", "%20"));
                 obj.put("date", String.valueOf(text9.getText()).replace(" ", "%20"));
                 obj.put("name", name.getText().toString().replace(" ", "%20"));
                 obj.put("address", address.getText().toString().replace(" ", "%20"));
                 obj.put("city", city.getText().toString().replace(" ", "%20"));
                 obj.put("add_state", state.getText().toString().replace(" ", "%20"));
                 obj.put("zip", zip.getText().toString().replace(" ", "%20"));
-                obj.put("own_or_rent", (rentOrOwned+"").replace(" ", "%20"));
+                obj.put("own_or_rent", (rentOrOwned + "").replace(" ", "%20"));
                 obj.put("insurance_deductible", insurDeductAmt.getText().toString().replace(" ", "%20"));
                 obj.put("damage_cost", damageCost.getText().toString().replace(" ", "%20"));
                 obj.put("loss_percent", loss_percent.getText().toString().replace(" ", "%20"));
-                obj.put("habitable", (checked(habitable)+"").replace(" ", "%20"));
-                obj.put("basement_water", (checked(basement_water)+"").replace(" ","%20"));
+                obj.put("habitable", (checked(habitable) + "").replace(" ", "%20"));
+                obj.put("basement_water", (checked(basement_water) + "").replace(" ", "%20"));
                 obj.put("water_depth", water_depth.getText().toString().replace(" ", "%20"));
-                obj.put("basement_resident", (checked(basement_resident)+"").replace(" ", "%20"));
+                obj.put("basement_resident", (checked(basement_resident) + "").replace(" ", "%20"));
                 obj.put("damage_desc", damage_desc.getText().toString().replace(" ", "%20"));
 
                 //TODO apache server needs to have url length parameter changed
-                obj.put("encoded_image", encodedString.replace("/", "%2F").replace("+", "%2B").replace("\n",""));
+                obj.put("encoded_image", encodedString.replace("/", "%2F").replace("+", "%2B").replace("\n", ""));
 
                 if (isOnline()) {
-                    obj.put("longitude", (loc.getLongitude()+"").replace(" ","%20"));
-                    obj.put("latitude", (loc.getLatitude()+"").replace(" ","%20"));
+                    obj.put("longitude", (loc.getLongitude() + "").replace(" ", "%20"));
+                    obj.put("latitude", (loc.getLatitude() + "").replace(" ", "%20"));
                 }
 
             } catch (JSONException e) {
@@ -357,20 +448,20 @@ public class DamageReports extends ActionBarActivity {
         public void putDataToServer(String json) throws Throwable {
 
             String reportAccepted;
-            Log.d("Send pic",json);
+            Log.d("Send pic", json);
             PutData httpGet = new PutData(json);
             Thread t = new Thread(httpGet);
             t.start();
             t.join();
 
             reportAccepted = httpGet.getDataAccepted();
-            Log.d("Send pic",reportAccepted);
+            Log.d("Send pic", reportAccepted);
 
             if (reportAccepted.equals("1")) {
                 Toast.makeText(getApplicationContext(), "Report Submitted Successfully", Toast.LENGTH_LONG).show();
                 DamageReports.this.finish();
 
-            }else
+            } else
                 Toast.makeText(getApplicationContext(), "Report Not Sent", Toast.LENGTH_LONG).show();
 
         }
@@ -385,99 +476,6 @@ public class DamageReports extends ActionBarActivity {
             Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(cameraIntent, CAM_REQUEST);
         }
-    }
-
-    //Date picker method that will show the date picker.
-    public void showDatePickerDialog(View v) {
-        InputMethodManager imm = (InputMethodManager) getSystemService( //hides keyboard since its not needed
-                Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(text9.getWindowToken(), 0);
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getFragmentManager(), "datepicker");
-
-    }
-
-    /*Class to create a date picker fragment.*/
-    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-
-        //Method that sets default date on creation of the date picker.
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current date as the default date in the picker
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-
-            // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(), this, year, month, day);
-        }
-
-        //Method to set the text field for date to the user picked date.
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int day) {
-            DamageReports.text9.setText(month + 1 + "/" + day + "/" + year);
-        }
-    }
-
-    protected void addUser(String name) {
-
-        Log.i("DB Error","Starting addUser");
-
-        ContentValues values = new ContentValues();
-
-        values.put(ReportsDatabaseHelper.COL_JSON, name);
-
-        try {
-            Log.i("DB Error", "Insertion Start");
-
-            mDatabaseHelper.insert(mDatabaseHelper.TABLE_USERS, values);
-
-            Log.i("DB Error", "Insertion Successful");
-
-        } catch (ReportsDatabaseHelper.NotValidException e) {
-
-            Log.e("DB Error:", "Unable to insert into DB.");
-
-        }
-
-    }
-
-    // returns true or false based on if device has an internet connection.
-    public boolean isOnline() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
-    }
-
-    public void encodeImagetoString() {
-        new AsyncTask<Void, Void, String>() {
-
-            protected void onPreExecute() {
-
-            };
-
-            @Override
-            protected String doInBackground(Void... params) {
-                BitmapFactory.Options options = null;
-                options = new BitmapFactory.Options();
-                options.inSampleSize = 3;
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                // Must compress the Image to reduce image size to make upload easy
-                thumbnail.compress(Bitmap.CompressFormat.JPEG, 8, stream);  /// I changed this from PNG and 50
-                byte[] byte_arr = stream.toByteArray();
-                // Encode Image to String
-                encodedString = Base64.encodeToString(byte_arr, 0);
-                Log.d("Pic encode2", encodedString);
-                return "";
-            }
-
-            @Override
-            protected void onPostExecute(String msg) {
-
-            }
-        }.execute(null, null, null);
     }
 
 }

@@ -22,7 +22,7 @@ public class MediaItem {
     // if no data has been entered facebook.com is returned as the default
     public String getFacebook() {
 
-        if(facebook != null && !facebook.equals("null"))
+        if (facebook != null && !facebook.equals("null"))
             return facebook;
         else
             return "http://facebook.com";
@@ -35,7 +35,7 @@ public class MediaItem {
     // if no data is entered twitter.com is returned as a default
     public String getTwitter() {
 
-        if(twitter != null && !twitter.equals("null"))
+        if (twitter != null && !twitter.equals("null"))
             return twitter;
         else
             return "http://twitter.com";
@@ -48,7 +48,7 @@ public class MediaItem {
     // currently not being used but does exist in the web database
     public String getExtra() {
 
-        if(extra != null && !extra.equals("null"))
+        if (extra != null && !extra.equals("null"))
             return extra;
         else
             return " ";
@@ -59,7 +59,7 @@ public class MediaItem {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return facebook + " " + twitter + " " + extra;
     }
 }

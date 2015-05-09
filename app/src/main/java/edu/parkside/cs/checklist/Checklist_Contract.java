@@ -64,6 +64,13 @@ public final class Checklist_Contract {
     /* Inner class that contains the Checklist SQL queries. */
     public static abstract class Checklist_Queries {
 
+        public static final String CREATE_CHECKLIST_TABLE = "CREATE TABLE " + Checklist_Contract.Checklist.TABLE_NAME +
+                "(" + Checklist_Contract.Checklist._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                Checklist_Contract.Checklist.COLUMN_NAME_TITLE + " TEXT, " +
+                Checklist_Contract.Checklist.COLUMN_NAME_PROGRESS + " INTEGER)";
+        public static final String ALL_ITEMS = "SELECT * FROM " +
+                Checklist.TABLE_NAME;
+
         public static final String insertChecklist(ChecklistRow checklist_row) {
             String query = "INSERT INTO " + Checklist.TABLE_NAME +
                     " VALUES (NULL, " + "\'" + checklist_row.getTitle() + "\'" +
@@ -93,15 +100,6 @@ public final class Checklist_Contract {
                     " WHERE " + Checklist._ID + " = " + "\'" + checklist_row.getEntryid() + "\'";
             return query;
         }
-
-        public static final String CREATE_CHECKLIST_TABLE = "CREATE TABLE " + Checklist_Contract.Checklist.TABLE_NAME +
-                "(" + Checklist_Contract.Checklist._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                Checklist_Contract.Checklist.COLUMN_NAME_TITLE + " TEXT, " +
-                Checklist_Contract.Checklist.COLUMN_NAME_PROGRESS + " INTEGER)";
-
-
-        public static final String ALL_ITEMS = "SELECT * FROM " +
-                Checklist.TABLE_NAME;
 
 
     }

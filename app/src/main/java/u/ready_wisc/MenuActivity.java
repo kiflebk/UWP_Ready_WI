@@ -38,7 +38,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.pushbots.push.Pushbots;
 
@@ -48,16 +47,16 @@ import u.ready_wisc.Emergency_Main.Emergency;
 import u.ready_wisc.disasterTypes.DisastersType;
 
 
-public class MenuActivity extends ActionBarActivity implements View.OnClickListener{
-    Button resourcesbutton, reportButton, checklistButton, disasterButton;
-    ImageButton prepareMenuButton, emergMenuButton, sosMenuButton, flashlightButton;
+public class MenuActivity extends ActionBarActivity implements View.OnClickListener {
     public static boolean isSosToneOn = false;
+    public static MediaPlayer mp;
+    static String county = "";
+    Button resourcesbutton, reportButton, checklistButton, disasterButton;
+    ImageButton sosMenuButton, flashlightButton;
+    Context context;
+    PackageManager pm;
     private boolean isFlashOn = false;
     private Camera camera = null;
-    Context context;
-    public static MediaPlayer mp;
-    PackageManager pm;
-    static String county = "";
 
     @Override
 
@@ -77,7 +76,7 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
 
         Intent i = getIntent();
         // Ensure county is always populated
-        if(county.isEmpty() || i.getStringExtra("county")!=null) {
+        if (county.isEmpty() || i.getStringExtra("county") != null) {
             county = i.getStringExtra("county");
         }
 
@@ -107,45 +106,20 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MenuActivity.this, ResourcesActivity.class);
-                i.putExtra("county",county);
+                i.putExtra("county", county);
                 MenuActivity.this.startActivity(i);
-            }
-        });
-
-        reportButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MenuActivity.this, Emergency.class);
-                MenuActivity.this.startActivity(i);
-            }
-        });
-
-        disasterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MenuActivity.this, DisastersType.class);
-                MenuActivity.this.startActivity(i);
-            }
-        });
-
-        checklistButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MenuActivity.this, Prep_Main.class);
-                startActivity(i);
             }
         });
 
     }
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
 
         if ((v.getId() == (R.id.prepareButton)) || (v.getId() == (R.id.prepareMenuButton))) {
             Intent i = new Intent(MenuActivity.this, Prep_Main.class);
             startActivity(i);
-        } else if (v.getId() == (R.id.reportDamageButton) || v.getId() == (R.id.emergencyMenuButton)){
+        } else if (v.getId() == (R.id.reportDamageButton) || v.getId() == (R.id.emergencyMenuButton)) {
             Intent i = new Intent(MenuActivity.this, Emergency.class);
             MenuActivity.this.startActivity(i);
         } else if (v.getId() == (R.id.disasterResourcesButton) || v.getId() == (R.id.disasterMenuButton)) {
@@ -169,10 +143,10 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
                 mp.setLooping(true);
                 isSosToneOn = true;
                 mp.start();
-            } else{
+            } else {
 
                 //stops looping sound
-                Log.d("Sound test","Stopping sound");
+                Log.d("Sound test", "Stopping sound");
                 mp.setLooping(false);
                 mp.pause();
                 isSosToneOn = false;
@@ -180,7 +154,7 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
 
         } else if (v.getId() == (R.id.FlashlightMenuButton)) {
             //check to see if device has a camera with flash
-            if(!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+            if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
 
                 Log.e("err", "Device has no camera!");
                 //Return from the method, do nothing after this code block

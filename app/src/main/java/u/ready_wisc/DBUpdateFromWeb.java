@@ -43,14 +43,7 @@ import java.util.ArrayList;
  * Created by piela_000 on 2/14/2015.  Class is used as a thread object to
  * query the web database and return the results as a 2d array to the caller
  */
-public class DBUpdateFromWeb implements Runnable{
-
-
-    @Override
-    //run thread calls the helper which will update the SQLite db
-    public void run() {
-        updateLocalDB();
-    }
+public class DBUpdateFromWeb implements Runnable {
 
 
     //main thread to complete query and return results
@@ -168,10 +161,16 @@ public class DBUpdateFromWeb implements Runnable{
             }
         } catch (JSONException e1) {
             e1.printStackTrace();
-            Log.e("DB Update","Database Problem");
+            Log.e("DB Update", "Database Problem");
         } catch (ParseException e1) {
             e1.printStackTrace();
         }
+    }
+
+    @Override
+    //run thread calls the helper which will update the SQLite db
+    public void run() {
+        updateLocalDB();
     }
 }
 

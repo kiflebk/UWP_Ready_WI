@@ -35,34 +35,20 @@ public class VolunteerDBHelper extends SQLiteOpenHelper {
     public static final String TABLE_MEDIA = "media";
 
     public static final String COL_ID = BaseColumns._ID;
-
-    private static final String DATABASE_NAME = "my_app.db";
-
-    private static final int DATABASE_VERSION = 1;
-
     public static final String COL_NAME = "name_of_org";
-
     public static final String COL_EMAIL = "email";
-
     public static final String COL_PHONE = "vol_phone";
-
     public static final String COL_VOL_URL = "vol_url";
-
     public static final String COL_SHELTER_ADD = "shelter_add";
-
     public static final String COL_CITY = "city";
-
     public static final String COL_SHELTER_PHONE = "shelter_phone";
-
     public static final String COL_PERSON = "person";
-
     public static final String COL_ORG = "org_name";
-
     public static final String COL_FACEBOOK = "facebook";
-
     public static final String COL_TWITTER = "twitter";
-
     public static final String COL_EXTRA = "extra";
+    private static final String DATABASE_NAME = "my_app.db";
+    private static final int DATABASE_VERSION = 1;
 
     public VolunteerDBHelper(Context context) {
 
@@ -135,7 +121,7 @@ public class VolunteerDBHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion){
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_VOLUNTEER + ";");
 
@@ -174,17 +160,6 @@ public class VolunteerDBHelper extends SQLiteOpenHelper {
 
     }
 
-
-    public static class NotValidException extends Throwable {
-
-        public NotValidException(String msg) {
-
-            super(msg);
-
-        }
-
-    }
-
     public Cursor queryVolunteer() {
 
         String[] projection = {COL_ID, COL_NAME, COL_EMAIL, COL_PHONE, COL_VOL_URL};
@@ -209,14 +184,14 @@ public class VolunteerDBHelper extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<VolunteerItem> getVolunteerData(){
+    public ArrayList<VolunteerItem> getVolunteerData() {
 
         ArrayList<VolunteerItem> volunteerList = new ArrayList();
         SQLiteDatabase resourceDB = this.getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_VOLUNTEER + ";";
         Cursor result = resourceDB.rawQuery(query, null);
-        if(result.moveToFirst()){
-            do{
+        if (result.moveToFirst()) {
+            do {
                 VolunteerItem item = new VolunteerItem();
                 item.setName(result.getString(1));
                 item.setEmail(result.getString(2));
@@ -230,13 +205,13 @@ public class VolunteerDBHelper extends SQLiteOpenHelper {
         return volunteerList;
     }
 
-    public ArrayList<ShelterItem> getShelterData(){
+    public ArrayList<ShelterItem> getShelterData() {
         ArrayList<ShelterItem> shelterList = new ArrayList();
         SQLiteDatabase resourceDB = this.getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_SHELTER + ";";
         Cursor result = resourceDB.rawQuery(query, null);
-        if(result.moveToFirst()){
-            do{
+        if (result.moveToFirst()) {
+            do {
                 ShelterItem item = new ShelterItem();
                 item.setAddress(result.getString(1));
                 item.setCity(result.getString(2));
@@ -251,13 +226,13 @@ public class VolunteerDBHelper extends SQLiteOpenHelper {
         return shelterList;
     }
 
-    public ArrayList<MediaItem> getMediaData(){
+    public ArrayList<MediaItem> getMediaData() {
         ArrayList<MediaItem> volunteerList = new ArrayList();
         SQLiteDatabase resourceDB = this.getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_MEDIA + ";";
         Cursor result = resourceDB.rawQuery(query, null);
-        if(result.moveToFirst()){
-            do{
+        if (result.moveToFirst()) {
+            do {
                 MediaItem item = new MediaItem();
                 item.setFacebook(result.getString(1));
                 item.setTwitter(result.getString(2));
@@ -268,5 +243,15 @@ public class VolunteerDBHelper extends SQLiteOpenHelper {
         result.close();
         resourceDB.close();
         return volunteerList;
+    }
+
+    public static class NotValidException extends Throwable {
+
+        public NotValidException(String msg) {
+
+            super(msg);
+
+        }
+
     }
 }

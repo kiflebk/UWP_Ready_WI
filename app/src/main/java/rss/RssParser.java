@@ -31,9 +31,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
- //Parses the XML RSS that is returned and creates separate RSS objects
- // with the data.
- 
+//Parses the XML RSS that is returned and creates separate RSS objects
+// with the data.
+
 public class RssParser {
 
     // We don't use namespaces
@@ -84,20 +84,19 @@ public class RssParser {
             // adds the proper description for the item to show if the object
             // is selected from the list
             if (title != null && link != null) {
-                if (desc == null){
+                if (desc == null) {
                     desc = "No current weather warnings/advisories.";
                 }
                 RssItem item = new RssItem(title, link, desc);
 
                 // The RSS header always contains the first tag of "Watches, Warnings, and Advisories
                 // this tag is removed since it is not needed
-                if( !(item.getTitle().contains("Watches, Warnings and Advisories"))) {
+                if (!(item.getTitle().contains("Watches, Warnings and Advisories"))) {
                     items.add(item);
                     title = null;
                     link = null;
                     desc = null;
-                }
-                else{
+                } else {
                     title = null;
                     link = null;
                     desc = null;

@@ -40,16 +40,34 @@ import u.ready_wisc.R;
 import u.ready_wisc.RssActivity;
 
 
- //Fragment is built to hold the RSS listview
- 
+//Fragment is built to hold the RSS listview
+
 
 public class RssFragment extends Fragment implements AdapterView.OnItemClickListener {
 
-    private ProgressBar progressBar;
-    private ListView listView;
-    private View view;
     public static String weatherDesc;
     public static String weatherLink;
+    private ProgressBar progressBar;
+    private ListView listView;
+    // Once the {@link RssService} finishes its task, the result is sent to this
+    // ResultReceiver.
+    private final ResultReceiver resultReceiver = new ResultReceiver(new Handler()) {
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
+            progressBar.setVisibility(View.GONE);
+            List<RssItem> items = (List<RssItem>) resultData.getSerializable(RssService.ITEMS);
+            if (items != null) {
+                RssAdapter adapter = new RssAdapter(getActivity(), items);
+                listView.setAdapter(adapter);
+            } else {
+                Toast.makeText(getActivity(), "An error occurred while downloading the rss feed.",
+                        Toast.LENGTH_LONG).show();
+            }
+            listView.setVisibility(View.VISIBLE);
+        }
+    };
+    private View view;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,26 +104,6 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
         intent.putExtra(RssService.RECEIVER, resultReceiver);
         getActivity().startService(intent);
     }
-
-
-     // Once the {@link RssService} finishes its task, the result is sent to this
-     // ResultReceiver.
-    private final ResultReceiver resultReceiver = new ResultReceiver(new Handler()) {
-        @SuppressWarnings("unchecked")
-        @Override
-        protected void onReceiveResult(int resultCode, Bundle resultData) {
-            progressBar.setVisibility(View.GONE);
-            List<RssItem> items = (List<RssItem>) resultData.getSerializable(RssService.ITEMS);
-            if (items != null) {
-                RssAdapter adapter = new RssAdapter(getActivity(), items);
-                listView.setAdapter(adapter);
-            } else {
-                Toast.makeText(getActivity(), "An error occurred while downloading the rss feed.",
-                        Toast.LENGTH_LONG).show();
-            }
-            listView.setVisibility(View.VISIBLE);
-        }
-     };
 
     @Override
     // If a listitem is clicked, the details of the item are loaded into a seperate intent and started

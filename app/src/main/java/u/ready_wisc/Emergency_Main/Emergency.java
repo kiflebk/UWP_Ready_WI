@@ -44,7 +44,7 @@ import u.ready_wisc.myAdapter;
 
 /**
  * Created by OZAN on 3/15/2015.
- *
+ * <p/>
  * kjljl
  */
 public class Emergency extends ActionBarActivity {
@@ -104,7 +104,7 @@ public class Emergency extends ActionBarActivity {
 
                 //if sos tone button is pressed play sound, if sound is playing pause sound
                 //sound will play until button is pressed again, even if app is in background
-                if (x.equals("SOS Tone")){
+                if (x.equals("SOS Tone")) {
 
                     if (!MenuActivity.isSosToneOn) {
 
@@ -120,11 +120,10 @@ public class Emergency extends ActionBarActivity {
                         MenuActivity.mp.setLooping(true);
                         MenuActivity.isSosToneOn = true;
                         MenuActivity.mp.start();
-                    }
-                    else{
+                    } else {
 
                         //stops looping sound
-                        Log.d("Sound test","Stopping sound");
+                        Log.d("Sound test", "Stopping sound");
                         MenuActivity.mp.setLooping(false);
                         MenuActivity.mp.pause();
                         MenuActivity.isSosToneOn = false;
@@ -132,10 +131,10 @@ public class Emergency extends ActionBarActivity {
                 }
 
                 //flashlight toggles on off as pressed
-                if (x.equals("Flashlight")){
+                if (x.equals("Flashlight")) {
 
                     //check to see if device has a camera with flash
-                    if(!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+                    if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
 
                         Log.e("err", "Device has no camera!");
                         //Return from the method, do nothing after this code block

@@ -40,9 +40,9 @@ import u.ready_wisc.VolunteerItem;
  */
 public class Volunteer extends ActionBarActivity implements AdapterView.OnItemClickListener {
 
+    static VolunteerDBHelper vdbHelper;
     ArrayList<VolunteerItem> volunteerList;
     ListView volunteerView;
-    static VolunteerDBHelper vdbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +104,7 @@ public class Volunteer extends ActionBarActivity implements AdapterView.OnItemCl
             Uri uri;
 
             // the url must had the http:// prefix to be loaded by the android browser
-            if(!item.getUrl().contains("http://")){
+            if (!item.getUrl().contains("http://")) {
                 uri = Uri.parse("http://" + item.getUrl());
             } else {
                 uri = Uri.parse(item.getUrl());

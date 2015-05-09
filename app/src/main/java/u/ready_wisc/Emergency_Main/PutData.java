@@ -30,8 +30,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
 
- //Runnable object used to submit damage report to server using HTTP GET
- 
+//Runnable object used to submit damage report to server using HTTP GET
+
 
 public class PutData implements Runnable {
 
@@ -44,7 +44,7 @@ public class PutData implements Runnable {
         mainJSON = json;
     }
 
-    public String getDataAccepted(){
+    public String getDataAccepted() {
         return dataAccepted;
     }
 
@@ -63,7 +63,7 @@ public class PutData implements Runnable {
             //String url = "http://www.joshuaolufs.com/php/query_damageReports_insert.php?" + mainJSON.toString().replace('{', ' ').replace('}',' ').replace(backspace, ' ').trim().replace('"', ' ').replace(" ", "").replace(':','=').replace(',','&');
 
             Log.i("HTTP URL:", mainJSON);
-            HttpPost httppost = new HttpPost(mainJSON) ;
+            HttpPost httppost = new HttpPost(mainJSON);
 
             // TODO The following code needs to be fixed to send the DamageReports JSON object as a POST.
 

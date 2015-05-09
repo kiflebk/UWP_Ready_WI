@@ -39,16 +39,16 @@ import java.util.List;
 import u.ready_wisc.CountyPicker;
 
 
- //RSS service reads the RSS feed and sends the data to be parsed
+//RSS service reads the RSS feed and sends the data to be parsed
 
 public class RssService extends IntentService {
 
+    public static final String ITEMS = "items";
+    public static final String RECEIVER = "receiver";
     // string is appended with the county code based on user county selection
     // county codes can be found at https://alerts.weather.gov/cap/wi.php?x=3
     // TODO county codes will need to be added for all counties as app is expanded
     private static final String RSS_LINK = "https://alerts.weather.gov/cap/wwaatmget.php?x=" + CountyPicker.countyIdCode;
-    public static final String ITEMS = "items";
-    public static final String RECEIVER = "receiver";
 
 
     public RssService() {

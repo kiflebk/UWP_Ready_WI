@@ -20,15 +20,15 @@ public class VolunteerAdapter extends ArrayAdapter<VolunteerItem> {
     private final Context context;
     private final ArrayList<VolunteerItem> volunteerList;
 
-    public VolunteerAdapter(Context context, ArrayList<VolunteerItem> volunteerList){
+    public VolunteerAdapter(Context context, ArrayList<VolunteerItem> volunteerList) {
         super(context, R.layout.volunteer_list_adapter, volunteerList);
         this.context = context;
         this.volunteerList = volunteerList;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View row = inflater.inflate(R.layout.volunteer_list_adapter,parent,false);
+        View row = inflater.inflate(R.layout.volunteer_list_adapter, parent, false);
 
         TextView nameText = (TextView) row.findViewById(R.id.volunteerName);
         TextView addressText = (TextView) row.findViewById(R.id.volunteerPhone);

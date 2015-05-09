@@ -13,7 +13,7 @@ public class ShelterItem {
     public ShelterItem() {
     }
 
-    public ShelterItem(String address, String city, String phone, String contact, String organization ) {
+    public ShelterItem(String address, String city, String phone, String contact, String organization) {
         this.address = address;
         this.city = city;
         this.phone = phone;
@@ -22,7 +22,7 @@ public class ShelterItem {
     }
 
     public String getAddress() {
-        if(address != null && !address.equals("null"))
+        if (address != null && !address.equals("null"))
             return address;
         else
             return " ";
@@ -33,7 +33,7 @@ public class ShelterItem {
     }
 
     public String getCity() {
-        if(city != null && !city.equals("null"))
+        if (city != null && !city.equals("null"))
             return city;
         else
             return " ";
@@ -44,34 +44,41 @@ public class ShelterItem {
     }
 
     public String getPhone() {
-        if(phone != null && !phone.equals("null"))
+        if (phone != null && !phone.equals("null"))
             return phone;
         else
-            return " ";}
+            return " ";
+    }
 
-    public void setPhone(String phone) {this.phone = phone;}
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-    public String getContact(){
-        if(contact != null && !contact.equals("null"))
+    public String getContact() {
+        if (contact != null && !contact.equals("null"))
             return contact;
         else
             return " ";
     }
 
-    public void setContact(String contact){ this.contact = contact;}
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
 
     // if no data is found no shelters listed is displayed
-    public String getOrganization(){
-        if(organization != null && !organization.equals("null"))
+    public String getOrganization() {
+        if (organization != null && !organization.equals("null"))
             return organization;
         else
             return "No Shelters Listed";
     }
 
-    public void setOrganization(String organization){this.organization = organization;}
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
 
     @Override
-    public String toString(){
+    public String toString() {
         return address + " " + city + " " + phone + " " + contact + " " + organization;
     }
 }

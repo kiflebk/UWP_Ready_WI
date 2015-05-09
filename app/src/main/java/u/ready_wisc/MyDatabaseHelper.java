@@ -39,22 +39,14 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_EMAIL = "email";
 
     public static final String COL_DOB = "date_of_birth";
-
-    private static final String DATABASE_NAME = "my_app2.db";
-
-    private static final int DATABASE_VERSION = 2;
-
     public static final String TABLE_RESOURCES = "resources";
-
     public static final String COL_COUNTY = "county";
-
     public static final String COL_RNAME = "name";
-
     public static final String COL_ADDRESS = "address";
-
     public static final String COL_PHONE = "phone";
-
     public static final String COL_TYPE = "type";
+    private static final String DATABASE_NAME = "my_app2.db";
+    private static final int DATABASE_VERSION = 2;
 
 
     public MyDatabaseHelper(Context context) {
@@ -147,16 +139,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public static class NotValidException extends Throwable {
-
-        public NotValidException(String msg) {
-
-            super(msg);
-
-        }
-
-    }
-
     public Cursor query(String tableName, String orderedBy) {
 
         String[] projection = {COL_ID, COL_NAME, COL_EMAIL, COL_DOB};
@@ -166,7 +148,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Retrieves resource data for a specific county
-    public ArrayList<ResourceItem> getDataFromCounty(String county){
+    public ArrayList<ResourceItem> getDataFromCounty(String county) {
         ArrayList<ResourceItem> resourceList = new ArrayList(); // Create array of items
         SQLiteDatabase resourceDB = this.getReadableDatabase(); // Get database
 
@@ -175,8 +157,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         Cursor result = resourceDB.rawQuery(query, null);
 
         // For every row returned, create an empty item, add info from each column, and put the item in the array
-        if(result.moveToFirst()){
-            do{
+        if (result.moveToFirst()) {
+            do {
                 ResourceItem item = new ResourceItem();
                 item.setName(result.getString(0));
                 item.setAddress(result.getString(1));
@@ -193,7 +175,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Retrieves resource data for a specific county and type of resource
-    public ArrayList<ResourceItem> getDataFromType(String county, String type){
+    public ArrayList<ResourceItem> getDataFromType(String county, String type) {
         ArrayList<ResourceItem> resourceList = new ArrayList(); // Create array of items
         SQLiteDatabase resourceDB = this.getReadableDatabase(); // Get database
 
@@ -202,8 +184,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         Cursor result = resourceDB.rawQuery(query, null);
 
         // For every row returned, create an empty item, add info from each column, and put the item in the array
-        if(result.moveToFirst()){
-            do{
+        if (result.moveToFirst()) {
+            do {
                 ResourceItem item = new ResourceItem();
                 item.setName(result.getString(0));
                 item.setAddress(result.getString(1));
@@ -221,11 +203,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     // Populates resource table with available data
     // TODO: Move data to web database and update local database on start, to provide easier updates and expansions to data
-    public void addResourceData(){
+    public void addResourceData() {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        onUpgrade(db,0,1);
+        onUpgrade(db, 0, 1);
         // Sheriff Departments
         db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Kenosha County Sheriff's Department\", " +
                 "\"1000 55th Street, Kenosha, WI 53140\", " +
@@ -1152,6 +1134,16 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 "\"(262) 691-5610\", " +
                 "\"Waukesha\", " +
                 "\"Fire\");");
+    }
+
+    public static class NotValidException extends Throwable {
+
+        public NotValidException(String msg) {
+
+            super(msg);
+
+        }
+
     }
 }
 
