@@ -20,6 +20,8 @@
 package u.ready_wisc.Emergency_Main;
 
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -49,26 +51,38 @@ public class Social_Media extends ActionBarActivity {
 
         final MediaItem item = vdbHelper.getMediaData().get(0);
 
-        // Database query to populate listview
-        // Need local DB + working activity
         facebookButt = (Button) findViewById(R.id.button2);
         twitterButt = (Button) findViewById(R.id.button3);
 
         facebookButt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean haveF;
+                try {
+                    ApplicationInfo info = getPackageManager().getApplicationInfo("com.facebook.katana",0);
+                    haveF = true;
+                } catch (PackageManager.NameNotFoundException e){
+                    haveF = false;
+                }
+                if(haveF){
+                    // Strip all but page name and ID from url
+                    String fbString = item.getFacebook();
+                    fbString = fbString.substring(fbString.lastIndexOf("/") + 1);
 
-                // must add http:// prefix to url before it will open
-                if (!item.getFacebook().equals(" ")) {
-                    Uri uri;
-                    if (!item.getFacebook().contains("http://")) {
-                        uri = Uri.parse("http://" + item.getFacebook());
-                    } else {
-                        uri = Uri.parse(item.getFacebook());
-                    }
-
-                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/" + fbString));
                     startActivity(intent);
+                } else {
+                    // must add http:// prefix to url before it will open
+                    if (!item.getFacebook().equals(" ")) {
+                        Uri uri;
+                        if (!item.getFacebook().contains("http://")) {
+                            uri = Uri.parse("http://" + item.getFacebook());
+                        } else {
+                            uri = Uri.parse(item.getFacebook());
+                        }
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(intent);
+                    }
                 }
             }
         });
@@ -76,18 +90,32 @@ public class Social_Media extends ActionBarActivity {
         twitterButt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // must add http:// prefix to url before it will open
+                boolean haveT;
+                try {
+                    ApplicationInfo info = getPackageManager().getApplicationInfo("com.twitter.android",0);
+                    haveT = true;
+                } catch (PackageManager.NameNotFoundException e){
+                    haveT = false;
+                }
                 if (!item.getTwitter().equals(" ")) {
-                    Uri uri;
-                    if (!item.getTwitter().contains("http://")) {
-                        uri = Uri.parse("http://" + item.getTwitter());
-                    } else {
-                        uri = Uri.parse(item.getTwitter());
-                    }
+                    if(haveT){
+                        // Strip all but username from twitter url
+                        String twitString = item.getTwitter();
+                        twitString = twitString.substring(twitString.lastIndexOf("/") + 1);
 
-                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                    startActivity(intent);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name=" + twitString));
+                        startActivity(intent);
+                    } else {
+                        Uri uri;
+                        // must add http:// prefix to url before it will open
+                        if (!item.getTwitter().contains("http://")) {
+                            uri = Uri.parse("http://" + item.getTwitter());
+                        } else {
+                            uri = Uri.parse(item.getTwitter());
+                        }
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(intent);
+                    }
                 }
             }
         });
