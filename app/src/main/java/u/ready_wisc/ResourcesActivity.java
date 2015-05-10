@@ -36,6 +36,7 @@ import java.util.ArrayList;
 
 
 public class ResourcesActivity extends ActionBarActivity {
+    static final boolean usePhone = true;
     static String county = "";
     static MyDatabaseHelper rDBHelper;
     ArrayList<ResourceItem> resourceList;
@@ -54,10 +55,6 @@ public class ResourcesActivity extends ActionBarActivity {
         final ListView resourcesListView = (ListView) findViewById(R.id.resourcesListView);
         final Spinner resourceSpinner = (Spinner) findViewById(R.id.resourceSpinner);
 
-        // Populate county only the first time this activity loads
-        // Prevents empty lists when the activity is loaded multiple times in one session
-
-//            rDBHelper.addResourceData();
         Intent i = getIntent();
         county = i.getStringExtra("county");
 
@@ -92,6 +89,35 @@ public class ResourcesActivity extends ActionBarActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        // Sets action to be carried out when resource item is clicked
+        // If usePhone is true, loads the dialer with the selected resource's number selected
+        // If usePhone is false, loads Google Maps with the resource's address searched
+        resourcesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                ResourceItem clickedItem = (ResourceItem) parent.getItemAtPosition(position); // Get item
+
+                if(usePhone) {
+                    String phone = clickedItem.getPhone(); // Get phone number
+                    phone.replaceAll("[^0-9]", ""); // Format phone number
+
+                    // Create and start intent
+                    Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                    callIntent.setData(Uri.parse("tel:" + phone));
+                    startActivity(callIntent);
+                } else {
+                    String address = clickedItem.getAddress(); // Get address
+                    address.replaceAll("\\s", "+"); // Format address
+
+                    // Create and start intent
+                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + address));
+                    mapIntent.setPackage("com.google.android.apps.maps");
+                    startActivity(mapIntent);
+                }
             }
         });
     }
