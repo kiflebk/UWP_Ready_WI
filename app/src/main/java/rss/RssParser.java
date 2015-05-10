@@ -33,9 +33,9 @@ import java.util.List;
 import u.ready_wisc.CountyPicker;
 import u.ready_wisc.SplashActivity;
 
- //Parses the XML RSS that is returned and creates separate RSS objects
- // with the data.
- 
+//Parses the XML RSS that is returned and creates separate RSS objects
+// with the data.
+
 public class RssParser {
 
     // We don't use namespaces
@@ -81,32 +81,32 @@ public class RssParser {
                     desc = readDesc(parser);
                     break;
             }
+        }
+        // Checks for the case where there are no weather advisories and
+        // adds the proper description for the item to show if the object
+        // is selected from the list
+        if (title != null && link != null) {
+            if (desc == null){
+                title += " for " + CountyPicker.countyName + " County";
+                desc = "No current weather warnings/advisories.";
+            }
+            RssItem item = new RssItem(title, link, desc);
 
-            // Checks for the case where there are no weather advisories and
-            // adds the proper description for the item to show if the object
-            // is selected from the list
-            if (title != null && link != null) {
-                if (desc == null){
-                    title += " for " + CountyPicker.countyName + " County";
-                    desc = "No current weather warnings/advisories.";
-                }
-                RssItem item = new RssItem(title, link, desc);
-
-                // The RSS header always contains the first tag of "Watches, Warnings, and Advisories
-                // this tag is removed since it is not needed
-                if( !(item.getTitle().contains("Watches, Warnings and Advisories"))) {
-                    items.add(item);
-                    title = null;
-                    link = null;
-                    desc = null;
-                }
-                else{
-                    title = null;
-                    link = null;
-                    desc = null;
-                }
+            // The RSS header always contains the first tag of "Watches, Warnings, and Advisories
+            // this tag is removed since it is not needed
+            if( !(item.getTitle().contains("Watches, Warnings and Advisories"))) {
+                items.add(item);
+                title = null;
+                link = null;
+                desc = null;
+            }
+            else{
+                title = null;
+                link = null;
+                desc = null;
             }
         }
+
         return items;
     }
 

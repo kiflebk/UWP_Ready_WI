@@ -65,6 +65,10 @@ public class RssActivity extends ActionBarActivity {
         textView.setText(message);
         //setContentView(textView);
 
+        if (RssFragment.weatherDesc.equals("No current weather warnings/advisories.")){
+            getDesc.setVisibility(View.INVISIBLE);
+        }
+
         getDesc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
