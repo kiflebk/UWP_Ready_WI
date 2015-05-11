@@ -75,7 +75,7 @@ public class Social_Media extends ActionBarActivity {
                     // must add http:// prefix to url before it will open
                     if (!item.getFacebook().equals(" ")) {
                         Uri uri;
-                        if (!item.getFacebook().contains("http://")) {
+                        if (!item.getFacebook().contains("http://") && !item.getFacebook().contains("https://")) {
                             uri = Uri.parse("http://" + item.getFacebook());
                         } else {
                             uri = Uri.parse(item.getFacebook());
@@ -108,7 +108,7 @@ public class Social_Media extends ActionBarActivity {
                     } else {
                         Uri uri;
                         // must add http:// prefix to url before it will open
-                        if (!item.getTwitter().contains("http://")) {
+                        if (!item.getTwitter().contains("http://") && !item.getTwitter().contains("https://")) {
                             uri = Uri.parse("http://" + item.getTwitter());
                         } else {
                             uri = Uri.parse(item.getTwitter());
