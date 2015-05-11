@@ -257,6 +257,18 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 "\"Washington\", " +
                 "\"Sheriff\");");
 
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Rock County Sheriff's Department\", " +
+                "\"200 US-14, Janesville, WI 53545\", " +
+                "\"(608) 757-2244\", " +
+                "\"Rock\", " +
+                "\"Sheriff\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Sauk County Sheriff's Department\", " +
+                "\"1300 Lange Ct, Baraboo, WI 53913\", " +
+                "\"(608) 356-4895\", " +
+                "\"Sauk\", " +
+                "\"Sheriff\");");
+
         //Hospitals
         db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Aurora Medical Center-Kenosha\", " +
                 "\"10400 75th Avenue, Kenosha 53142-8323\", " +
@@ -484,6 +496,48 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 "\"13111 N. Port Washington Road, Mequon 53097-2416\", " +
                 "\"(262)-243-7300\", " +
                 "\"Ozaukee\", " +
+                "\"Hospital\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Beloit Health System\", " +
+                "\"1969 West Hart Road, 53511\", " +
+                "\"(608)-364-5011\", " +
+                "\"Rock\", " +
+                "\"Hospital\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Edgerton Hospital and Health Services\", " +
+                "\"11101 N. Sherman Road, 53534\", " +
+                "\"(608)-884-3441\", " +
+                "\"Rock\", " +
+                "\"Hospital\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Mercy Hospital and Trauma Center\", " +
+                "\"1000 Mineral Point Ave., PO Box 5003, 53547-5003\", " +
+                "\"(608)-756-6000\", " +
+                "\"Rock\", " +
+                "\"Hospital\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"St. Mary's Janesville Hospital\", " +
+                "\"3400 E. Racine Street, 53546\", " +
+                "\"(2608) 373-8000\", " +
+                "\"Rock\", " +
+                "\"Hospital\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Sauk Prairie Prairie Healthcare\", " +
+                "\"80 First Street, 53578\", " +
+                "\"(608) 643-3311\", " +
+                "\"Sauk\", " +
+                "\"Hospital\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Reedsburg Area Medical Center\", " +
+                "\"2000 North Dewey Street, 53959\", " +
+                "\"(608) 524-6487\", " +
+                "\"Sauk\", " +
+                "\"Hospital\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"St. Clare Hospital \", " +
+                "\"707 Fourteenth Street, 53913\", " +
+                "\"(608) 356-1400\", " +
+                "\"Sauk\", " +
                 "\"Hospital\");");
 
         // Fire Departments
@@ -1133,6 +1187,143 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 "\"W239 N2242 Pewaukee Road, Waukesha, WI 53188\", " +
                 "\"(262) 691-5610\", " +
                 "\"Waukesha\", " +
+                "\"Fire\");");
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"City Of Beloit Fire Department\", " +
+                "\"1111 Church ST Beloit, WI 53511\", " +
+                "\" (608) 364-2900 \", " +
+                "\"Rock\", " +
+                "\"Fire\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Town of Beloit Fire Department\", " +
+                "\"2445 S Afton RD Beloit, WI 53511 \", " +
+                "\"(608) 364-2997 \", " +
+                "\"Rock\", " +
+                "\"Fire\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Turtle Fire Department\", " +
+                "\"5131 E Creek RD Beloit, WI 53511 \", " +
+                "\"(608) 856-0077\", " +
+                "\"Rock\", " +
+                "\"Fire\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Clinton Fire Protection District\", " +
+                "\"145 Ogden AVE Clinton, WI 53525 \", " +
+                "\"(608) 676-5550\", " +
+                "\"Rock\", " +
+                "\"Fire\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Edgerton Fire Protection District\", " +
+                "\"621 N Main ST Edgerton, WI 53534 \", " +
+                "\"(608) 884-3327\", " +
+                "\"Rock\", " +
+                "\"Fire\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Evansville Community Fire District\", " +
+                "\"10 W Church ST Evansville, WI 53536 \", " +
+                "\"(608) 882-9934\", " +
+                "\"Rock\", " +
+                "\"Fire\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Footville Community Fire Department\", " +
+                "\"252 N Gilbert ST Footville, WI 53537 \", " +
+                "\"(608) 876-6118 \", " +
+                "\"Rock\", " +
+                "\"Fire\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Janesville Fire Department\", " +
+                "\"303 Milton AVE Janesville, WI 53545 \", " +
+                "\"(608) 755-3050 \", " +
+                "\"Rock\", " +
+                "\"Fire\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Milton and Milton Township Fire Department\", " +
+                "\"614 W Madison AVE Milton, WI 53563 \", " +
+                "\"(608) 868-2842 \", " +
+                "\"Rock\", " +
+                "\"Fire\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Orfordville Fire Protection District\", " +
+                "\"173 N Wright ST Orfordville, WI 53576 \", " +
+                "\"(608) 879-2122 \", " +
+                "\"Rock\", " +
+                "\"Fire\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Baraboo Fire Department\", " +
+                "\"135 4TH ST Baraboo, WI 53913 \", " +
+                "\"(608) 355-2710 \", " +
+                "\"Sauk\", " +
+                "\"Fire\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Town Of Washington Volunteer Fire Department\", " +
+                "\"S6101 HWY 154 Hillpoint, WI 53937 \", " +
+                "\"(608) 727-2118 \", " +
+                "\"Sauk\", " +
+                "\"Fire\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Delton Fire Department\", " +
+                "\"10 Whitlock ST Lake Delton, WI 53940 \", " +
+                "\"(608) 254-8404 \", " +
+                "\"Sauk\", " +
+                "\"Fire\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"LaValle Fire Department\", " +
+                "\"101 W Main ST LaValle, WI 53941 \", " +
+                "\"(608) 985-7583 \", " +
+                "\"Sauk\", " +
+                "\"Fire\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Loganville Area Fire Department\", " +
+                "\"140 West ST Loganville, WI 53943 \", " +
+                "\"(608) 727-2741 \", " +
+                "\"Sauk\", " +
+                "\"Fire\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Merrimac Fire and Rescue\", " +
+                "\"110 Church ST Merrimac, WI 53561 \", " +
+                "\"(608) 493-2722\", " +
+                "\"Sauk\", " +
+                "\"Fire\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"North Freedom Volunteer Fire Department\", " +
+                "\"103 N MAPLE ST North Freedom, WI 53951 \", " +
+                "\"(608) 522-4570 \", " +
+                "\"Sauk\", " +
+                "\"Fire\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Plain Fire Department\", " +
+                "\"1045 Cedar ST Plain, WI 53577 \", " +
+                "\"(608) 546-2121\", " +
+                "\"Sauk\", " +
+                "\"Fire\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Prairie du Sac Volunteer Fire Department\", " +
+                "\"335 Galena ST Prairie du Sac, WI 53578 \", " +
+                "\"(608) 643-3116 \", " +
+                "\"Sauk\", " +
+                "\"Fire\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Reedsburg Fire Department\", " +
+                "\"131 S Park ST Reedsburg, WI 53959 \", " +
+                "\"(608) 524-3174 \", " +
+                "\"Sauk\", " +
+                "\"Fire\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Rock Springs Volunteer Fire Department\", " +
+                "\"105 E Broadway ST Rock Springs, WI 53961 \", " +
+                "\"(608) 522-5900 \", " +
+                "\"Sauk\", " +
+                "\"Fire\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Sauk City Fire Department\", " +
+                "\"505 Van Buren ST Sauk City, WI 53583 \", " +
+                "\"(608) 643-8282 \", " +
+                "\"Sauk\", " +
+                "\"Fire\");");
+
+        db.execSQL("INSERT INTO " + TABLE_RESOURCES + " VALUES (" + "\"Spring Green Fire Department\", " +
+                "\"327 S Winsted ST Spring Green, WI 53588 \", " +
+                "\"(608) 588-2030 \", " +
+                "\"Sauk\", " +
                 "\"Fire\");");
     }
 

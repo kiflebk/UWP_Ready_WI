@@ -60,14 +60,19 @@
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal|bottom"
         android:layout_alignParentBottom="true"
-        android:id="@+id/linearLayout">
+        android:id="@+id/linearLayout"
+        android:weightSum="1"
+        android:paddingTop="5dp">
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="911"
+            android:text="Dial 911 for Emergencies"
             android:id="@+id/callButton"
-            android:gravity="center_horizontal" />
+            android:gravity="center"
+            android:textSize="25dp"
+            android:background="#ffff594d"
+            android:textColor="#ffffffff" />
 
     </LinearLayout>
 
