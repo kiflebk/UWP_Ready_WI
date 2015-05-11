@@ -323,16 +323,31 @@ public class DamageReports extends ActionBarActivity {
 
             try {
 
-                if ((text9.getText() == null || text9.getText().equals("")) ||
-                        (name.getText() == null || name.getText().equals(""))
-                        || zip.getText() == null ||
-                        (zip.getText().length() > 5 || zip.getText().length() < 5)
-                        || (address.getText() == null || address.getText().equals("")) ||
-                        (city.getText() == null || city.getText().equals("")) ||
-                        (damageCost.getText() == null || damageCost.getText().equals(""))
-                        || (loss_percent.getText() == null || loss_percent.getText().equals(""))
-                        || (encodedString == null || encodedString.equals(""))) {
-                    Toast.makeText(getApplicationContext(), "Please fill out all fields and take a picture.", Toast.LENGTH_LONG).show();
+                //Block of if statements to check each field.
+                if ((text9.getText().toString() == null || text9.getText().toString().matches(""))){
+                    Toast.makeText(getApplicationContext(), "Please select a date of occurrence.", Toast.LENGTH_LONG).show();
+                }
+                else if ((name.getText().toString() == null || name.getText().toString().matches(""))){
+                    Toast.makeText(getApplicationContext(), "Please enter your name.", Toast.LENGTH_LONG).show();
+                }
+                else if (address.getText().toString() == null || address.getText().toString().matches("")){
+                    Toast.makeText(getApplicationContext(), "Please enter an address.", Toast.LENGTH_LONG).show();
+                }
+                else if (city.getText().toString() == null || city.getText().toString().matches("")){
+                    Toast.makeText(getApplicationContext(), "Please enter a city.", Toast.LENGTH_LONG).show();
+                }
+                else if (zip.getText() == null ||
+                        (zip.getText().length() > 5 || zip.getText().length() < 5)){
+                    Toast.makeText(getApplicationContext(), "Please enter a zip code.", Toast.LENGTH_LONG).show();
+                }
+                else if (damageCost.getText().toString() == null || damageCost.getText().toString().matches("")){
+                    Toast.makeText(getApplicationContext(), "Please estimate a damage cost.", Toast.LENGTH_LONG).show();
+                }
+                else if (loss_percent.getText().toString() == null || loss_percent.getText().toString().matches("")){
+                    Toast.makeText(getApplicationContext(), "Please estimate a loss percentage.", Toast.LENGTH_LONG).show();
+                }
+                else if (encodedString == null || encodedString.equals("")){
+                    Toast.makeText(getApplicationContext(), "Please take a picture.", Toast.LENGTH_LONG).show();
 
                 }
 
