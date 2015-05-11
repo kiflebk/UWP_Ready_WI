@@ -68,6 +68,7 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainmenu);
+        SharedPreferences settings = getSharedPreferences(SplashActivity.PREFS_NAME, 0);
 
         // Google Analytics
         // copy these two lines along with the onStart() and onStop() methods below
@@ -75,16 +76,16 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
         t.send(new HitBuilders.ScreenViewBuilder().build());
 
         // Code used to start pushbots and change to correct county account
-        Pushbots.sharedInstance().setAppId(CountyPicker.appID);
+        Pushbots.sharedInstance().setAppId(settings.getString("appID",""));
         Pushbots.sharedInstance().init(this);
+        Pushbots.sharedInstance().register();
 
         // RSS activity isn't called if device has no network connection
-        if ((savedInstanceState == null) && isOnline()) {
+        if (/*(savedInstanceState == null) &&*/ isOnline()) {
             addRssFragment();
         }
 
         // Loads in the county from the preferences
-        SharedPreferences settings = getSharedPreferences(SplashActivity.PREFS_NAME, 0);
         county = settings.getString("countyName", "");
 
         context = getApplicationContext();
@@ -198,7 +199,7 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
         // Inflate the menu; this adds items to the action bar if it is present.
 
         //TODO add options menu
-        // getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -210,8 +211,12 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_county) {
+            // TODO: Figure out a better place for unregister(). Currently will not re-register if the user backs out of CountyPicker without selecting
+            // Placing at top of onCreate or in CountyPicker itself will not work, as either unregister() or register() will run twice
+            Pushbots.sharedInstance().unRegister();
+            Intent intent = new Intent(MenuActivity.this, CountyPicker.class);
+            MenuActivity.this.startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

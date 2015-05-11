@@ -73,5 +73,6 @@
     <string name="title_activity_bedding">Bedding</string>
     <string name="title_activity_prep_web_view">Be Prepared</string>
     <string name="title_activity_info_display">InfoDisplay</string>
+    <string name="change_county">Change County</string>
 
 </resources>

@@ -196,6 +196,7 @@ public class CountyPicker extends Activity implements AdapterViewCompat.OnItemSe
         // saving the county in the preferences for all future uses
         SharedPreferences settings = getSharedPreferences(SplashActivity.PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
+        editor.putString("appID",appID);
         editor.putString("countyIdCode", countyIdCode);
         editor.putString("countyName", countyName);
 

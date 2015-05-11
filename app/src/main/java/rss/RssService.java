@@ -48,7 +48,8 @@ public class RssService extends IntentService {
     // string is appended with the county code based on user county selection
     // county codes can be found at https://alerts.weather.gov/cap/wi.php?x=3
     // TODO county codes will need to be added for all counties as app is expanded
-    private static final String RSS_LINK = "https://alerts.weather.gov/cap/wwaatmget.php?x=" + CountyPicker.countyIdCode;
+    private static String RSS_SUFFIX;
+    private static final String RSS_LINK = "https://alerts.weather.gov/cap/wwaatmget.php?x=";
 
 
     public RssService() {
@@ -58,12 +59,13 @@ public class RssService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        RSS_SUFFIX = CountyPicker.countyIdCode;
         Log.d(SyncStateContract.Constants.DATA, "Service started");
         List<RssItem> rssItems = null;
-        Log.d("RSS Link", RSS_LINK);
+        Log.d("RSS Link", RSS_LINK + RSS_SUFFIX);
         try {
             RssParser parser = new RssParser();
-            rssItems = parser.parse(getInputStream(RSS_LINK));
+            rssItems = parser.parse(getInputStream(RSS_LINK + RSS_SUFFIX));
         } catch (XmlPullParserException | IOException e) {
             Log.w(e.getMessage(), e);
         }
