@@ -111,6 +111,9 @@ public class DamageReports extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_damage_reports);
 
+        // Shows the Warning Dialog
+        createWarning();
+
         mDatabaseHelper = new ReportsDatabaseHelper(this);
 
         //Initialize variables on create of activity.
@@ -492,6 +495,12 @@ public class DamageReports extends ActionBarActivity {
             Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(cameraIntent, CAM_REQUEST);
         }
+    }
+
+    // method to create the AlertDialog
+    public void createWarning() {
+        DialogFragment mFragment = new WarningDialog();
+        mFragment.show(getFragmentManager(), "warning");
     }
 
 }
