@@ -83,7 +83,9 @@ public class DamageReports extends AppCompatActivity {
 
     private static final int CAM_REQUEST = 1313;
     private static final int GALLERY_REQUEST = 4117;
-    private final String[] picSources = new String[]{"Camera", "Gallery"};
+    //the limit for damage photos
+    private final int IMG_LIMIT = 3;
+    private final String[] PICSOURCES = new String[]{"Camera", "Gallery"};
     static LocationManager locationManager;
     static Location loc;
     static LocationListener locationListener;
@@ -203,30 +205,35 @@ public class DamageReports extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //TODO: clear imagecache
+        imgCache.clearCache();
     }
 
     //builds and shows a chooser for camera or gallery
     private void showPictureSources() {
-        MaterialDialog chooser = new MaterialDialog.Builder(DamageReports.this)
-                .title("Picture Source")
-                .items(picSources)
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        switch (which) {
-                            case 0:
-                                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                startActivityForResult(cameraIntent, CAM_REQUEST);
-                                break;
-                            case 1:
-                                Intent galleryIntent = new Intent(Intent.ACTION_PICK);
-                                galleryIntent.setType("image/*");
-                                startActivityForResult(galleryIntent, GALLERY_REQUEST);
+        if (imgCache.getImageCount() < IMG_LIMIT) {
+            MaterialDialog chooser = new MaterialDialog.Builder(DamageReports.this)
+                    .title("Picture Source")
+                    .items(PICSOURCES)
+                    .itemsCallback(new MaterialDialog.ListCallback() {
+                        @Override
+                        public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                            switch (which) {
+                                case 0:
+                                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                    startActivityForResult(cameraIntent, CAM_REQUEST);
+                                    break;
+                                case 1:
+                                    Intent galleryIntent = new Intent(Intent.ACTION_PICK);
+                                    galleryIntent.setType("image/*");
+                                    startActivityForResult(galleryIntent, GALLERY_REQUEST);
+                            }
                         }
-                    }
-                })
-                .show();
+                    })
+                    .show();
+        }
+        else {
+            Toast.makeText(this,"Maximum Images Added!",Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -255,17 +262,7 @@ public class DamageReports extends AppCompatActivity {
         //delete picture button to remove picture
         if (id == R.id.action_remove_pic) {
             item.setVisible(false);
-            Log.d("View", String.valueOf(viewClicked));
-            View imageToDelete = findViewById(viewClicked);
-            //break apart imgview id to get ll id
-            //ex: 9901 = imgview id & llid = 01
-            char[] charArray = String.valueOf(viewClicked).toCharArray();
-            charArray = Arrays.copyOfRange(charArray, 2, charArray.length);
-            String llId = String.valueOf(charArray);
-            LinearLayout ll = (LinearLayout)findViewById(Integer.valueOf(llId));
-            ll.removeView(imageToDelete);
-            imageGallery.removeView(ll);
-            //TODO: remove picture from cache
+            removePhoto();
         }
 
         return super.onOptionsItemSelected(item);
@@ -299,12 +296,27 @@ public class DamageReports extends AppCompatActivity {
         }
     }
 
-    //put photo in cache and on picture dialog
-    public void putPhoto(Bitmap bm) {
-        //put in dialog
+    //put photo in cache and in picture gallery
+    private void putPhoto(Bitmap bm) {
+        //put in gallery
         imageGallery.addView(myPhoto(bm));
         //cache image
         imgCache.addImage(bm);
+    }
+
+    //removes photo that is clicked...viewClicked int
+    private void removePhoto() {
+        Log.d("View", String.valueOf(viewClicked));
+        View imageToDelete = findViewById(viewClicked);
+        //break apart imgview id to get ll id
+        //ex: 9901 = imgview id & llid = 01
+        char[] charArray = String.valueOf(viewClicked).toCharArray();
+        charArray = Arrays.copyOfRange(charArray, 2, charArray.length);
+        String llId = String.valueOf(charArray);
+        LinearLayout ll = (LinearLayout) findViewById(Integer.valueOf(llId));
+        ll.removeView(imageToDelete);
+        imageGallery.removeView(ll);
+        imgCache.removeImage(llId);
     }
 
     //a custom image view to put in the gallery
@@ -605,5 +617,4 @@ public class DamageReports extends AppCompatActivity {
         DialogFragment mFragment = new WarningDialog();
         mFragment.show(getFragmentManager(), "warning");
     }
-
 }
