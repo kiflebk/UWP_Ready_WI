@@ -21,7 +21,7 @@
 package u.ready_wisc.BePrepared;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,7 +39,7 @@ import u.ready_wisc.myAdapter;
  * Each list item is clickable resulting in a pop up for that category.
  * From there you are able to select a specific List an see the items
  */
-public class Build_Kits extends ActionBarActivity {
+public class Build_Kits extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disaster_info_layout);

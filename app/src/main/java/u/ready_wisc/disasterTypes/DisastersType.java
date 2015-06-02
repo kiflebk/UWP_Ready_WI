@@ -22,14 +22,13 @@ package u.ready_wisc.disasterTypes;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import u.ready_wisc.R;
 import u.ready_wisc.myAdapter;
@@ -40,7 +39,7 @@ import u.ready_wisc.myAdapter;
  * This class takes a string array and calls myAdapter class to provide a layout of a listview with
  * icons next to each list item as well as enable each item to be clickable.
  */
-public class DisastersType extends ActionBarActivity {
+public class DisastersType extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disaster_info_layout);

@@ -3,7 +3,7 @@ package u.ready_wisc.disasterTypes;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +17,7 @@ import u.ready_wisc.R;
 
 //TODO Use this class to refactor DisasterTypes down to one class
 
-public class InfoDisplay extends ActionBarActivity {
+public class InfoDisplay extends AppCompatActivity {
 
     TextView t;
 

@@ -26,7 +26,7 @@
     <string name="rent">Rent</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="photoButton">Photograph Damage</string>
+    <string name="photoButton">Damage Photos</string>
     <string name="submit">Submit Report</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_checklist">Checklist</string>
@@ -77,5 +77,6 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="addpic">Add Picture</string>
 
 </resources>

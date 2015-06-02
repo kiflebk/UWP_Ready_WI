@@ -21,7 +21,7 @@
 package u.ready_wisc.disasterTypes;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,7 +34,7 @@ import u.ready_wisc.R;
  * Created by OZAN on 3/14/2015.
  * Displays info about Tornadoes
  */
-public class Tornado extends ActionBarActivity {
+public class Tornado extends AppCompatActivity {
     TextView t;
 
     protected void onCreate(Bundle savedInstanceState) {

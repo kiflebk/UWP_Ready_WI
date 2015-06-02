@@ -20,6 +20,8 @@
 
 package u.ready_wisc;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -30,9 +32,7 @@ import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -51,7 +51,7 @@ import u.ready_wisc.Emergency_Main.Emergency;
 import u.ready_wisc.disasterTypes.DisastersType;
 
 
-public class MenuActivity extends ActionBarActivity implements View.OnClickListener{
+public class MenuActivity extends AppCompatActivity implements View.OnClickListener{
     Button resourcesbutton, reportButton, checklistButton, disasterButton;
     ImageButton prepareMenuButton, emergMenuButton, sosMenuButton, flashlightButton;
     public static boolean isSosToneOn = false;
@@ -223,7 +223,7 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
     }
 
     private void addRssFragment() {
-        FragmentManager manager = getSupportFragmentManager();
+        FragmentManager manager = getFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         RssFragment fragment = new RssFragment();
         transaction.add(R.id.fragment_container, fragment);

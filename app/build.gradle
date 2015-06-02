@@ -21,8 +21,9 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'com.android.support:appcompat-v7:22.+'
     compile 'com.pushbots:pushbots-lib:2.0.13@aar'
-    compile 'com.android.support:support-v4:21.0.3'
     compile 'com.google.android.gms:play-services:7.3.0'
+    compile "com.android.support:support-v4:+"
+    compile 'com.afollestad:material-dialogs:0.7.4.2'
 }

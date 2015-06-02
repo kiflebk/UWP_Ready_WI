@@ -17,7 +17,8 @@ public class WarningDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Reminder")
                 .setMessage("This is not an official FEMA report. \n\nDo not forget to call in your" +
-                " report.");
+                " report.")
+                .setPositiveButton("OK",null);
 
         return builder.create();
     }

@@ -20,7 +20,7 @@
 package edu.parkside.cs.checklist;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -36,7 +36,7 @@ import u.ready_wisc.R;
  * @version 1.0v Build * March 18 2015
  * @email krawchukdavid@gmail.com
  */
-public class ChecklistItemListView extends ActionBarActivity {
+public class ChecklistItemListView extends AppCompatActivity {
 
     /* INSTANCE VARIABLE BLOCK BEGIN */
     public static final String EXTRA_MESSAGE = "edu.parkside.cs.checklist_item_listview";

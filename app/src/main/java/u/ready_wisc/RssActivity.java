@@ -23,7 +23,7 @@ package u.ready_wisc;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,8 +36,7 @@ import com.google.android.gms.analytics.Tracker;
 
 import rss.RssFragment;
 
-
-public class RssActivity extends ActionBarActivity {
+public class RssActivity extends AppCompatActivity {
 
     TextView textView;
     Button getDesc;

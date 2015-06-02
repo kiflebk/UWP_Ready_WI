@@ -27,7 +27,7 @@ import android.hardware.Camera;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,7 +52,7 @@ import u.ready_wisc.myAdapter;
  * <p/>
  * kjljl
  */
-public class Emergency extends ActionBarActivity {
+public class Emergency extends AppCompatActivity {
 
     //Set boolean flag when torch is turned on/off
     private boolean isFlashOn = false;

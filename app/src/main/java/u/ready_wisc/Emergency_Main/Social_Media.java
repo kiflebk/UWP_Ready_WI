@@ -24,7 +24,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,7 +37,7 @@ import u.ready_wisc.VolunteerDBHelper;
 /**
  * Holds social media item which will populate a listview
  */
-public class Social_Media extends ActionBarActivity {
+public class Social_Media extends AppCompatActivity {
 
     static VolunteerDBHelper vdbHelper;
     static Button facebookButt;

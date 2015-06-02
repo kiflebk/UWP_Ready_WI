@@ -22,10 +22,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -89,8 +86,6 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="showDatePickerDialog"
-
                 android:ems="10"
                 android:id="@+id/dateEdit"
                 android:inputType="none" />
@@ -373,17 +368,7 @@
                 android:ems="10"
                 android:id="@+id/damageEdit" />
 
-            <Button
-                android:id="@+id/camerabutton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/photoButton" />
-
-            <ImageView
-                android:id="@+id/imageview1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="centerCrop" />
+            <include layout="@layout/damage_pictures" />
 
             <Button
                 android:id="@+id/submitbutton"

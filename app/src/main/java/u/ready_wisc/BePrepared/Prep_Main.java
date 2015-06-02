@@ -23,7 +23,7 @@ package u.ready_wisc.BePrepared;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,7 +47,7 @@ import u.ready_wisc.myAdapter;
  * <p/>
  * hhljl
  */
-public class Prep_Main extends ActionBarActivity {
+public class Prep_Main extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disaster_info_layout);

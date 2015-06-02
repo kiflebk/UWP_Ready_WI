@@ -38,48 +38,58 @@ import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.ThumbnailUtils;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Calendar;
 
 import u.ready_wisc.Config;
 import u.ready_wisc.R;
 import u.ready_wisc.ReportsDatabaseHelper;
 
-public class DamageReports extends ActionBarActivity {
+public class DamageReports extends AppCompatActivity {
 
     private static final int CAM_REQUEST = 1313;
+    private static final int GALLERY_REQUEST = 4117;
+    private final String[] picSources = new String[]{"Camera", "Gallery"};
     static LocationManager locationManager;
     static Location loc;
     static LocationListener locationListener;
     static ReportsDatabaseHelper mDatabaseHelper;
     //Variable declare.
-    private static EditText text9;
-    Button btnTakePhoto;
-    ImageView imgTakenPhoto;
+    private static EditText dateEdit;
     Button btnSubmit;
     RadioButton fireButton;
     RadioButton floodBox;
@@ -103,8 +113,11 @@ public class DamageReports extends ActionBarActivity {
     EditText insurDeductAmt;
     int disasterType;
     int rentOrOwned;
-    Bitmap thumbnail;
     String encodedString;
+    LinearLayout imageGallery;
+    ImagesCache imgCache;
+    int viewClicked;
+    Menu mActionBarMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,9 +130,13 @@ public class DamageReports extends ActionBarActivity {
         mDatabaseHelper = new ReportsDatabaseHelper(this);
 
         //Initialize variables on create of activity.
-        btnTakePhoto = (Button) findViewById(R.id.camerabutton);
-        imgTakenPhoto = (ImageView) findViewById(R.id.imageview1);
-        text9 = (EditText) findViewById(R.id.dateEdit);
+        dateEdit = (EditText) findViewById(R.id.dateEdit);
+        dateEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
         btnSubmit = (Button) findViewById(R.id.submitbutton);
         fireButton = (RadioButton) findViewById(R.id.fireButton);
         floodBox = (RadioButton) findViewById(R.id.floodBox);
@@ -140,10 +157,13 @@ public class DamageReports extends ActionBarActivity {
         water_depth = (EditText) findViewById(R.id.yesWaterEdit);
         basement_resident = (RadioButton) findViewById(R.id.familyBoxYes);
         damage_desc = (EditText) findViewById(R.id.damageEdit);
-        btnTakePhoto.setOnClickListener(new btnTakenPhotoClicker());
         btnSubmit.setOnClickListener(new btnSubmit());
         insurDeductAmt = (EditText) findViewById(R.id.insurDeductAmt);
-
+        //image cache
+        imgCache = ImagesCache.getInstance();
+        imgCache.initializeCache();
+        imageGallery = (LinearLayout) findViewById(R.id.linearImage);
+        viewClicked = -1;
 
         //This line is used to hide keyboard on startup.
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -177,20 +197,43 @@ public class DamageReports extends ActionBarActivity {
 
             //Request location updates from the network (wifi or cell tower).
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-
-
         }
-
-
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //TODO: clear imagecache
+    }
+
+    //builds and shows a chooser for camera or gallery
+    private void showPictureSources() {
+        MaterialDialog chooser = new MaterialDialog.Builder(DamageReports.this)
+                .title("Picture Source")
+                .items(picSources)
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        switch (which) {
+                            case 0:
+                                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                startActivityForResult(cameraIntent, CAM_REQUEST);
+                                break;
+                            case 1:
+                                Intent galleryIntent = new Intent(Intent.ACTION_PICK);
+                                galleryIntent.setType("image/*");
+                                startActivityForResult(galleryIntent, GALLERY_REQUEST);
+                        }
+                    }
+                })
+                .show();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-
-        //TODO add options menu
-        // getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_damage_reports, menu);
+        mActionBarMenu = menu;
         return true;
     }
 
@@ -205,6 +248,25 @@ public class DamageReports extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+        //camera icon to add pictures to report
+        if (id == R.id.action_pictures) {
+            showPictureSources();
+        }
+        //delete picture button to remove picture
+        if (id == R.id.action_remove_pic) {
+            item.setVisible(false);
+            Log.d("View", String.valueOf(viewClicked));
+            View imageToDelete = findViewById(viewClicked);
+            //break apart imgview id to get ll id
+            //ex: 9901 = imgview id & llid = 01
+            char[] charArray = String.valueOf(viewClicked).toCharArray();
+            charArray = Arrays.copyOfRange(charArray, 2, charArray.length);
+            String llId = String.valueOf(charArray);
+            LinearLayout ll = (LinearLayout)findViewById(Integer.valueOf(llId));
+            ll.removeView(imageToDelete);
+            imageGallery.removeView(ll);
+            //TODO: remove picture from cache
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -212,22 +274,82 @@ public class DamageReports extends ActionBarActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Bitmap bm = null;
+        //check for null ... back pressed
+        if (data != null) {
+            //camera used
+            if (requestCode == CAM_REQUEST) {
+                bm = (Bitmap) data.getExtras().get("data");
 
-        if (requestCode == CAM_REQUEST) {
-            thumbnail = (Bitmap) data.getExtras().get("data");
-            imgTakenPhoto.setImageBitmap(thumbnail);
-            encodeImagetoString();
+            }
+            //gallery used
+            if (requestCode == GALLERY_REQUEST) {
+                try {
+                    final Uri imageUri = data.getData();
+                    final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                    bm = BitmapFactory.decodeStream(imageStream);
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if (bm != null) {
+            putPhoto(bm);
         }
     }
 
+    //put photo in cache and on picture dialog
+    public void putPhoto(Bitmap bm) {
+        //put in dialog
+        imageGallery.addView(myPhoto(bm));
+        //cache image
+        imgCache.addImage(bm);
+    }
+
+    //a custom image view to put in the gallery
+    View myPhoto(Bitmap bm) {
+        LinearLayout layout = new LinearLayout(getApplicationContext());
+        layout.setLayoutParams(new ViewGroup.LayoutParams(360, 360));
+        layout.setGravity(Gravity.CENTER);
+        layout.setId(imgCache.getImageCount());
+
+        Bitmap resized = ThumbnailUtils.extractThumbnail(bm, 350, 350);
+        ImageView imageView = new ImageView(getApplicationContext());
+        imageView.setLayoutParams(new ViewGroup.LayoutParams(350, 350));
+        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        imageView.setImageBitmap(resized);
+        //sets imgview id to "99 + the size of the imgcache"
+        //this allows callback to cache if the image is clicked
+        String imageId = "99" + String.valueOf(imgCache.getImageCount());
+        imageView.setId(Integer.valueOf(imageId));
+        //what happens when someone clicks a thumbnail
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (viewClicked == v.getId()) {
+                    v.setBackgroundResource(android.R.color.transparent);
+                    viewClicked = -1;
+                    mActionBarMenu.findItem(R.id.action_remove_pic).setVisible(false);
+                    return;
+                }
+                viewClicked = v.getId();
+                v.setBackgroundResource(R.drawable.clicked_damage_picture);
+                mActionBarMenu.findItem(R.id.action_remove_pic).setVisible(true);
+            }
+        });
+
+        layout.addView(imageView);
+        return layout;
+    }
+
     //Date picker method that will show the date picker.
-    public void showDatePickerDialog(View v) {
+    public void showDatePickerDialog() {
         InputMethodManager imm = (InputMethodManager) getSystemService( //hides keyboard since its not needed
                 Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(text9.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(dateEdit.getWindowToken(), 0);
         DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getFragmentManager(), "datepicker");
-
+        newFragment.show(getFragmentManager(), "datePicker");
     }
 
     protected void addUser(String name) {
@@ -268,8 +390,6 @@ public class DamageReports extends ActionBarActivity {
 
             }
 
-            ;
-
             @Override
             protected String doInBackground(Void... params) {
                 BitmapFactory.Options options = null;
@@ -277,7 +397,8 @@ public class DamageReports extends ActionBarActivity {
                 options.inSampleSize = 3;
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 // Must compress the Image to reduce image size to make upload easy
-                thumbnail.compress(Bitmap.CompressFormat.JPEG, 8, stream);  /// I changed this from PNG and 50
+                //TODO: get images from cache then encode images from cache to string for transmission
+                //thumbnail.compress(Bitmap.CompressFormat.JPEG, 8, stream);  /// I changed this from PNG and 50
                 byte[] byte_arr = stream.toByteArray();
                 // Encode Image to String
                 encodedString = Base64.encodeToString(byte_arr, 0);
@@ -311,7 +432,7 @@ public class DamageReports extends ActionBarActivity {
         //Method to set the text field for date to the user picked date.
         @Override
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            DamageReports.text9.setText(month + 1 + "/" + day + "/" + year);
+            DamageReports.dateEdit.setText(month + 1 + "/" + day + "/" + year);
         }
     }
 
@@ -327,29 +448,22 @@ public class DamageReports extends ActionBarActivity {
             try {
 
                 //Block of if statements to check each field.
-                if ((text9.getText().toString() == null || text9.getText().toString().matches(""))){
+                if ((dateEdit.getText().toString() == null || dateEdit.getText().toString().matches(""))) {
                     Toast.makeText(getApplicationContext(), "Please select a date of occurrence.", Toast.LENGTH_LONG).show();
-                }
-                else if ((name.getText().toString() == null || name.getText().toString().matches(""))){
+                } else if ((name.getText().toString() == null || name.getText().toString().matches(""))) {
                     Toast.makeText(getApplicationContext(), "Please enter your name.", Toast.LENGTH_LONG).show();
-                }
-                else if (address.getText().toString() == null || address.getText().toString().matches("")){
+                } else if (address.getText().toString() == null || address.getText().toString().matches("")) {
                     Toast.makeText(getApplicationContext(), "Please enter an address.", Toast.LENGTH_LONG).show();
-                }
-                else if (city.getText().toString() == null || city.getText().toString().matches("")){
+                } else if (city.getText().toString() == null || city.getText().toString().matches("")) {
                     Toast.makeText(getApplicationContext(), "Please enter a city.", Toast.LENGTH_LONG).show();
-                }
-                else if (zip.getText() == null ||
-                        (zip.getText().length() > 5 || zip.getText().length() < 5)){
+                } else if (zip.getText() == null ||
+                        (zip.getText().length() > 5 || zip.getText().length() < 5)) {
                     Toast.makeText(getApplicationContext(), "Please enter a zip code.", Toast.LENGTH_LONG).show();
-                }
-                else if (damageCost.getText().toString() == null || damageCost.getText().toString().matches("")){
+                } else if (damageCost.getText().toString() == null || damageCost.getText().toString().matches("")) {
                     Toast.makeText(getApplicationContext(), "Please estimate a damage cost.", Toast.LENGTH_LONG).show();
-                }
-                else if (loss_percent.getText().toString() == null || loss_percent.getText().toString().matches("")){
+                } else if (loss_percent.getText().toString() == null || loss_percent.getText().toString().matches("")) {
                     Toast.makeText(getApplicationContext(), "Please estimate a loss percentage.", Toast.LENGTH_LONG).show();
-                }
-                else if (encodedString == null || encodedString.equals("")){
+                } else if (encodedString == null || encodedString.equals("")) {
                     Toast.makeText(getApplicationContext(), "Please take a picture.", Toast.LENGTH_LONG).show();
 
                 }
@@ -433,7 +547,7 @@ public class DamageReports extends ActionBarActivity {
                 // TODO the space replace may need to be changed once HTTP POST is implemented
                 obj.put("deviceid", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
                 obj.put("type_of_occurrence", (disasterType + "").replace(" ", "%20"));
-                obj.put("date", String.valueOf(text9.getText()).replace(" ", "%20"));
+                obj.put("date", String.valueOf(dateEdit.getText()).replace(" ", "%20"));
                 obj.put("name", name.getText().toString().replace(" ", "%20"));
                 obj.put("address", address.getText().toString().replace(" ", "%20"));
                 obj.put("city", city.getText().toString().replace(" ", "%20"));
@@ -483,17 +597,6 @@ public class DamageReports extends ActionBarActivity {
             } else
                 Toast.makeText(getApplicationContext(), "Report Not Sent", Toast.LENGTH_LONG).show();
 
-        }
-    }
-
-    /*Class for button click of the "take photo" button.*/
-    class btnTakenPhotoClicker implements Button.OnClickListener {
-
-        //What to do on click.
-        @Override
-        public void onClick(View v) {
-            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(cameraIntent, CAM_REQUEST);
         }
     }
 
