@@ -29,56 +29,65 @@ public class InfoDisplay extends AppCompatActivity {
         t = (TextView) findViewById(R.id.infoTextView);
         Intent i = getIntent();
         String infoType = i.getStringExtra("infoType");
-        String infoLink = null;
+        String infoLink = "";
         Button factSheetButton = (Button) findViewById(R.id.factSheetButton);
 
         switch (infoType) {
             case "bomb":
                 t.setText(Html.fromHtml(Config.BOMB_THREAT));
                 infoLink = Config.BOMB_LINK;
+                setTitle("Bomb Threats");
                 break;
             case "heat":
                 t.setText(Html.fromHtml(Config.HEAT));
                 infoLink = Config.HEAT_LINK;
+                setTitle("Extreme Heat");
                 break;
             case "fire":
                 t.setText(Html.fromHtml(Config.FIRE));
                 infoLink = Config.FIRE_lINK;
+                setTitle("Fire/Wildfire");
                 break;
             case "flood":
                 t.setText(Html.fromHtml(Config.FLOOD));
                 infoLink = Config.FLOOD_LINK;
+                setTitle("Flood");
                 break;
             case "power":
                 t.setText(Html.fromHtml(Config.POWER_OUT));
+                setTitle("Power Outage");
                 break;
             case "public":
                 t.setText(Html.fromHtml(Config.PHE));
+                setTitle("Public Health Emergency");
                 break;
             case "terror":
                 t.setText(Html.fromHtml(Config.TERRORISM));
+                setTitle("Terrorism");
                 break;
             case "thunder":
                 t.setText(Html.fromHtml(Config.THUNDER_STORM));
                 infoLink = Config.THUNDER_LINK;
+                setTitle("Thunderstorms");
                 break;
             case "tornado":
                 t.setText(Html.fromHtml(Config.TORNADO_INFO));
+                setTitle("Tornado");
                 break;
             case "winter":
                 t.setText(Html.fromHtml(Config.WINTER_STORM));
                 infoLink = Config.WINTER_LINK;
+                setTitle("Winter Storm");
                 break;
             default:
                 break;
         }
 
-        final String finalInfoLink = infoLink;
-
-        if (finalInfoLink.equals(null)) {
+        if (infoLink.isEmpty()) {
             factSheetButton.setVisibility(View.INVISIBLE);
         }
 
+        final String finalInfoLink = infoLink;
         factSheetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

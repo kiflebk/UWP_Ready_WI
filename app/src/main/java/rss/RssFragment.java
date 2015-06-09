@@ -34,8 +34,11 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import u.ready_wisc.MenuActivity;
+import u.ready_wisc.PushbotsHandler;
 import u.ready_wisc.R;
 import u.ready_wisc.RssActivity;
 
@@ -49,6 +52,8 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
     public static String weatherLink;
     private ProgressBar progressBar;
     private ListView listView;
+    public static ArrayList<RssItem> pushItems = new ArrayList<>();
+    public static boolean notificationReceived = false;
     // Once the {@link RssService} finishes its task, the result is sent to this
     // ResultReceiver.
     private final ResultReceiver resultReceiver = new ResultReceiver(new Handler()) {
@@ -57,11 +62,16 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
         protected void onReceiveResult(int resultCode, Bundle resultData) {
             progressBar.setVisibility(View.GONE);
             List<RssItem> items = (List<RssItem>) resultData.getSerializable(RssService.ITEMS);
+            if (notificationReceived) {
+                items.addAll(pushItems);
+                notificationReceived = false;
+                pushItems.clear();
+            }
             if (items != null) {
                 RssAdapter adapter = new RssAdapter(getActivity(), items);
                 listView.setAdapter(adapter);
             } else {
-                Toast.makeText(getActivity(), "An error occurred while downloading the rss feed.",
+                Toast.makeText(getActivity(), "An error occurred while downloading the RSS feed.",
                         Toast.LENGTH_LONG).show();
             }
             listView.setVisibility(View.VISIBLE);

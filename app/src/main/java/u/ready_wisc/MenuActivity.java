@@ -45,7 +45,10 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.pushbots.push.Pushbots;
 
+import java.util.ArrayList;
+
 import rss.RssFragment;
+import rss.RssItem;
 import u.ready_wisc.BePrepared.Prep_Main;
 import u.ready_wisc.Emergency_Main.Emergency;
 import u.ready_wisc.disasterTypes.DisastersType;
@@ -69,6 +72,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainmenu);
         SharedPreferences settings = getSharedPreferences(SplashActivity.PREFS_NAME, 0);
+        // Loads in the county from the preferences
+        county = settings.getString("countyName", "");
+        setTitle(settings.getString(county + " County", ""));
 
         // Google Analytics
         // copy these two lines along with the onStart() and onStop() methods below
@@ -79,14 +85,12 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         Pushbots.sharedInstance().setAppId(settings.getString("appID",""));
         Pushbots.sharedInstance().init(this);
         Pushbots.sharedInstance().register();
+        Pushbots.sharedInstance().setCustomHandler(PushbotsHandler.class);
 
         // RSS activity isn't called if device has no network connection
         if (/*(savedInstanceState == null) &&*/ isOnline()) {
             addRssFragment();
         }
-
-        // Loads in the county from the preferences
-        county = settings.getString("countyName", "");
 
         context = getApplicationContext();
 

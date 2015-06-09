@@ -57,49 +57,59 @@ public class DisastersType extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String x = String.valueOf(parent.getItemAtPosition(position));
-                String disasterPicked = "You selected " + x;
-                //Toast.makeText(DisastersType.this, disasterPicked, Toast.LENGTH_SHORT).show();
 
-                if (x.equals("Tornado")) {
-                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    Intent i = new Intent(DisastersType.this, Tornado.class);
-                    DisastersType.this.startActivity(i);
-                } else if (x.equals("Winter Storm")) {
-                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    Intent i = new Intent(DisastersType.this, WinterStorm.class);
-                    DisastersType.this.startActivity(i);
-                } else if (x.equals("Flood")) {
-                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    Intent i = new Intent(DisastersType.this, Flood.class);
-                    DisastersType.this.startActivity(i);
-                } else if (x.equals("Fire/Wildfire")) {
-                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    Intent i = new Intent(DisastersType.this, Fire.class);
-                    DisastersType.this.startActivity(i);
-                } else if (x.equals("Power Outage")) {
-                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    Intent i = new Intent(DisastersType.this, PowerOutage.class);
-                    DisastersType.this.startActivity(i);
-                } else if (x.equals("Public Health Emergency")) {
-                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    Intent i = new Intent(DisastersType.this, PublicHealthEmergency.class);
-                    DisastersType.this.startActivity(i);
-                } else if (x.equals("Bomb Threats")) {
-                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    Intent i = new Intent(DisastersType.this, BombThreat.class);
-                    DisastersType.this.startActivity(i);
-                } else if (x.equals("Terrorism")) {
-                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    Intent i = new Intent(DisastersType.this, Terrorism.class);
-                    DisastersType.this.startActivity(i);
-                } else if (x.equals("Thunderstorms")) {
-                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    Intent i = new Intent(DisastersType.this, ThunderStorm.class);
-                    DisastersType.this.startActivity(i);
-                } else if (x.equals("Extreme Heat")) {
-                    //I hope this works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    Intent i = new Intent(DisastersType.this, ExtremeHeat.class);
-                    DisastersType.this.startActivity(i);
+                Intent i = new Intent(DisastersType.this, InfoDisplay.class);
+                switch (x) {
+                    case "Tornado": {
+                        i.putExtra("infoType", "tornado");
+                        startActivity(i);
+                        break;
+                    }
+                    case "Winter Storm": {
+                        i.putExtra("infoType", "winter");
+                        startActivity(i);
+                        break;
+                    }
+                    case "Flood": {
+                        i.putExtra("infoType", "flood");
+                        startActivity(i);
+                        break;
+                    }
+                    case "Fire/Wildfire": {
+                        i.putExtra("infoType", "fire");
+                        startActivity(i);
+                        break;
+                    }
+                    case "Power Outage": {
+                        i.putExtra("infoType", "power");
+                        startActivity(i);
+                        break;
+                    }
+                    case "Public Health Emergency": {
+                        i.putExtra("infoType", "public");
+                        startActivity(i);
+                        break;
+                    }
+                    case "Bomb Threats": {
+                        i.putExtra("infoType", "bomb");
+                        startActivity(i);
+                        break;
+                    }
+                    case "Terrorism": {
+                        i.putExtra("infoType", "terror");
+                        startActivity(i);
+                        break;
+                    }
+                    case "Thunderstorms": {
+                        i.putExtra("infoType", "thunder");
+                        startActivity(i);
+                        break;
+                    }
+                    case "Extreme Heat": {
+                        i.putExtra("infoType", "heat");
+                        startActivity(i);
+                        break;
+                    }
                 }
 
 

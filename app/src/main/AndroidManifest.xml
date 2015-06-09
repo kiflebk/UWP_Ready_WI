@@ -15,8 +15,6 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
 
-
-
     <permission
         android:name="u.ready_wisc.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
@@ -43,7 +41,7 @@
 
     <!-- Above are all permissions for the app -->
     <application
-        android:name="u.ready_wisc.AnalyticsApp"
+        android:name=".AnalyticsApp"
         android:allowBackup="true"
         android:icon="@drawable/alt_wi"
         android:label="@string/app_name"
@@ -92,105 +90,6 @@
                 android:value=".MenuActivity" />
         </activity>
 
-        <!-- This activity is for Tornadoes when user selects tornado -->
-        <activity
-            android:name=".disasterTypes.Tornado"
-            android:label="Tornadoes"
-            android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".disasterTypes.DisastersType" />
-        </activity>
-
-        <!-- This activity is for Winter Storms when user selects -->
-        <activity
-            android:name=".disasterTypes.WinterStorm"
-            android:label="Winter Storms"
-            android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".disasterTypes.DisastersType" />
-        </activity>
-
-        <!-- This activity is for Terrorism when user selects -->
-        <activity
-            android:name=".disasterTypes.Terrorism"
-            android:label="Terrorism"
-            android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".disasterTypes.DisastersType" />
-        </activity>
-
-        <!-- This activity is for Pendemic when user selects -->
-        <activity
-            android:name=".disasterTypes.PublicHealthEmergency"
-            android:label="Public Health Emergency"
-            android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".disasterTypes.DisastersType" />
-        </activity>
-
-        <!-- This activity is for Power Loss when user selects -->
-        <activity
-            android:name=".disasterTypes.PowerOutage"
-            android:label="Power Outage"
-            android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".disasterTypes.DisastersType" />
-        </activity>
-
-        <!-- This activity is for Floods when user selects -->
-        <activity
-            android:name=".disasterTypes.Flood"
-            android:label="Flood"
-            android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".disasterTypes.DisastersType" />
-        </activity>
-
-        <!-- This activity is for Fire/WildFIre when user selects -->
-        <activity
-            android:name=".disasterTypes.Fire"
-            android:label="Fire/Wild Fire"
-            android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".disasterTypes.DisastersType" />
-        </activity>
-
-        <!-- This activity is for Thunder storms when user selects -->
-        <activity
-            android:name=".disasterTypes.ThunderStorm"
-            android:label="Thunder Storms"
-            android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".disasterTypes.DisastersType" />
-        </activity>
-
-        <!-- This activity is for Extreme Heat when user selects -->
-        <activity
-            android:name=".disasterTypes.ExtremeHeat"
-            android:label="Extreme Heat"
-            android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".disasterTypes.DisastersType" />
-        </activity>
-
-        <!-- This activity is for Bomb Threat when user selects -->
-        <activity
-            android:name=".disasterTypes.BombThreat"
-            android:label="Bomb Threats"
-            android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".disasterTypes.DisastersType" />
-        </activity>
         <activity
             android:name=".Emergency_Main.Emergency"
             android:label="Emergency"
@@ -237,7 +136,7 @@
             android:name=".RssActivity"
             android:label="@string/title_activity_rss"
             android:parentActivityName=".MenuActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="u.ready_wisc.MenuActivity" />
@@ -249,7 +148,7 @@
             android:name=".BePrepared.Prep_Main"
             android:label="Prepare Now"
             android:parentActivityName=".MenuActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
@@ -258,7 +157,7 @@
             android:name=".BePrepared.Build_Kits"
             android:label="Prepare Now Rather Than Later"
             android:parentActivityName=".BePrepared.Prep_Main"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BePrepared.Prep_Main" />
@@ -267,7 +166,7 @@
             android:name=".BePrepared.Plan"
             android:label="Prepare Now Rather Than Later"
             android:parentActivityName=".BePrepared.Prep_Main"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BePrepared.Prep_Main" />
@@ -343,7 +242,7 @@
                 <category android:name="u.ready_wisc" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.pushbots.push.DefaultPushHandler" />
+        <receiver android:name=".PushbotsHandler" />
 
         <service android:name="com.pushbots.push.GCMIntentService" />
         <service
@@ -359,27 +258,30 @@
             android:name=".Emergency_Main.Shelters"
             android:label="Shelters"
             android:parentActivityName=".Emergency_Main.Emergency"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".Emergency_Main.Volunteer"
             android:label="Volunteer"
             android:parentActivityName=".Emergency_Main.Emergency"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".Emergency_Main.Social_Media"
             android:label="Social Media"
             android:parentActivityName=".Emergency_Main.Emergency"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".disasterTypes.InfoDisplay"
             android:label="@string/title_activity_info_display"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
-        <meta-data android:name="com.google.android.gms.version"
+
+        <meta-data
+            android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
 
     </application>
 
