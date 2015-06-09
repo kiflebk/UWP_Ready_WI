@@ -27,6 +27,7 @@ import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.provider.SyncStateContract;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -36,20 +37,18 @@ import java.io.Serializable;
 import java.net.URL;
 import java.util.List;
 
-import u.ready_wisc.CountyPicker;
-
+import u.ready_wisc.Config;
+import u.ready_wisc.County;
 
 //RSS service reads the RSS feed and sends the data to be parsed
-
 public class RssService extends IntentService {
 
     public static final String ITEMS = "items";
     public static final String RECEIVER = "receiver";
-    // string is appended with the county code based on user county selection
-    // county codes can be found at https://alerts.weather.gov/cap/wi.php?x=3
-    // TODO county codes will need to be added for all counties as app is expanded
     private static String RSS_SUFFIX;
     private static final String RSS_LINK = "https://alerts.weather.gov/cap/wwaatmget.php?x=";
+    private String countyName;
+    private Intent intent;
 
 
     public RssService() {
@@ -59,12 +58,25 @@ public class RssService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        RSS_SUFFIX = CountyPicker.countyIdCode;
-        Log.d(SyncStateContract.Constants.DATA, "Service started");
+        countyName = intent.getStringExtra("county");
+        County primaryCounty = Config.COUNTIES.get(countyName);
+        if (primaryCounty != null) {
+            RSS_SUFFIX = primaryCounty.getCode();
+            Log.d(SyncStateContract.Constants.DATA, "Service started");
+            this.intent = intent;
+            startRss();
+        }
+        else {
+            Toast.makeText(this,"County Error",Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void startRss() {
         List<RssItem> rssItems = null;
         Log.d("RSS Link", RSS_LINK + RSS_SUFFIX);
         try {
-            RssParser parser = new RssParser();
+            RssParser parser = new RssParser(countyName);
             rssItems = parser.parse(getInputStream(RSS_LINK + RSS_SUFFIX));
         } catch (XmlPullParserException | IOException e) {
             Log.w(e.getMessage(), e);
@@ -85,5 +97,4 @@ public class RssService extends IntentService {
             return null;
         }
     }
-
 }

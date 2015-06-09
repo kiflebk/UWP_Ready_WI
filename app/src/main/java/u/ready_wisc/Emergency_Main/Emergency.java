@@ -22,6 +22,7 @@ package u.ready_wisc.Emergency_Main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.media.AudioManager;
@@ -42,7 +43,6 @@ import com.google.android.gms.analytics.Tracker;
 
 import u.ready_wisc.AnalyticsApp;
 import u.ready_wisc.Config;
-import u.ready_wisc.CountyPicker;
 import u.ready_wisc.MenuActivity;
 import u.ready_wisc.R;
 import u.ready_wisc.myAdapter;
@@ -58,6 +58,7 @@ public class Emergency extends AppCompatActivity {
     private boolean isFlashOn = false;
     //Create camera object to access flashlight
     private Camera camera = null;
+    private String countyName;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +74,9 @@ public class Emergency extends AppCompatActivity {
         final ListAdapter disasterAdapt = new myAdapter(this, disasterList);
 
         final ListView theListView = (ListView) findViewById(R.id.disasterListView);
+
+        SharedPreferences settings = getSharedPreferences("MyPrefsFile", 0);
+        countyName = settings.getString("county","");
 
         theListView.setAdapter(disasterAdapt);
 
@@ -92,7 +96,7 @@ public class Emergency extends AppCompatActivity {
 
                 if (x.equals("Emergency Map")) {
                     //Calls emergency map
-                    Uri uri = Uri.parse(Config.EMERGENCY_MAP_URL + CountyPicker.countyName + "+wi");
+                    Uri uri = Uri.parse(Config.EMERGENCY_MAP_URL + countyName + "+wi");
                     Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                     startActivity(intent);
                 }

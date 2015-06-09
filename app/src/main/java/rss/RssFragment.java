@@ -20,25 +20,26 @@
 
 package rss;
 
-
-import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import u.ready_wisc.MenuActivity;
-import u.ready_wisc.PushbotsHandler;
 import u.ready_wisc.R;
 import u.ready_wisc.RssActivity;
 
@@ -52,6 +53,10 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
     public static String weatherLink;
     private ProgressBar progressBar;
     private ListView listView;
+    private TextView textView;
+    private String county;
+    private Intent service;
+
     public static ArrayList<RssItem> pushItems = new ArrayList<>();
     public static boolean notificationReceived = false;
     // Once the {@link RssService} finishes its task, the result is sent to this
@@ -71,18 +76,32 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
                 RssAdapter adapter = new RssAdapter(getActivity(), items);
                 listView.setAdapter(adapter);
             } else {
-                Toast.makeText(getActivity(), "An error occurred while downloading the RSS feed.",
+                Toast.makeText(getActivity(), "An error occurred while downloading the rss feed.",
                         Toast.LENGTH_LONG).show();
             }
             listView.setVisibility(View.VISIBLE);
         }
     };
     private View view;
-
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //stop service for this county when fragment destroys
+        if (service != null) {
+            getActivity().stopService(service);
+        }
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
+
     }
 
     @Override
@@ -94,6 +113,8 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
             view = inflater.inflate(R.layout.fragment_layout, container, false);
             progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
             listView = (ListView) view.findViewById(R.id.listView);
+            textView = (TextView) view.findViewById(R.id.awText);
+            textView.setText("Alerts and Warnings for\n" + county + " County");
             listView.setOnItemClickListener(this);
             startService();
         }
@@ -109,10 +130,11 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
     }
 
     // RSS service is started
-    private void startService() {
-        Intent intent = new Intent(getActivity(), RssService.class);
-        intent.putExtra(RssService.RECEIVER, resultReceiver);
-        getActivity().startService(intent);
+    public void startService() {
+        service = new Intent(getActivity(), RssService.class);
+        service.putExtra(RssService.RECEIVER, resultReceiver);
+        service.putExtra("county", county);
+        getActivity().startService(service);
     }
 
     @Override
@@ -126,5 +148,13 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
 
         Intent intent = new Intent(getActivity(), RssActivity.class);
         startActivity(intent);
+    }
+
+    // returns true or false based on if device has an internet connection.
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 }

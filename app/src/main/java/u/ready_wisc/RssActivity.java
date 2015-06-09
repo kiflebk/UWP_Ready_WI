@@ -17,7 +17,6 @@
 *
 */
 
-
 package u.ready_wisc;
 
 import android.content.Intent;
@@ -52,7 +51,6 @@ public class RssActivity extends AppCompatActivity {
         Tracker t = ((AnalyticsApp) getApplication()).getTracker(AnalyticsApp.TrackerName.APP_TRACKER);
         t.send(new HitBuilders.ScreenViewBuilder().build());
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getDesc = (Button) findViewById(R.id.getDesc);
         //Intent intent = getIntent();

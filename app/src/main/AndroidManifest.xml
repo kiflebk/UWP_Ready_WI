@@ -61,12 +61,6 @@
             </intent-filter>
         </activity>
 
-        <!-- This mini activity pops up on splash screen to allow user to choose county -->
-        <activity
-            android:name=".CountyPicker"
-            android:label="@string/title_activity_county_picker"
-            android:theme="@android:style/Theme.Holo.Dialog" />
-
         <!-- This is are REAL MAIN ACTIVITY EVERYONE -->
         <activity
             android:name=".MenuActivity"

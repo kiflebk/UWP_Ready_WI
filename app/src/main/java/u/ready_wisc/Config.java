@@ -17,24 +17,25 @@
 *
 */
 
-
 package u.ready_wisc;
-
 
 //Config file to handle data for rest of app
 
+import java.util.HashMap;
+
 public class Config {
+
     private Config() {
         throw new AssertionError();
     }
 
-    //      TODO URLs are for dev server, must be changed to new address if dev server is being used.
-//      public static final String DAMAGE_REPORT_URL = "http://www.joshuaolufs.com/php/query_damageReports_insert.php?";
+    //        TODO URLs are for dev server, must be changed to new address if dev server is being used.
+//   public static final String DAMAGE_REPORT_URL = "http://www.joshuaolufs.com/php/query_damageReports_insert.php?";
 //
-//      public static final String DB_UPDATE_URL = "http://www.joshuaolufs.com/php/query_Contacts_select.php?x=";
+//    public static final String DB_UPDATE_URL = "http://www.joshuaolufs.com/php/query_Contacts_select.php?x=";
 //
-//      public static final String SHELTER_UPDATE_URL = "http://www.joshuaolufs.com/php/query_Shelters_select.php?x=";
-//      URL to the production server
+//    public static final String SHELTER_UPDATE_URL = "http://www.joshuaolufs.com/php/query_Shelters_select.php?x=";
+    // URL to the production server
     public static final String DAMAGE_REPORT_URL = "http://www.eagleweather.com/readyBadger//php/query_damageReports_insert.php?";
     public static final String DB_UPDATE_URL = "http://www.eagleweather.com/readyBadger//php/query_Contacts_select.php?x=";
     public static final String SHELTER_UPDATE_URL = "http://www.eagleweather.com/readyBadger//php/query_Shelters_select.php?x=";
@@ -46,17 +47,26 @@ public class Config {
     // URLs portions for the county RSS feeds
     // Additional codes can be found at https://alerts.weather.gov/cap/wi.php?x=3
     // TODO as app is expanded all counties will need to be added
-    public static final String RSS_KENOSHA = "WIC059&y=0";
-    public static final String RSS_RACINE = "WIC101&y=0";
-    public static final String RSS_MILWAUKEE = "WIC079&y=0";
-    public static final String RSS_ROCK = "WIC105&y=0";
-    public static final String RSS_DANE = "WIC025&y=0";
-    public static final String RSS_SAUK = "WIC111&y=0";
-    public static final String RSS_OZAUKEE = "WIC089&y=0";
-    public static final String RSS_WASHINGTON = "WIC131&y=0";
-    public static final String RSS_JEFFERSON = "WIC055&y=0";
-    public static final String RSS_WALWORTH = "WIC127&y=0";
-    public static final String RSS_WAUKESHA = "WIC133&y=0";
+    //All County information
+    public static final HashMap<String, County> COUNTIES = new HashMap<>();
+
+    static {
+        COUNTIES.put("Kenosha", new County("Kenosha", "WIC059&y=0", "553fe6fd177959ac0e8b457f"));
+        COUNTIES.put("Racine", new County("Racine", "WIC101&y=0", "553fea39177959ac0e8b4581"));
+        COUNTIES.put("Milwaukee", new County("Milwaukee", "WIC079&y=0", "553fed2c17795996028b4584"));
+        COUNTIES.put("Rock", new County("Rock", "WIC105&y=0", "553ff3bb1779597b408b4569"));
+        COUNTIES.put("Dane", new County("Dane", "WIC025&y=0", "553feb2717795996028b457e"));
+        COUNTIES.put("Sauk", new County("Sauk", "WIC111&y=0", "553ff53617795912158b457a"));
+        COUNTIES.put("Ozaukee", new County("Ozaukee", "WIC089&y=0", "553ff12617795996028b4585"));
+        COUNTIES.put("Washington", new County("Washington", "WIC131&y=0", "553ff97e1779597b408b4574"));
+        COUNTIES.put("Jefferson", new County("Jefferson", "WIC055&y=0", "553fec3217795996028b4580"));
+        COUNTIES.put("Walworth", new County("Walworth", "WIC127&y=0", "553ff6e91779597b408b4572"));
+        COUNTIES.put("Waukesha", new County("Waukesha", "WIC133&y=0", "553ffa3f17795912158b4584"));
+
+    }
+
+    public static County countyPrim;
+
 
     //Disaster Type Links for more INFO
     public static final String BOMB_LINK = "http://emilms.fema.gov/is906/assets/ocso-bomb_threat_samepage-brochure.pdf";
@@ -922,7 +932,7 @@ public class Config {
 
     public static final String SANITATION_SUPP;
 
-    static{
+    static {
         SANITATION_SUPP = ("<body><div id=\"tcontent16\" class=\"tabcontentsub\">\n" +
                 "<h3>Sanitation Supplies</h3>\n" +
                 "\n" +
@@ -942,7 +952,7 @@ public class Config {
 
     public static final String ESSENTIALS;
 
-    static{
+    static {
         ESSENTIALS = ("<div id=\"tcontent11\" class=\"tabcontentsub\">\n" +
                 "\t\t\t\t"
 
@@ -1180,7 +1190,7 @@ public class Config {
 
     public static final String WATER;
 
-    static{
+    static {
         WATER = ("<div id=\"tcontent12\" class=\"tabcontentsub\">\n" +
                 "\t\t\t\t"
 
@@ -1211,7 +1221,6 @@ public class Config {
 
                 + "Choose two-liter plastic soft drink bottles &#150; not plastic jugs or cardboard containers that have had milk or fruit\n" +
                 "juice in them. <br /><br />\n" +
-
 
 
                 "\t\t\t\t"
@@ -1265,7 +1274,7 @@ public class Config {
 
     public static final String FOOD;
 
-    static{
+    static {
         FOOD = ("<div id=\"tcontent13\" class=\"tabcontentsub\">\n" +
                 "\t\t\t\t"
 
@@ -1314,7 +1323,7 @@ public class Config {
 
     public static final String FIRSTAID;
 
-    static{
+    static {
         FIRSTAID = ("<div id=\"tcontent14\" class=\"tabcontentsub\">\n" +
                 "\t\t\t\t"
 
@@ -1393,7 +1402,7 @@ public class Config {
 
     public static final String BEDDING;
 
-    static{
+    static {
         BEDDING = ("<div id=\"tcontent15\" class=\"tabcontentsub\">\n" +
                 "\t\t\t\t"
 

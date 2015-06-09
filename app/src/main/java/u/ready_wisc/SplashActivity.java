@@ -37,15 +37,14 @@ import android.widget.Toast;
 
 import u.ready_wisc.Emergency_Main.PutData;
 
-
 public class SplashActivity extends AppCompatActivity {
 
+    public static final String PREFS_NAME = "MyPrefsFile";
+    public static String county = "";
     static ReportsDatabaseHelper mDatabaseHelper;
     static VolunteerDBHelper vDBHelper;
     static MyDatabaseHelper rDBHelper;
     boolean splashClose = false;
-    public static final String PREFS_NAME = "MyPrefsFile";
-    public static String county = "";
 
     public static void dbUpdate() {
         vDBHelper.onUpgrade(vDBHelper.getReadableDatabase(), 0, 0);
@@ -152,23 +151,28 @@ public class SplashActivity extends AppCompatActivity {
 
         // Loads in the county from the preferences
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        county = settings.getString("countyName", "");
-        CountyPicker.countyName = settings.getString("countyName", "");
-        CountyPicker.countyIdCode = settings.getString("countyIdCode", "");
+        county = settings.getString("county", "");
+        if (!county.isEmpty())
+            //set global primary county
+            Config.countyPrim = Config.COUNTIES.get(county);
 
         int time = 4000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
-                if (!(county.isEmpty())) {
+                if (!county.isEmpty()) {
                     Intent intent = new Intent(SplashActivity.this, MenuActivity.class);
                     SplashActivity.this.startActivity(intent);
                 } else {
-                    Intent intent = new Intent(SplashActivity.this, CountyPicker.class);
-                    SplashActivity.this.startActivity(intent);
-                }
 
+                    CountyDialog primaryD = new CountyDialog(SplashActivity.this,
+                            CountyDialog.PRIMARY_COUNTY);
+                    CountyDialog secondD = new CountyDialog(SplashActivity.this,
+                            CountyDialog.SECONDARY_COUNTIES);
+                    primaryD.setNeutralDialog("Additional Counties", secondD);
+                    secondD.setNeutralDialog("Primary County", primaryD);
+                    primaryD.showDialog();
+                }
                 splashClose = true;
             }
         }, time);
@@ -177,7 +181,7 @@ public class SplashActivity extends AppCompatActivity {
 
         if (isOnline()) {
 
-            if (CountyPicker.countyIdCode != null) {
+            if (Config.countyPrim.getCode() != null) {
                 dbUpdate();
             }
 

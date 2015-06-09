@@ -1,14 +1,3 @@
-package u.ready_wisc;
-
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.BaseColumns;
-
-import java.util.ArrayList;
-
 /*
 *
 *  Copyright 2015 University of Wisconsin - Parkside
@@ -27,6 +16,17 @@ import java.util.ArrayList;
 *
 *
 */
+
+package u.ready_wisc;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.BaseColumns;
+
+import java.util.ArrayList;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 

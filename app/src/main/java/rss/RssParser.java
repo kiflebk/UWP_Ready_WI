@@ -30,16 +30,17 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import u.ready_wisc.CountyPicker;
-import u.ready_wisc.SplashActivity;
-
 //Parses the XML RSS that is returned and creates separate RSS objects
 // with the data.
 
 public class RssParser {
+    public RssParser(String countyName) {
+        this.countyName = countyName;
+    }
 
     // We don't use namespaces
     private final String ns = null;
+    private String countyName;
 
     // sets features of parser to match RSS XML and reads through inputStream to get all objects
     public List<RssItem> parse(InputStream inputStream) throws XmlPullParserException, IOException {
@@ -50,7 +51,8 @@ public class RssParser {
             parser.nextTag();
             return readFeed(parser);
         } finally {
-            inputStream.close();
+            if (inputStream != null)
+                inputStream.close();
         }
     }
 
@@ -86,21 +88,20 @@ public class RssParser {
         // adds the proper description for the item to show if the object
         // is selected from the list
         if (title != null && link != null) {
-            if (desc == null){
-                title += " for " + CountyPicker.countyName + " County";
+            if (desc == null) {
+                //title += " for " + countyName + " County";
                 desc = "No current weather warnings/advisories.";
             }
             RssItem item = new RssItem(title, link, desc);
 
             // The RSS header always contains the first tag of "Watches, Warnings, and Advisories
             // this tag is removed since it is not needed
-            if( !(item.getTitle().contains("Watches, Warnings and Advisories"))) {
+            if (!(item.getTitle().contains("Watches, Warnings and Advisories"))) {
                 items.add(item);
                 title = null;
                 link = null;
                 desc = null;
-            }
-            else{
+            } else {
                 title = null;
                 link = null;
                 desc = null;

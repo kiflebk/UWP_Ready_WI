@@ -232,7 +232,7 @@ public class DamageReports extends AppCompatActivity {
                     .show();
         }
         else {
-            Toast.makeText(this,"Maximum Images Added!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Maximum Pictures Added!",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -276,6 +276,7 @@ public class DamageReports extends AppCompatActivity {
         if (data != null) {
             //camera used
             if (requestCode == CAM_REQUEST) {
+                Log.i("getdata",data.getData().toString());
                 bm = (Bitmap) data.getExtras().get("data");
 
             }
@@ -308,6 +309,7 @@ public class DamageReports extends AppCompatActivity {
     private void removePhoto() {
         Log.d("View", String.valueOf(viewClicked));
         View imageToDelete = findViewById(viewClicked);
+        imageToDelete.setBackgroundResource(android.R.color.transparent);
         //break apart imgview id to get ll id
         //ex: 9901 = imgview id & llid = 01
         char[] charArray = String.valueOf(viewClicked).toCharArray();
@@ -317,6 +319,7 @@ public class DamageReports extends AppCompatActivity {
         ll.removeView(imageToDelete);
         imageGallery.removeView(ll);
         imgCache.removeImage(llId);
+        viewClicked = -1;
     }
 
     //a custom image view to put in the gallery
