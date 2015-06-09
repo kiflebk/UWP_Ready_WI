@@ -152,7 +152,7 @@ public class SplashActivity extends AppCompatActivity {
         // Loads in the county from the preferences
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         county = settings.getString("county", "");
-        if (!county.isEmpty())
+        if (!county.isEmpty() && county != null)
             //set global primary county
             Config.countyPrim = Config.COUNTIES.get(county);
 
@@ -181,7 +181,7 @@ public class SplashActivity extends AppCompatActivity {
 
         if (isOnline()) {
 
-            if (Config.countyPrim.getCode() != null) {
+            if (Config.countyPrim != null) {
                 dbUpdate();
             }
 
