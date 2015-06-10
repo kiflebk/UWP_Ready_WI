@@ -30,6 +30,7 @@ public class RssItem {
     private final String link;
     private final String desc;
 
+
     public RssItem(String title, String link, String desc) {
         this.title = title;
         this.link = link;

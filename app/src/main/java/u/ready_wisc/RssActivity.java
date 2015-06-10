@@ -33,13 +33,15 @@ import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
-import rss.RssFragment;
-
 public class RssActivity extends AppCompatActivity {
 
     TextView textView;
     Button getDesc;
     String link;
+    String countyName;
+    String desc;
+    String title;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,16 +55,20 @@ public class RssActivity extends AppCompatActivity {
 
 
         getDesc = (Button) findViewById(R.id.getDesc);
-        //Intent intent = getIntent();
-        String message = RssFragment.weatherDesc;
-        link = RssFragment.weatherLink;
+        Intent intent = getIntent();
+        countyName = intent.getStringExtra("county");
+        desc = intent.getStringExtra("desc");
+        link = intent.getStringExtra("link");
+        title = intent.getStringExtra("title");
 
         textView = (TextView) findViewById(R.id.messageText);
         textView.setTextSize(20);
-        textView.setText(message);
+        if (desc.isEmpty())
+            desc = title;
+        textView.setText(desc);
         //setContentView(textView);
 
-        if (RssFragment.weatherDesc.equals("No current weather warnings/advisories.")){
+        if (desc.equals("No current weather warnings/advisories.") || link.isEmpty()) {
             getDesc.setVisibility(View.INVISIBLE);
         }
 

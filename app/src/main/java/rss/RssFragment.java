@@ -22,6 +22,7 @@ package rss;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -37,29 +38,24 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import u.ready_wisc.Config;
 import u.ready_wisc.R;
 import u.ready_wisc.RssActivity;
 
 
 //Fragment is built to hold the RSS listview
-
-
 public class RssFragment extends Fragment implements AdapterView.OnItemClickListener {
 
-    public static String weatherDesc;
-    public static String weatherLink;
     private ProgressBar progressBar;
     private ListView listView;
     private TextView textView;
     private String county;
     private Intent service;
+    private boolean notificationReceived = false;
 
-    public static ArrayList<RssItem> pushItems = new ArrayList<>();
-    public static boolean notificationReceived = false;
-    // Once the {@link RssService} finishes its task, the result is sent to this
+    // Once the RssService & Pushbot notification finishes its task, the result is sent to this
     // ResultReceiver.
     private final ResultReceiver resultReceiver = new ResultReceiver(new Handler()) {
         @SuppressWarnings("unchecked")
@@ -67,10 +63,19 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
         protected void onReceiveResult(int resultCode, Bundle resultData) {
             progressBar.setVisibility(View.GONE);
             List<RssItem> items = (List<RssItem>) resultData.getSerializable(RssService.ITEMS);
-            if (notificationReceived) {
-                items.addAll(pushItems);
-                notificationReceived = false;
-                pushItems.clear();
+            //only use pushbots if primary county
+            if (county.equals(Config.countyPrim.getName())) {
+                SharedPreferences sp = getActivity().getSharedPreferences("MyPrefsFile", 0);
+                notificationReceived = sp.contains("message");
+                if (notificationReceived) {
+                    String message = sp.getString("message","");
+                    //VV to clear message VV
+                    //sp.edit().remove("message").apply();
+                    if (!message.isEmpty()) {
+                        items.add(new RssItem(message, "", ""));
+                    }
+                    notificationReceived = false;
+                }
             }
             if (items != null) {
                 RssAdapter adapter = new RssAdapter(getActivity(), items);
@@ -82,8 +87,9 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
             listView.setVisibility(View.VISIBLE);
         }
     };
+
     private View view;
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,7 +122,12 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
             textView = (TextView) view.findViewById(R.id.awText);
             textView.setText("Alerts and Warnings for\n" + county + " County");
             listView.setOnItemClickListener(this);
-            startService();
+            if (isOnline()) {
+                startService();
+            } else {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(getActivity(), "Network Error", Toast.LENGTH_SHORT).show();
+            }
         }
 
         // If we are returning from a configuration change:
@@ -143,10 +154,15 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
         RssAdapter adapter = (RssAdapter) parent.getAdapter();
         RssItem item = (RssItem) adapter.getItem(position);
 
-        weatherLink = item.getLink();
-        weatherDesc = item.getDesc();
+        String link = item.getLink();
+        String desc = item.getDesc();
+        String title = item.getTitle();
 
         Intent intent = new Intent(getActivity(), RssActivity.class);
+        intent.putExtra("county",county);
+        intent.putExtra("link",link);
+        intent.putExtra("desc",desc);
+        intent.putExtra("title",title);
         startActivity(intent);
     }
 
@@ -157,4 +173,5 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
+
 }

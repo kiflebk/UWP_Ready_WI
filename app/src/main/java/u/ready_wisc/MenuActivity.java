@@ -26,14 +26,14 @@ import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -56,9 +56,10 @@ import u.ready_wisc.BePrepared.Prep_Main;
 import u.ready_wisc.Emergency_Main.Emergency;
 import u.ready_wisc.disasterTypes.DisastersType;
 
-public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
+public class MenuActivity extends AppCompatActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener{
     private Button resourcesbutton, reportButton, checklistButton, disasterButton;
     private ImageButton sosMenuButton, flashlightButton;
+    private SwipeRefreshLayout swipeLayout;
     public static boolean isSosToneOn = false;
     private boolean isFlashOn = false;
     private Camera camera = null;
@@ -73,6 +74,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     private SharedPreferences settings;
     private CountyDialog secondD;
     private CountyDialog primaryD;
+    //set to clear message after an hour
+    private static final int MESSAGE_TIME = 3600000;
 
     @Override
     //testing new branch
@@ -90,9 +93,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         setCounties();
 
         // Code used to start pushbots and change to correct county account
-        //TODO: implement multi county pushbots
+        //TODO: implement multi county pushbots...serverside work?
         setPushBots();
-//
+        handleMessage(getIntent().getStringExtra("message"));
 
         context = getApplicationContext();
 
@@ -108,6 +111,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         checklistButton = (Button) findViewById(R.id.prepareButton);
         sosMenuButton = (ImageButton) findViewById(R.id.SOSMenubutton);
         flashlightButton = (ImageButton) findViewById(R.id.FlashlightMenuButton);
+        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        swipeLayout.setOnRefreshListener(this);
         loadPager();
         //check if there was a previous pager position and go to it else 0
         int resumePos = settings.getInt("pagerPosition", 0);
@@ -202,14 +207,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    // returns true or false based on if device has an internet connection.
-    public boolean isOnline() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -230,8 +227,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         //county button selection in action bar
         if (id == R.id.action_county) {
-            // TODO: Figure out a better place for unregister(). Currently will not re-register if the user backs out of CountyPicker without selecting
-            // Placing at top of onCreate or in CountyPicker itself will not work, as either unregister() or register() will run twice
             Pushbots.sharedInstance().unRegister();
             primaryD.showDialog();
         }
@@ -239,7 +234,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
-    //creats a list of RSS fragments for the selected counties
+    //creates a list of RSS fragments for the selected counties
     private List<Fragment> createRssFragmentList() {
         List<Fragment> fList = new ArrayList<>();
         //first add primary county fragment
@@ -260,6 +255,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        //save pager position for resuming
         settings.edit().putInt("pagerPosition", mPager.getCurrentItem()).apply();
     }
 
@@ -298,7 +294,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     //save county options from the shared preferences
     public void setCounties() {
-        settings = getSharedPreferences("MyPrefsFile", 0);
         primaryCounty = settings.getString("county", "");
         additionalCounties = settings.getStringSet("counties", null);
         //set static global for use in db classes
@@ -307,11 +302,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         loadPager();
     }
 
+    //starts pushbots for primary county
     private void setPushBots() {
-        String appCode = Config.COUNTIES.get(primaryCounty).getAppID();
-        //TODO
-        //go through the selected counties and register bot for each one
-        //for now just set the primary
+        String appCode = Config.countyPrim.getAppID();
         Pushbots.sharedInstance().setAppId(appCode);
         Pushbots.sharedInstance().init(this);
         Pushbots.sharedInstance().register();
@@ -319,14 +312,24 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //loads options for the view pager
-    private void loadPager() {
+    public void loadPager() {
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
         mPager.setOffscreenPageLimit(3);
     }
 
-    //pager adapter for the RSS fragements
+    @Override
+    public void onRefresh() {
+        loadPager();
+//        new Handler().postDelayed(new Runnable() {
+//            @Override public void run() {
+                swipeLayout.setRefreshing(false);
+//            }
+//        }, 2000);
+    }
+
+    //pager adapter for the RSS fragments
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         FragmentManager fm;
 
@@ -346,8 +349,21 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             //1 if null or counties +1 to include primary
             return additionalCounties == null ? 1 : additionalCounties.size() + 1;
         }
-
-
     }
 
+    //saves messages and starts a handler to clear after a set time
+    private void handleMessage(String message) {
+        if (message !=null && !message.isEmpty()) {
+            settings.edit().putString("message", message).apply();
+            Handler handler = new Handler();
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    settings.edit().remove("message").apply();
+                    onRefresh();
+                }
+            };
+            handler.postDelayed(runnable, MESSAGE_TIME);
+        }
+    }
 }

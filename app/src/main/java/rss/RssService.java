@@ -27,7 +27,6 @@ import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.provider.SyncStateContract;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -67,7 +66,7 @@ public class RssService extends IntentService {
             startRss();
         }
         else {
-            Toast.makeText(this,"County Error",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,"County Error",Toast.LENGTH_SHORT).show();
         }
 
     }

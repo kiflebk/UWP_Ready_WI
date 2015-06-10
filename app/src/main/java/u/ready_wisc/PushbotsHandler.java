@@ -11,9 +11,6 @@ import com.pushbots.push.utils.PBConstants;
 
 import java.util.HashMap;
 
-import rss.RssFragment;
-import rss.RssItem;
-
 public class PushbotsHandler extends BroadcastReceiver {
     public PushbotsHandler() {
     }
@@ -28,13 +25,13 @@ public class PushbotsHandler extends BroadcastReceiver {
         if (action.equals(PBConstants.EVENT_MSG_OPEN)) {
             //Check for Pushbots Instance
             Pushbots pushInstance = Pushbots.sharedInstance();
-            if(!pushInstance.isInitialized()){
+            if (!pushInstance.isInitialized()) {
                 Log.d(TAG, "Initializing Pushbots.");
                 Pushbots.sharedInstance().init(context.getApplicationContext());
             }
 
             //Clear Notification array
-            if(PBNotificationIntent.notificationsArray != null){
+            if (PBNotificationIntent.notificationsArray != null) {
                 PBNotificationIntent.notificationsArray = null;
             }
 
@@ -44,19 +41,11 @@ public class PushbotsHandler extends BroadcastReceiver {
             //Start launch Activity
             String packageName = context.getPackageName();
             Intent resultIntent = new Intent(context.getPackageManager().getLaunchIntentForPackage(packageName));
-            resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
+            resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             resultIntent.putExtras(intent.getBundleExtra("pushData"));
             Pushbots.sharedInstance().startActivity(resultIntent);
 
             // Handle Push Message when received
-        } else if(action.equals(PBConstants.EVENT_MSG_RECEIVE)) {
-            HashMap<?, ?> PushdataOpen = (HashMap<?, ?>) intent.getExtras().get(PBConstants.EVENT_MSG_RECEIVE);
-            Log.w(TAG, "User Received notification with Message: " + PushdataOpen.get("message"));
-            String message = PushdataOpen.get("message").toString();
-            RssFragment.pushItems.add(new RssItem(message, "", ""));
-            RssFragment.notificationReceived = true;
-            Log.w(TAG, "Notification added to ArrayList");
         }
     }
 }
