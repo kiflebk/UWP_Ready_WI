@@ -202,7 +202,7 @@ public class CountyDialog {
             SharedPreferences settings = context.getSharedPreferences("MyPrefsFile", 0);
             Set<String> addCounties = settings.getStringSet("counties", null);
             String[] additionCounties = addCounties.toArray(new String[addCounties.size()]);
-            if (additionCounties != null || additionCounties.length == 0) {
+            if (additionCounties != null || additionCounties.length != 0) {
                 for (int i = 0; i < additionCounties.length; i ++){
                     String county = additionCounties[i];
                     if (county.equals(primaryCounty)) {
