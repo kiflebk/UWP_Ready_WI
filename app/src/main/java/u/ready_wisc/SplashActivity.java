@@ -17,9 +17,10 @@
 *
 */
 
-
 package u.ready_wisc;
 
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -29,7 +30,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,7 +37,7 @@ import android.widget.Toast;
 
 import u.ready_wisc.Emergency_Main.PutData;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends Activity {
 
     public static final String PREFS_NAME = "MyPrefsFile";
     public static String county = "";
@@ -47,39 +47,32 @@ public class SplashActivity extends AppCompatActivity {
     static MyDatabaseHelper rDBHelper;
     boolean splashClose = false;
     SharedPreferences settings;
-    private String notifMessage;
+//    private String notifMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mDatabaseHelper = new ReportsDatabaseHelper(this);
-        vDBHelper = new VolunteerDBHelper(this);
-        rDBHelper = new MyDatabaseHelper(this);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
         // Loads in the county from the preferences
         settings = getSharedPreferences(PREFS_NAME, 0);
-
         county = settings.getString("county", "");
-        if (!county.isEmpty() && county != null)
+        if (!county.isEmpty()) {
             //set global primary county
             Config.countyPrim = Config.COUNTIES.get(county);
-        //get pushbots data
-        Bundle extras = getIntent().getExtras();
-        if (extras != null && extras.containsKey("message")) {
-            notifMessage =  extras.getString("message");
         }
-        int time = 4000;
+
+
+        //do db stuff on a new thread
+        new Thread(databaseHandler()).run();
+        int time = 2000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (!county.isEmpty()) {
                     Intent intent = new Intent(SplashActivity.this, MenuActivity.class);
-                    intent.putExtra("message",notifMessage);
                     SplashActivity.this.startActivity(intent);
                 } else {
-
                     CountyDialog primaryD = new CountyDialog(SplashActivity.this,
                             CountyDialog.PRIMARY_COUNTY);
                     CountyDialog secondD = new CountyDialog(SplashActivity.this,
@@ -91,38 +84,52 @@ public class SplashActivity extends AppCompatActivity {
                 splashClose = true;
             }
         }, time);
+    }
 
-        rDBHelper.addResourceData();
+    //handles all database updating
+    private Runnable databaseHandler() {
+        Runnable x = new Runnable() {
+            @Override
+            public void run() {
+                if (isOnline()) {
+                    mDatabaseHelper = new ReportsDatabaseHelper(SplashActivity.this);
+                    vDBHelper = new VolunteerDBHelper(SplashActivity.this);
+                    rDBHelper = new MyDatabaseHelper(SplashActivity.this);
+                    rDBHelper.addResourceData();
+                    if (Config.countyPrim != null) {
+                        dbUpdate();
+                    }
 
-        if (isOnline()) {
+                    Cursor damageCur;
+                    damageCur = mDatabaseHelper.query(ReportsDatabaseHelper.TABLE_USERS, null);
+                    String url;
+                    if (damageCur.moveToFirst()) {
+                        int placeColumn = damageCur.getColumnIndex(ReportsDatabaseHelper.COL_JSON);
+                        url = damageCur.getString(placeColumn);
 
-            if (Config.countyPrim != null) {
-                dbUpdate();
-            }
+                        try {
+                            putDataToServer(url);
+                        } catch (Throwable throwable) {
+                            throwable.printStackTrace();
+                        }
 
-            Cursor damageCur;
-            damageCur = mDatabaseHelper.query(ReportsDatabaseHelper.TABLE_USERS, null);
-            String url;
-            if (damageCur.moveToFirst()) {
-                int placeColumn = damageCur.getColumnIndex(ReportsDatabaseHelper.COL_JSON);
-                url = damageCur.getString(placeColumn);
-
-                try {
-                    putDataToServer(url);
-                } catch (Throwable throwable) {
-                    throwable.printStackTrace();
+                        mDatabaseHelper.onDowngrade(mDatabaseHelper.getReadableDatabase(), 0, 1);
+                    }
                 }
-
-                mDatabaseHelper.onDowngrade(mDatabaseHelper.getReadableDatabase(), 0, 1);
             }
-        }
-
+        };
+        return x;
     }
 
     protected void onResume() {
         super.onResume();
         if (splashClose)
             SplashActivity.this.finish();
+        //start message service if not running
+        if (!isMyServiceRunning(MessageService.class)) {
+            Intent mServiceIntent = new Intent(getApplicationContext(), MessageService.class);
+            startService(mServiceIntent);
+        }
     }
 
     // returns true or false based on if device has an internet connection.
@@ -268,17 +275,14 @@ public class SplashActivity extends AppCompatActivity {
 
     }
 
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//
-//        // saving the county
-//        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-//        SharedPreferences.Editor editor = settings.edit();
-//        editor.putString("county", county);
-//
-//        Log.d("County", CountyPicker.countyName);
-//
-//        editor.apply();
-//    }
+    //checks to see if a service is running
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

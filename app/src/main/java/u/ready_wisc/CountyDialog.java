@@ -27,6 +27,7 @@ import android.view.View;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.pushbots.push.Pushbots;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -201,13 +202,10 @@ public class CountyDialog {
         if (selectionChanged) {
             SharedPreferences settings = context.getSharedPreferences("MyPrefsFile", 0);
             Set<String> addCounties = settings.getStringSet("counties", null);
-            String[] additionCounties = new String[0];
-            if (addCounties != null) {
+            String[] additionCounties;
+            if (addCounties != null && !addCounties.isEmpty()) {
                 additionCounties = addCounties.toArray(new String[addCounties.size()]);
-            }
-            if (additionCounties != null || additionCounties.length != 0) {
-                for (int i = 0; i < additionCounties.length; i ++){
-                    String county = additionCounties[i];
+                for (String county : additionCounties) {
                     if (county.equals(primaryCounty)) {
                         addCounties.remove(county);
                     }
@@ -217,6 +215,7 @@ public class CountyDialog {
             editor.putString("county", primaryCounty);
             editor.putStringSet("counties", addCounties);
             editor.apply();
+            setPushBots();
         }
     }
 
@@ -306,5 +305,17 @@ public class CountyDialog {
             Arrays.sort(tmpCounties);
             countyNames = tmpCounties;
         }
+    }
+
+    //starts pushbots for primary county
+    private void setPushBots() {
+        if (Pushbots.sharedInstance().getAppId() != null) {
+            Pushbots.sharedInstance().unRegister();
+        }
+        String appCode = Config.COUNTIES.get(primaryCounty).getAppID();
+        Pushbots.sharedInstance().setAppId(appCode);
+        Pushbots.sharedInstance().init(context);
+        Pushbots.sharedInstance().register();
+        Pushbots.sharedInstance().setCustomHandler(PushbotsHandler.class);
     }
 }

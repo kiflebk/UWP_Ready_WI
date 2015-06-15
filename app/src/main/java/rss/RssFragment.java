@@ -29,18 +29,23 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
+import java.util.Set;
 
 import u.ready_wisc.Config;
+import u.ready_wisc.MenuActivity;
 import u.ready_wisc.R;
 import u.ready_wisc.RssActivity;
 
@@ -53,7 +58,6 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
     private TextView textView;
     private String county;
     private Intent service;
-    private boolean notificationReceived = false;
 
     // Once the RssService & Pushbot notification finishes its task, the result is sent to this
     // ResultReceiver.
@@ -66,22 +70,21 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
             //only use pushbots if primary county
             if (county.equals(Config.countyPrim.getName())) {
                 SharedPreferences sp = getActivity().getSharedPreferences("MyPrefsFile", 0);
-                notificationReceived = sp.contains("message");
-                if (notificationReceived) {
-                    String message = sp.getString("message","");
-                    //VV to clear message VV
-                    //sp.edit().remove("message").apply();
-                    if (!message.isEmpty()) {
-                        items.add(new RssItem(message, "", ""));
+                if (sp.contains("messages")) {
+                    Set<String> messages = sp.getStringSet("messages", null);
+                    if (messages != null && !messages.isEmpty()) {
+                        for (String message : messages) {
+                            assert items != null;
+                            items.add(new RssItem(message, "", ""));
+                        }
                     }
-                    notificationReceived = false;
                 }
             }
             if (items != null) {
                 RssAdapter adapter = new RssAdapter(getActivity(), items);
                 listView.setAdapter(adapter);
             } else {
-                Toast.makeText(getActivity(), "An error occurred while downloading the rss feed.",
+                Toast.makeText(getActivity(), "An error occurred while downloading the feed.",
                         Toast.LENGTH_LONG).show();
             }
             listView.setVisibility(View.VISIBLE);
@@ -121,7 +124,21 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
             listView = (ListView) view.findViewById(R.id.listView);
             textView = (TextView) view.findViewById(R.id.awText);
             textView.setText("Alerts and Warnings for\n" + county + " County");
+            final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout)
+                    getActivity().findViewById(R.id.swipe_container);
             listView.setOnItemClickListener(this);
+            listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(AbsListView view, int scrollState) {
+                }
+                @Override
+                public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                    int topRowVerticalPosition =
+                            (listView == null || listView.getChildCount() == 0) ?
+                                    0 : listView.getChildAt(0).getTop();
+                    swipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+                }
+            });
             if (isOnline()) {
                 startService();
             } else {
@@ -137,7 +154,41 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
             ViewGroup parent = (ViewGroup) view.getParent();
             parent.removeView(view);
         }
+        setPrevAndNext();
         return view;
+    }
+
+    //setup next and previous buttons
+    private void setPrevAndNext() {
+        ImageButton leftArr = (ImageButton) view.findViewById(R.id.previousIcon);
+        ImageButton rightArr = (ImageButton) view.findViewById(R.id.nextIcon);
+        final MenuActivity ma = (MenuActivity) getActivity();
+        if (leftArr != null) {
+            leftArr.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ma.movePager("prev");
+                }
+            });
+            if (ma.hasLeftFragment(county)) {
+                leftArr.setVisibility(View.VISIBLE);
+            } else {
+                leftArr.setVisibility(View.GONE);
+            }
+        }
+        if (rightArr != null) {
+            rightArr.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ma.movePager("next");
+                }
+            });
+            if (ma.hasRightFragment(county)) {
+                rightArr.setVisibility(View.VISIBLE);
+            } else {
+                rightArr.setVisibility(View.GONE);
+            }
+        }
     }
 
     // RSS service is started
@@ -149,7 +200,7 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
     }
 
     @Override
-    // If a listitem is clicked, the details of the item are loaded into a seperate intent and started
+    // If a listitem is clicked, the details of the item are loaded into a separate intent and started
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         RssAdapter adapter = (RssAdapter) parent.getAdapter();
         RssItem item = (RssItem) adapter.getItem(position);
@@ -159,10 +210,10 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
         String title = item.getTitle();
 
         Intent intent = new Intent(getActivity(), RssActivity.class);
-        intent.putExtra("county",county);
-        intent.putExtra("link",link);
-        intent.putExtra("desc",desc);
-        intent.putExtra("title",title);
+        intent.putExtra("county", county);
+        intent.putExtra("link", link);
+        intent.putExtra("desc", desc);
+        intent.putExtra("title", title);
         startActivity(intent);
     }
 

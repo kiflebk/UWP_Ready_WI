@@ -115,15 +115,6 @@
         </activity>
 
         <!-- This activity I don't know what  its for -->
-        <activity
-            android:name=".MainActivity"
-            android:label="Disaster Resources1221"
-            android:parentActivityName=".MenuActivity"
-            android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="u.ready_wisc.MenuActivity" />
-        </activity>
 
         <!-- This activity is for the RSS FEED for weather/advisory alerts!!!!!!!!! -->
         <activity
@@ -275,6 +266,7 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+        <service android:name=".MessageService"/>
 
 
     </application>

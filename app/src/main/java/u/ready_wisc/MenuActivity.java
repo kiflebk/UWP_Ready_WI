@@ -19,8 +19,11 @@
 
 package u.ready_wisc;
 
+import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
@@ -31,6 +34,7 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -41,10 +45,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.pushbots.push.PBNotificationIntent;
 import com.pushbots.push.Pushbots;
 
 import java.util.ArrayList;
@@ -56,9 +62,10 @@ import u.ready_wisc.BePrepared.Prep_Main;
 import u.ready_wisc.Emergency_Main.Emergency;
 import u.ready_wisc.disasterTypes.DisastersType;
 
-public class MenuActivity extends AppCompatActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener{
+public class MenuActivity extends AppCompatActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     private Button resourcesbutton, reportButton, checklistButton, disasterButton;
     private ImageButton sosMenuButton, flashlightButton;
+    private ImageView nextFrag, prevFrag;
     private SwipeRefreshLayout swipeLayout;
     public static boolean isSosToneOn = false;
     private boolean isFlashOn = false;
@@ -74,8 +81,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     private SharedPreferences settings;
     private CountyDialog secondD;
     private CountyDialog primaryD;
-    //set to clear message after an hour
-    private static final int MESSAGE_TIME = 3600000;
+
 
     @Override
     //testing new branch
@@ -95,7 +101,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         // Code used to start pushbots and change to correct county account
         //TODO: implement multi county pushbots...serverside work?
         setPushBots();
-        handleMessage(getIntent().getStringExtra("message"));
+        //Clear Notification array because they will be shown in fragment
+        if (PBNotificationIntent.notificationsArray != null) {
+            PBNotificationIntent.notificationsArray = null;
+        }
 
         context = getApplicationContext();
 
@@ -114,10 +123,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         swipeLayout.setOnRefreshListener(this);
         loadPager();
-        //check if there was a previous pager position and go to it else 0
-        int resumePos = settings.getInt("pagerPosition", 0);
-        mPager.setCurrentItem(resumePos);
-
 
         disasterButton.setOnClickListener(this);
         flashlightButton.setOnClickListener(this);
@@ -213,6 +218,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         //TODO add options menu
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
         actionBarMenu = menu;
         setTitle();
         return true;
@@ -227,10 +233,11 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         //county button selection in action bar
         if (id == R.id.action_county) {
-            Pushbots.sharedInstance().unRegister();
             primaryD.showDialog();
         }
-
+        if (id == R.id.action_help) {
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -253,6 +260,18 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter filter = new IntentFilter(MessageService.ACTION);
+        LocalBroadcastManager.getInstance(this).registerReceiver(messageStatus, filter);
+        //start message service if not running
+        if (!isMyServiceRunning(MessageService.class)) {
+            Intent mServiceIntent = new Intent(getApplicationContext(), MessageService.class);
+            startService(mServiceIntent);
+        }
+    }
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         //save pager position for resuming
@@ -270,6 +289,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStop() {
         super.onStop();
         GoogleAnalytics.getInstance(this).reportActivityStop(this);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(messageStatus);
+        secondD = null;
+        primaryD = null;
     }
 
     @Override
@@ -317,16 +339,62 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
         mPager.setOffscreenPageLimit(3);
+        //check if there was a previous pager position and go to it else 0
+        int resumePos = settings.getInt("pagerPosition", 0);
+        mPager.setCurrentItem(resumePos);
+    }
+
+    public void movePager(String direction) {
+        int current = mPager.getCurrentItem();
+        switch (direction) {
+            case "prev":
+                if (current > 0) {
+                    mPager.setCurrentItem(current - 1, true);
+                }
+                break;
+            case "next":
+                //if (current < mPager.getChildCount()) {
+                    mPager.setCurrentItem(current + 1, true);
+                //}
+                break;
+            default:
+                break;
+        }
+    }
+
+    public boolean hasLeftFragment(String name) {
+        if (!name.equals(primaryCounty)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hasRightFragment(String name) {
+        int i = 0;
+        if (additionalCounties != null && !additionalCounties.isEmpty()) {
+            if (name.equals(primaryCounty) && !additionalCounties.isEmpty()) {
+                return true;
+            }
+            for (String county : additionalCounties) {
+                if (county.equals(name) && i < additionalCounties.size() - 1) {
+                    return true;
+                }
+                i++;
+            }
+        }
+        return false;
     }
 
     @Override
     public void onRefresh() {
+        settings.edit().putInt("pagerPosition", mPager.getCurrentItem()).apply();
         loadPager();
-//        new Handler().postDelayed(new Runnable() {
-//            @Override public void run() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
                 swipeLayout.setRefreshing(false);
-//            }
-//        }, 2000);
+            }
+        }, 2000);
     }
 
     //pager adapter for the RSS fragments
@@ -339,9 +407,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         @Override
-        public Fragment getItem(int position) {
+        public RssFragment getItem(int position) {
             List<Fragment> fList = createRssFragmentList();
-            return fList.get(position);
+            return (RssFragment) fList.get(position);
         }
 
         @Override
@@ -351,19 +419,24 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    //saves messages and starts a handler to clear after a set time
-    private void handleMessage(String message) {
-        if (message !=null && !message.isEmpty()) {
-            settings.edit().putString("message", message).apply();
-            Handler handler = new Handler();
-            Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    settings.edit().remove("message").apply();
-                    onRefresh();
-                }
-            };
-            handler.postDelayed(runnable, MESSAGE_TIME);
+    //receiver if a message times out refresh pager
+    private BroadcastReceiver messageStatus = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getBooleanExtra("messageCleared", false)) {
+                loadPager();
+            }
         }
+    };
+
+    //checks to see if a service is running
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
