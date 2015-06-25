@@ -44,7 +44,6 @@ import android.widget.Toast;
 import java.util.List;
 import java.util.Set;
 
-import u.ready_wisc.Config;
 import u.ready_wisc.MenuActivity;
 import u.ready_wisc.R;
 import u.ready_wisc.RssActivity;
@@ -58,39 +57,6 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
     private TextView textView;
     private String county;
     private Intent service;
-
-    // Once the RssService & Pushbot notification finishes its task, the result is sent to this
-    // ResultReceiver.
-    private final ResultReceiver resultReceiver = new ResultReceiver(new Handler()) {
-        @SuppressWarnings("unchecked")
-        @Override
-        protected void onReceiveResult(int resultCode, Bundle resultData) {
-            progressBar.setVisibility(View.GONE);
-            List<RssItem> items = (List<RssItem>) resultData.getSerializable(RssService.ITEMS);
-            //only use pushbots if primary county
-            if (county.equals(Config.countyPrim.getName())) {
-                SharedPreferences sp = getActivity().getSharedPreferences("MyPrefsFile", 0);
-                if (sp.contains("messages")) {
-                    Set<String> messages = sp.getStringSet("messages", null);
-                    if (messages != null && !messages.isEmpty()) {
-                        for (String message : messages) {
-                            assert items != null;
-                            items.add(new RssItem(message, "", ""));
-                        }
-                    }
-                }
-            }
-            if (items != null) {
-                RssAdapter adapter = new RssAdapter(getActivity(), items);
-                listView.setAdapter(adapter);
-            } else {
-                Toast.makeText(getActivity(), "An error occurred while downloading the feed.",
-                        Toast.LENGTH_LONG).show();
-            }
-            listView.setVisibility(View.VISIBLE);
-        }
-    };
-
     private View view;
 
     @Override
@@ -224,5 +190,37 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
+
+    // Once the RssService & Pushbot notification finishes its task, the result is sent to this
+    // ResultReceiver.
+    private final ResultReceiver resultReceiver = new ResultReceiver(new Handler()) {
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
+            progressBar.setVisibility(View.GONE);
+            List<RssItem> items = (List<RssItem>) resultData.getSerializable(RssService.ITEMS);
+            //only use pushbots if primary county
+            SharedPreferences sp = getActivity().getSharedPreferences("MyPrefsFile", 0);
+            if (county.equals(sp.getString("county",""))) {
+                if (sp.contains("messages")) {
+                    Set<String> messages = sp.getStringSet("messages", null);
+                    if (messages != null && !messages.isEmpty()) {
+                        for (String message : messages) {
+                            assert items != null;
+                            items.add(new RssItem(message, "", ""));
+                        }
+                    }
+                }
+            }
+            if (items != null) {
+                RssAdapter adapter = new RssAdapter(getActivity(), items);
+                listView.setAdapter(adapter);
+            } else {
+                Toast.makeText(getActivity(), "An error occurred while downloading the feed.",
+                        Toast.LENGTH_LONG).show();
+            }
+            listView.setVisibility(View.VISIBLE);
+        }
+    };
 
 }

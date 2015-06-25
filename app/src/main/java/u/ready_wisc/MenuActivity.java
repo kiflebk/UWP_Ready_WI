@@ -20,8 +20,10 @@
 package u.ready_wisc;
 
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -59,6 +61,9 @@ import java.util.Set;
 
 import rss.RssFragment;
 import u.ready_wisc.BePrepared.Prep_Main;
+import u.ready_wisc.Counties.Counties;
+import u.ready_wisc.Counties.Counties.County;
+import u.ready_wisc.Counties.Counties.CountyActivity;
 import u.ready_wisc.Emergency_Main.Emergency;
 import u.ready_wisc.disasterTypes.DisastersType;
 
@@ -79,33 +84,20 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     private String primaryCounty;
     private Set<String> additionalCounties;
     private SharedPreferences settings;
-    private CountyDialog secondD;
-    private CountyDialog primaryD;
-
 
     @Override
     //testing new branch
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainmenu);
-
+        settings = this.getSharedPreferences("MyPrefsFile", 0);
         // Google Analytics
         // copy these two lines along with the onStart() and onStop() methods below
         Tracker t = ((AnalyticsApp) getApplication()).getTracker(AnalyticsApp.TrackerName.APP_TRACKER);
         t.send(new HitBuilders.ScreenViewBuilder().build());
 
-        settings = getSharedPreferences("MyPrefsFile", 0);
         // Loads in the county from the preferences
         setCounties();
-
-        // Code used to start pushbots and change to correct county account
-        //TODO: implement multi county pushbots...serverside work?
-        setPushBots();
-        //Clear Notification array because they will be shown in fragment
-        if (PBNotificationIntent.notificationsArray != null) {
-            PBNotificationIntent.notificationsArray = null;
-        }
-
         context = getApplicationContext();
 
         // checks to see if the media player object exists
@@ -130,14 +122,27 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         checklistButton.setOnClickListener(this);
         sosMenuButton.setOnClickListener(this);
         resourcesbutton.setOnClickListener(this);
+        setPushBots();
+        //Clear Notification array because they will be shown in fragment
+        if (PBNotificationIntent.notificationsArray != null) {
+            PBNotificationIntent.notificationsArray = null;
+        }
+    }
 
-
-        primaryD = new CountyDialog(this,
-                CountyDialog.PRIMARY_COUNTY);
-        secondD = new CountyDialog(this,
-                CountyDialog.SECONDARY_COUNTIES);
-        primaryD.setNeutralDialog("Additional Counties", secondD);
-        secondD.setNeutralDialog("Primary County", primaryD);
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Exit")
+                .setMessage("Do you wish to exit?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MenuActivity.super.onBackPressed();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 
     @Override
@@ -233,7 +238,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         //county button selection in action bar
         if (id == R.id.action_county) {
-            primaryD.showDialog();
+            Intent intent = new Intent(MenuActivity.this, CountyActivity.class);
+            startActivity(intent);
+            finish();
         }
         if (id == R.id.action_help) {
             return true;
@@ -290,8 +297,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         super.onStop();
         GoogleAnalytics.getInstance(this).reportActivityStop(this);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(messageStatus);
-        secondD = null;
-        primaryD = null;
     }
 
     @Override
@@ -318,19 +323,21 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     public void setCounties() {
         primaryCounty = settings.getString("county", "");
         additionalCounties = settings.getStringSet("counties", null);
-        //set static global for use in db classes
-        Config.countyPrim = Config.COUNTIES.get(primaryCounty);
         setTitle();
         loadPager();
     }
 
     //starts pushbots for primary county
     private void setPushBots() {
-        String appCode = Config.countyPrim.getAppID();
-        Pushbots.sharedInstance().setAppId(appCode);
-        Pushbots.sharedInstance().init(this);
-        Pushbots.sharedInstance().register();
-        Pushbots.sharedInstance().setCustomHandler(PushbotsHandler.class);
+        County primary = Counties.ALL.get(primaryCounty);
+        if (primary != null) {
+            String appCode = primary.getAppID();
+            Pushbots.sharedInstance().setAppId(appCode);
+            Pushbots.sharedInstance().init(this);
+            Pushbots.sharedInstance().register();
+            Pushbots.sharedInstance().setCustomHandler(PushbotsHandler.class);
+        }
+
     }
 
     //loads options for the view pager
@@ -354,7 +361,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case "next":
                 //if (current < mPager.getChildCount()) {
-                    mPager.setCurrentItem(current + 1, true);
+                mPager.setCurrentItem(current + 1, true);
                 //}
                 break;
             default:

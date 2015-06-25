@@ -35,6 +35,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import u.ready_wisc.Counties.Counties;
+import u.ready_wisc.Counties.Counties.CountyActivity;
 import u.ready_wisc.Emergency_Main.PutData;
 
 public class SplashActivity extends Activity {
@@ -53,16 +55,14 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
-
+        Counties.getInstance(this);
         // Loads in the county from the preferences
         settings = getSharedPreferences(PREFS_NAME, 0);
         county = settings.getString("county", "");
         if (!county.isEmpty()) {
             //set global primary county
-            Config.countyPrim = Config.COUNTIES.get(county);
+            Config.countyPrim = Counties.ALL.get(county);
         }
-
-
         //do db stuff on a new thread
         new Thread(databaseHandler()).run();
         int time = 2000;
@@ -73,13 +73,8 @@ public class SplashActivity extends Activity {
                     Intent intent = new Intent(SplashActivity.this, MenuActivity.class);
                     SplashActivity.this.startActivity(intent);
                 } else {
-                    CountyDialog primaryD = new CountyDialog(SplashActivity.this,
-                            CountyDialog.PRIMARY_COUNTY);
-                    CountyDialog secondD = new CountyDialog(SplashActivity.this,
-                            CountyDialog.SECONDARY_COUNTIES);
-                    primaryD.setNeutralDialog("Additional Counties", secondD);
-                    secondD.setNeutralDialog("Primary County", primaryD);
-                    primaryD.showDialog();
+                    Intent intent = new Intent(SplashActivity.this, CountyActivity.class);
+                    SplashActivity.this.startActivity(intent);
                 }
                 splashClose = true;
             }
@@ -198,7 +193,6 @@ public class SplashActivity extends Activity {
     // two add user methods exist because there are two PHP scripts we are reading the data
     // from and it was easier to use two methods to handle input.
     protected static void addUser(String[][] data) {
-
         Log.i("DB Update", "starting addUser");
 
         ContentValues volValues = new ContentValues();
@@ -285,4 +279,6 @@ public class SplashActivity extends Activity {
         }
         return false;
     }
+
+
 }

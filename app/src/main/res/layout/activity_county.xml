@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:visibility="invisible">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/map_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginBottom="50dp">
+
+        <!--This image is invisible and is on top of the state image
+            the colors in this image are what determine where the user has clicked-->
+        <ImageView
+            android:id="@+id/colortouch"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/region_wi_colors"
+            android:visibility="invisible" />
+
+        <!--This is the image that is seen by the user-->
+        <ImageView
+            android:id="@+id/stateimage"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/region_wi" />
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="4dp">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/controls_view"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:background="@color/background_material_dark">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:height="48dp"
+                android:layout_gravity="left|center_vertical"
+                android:text="@string/current_prim"
+                android:textAlignment="gravity"
+                android:gravity="center_vertical"
+                android:paddingRight="2dp"
+                android:textColor="@android:color/white"
+                android:paddingLeft="5dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="County"
+                android:layout_gravity="right|center_vertical"
+                android:textAlignment="gravity"
+                android:gravity="center_vertical"
+                android:id="@+id/txtPrimCountyName"
+                android:textColor="@android:color/white"/>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btnDone"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="@string/done"
+                android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+        </LinearLayout >
+    </RelativeLayout>
+</RelativeLayout>

@@ -72,6 +72,21 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <!-- This activity is for choosing counties -->
+        <activity
+            android:name=".Counties.CountyActivity"
+            android:label="County Picker"
+            android:parentActivityName=".MenuActivity"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
 
         <!-- This activity is for a list for types of disasters -->
         <activity

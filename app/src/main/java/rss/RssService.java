@@ -36,8 +36,8 @@ import java.io.Serializable;
 import java.net.URL;
 import java.util.List;
 
-import u.ready_wisc.Config;
-import u.ready_wisc.County;
+import u.ready_wisc.Counties.Counties;
+import u.ready_wisc.Counties.Counties.County;
 
 //RSS service reads the RSS feed and sends the data to be parsed
 public class RssService extends IntentService {
@@ -58,9 +58,9 @@ public class RssService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         countyName = intent.getStringExtra("county");
-        County primaryCounty = Config.COUNTIES.get(countyName);
-        if (primaryCounty != null) {
-            RSS_SUFFIX = primaryCounty.getCode();
+        County county = Counties.ALL.get(countyName);
+        if (county != null) {
+            RSS_SUFFIX = county.getCode();
             Log.d(SyncStateContract.Constants.DATA, "Service started");
             this.intent = intent;
             startRss();

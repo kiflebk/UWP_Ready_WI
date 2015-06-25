@@ -21,7 +21,7 @@ package u.ready_wisc;
 
 //Config file to handle data for rest of app
 
-import java.util.HashMap;
+import u.ready_wisc.Counties.Counties.County;
 
 public class Config {
 
@@ -42,28 +42,6 @@ public class Config {
     public static final String EMERGENCY_MAP_URL = "https://www.google.com/maps/search/emergency+";
     public static final String GET_KIT_URL = "http://readywisconsin.wi.gov/kit/GetKit.asp";
     public static final String MAKE_PLAN_URL = "http://readywisconsin.wi.gov/Plan/Plan.asp?maintab=0";
-
-
-    // URLs portions for the county RSS feeds
-    // Additional codes can be found at https://alerts.weather.gov/cap/wi.php?x=3
-    // TODO as app is expanded all counties will need to be added
-    //All County information
-    public static final HashMap<String, County> COUNTIES = new HashMap<>();
-
-    static {
-        COUNTIES.put("Kenosha", new County("Kenosha", "WIC059&y=0", "553fe6fd177959ac0e8b457f"));
-        COUNTIES.put("Racine", new County("Racine", "WIC101&y=0", "553fea39177959ac0e8b4581"));
-        COUNTIES.put("Milwaukee", new County("Milwaukee", "WIC079&y=0", "553fed2c17795996028b4584"));
-        COUNTIES.put("Rock", new County("Rock", "WIC105&y=0", "553ff3bb1779597b408b4569"));
-        COUNTIES.put("Dane", new County("Dane", "WIC025&y=0", "553feb2717795996028b457e"));
-        COUNTIES.put("Sauk", new County("Sauk", "WIC111&y=0", "553ff53617795912158b457a"));
-        COUNTIES.put("Ozaukee", new County("Ozaukee", "WIC089&y=0", "553ff12617795996028b4585"));
-        COUNTIES.put("Washington", new County("Washington", "WIC131&y=0", "553ff97e1779597b408b4574"));
-        COUNTIES.put("Jefferson", new County("Jefferson", "WIC055&y=0", "553fec3217795996028b4580"));
-        COUNTIES.put("Walworth", new County("Walworth", "WIC127&y=0", "553ff6e91779597b408b4572"));
-        COUNTIES.put("Waukesha", new County("Waukesha", "WIC133&y=0", "553ffa3f17795912158b4584"));
-
-    }
 
     public static County countyPrim;
 

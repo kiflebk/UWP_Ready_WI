@@ -78,5 +78,11 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="addpic">Add Picture</string>
+    <string name="primary">Primary</string>
+    <string name="additional">Additional</string>
+    <string name="search">Search</string>
+    <string name="done">Done</string>
+    <string name="current_prim">Current Primary County: </string>
+    <string name="clear_primary">Clear Primary</string>
 
 </resources>
