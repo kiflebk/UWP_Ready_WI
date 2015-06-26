@@ -62,8 +62,8 @@ import java.util.Set;
 import rss.RssFragment;
 import u.ready_wisc.BePrepared.Prep_Main;
 import u.ready_wisc.Counties.Counties;
-import u.ready_wisc.Counties.Counties.County;
-import u.ready_wisc.Counties.Counties.CountyActivity;
+import u.ready_wisc.Counties.County;
+import u.ready_wisc.Counties.CountyActivity;
 import u.ready_wisc.Emergency_Main.Emergency;
 import u.ready_wisc.disasterTypes.DisastersType;
 

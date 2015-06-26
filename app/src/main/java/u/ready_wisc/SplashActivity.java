@@ -36,7 +36,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import u.ready_wisc.Counties.Counties;
-import u.ready_wisc.Counties.Counties.CountyActivity;
+import u.ready_wisc.Counties.CountyActivity;
 import u.ready_wisc.Emergency_Main.PutData;
 
 public class SplashActivity extends Activity {

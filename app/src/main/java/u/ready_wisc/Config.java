@@ -21,7 +21,7 @@ package u.ready_wisc;
 
 //Config file to handle data for rest of app
 
-import u.ready_wisc.Counties.Counties.County;
+import u.ready_wisc.Counties.County;
 
 public class Config {
 

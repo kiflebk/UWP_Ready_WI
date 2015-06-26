@@ -37,7 +37,7 @@ import java.net.URL;
 import java.util.List;
 
 import u.ready_wisc.Counties.Counties;
-import u.ready_wisc.Counties.Counties.County;
+import u.ready_wisc.Counties.County;
 
 //RSS service reads the RSS feed and sends the data to be parsed
 public class RssService extends IntentService {
