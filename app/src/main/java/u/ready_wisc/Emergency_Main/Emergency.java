@@ -69,7 +69,7 @@ public class Emergency extends AppCompatActivity {
         Tracker t = ((AnalyticsApp) getApplication()).getTracker(AnalyticsApp.TrackerName.APP_TRACKER);
         t.send(new HitBuilders.ScreenViewBuilder().build());
 
-        String[] disasterList = {"Emergency Map", "Shelters", "Volunteer", "Report Damage", "Social Media", "Flashlight", "SOS Tone"};
+        String[] disasterList = {"Emergency Map", "River Gauge","Shelters", "Volunteer", "Report Damage", "Social Media", "Flashlight", "SOS Tone"};
 
         final ListAdapter disasterAdapt = new myAdapter(this, disasterList);
 
@@ -91,6 +91,11 @@ public class Emergency extends AppCompatActivity {
 
                 if (x.equals("Report Damage")) {
                     Intent i = new Intent(Emergency.this, DamageReports.class);
+                    Emergency.this.startActivity(i);
+                }
+
+                if (x.equals("River Gauge")) {
+                    Intent i = new Intent(Emergency.this, RiverGauge.class);
                     Emergency.this.startActivity(i);
                 }
 

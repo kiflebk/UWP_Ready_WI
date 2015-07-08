@@ -28,6 +28,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -35,8 +36,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.IOException;
+
 import u.ready_wisc.Counties.Counties;
 import u.ready_wisc.Counties.CountyActivity;
+import u.ready_wisc.Emergency_Main.FileDownloader;
 import u.ready_wisc.Emergency_Main.PutData;
 
 public class SplashActivity extends Activity {
@@ -94,6 +99,9 @@ public class SplashActivity extends Activity {
                     if (Config.countyPrim != null) {
                         dbUpdate();
                     }
+
+                    new DownloadFile().execute(Config.RIVER_LINK, "rivers.kml");
+
 
                     Cursor damageCur;
                     damageCur = mDatabaseHelper.query(ReportsDatabaseHelper.TABLE_USERS, null);
@@ -280,5 +288,24 @@ public class SplashActivity extends Activity {
         return false;
     }
 
+    private class DownloadFile extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            String fileUrl = strings[0];   // url
+            String fileName = strings[1]; //file name
+
+            File myFile = new File(getFilesDir(), fileName);
+
+            try{
+                myFile.createNewFile();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+            FileDownloader.downloadFile(fileUrl, myFile);
+            Log.i("riverfile", "DL complete");
+            return null;
+        }
+    }
 
 }

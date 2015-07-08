@@ -29,6 +29,8 @@ public class Config {
         throw new AssertionError();
     }
 
+        public static final String RIVER_LINK = "http://water.weather.gov/ahps2/ahps_kml.php?state=wi&fcst_type=obs";
+
     //        TODO URLs are for dev server, must be changed to new address if dev server is being used.
 //   public static final String DAMAGE_REPORT_URL = "http://www.joshuaolufs.com/php/query_damageReports_insert.php?";
 //
