@@ -123,7 +123,7 @@ public class myAdapter extends ArrayAdapter<String> {
             case "SOS Tone":
                 theImageView.setImageResource(R.drawable.sos_icon);
                 break;
-            case "River Gauge":
+            case "River Levels":
                 theImageView.setImageResource(R.drawable.river_icon);
                 break;
             default:
