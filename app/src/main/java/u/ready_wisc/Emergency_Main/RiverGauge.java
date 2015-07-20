@@ -134,8 +134,8 @@ public class RiverGauge extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            drawItems(items);
             materialDialog.hide();
+            drawItems(items);
         }
 
         /* Parse the KML file for river information */
