@@ -45,6 +45,7 @@ public class DisastersType extends AppCompatActivity {
         setContentView(R.layout.activity_disaster_info_layout);
 
 
+
         String[] disasterList = {"Tornado", "Thunderstorms", "Winter Storm", "Extreme Heat", "Flood", "Fire/Wildfire", "Power Outage", "Public Health Emergency", "Terrorism", "Bomb Threats"};
 
         final ListAdapter disasterAdapt = new myAdapter(this, disasterList);

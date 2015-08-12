@@ -208,8 +208,6 @@ public class RiverGauge extends AppCompatActivity {
                 }
             } catch (XmlPullParserException e) {
                 e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
 

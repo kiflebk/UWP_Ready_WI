@@ -291,6 +291,9 @@
             android:name=".disasterTypes.InfoDisplay"
             android:label="@string/title_activity_info_display"
             android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="u.ready_wisc.disasterTypes.DisastersType" />
         </activity>
 
         <meta-data

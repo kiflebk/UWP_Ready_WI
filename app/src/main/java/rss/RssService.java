@@ -60,7 +60,7 @@ public class RssService extends IntentService {
         countyName = intent.getStringExtra("county");
         County county = Counties.ALL.get(countyName);
         if (county != null) {
-            RSS_SUFFIX = county.getCode();
+            RSS_SUFFIX = county.getCode() + "&y=0";
             Log.d(SyncStateContract.Constants.DATA, "Service started");
             this.intent = intent;
             startRss();
