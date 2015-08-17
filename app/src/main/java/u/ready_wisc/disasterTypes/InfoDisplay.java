@@ -79,6 +79,9 @@ public class InfoDisplay extends AppCompatActivity {
                 infoLink = Config.WINTER_LINK;
                 setTitle("Winter Storm");
                 break;
+            case "zombie":
+                t.setText(Html.fromHtml(Config.ZOMBIE));
+                setTitle("Zombie Apocalypse");
             default:
                 break;
         }

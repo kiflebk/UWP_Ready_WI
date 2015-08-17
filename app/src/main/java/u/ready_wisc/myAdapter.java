@@ -126,6 +126,9 @@ public class myAdapter extends ArrayAdapter<String> {
             case "River Levels":
                 theImageView.setImageResource(R.drawable.river_icon);
                 break;
+            case "Zombie Apocalypse":
+                theImageView.setImageResource(R.drawable.zombie);
+                break;
             default:
                 //This is where you can set the imageview.
                 theImageView.setImageResource(R.drawable.rw);

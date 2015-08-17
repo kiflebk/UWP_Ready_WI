@@ -28,6 +28,15 @@ import android.os.ResultReceiver;
 import android.provider.SyncStateContract;
 import android.util.Log;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
@@ -36,6 +45,7 @@ import java.io.Serializable;
 import java.net.URL;
 import java.util.List;
 
+import u.ready_wisc.Config;
 import u.ready_wisc.Counties.Counties;
 import u.ready_wisc.Counties.County;
 
@@ -80,10 +90,56 @@ public class RssService extends IntentService {
         } catch (XmlPullParserException | IOException e) {
             Log.w(e.getMessage(), e);
         }
+        // WisDOT Integration
+        checkDOTAlerts(rssItems);
         Bundle bundle = new Bundle();
         bundle.putSerializable(ITEMS, (Serializable) rssItems);
         ResultReceiver receiver = intent.getParcelableExtra(RECEIVER);
         receiver.send(0, bundle);
+    }
+
+    // Checks to see if there are any road conditions / alerts
+    private List<RssItem> checkDOTAlerts(List<RssItem> rssItems) {
+        try {
+            String jsonStr = httpRequest();
+            // Checks if the json isn't empty
+            if (!jsonStr.equals("[]")) {
+                Log.e("Alert Test", jsonStr);
+                // WisDOT produces an extra set of brackets, which are stripped here
+                jsonStr = jsonStr.substring(1, jsonStr.length()-1);
+                JSONObject wisDOT = new JSONObject(jsonStr);
+                JSONArray counties = wisDOT.getJSONArray("CountyNames");
+                Boolean alertCheck = false;
+                for (int i = 0; i < counties.length(); i++) {
+                    if (counties.get(i).equals(countyName)) {
+                        alertCheck = true;
+                    }
+                }
+                if (alertCheck) {
+                    String message = wisDOT.getString("Message");
+                    rssItems.add(new RssItem("Road Alert: " + message, "", ""));
+                } else {
+                    rssItems.add(new RssItem("No road alerts.", "" , ""));
+                }
+            } else {
+                rssItems.add(new RssItem("No road alerts.", "" , ""));
+            }
+
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+            Log.e("JSON Error", e.toString());
+        }
+        return rssItems;
+    }
+
+    //The actual HTTP request for the json string
+    public String httpRequest () throws IOException {
+        DefaultHttpClient httpClient = new DefaultHttpClient();
+        HttpGet httpGet = new HttpGet(Config.WISDOT_URL);
+        HttpResponse httpResponse = httpClient.execute(httpGet);
+        HttpEntity httpEntity = httpResponse.getEntity();
+        String jsonStr = EntityUtils.toString(httpEntity);
+        return jsonStr;
     }
 
     // opens URL stream to read RSS

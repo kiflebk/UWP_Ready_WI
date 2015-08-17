@@ -140,6 +140,12 @@ public class DamageReports extends AppCompatActivity {
             }
         });
         btnSubmit = (Button) findViewById(R.id.submitbutton);
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+        public void onClick(View v) {
+                submitReport();
+            }
+        });
         fireButton = (RadioButton) findViewById(R.id.fireButton);
         floodBox = (RadioButton) findViewById(R.id.floodBox);
         severeBox = (RadioButton) findViewById(R.id.severeBox);
@@ -159,7 +165,6 @@ public class DamageReports extends AppCompatActivity {
         water_depth = (EditText) findViewById(R.id.yesWaterEdit);
         basement_resident = (RadioButton) findViewById(R.id.familyBoxYes);
         damage_desc = (EditText) findViewById(R.id.damageEdit);
-        btnSubmit.setOnClickListener(new btnSubmit());
         insurDeductAmt = (EditText) findViewById(R.id.insurDeductAmt);
         //image cache
         imgCache = ImagesCache.getInstance();
@@ -454,168 +459,166 @@ public class DamageReports extends AppCompatActivity {
         }
     }
 
-    /*Class for button click of the "submit" button.*/
-    class btnSubmit implements Button.OnClickListener {
+    // Methods that handle submitting a damage report
+    public void submitReport() {
+        boolean isConnected = isOnline();
+        Log.e("Post Test", "Button Working");
 
-        public void onClick(View v) {
+        try {
 
-            // char holds the \ character to eliminate from the URL header
-            char backspace = (char) 92;
-            boolean isConnected = isOnline();
+            //Block of if statements to check each field.
+            if ((dateEdit.getText().toString() == null || dateEdit.getText().toString().matches(""))) {
+                Toast.makeText(getApplicationContext(), "Please select a date of occurrence.", Toast.LENGTH_LONG).show();
+            } else if ((name.getText().toString() == null || name.getText().toString().matches(""))) {
+                Toast.makeText(getApplicationContext(), "Please enter your name.", Toast.LENGTH_LONG).show();
+            } else if (address.getText().toString() == null || address.getText().toString().matches("")) {
+                Toast.makeText(getApplicationContext(), "Please enter an address.", Toast.LENGTH_LONG).show();
+            } else if (city.getText().toString() == null || city.getText().toString().matches("")) {
+                Toast.makeText(getApplicationContext(), "Please enter a city.", Toast.LENGTH_LONG).show();
+            } else if (zip.getText() == null ||
+                    (zip.getText().length() > 5 || zip.getText().length() < 5)) {
+                Toast.makeText(getApplicationContext(), "Please enter a zip code.", Toast.LENGTH_LONG).show();
+            } else if (damageCost.getText().toString() == null || damageCost.getText().toString().matches("")) {
+                Toast.makeText(getApplicationContext(), "Please estimate a damage cost.", Toast.LENGTH_LONG).show();
+            } else if (loss_percent.getText().toString() == null || loss_percent.getText().toString().matches("")) {
+                Toast.makeText(getApplicationContext(), "Please estimate a loss percentage.", Toast.LENGTH_LONG).show();
+                //TODO uncomment
+//                }
+//                else if (encodedString == null || encodedString.equals("")) {
+//                    Toast.makeText(getApplicationContext(), "Please take a picture.", Toast.LENGTH_LONG).show();
 
-            try {
+            }
 
-                //Block of if statements to check each field.
-                if ((dateEdit.getText().toString() == null || dateEdit.getText().toString().matches(""))) {
-                    Toast.makeText(getApplicationContext(), "Please select a date of occurrence.", Toast.LENGTH_LONG).show();
-                } else if ((name.getText().toString() == null || name.getText().toString().matches(""))) {
-                    Toast.makeText(getApplicationContext(), "Please enter your name.", Toast.LENGTH_LONG).show();
-                } else if (address.getText().toString() == null || address.getText().toString().matches("")) {
-                    Toast.makeText(getApplicationContext(), "Please enter an address.", Toast.LENGTH_LONG).show();
-                } else if (city.getText().toString() == null || city.getText().toString().matches("")) {
-                    Toast.makeText(getApplicationContext(), "Please enter a city.", Toast.LENGTH_LONG).show();
-                } else if (zip.getText() == null ||
-                        (zip.getText().length() > 5 || zip.getText().length() < 5)) {
-                    Toast.makeText(getApplicationContext(), "Please enter a zip code.", Toast.LENGTH_LONG).show();
-                } else if (damageCost.getText().toString() == null || damageCost.getText().toString().matches("")) {
-                    Toast.makeText(getApplicationContext(), "Please estimate a damage cost.", Toast.LENGTH_LONG).show();
-                } else if (loss_percent.getText().toString() == null || loss_percent.getText().toString().matches("")) {
-                    Toast.makeText(getApplicationContext(), "Please estimate a loss percentage.", Toast.LENGTH_LONG).show();
-                } else if (encodedString == null || encodedString.equals("")) {
-                    Toast.makeText(getApplicationContext(), "Please take a picture.", Toast.LENGTH_LONG).show();
+            // JSON object is created based off of user input
+            else {
+                JSONObject jObject = createJObject();
+                Log.e("Post Test", jObject.toString());
 
-                }
+                // Convert JSON object to url string
+                //String url = Config.DAMAGE_REPORT_URL + jObject.toString().replace('{', ' ').replace('}', ' ').replace(backspace, ' ').trim().replace('"', ' ').replace(" ", "").replace(':', '=').replace(',', '&');
 
-                // JSON object is created based off of user input
+                // The JSON object is passed over to be sent
+                if (isConnected)
+                    putDataToServer(jObject.toString());
                 else {
-                    JSONObject jObject = createJObject();
+                    addUser(jObject.toString());
+                    String place = null;
+                    Cursor cur = mDatabaseHelper.query(ReportsDatabaseHelper.TABLE_USERS, null);
 
-                    // Convert JSON object to url string
-                    String url = Config.DAMAGE_REPORT_URL + jObject.toString().replace('{', ' ').replace('}', ' ').replace(backspace, ' ').trim().replace('"', ' ').replace(" ", "").replace(':', '=').replace(',', '&');
-
-                    // The JSON object is passed over to be sent
-                    if (isConnected)
-                        putDataToServer(url);
-                    else {
-                        addUser(url);
-                        String place = null;
-                        Cursor cur = mDatabaseHelper.query(ReportsDatabaseHelper.TABLE_USERS, null);
-
-                        if (cur.moveToFirst()) {
-                            int placeColumn = cur.getColumnIndex(ReportsDatabaseHelper.COL_JSON);
-                            place = cur.getString(placeColumn);
-                        }
-
-                        Log.i("DB Error", place);
-                        Toast.makeText(getApplicationContext(), "No Network Connection.  Report will be submitted when network connection is established.", Toast.LENGTH_LONG).show();
-                        DamageReports.this.finish();
+                    if (cur.moveToFirst()) {
+                        int placeColumn = cur.getColumnIndex(ReportsDatabaseHelper.COL_JSON);
+                        place = cur.getString(placeColumn);
                     }
 
-                }
-            } catch (Throwable ignored) {
-
-            }
-
-        }
-
-        //method to check if radio boxes are checked.
-        public int checked(RadioButton r) {
-            //return 1 if not checked.
-            int checked = 1;
-            //return 0 if checked.
-            if (r.isChecked())
-                checked = 0;
-
-            return checked;
-        }
-
-        //Method to create a JSONObject that holds the contents of the form
-        public JSONObject createJObject() {
-            JSONObject obj = new JSONObject();
-
-            //Insert damage report fields into JSONObject.
-            //(Key,value)
-
-            if (checked(floodBox) == 0)
-                disasterType = 0;
-            else if (checked(severeBox) == 0)
-                disasterType = 1;
-            else if (checked(sewerBox) == 0)
-                disasterType = 2;
-            else if (checked(fireButton) == 0)
-                disasterType = 3;
-            else
-                disasterType = 4;
-
-            if (checked(own) == 0)
-                rentOrOwned = 0;
-            else if (checked(rent) == 0)
-                rentOrOwned = 1;
-
-            //If amount is left blank assume there is no insurance
-            if (insurDeductAmt.getText() == null) {
-                insurDeductAmt.setText("0.00");
-            }
-
-            try {
-
-                // All data is convert to a string and put into the JSON object
-                // Spaces are replaced with http tag for space to accommodate the
-                // HTTP GET URL format.
-                // TODO the space replace may need to be changed once HTTP POST is implemented
-                obj.put("deviceid", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
-                obj.put("type_of_occurrence", (disasterType + "").replace(" ", "%20"));
-                obj.put("date", String.valueOf(dateEdit.getText()).replace(" ", "%20"));
-                obj.put("name", name.getText().toString().replace(" ", "%20"));
-                obj.put("address", address.getText().toString().replace(" ", "%20"));
-                obj.put("city", city.getText().toString().replace(" ", "%20"));
-                obj.put("add_state", state.getText().toString().replace(" ", "%20"));
-                obj.put("zip", zip.getText().toString().replace(" ", "%20"));
-                obj.put("own_or_rent", (rentOrOwned + "").replace(" ", "%20"));
-                obj.put("insurance_deductible", insurDeductAmt.getText().toString().replace(" ", "%20"));
-                obj.put("damage_cost", damageCost.getText().toString().replace(" ", "%20"));
-                obj.put("loss_percent", loss_percent.getText().toString().replace(" ", "%20"));
-                obj.put("habitable", (checked(habitable) + "").replace(" ", "%20"));
-                obj.put("basement_water", (checked(basement_water) + "").replace(" ", "%20"));
-                obj.put("water_depth", water_depth.getText().toString().replace(" ", "%20"));
-                obj.put("basement_resident", (checked(basement_resident) + "").replace(" ", "%20"));
-                obj.put("damage_desc", damage_desc.getText().toString().replace(" ", "%20"));
-
-                //TODO apache server needs to have url length parameter changed
-                obj.put("encoded_image", encodedString.replace("/", "%2F").replace("+", "%2B").replace("\n", ""));
-
-                if (isOnline()) {
-                    obj.put("longitude", (loc.getLongitude() + "").replace(" ", "%20"));
-                    obj.put("latitude", (loc.getLatitude() + "").replace(" ", "%20"));
+                    Log.i("Post Test", place);
+                    Toast.makeText(getApplicationContext(), "No Network Connection.  Report will be submitted when network connection is established.", Toast.LENGTH_LONG).show();
+                    DamageReports.this.finish();
                 }
 
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
-            return obj;
-        }
-
-        //Method to send data to server via HTTP Post
-        public void putDataToServer(String json) throws Throwable {
-
-            String reportAccepted;
-            Log.d("Send pic", json);
-            PutData httpGet = new PutData(json);
-            Thread t = new Thread(httpGet);
-            t.start();
-            t.join();
-
-            reportAccepted = httpGet.getDataAccepted();
-            Log.d("Send pic", reportAccepted);
-
-            if (reportAccepted.equals("1")) {
-                Toast.makeText(getApplicationContext(), "Report Submitted Successfully", Toast.LENGTH_LONG).show();
-                DamageReports.this.finish();
-
-            } else
-                Toast.makeText(getApplicationContext(), "Report Not Sent", Toast.LENGTH_LONG).show();
+        } catch (Throwable ignored) {
 
         }
+    }
+
+    //method to check if radio boxes are checked.
+    public int checked(RadioButton r) {
+        //return 1 if not checked.
+        int checked = 1;
+        //return 0 if checked.
+        if (r.isChecked())
+            checked = 0;
+
+        return checked;
+    }
+
+    //Method to create a JSONObject that holds the contents of the form
+    public JSONObject createJObject() {
+        JSONObject obj = new JSONObject();
+
+        //Insert damage report fields into JSONObject.
+        //(Key,value)
+
+        if (checked(floodBox) == 0)
+            disasterType = 0;
+        else if (checked(severeBox) == 0)
+            disasterType = 1;
+        else if (checked(sewerBox) == 0)
+            disasterType = 2;
+        else if (checked(fireButton) == 0)
+            disasterType = 3;
+        else
+            disasterType = 4;
+
+        if (checked(own) == 0)
+            rentOrOwned = 0;
+        else if (checked(rent) == 0)
+            rentOrOwned = 1;
+
+        //If amount is left blank assume there is no insurance
+        if (insurDeductAmt.getText() == null) {
+            insurDeductAmt.setText("0.00");
+        }
+
+        try {
+
+            // All data is convert to a string and put into the JSON object
+
+            obj.put("deviceid", Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
+            obj.put("type_of_occurrence", disasterType);
+            obj.put("date", String.valueOf(dateEdit.getText()));
+            obj.put("name", name.getText().toString());
+            obj.put("address", address.getText().toString());
+            obj.put("city", city.getText().toString());
+            obj.put("add_state", state.getText().toString());
+            obj.put("zip", zip.getText().toString());
+            obj.put("own_or_rent", (rentOrOwned + ""));
+            obj.put("insurance_deductible", insurDeductAmt.getText());
+            obj.put("damage_cost", damageCost.getText().toString());
+            obj.put("loss_percent", loss_percent.getText().toString());
+            obj.put("habitable", (checked(habitable) + ""));
+            obj.put("basement_water", (checked(basement_water) + ""));
+            obj.put("water_depth", water_depth.getText().toString());
+            obj.put("basement_resident", checked(basement_resident) + "");
+            obj.put("damage_desc", damage_desc.getText().toString());
+
+            //TODO instead of encoding images, add them to the multipart entity
+            //obj.put("encoded_image", encodedString.replace("/", "%2F").replace("+", "%2B").replace("\n", ""));
+
+            if (isOnline()) {
+                obj.put("longitude", (loc.getLongitude() + ""));
+                obj.put("latitude", (loc.getLatitude() + ""));
+            }
+            //TODO add else if for when network isn't reached
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+
+    //Method to send data to server via HTTP Post
+    public void putDataToServer(String json) throws Throwable {
+
+        String reportAccepted;
+        Log.e("Post Test", json);
+        PutData httpPost = new PutData(json);
+        Thread t = new Thread(httpPost);
+        t.start();
+        t.join();
+        Log.e("Post Test", json);
+
+        //TODO get validation for successful post requests
+//            reportAccepted = httpPost.getDataAccepted();
+//            Log.d("Send pic", reportAccepted);
+//
+//            if (reportAccepted.equals("1")) {
+//                Toast.makeText(getApplicationContext(), "Report Submitted Successfully", Toast.LENGTH_LONG).show();
+//                DamageReports.this.finish();
+//
+//            } else
+//                Toast.makeText(getApplicationContext(), "Report Not Sent", Toast.LENGTH_LONG).show();
+
     }
 
     // method to create the AlertDialog

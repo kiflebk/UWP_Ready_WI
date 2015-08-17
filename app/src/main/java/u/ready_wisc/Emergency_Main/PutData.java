@@ -26,12 +26,14 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
+import u.ready_wisc.Config;
 
-//Runnable object used to submit damage report to server using HTTP GET
 
+//Runnable object used to submit damage report to server using HTTP POST
 
 public class PutData implements Runnable {
 
@@ -48,35 +50,24 @@ public class PutData implements Runnable {
         return dataAccepted;
     }
 
-    //TODO for future versions: GET needs to be changed to POST.  Data needs to be encrypted before being sent
     @Override
     public void run() {
-
-        // char holds the \ character to eliminate from the URL header
-        // char backspace = (char) 92;
-
-        //
         try {
-            Log.i("Thread JSON:", mainJSON);
+
+            // Sends JSON object to the damage report URL
+            //TODO Change the type of entity from string to "multipart"
             HttpClient httpclient = new DefaultHttpClient();
-
-            //String url = "http://www.joshuaolufs.com/php/query_damageReports_insert.php?" + mainJSON.toString().replace('{', ' ').replace('}',' ').replace(backspace, ' ').trim().replace('"', ' ').replace(" ", "").replace(':','=').replace(',','&');
-
-            Log.i("HTTP URL:", mainJSON);
-            HttpPost httppost = new HttpPost(mainJSON);
-
-            // TODO The following code needs to be fixed to send the DamageReports JSON object as a POST.
-
-            //StringEntity se = new StringEntity(mainJSON.toString());
-            //Log.i("String Entity", mainJSON.toString());
-            //httppost.setEntity(se);
+            HttpPost httppost = new HttpPost(Config.DAMAGE_REPORT_URL);
+            StringEntity se = new StringEntity(mainJSON);
+            Log.e("Post Test", mainJSON);
+            httppost.setEntity(se);
 
             // As the system currently works, the two responses from the server are:
             // 1 - pass, 0 - fail
             HttpResponse response = httpclient.execute(httppost);
             HttpEntity entity = response.getEntity();
-            dataAccepted = EntityUtils.toString(entity);
-            Log.i("HTTP Response", dataAccepted);
+            //dataAccepted = EntityUtils.toString(entity);
+            Log.e("Post Test", dataAccepted);
 
         } catch (Exception e) {
             Log.e("log_tag", "Error in http connection" + e.toString());

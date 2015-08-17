@@ -38,12 +38,15 @@ public class Config {
 //
 //    public static final String SHELTER_UPDATE_URL = "http://www.joshuaolufs.com/php/query_Shelters_select.php?x=";
     // URL to the production server
-    public static final String DAMAGE_REPORT_URL = "http://www.eagleweather.com/readyBadger//php/query_damageReports_insert.php?";
+    public static final String DAMAGE_REPORT_URL = "http://joshuaolufs.com/projects/ReadyBadger/api/index.php/Damagereport/newreport";
     public static final String DB_UPDATE_URL = "http://www.eagleweather.com/readyBadger//php/query_Contacts_select.php?x=";
     public static final String SHELTER_UPDATE_URL = "http://www.eagleweather.com/readyBadger//php/query_Shelters_select.php?x=";
     public static final String EMERGENCY_MAP_URL = "https://www.google.com/maps/search/emergency+";
     public static final String GET_KIT_URL = "http://readywisconsin.wi.gov/kit/GetKit.asp";
     public static final String MAKE_PLAN_URL = "http://readywisconsin.wi.gov/Plan/Plan.asp?maintab=0";
+
+    // URL for WisDOT Alert
+    public static final String WISDOT_URL = "http://www.511wi.gov/web/api/alerts?key=b67502601891425ea4da2f825860c1fa&format=json";
 
     public static County countyPrim;
 
@@ -1409,5 +1412,107 @@ public class Config {
                 "\t\t\t"
 
                 + "</div>\n");
+    }
+
+    public static final String ZOMBIE;
+
+    static {
+        ZOMBIE = "<body><!-- ZOMBIE APOCALYPSE -->\n" +
+                "   <div>\n" +
+                "      <h3>A Brief History of Zombies</h3>\n" +
+                "      <p>\n" +
+                "         We've all seen at least one movie about flesh-eating zombies taking\n" +
+                "         over (my personal favorite is Resident Evil), but where do zombies come\n" +
+                "         from and why do they love eating brains so much? The word zombie comes\n" +
+                "         from Haitian and New Orleans voodoo origins. Although its meaning has\n" +
+                "         changed slightly over the years, it refers to a human corpse\n" +
+                "         mysteriously reanimated to serve the undead. Through ancient voodoo\n" +
+                "         and folk-lore traditions, shows like the Walking Dead were born.\n" +
+                "      </p>\n" +
+                "      <p>\n" +
+                "         In movies, shows, and literature, zombies are often depicted as being\n" +
+                "         created by an infectious virus, which is passed on via bites and\n" +
+                "         contact with bodily fluids. Harvard psychiatrist Steven Schlozman\n" +
+                "         wrote a (fictional) medical paper on the zombies presented in Night\n" +
+                "         of the Living Dead and refers to the condition as Ataxic\n" +
+                "         Neurodegenerative Satiety Deficiency Syndrome caused by an infectious\n" +
+                "         agent. The Zombie Survival Guide identifies the cause of zombies as a\n" +
+                "         virus called solanum. Other zombie origins shown in films include\n" +
+                "         radiation from a destroyed NASA Venus probe (as in Night of the\n" +
+                "         Living Dead), as well as mutations of existing conditions such as\n" +
+                "         prions, mad-cow disease, measles and rabies.In movies, shows, and\n" +
+                "         literature, zombies are often depicted as being created by an\n" +
+                "         infectious virus, which is passed on via bites and contact with bodily\n" +
+                "         fluids. Harvard psychiatrist Steven Schlozman wrote a (fictional)\n" +
+                "         medical paper on the zombies presented in Night of the Living Dead and\n" +
+                "         refers to the condition as Ataxic Neurodegenerative Satiety Deficiency\n" +
+                "         Syndrome caused by an infectious agent. The Zombie Survival Guide\n" +
+                "         identifies the cause of zombies as a virus called solanum. Other\n" +
+                "         zombie origins shown in films include radiation from a destroyed NASA\n" +
+                "         Venus probe (as in Night of the Living Dead), as well as mutations of\n" +
+                "         existing conditions such as prions, mad-cow disease, measles and\n" +
+                "         rabies.\n" +
+                "      </p>\n" +
+                "      <p>\n" +
+                "         The rise of zombies in pop culture has given credence to the idea that\n" +
+                "         a zombie apocalypse could happen. In such a scenario zombies would\n" +
+                "         take over entire countries, roaming city streets eating anything\n" +
+                "         living that got in their way. The proliferation of this idea has led\n" +
+                "         many people to wonder “How do I prepare for a zombie apocalypse?”\n" +
+                "         Well, we’re here to answer that question for you, and hopefully share\n" +
+                "         a few tips about preparing for real emergencies too!\n" +
+                "      </p>\n" +
+                "      <h3>Better Safe Than Sorry</h3>\n" +
+                "      <p>\n" +
+                "         So what do you need to do before zombies…or hurricanes or pandemics\n" +
+                "         for example, actually happen? First of all, you should have an\n" +
+                "         emergency kit in your house. This includes things like water, food,\n" +
+                "         and other supplies to get you through the first couple of days before\n" +
+                "         you can locate a zombie-free refugee camp (or in the event of a\n" +
+                "         natural disaster, it will buy you some time until you are able to make\n" +
+                "         your way to an evacuation shelter or utility lines are restored).\n" +
+                "         Below are a few items you should include in your kit, for a full list\n" +
+                "         visit the CDC Emergency page.\n" +
+                "      </p>\n" +
+                "      <ul>\n" +
+                "         <li>• Water (1 gallon per person per day)</li><br/>\n" +
+                "         <li>• Food (stock up on non-perishable items that you eat regularly)</li><br/>\n" +
+                "         <li>• Medications (this includes prescription and non-prescription\n" +
+                "            meds)</li><br/>\n" +
+                "         <li>• Tools and Supplies (utility knife, duct tape, battery powered radio, etc.)</li><br/>\n" +
+                "         <li>• Sanitation and Hygiene (household bleach, soap, towels, etc.)</li><br/>\n" +
+                "         <li>• Clothing and Bedding (a change of clothes for each family member\n" +
+                "            and blankets)</li><br/>\n" +
+                "         <li>• Important documents (copies of your driver’s license, passport,\n" +
+                "            and birth certificate to name a few)</li><br/>\n" +
+                "         <li>• First Aid supplies (although you’re a goner if a zombie bites you,\n" +
+                "            you can use these supplies to treat basic cuts and lacerations that\n" +
+                "            you might get during a tornado or hurricane)</li>\n" +
+                "      </ul>\n" +
+                "      <h3>Never Fear - CDC is Ready</h3>\n" +
+                "      <p>\n" +
+                "         If zombies did start roaming the streets, CDC would conduct an\n" +
+                "         investigation much like any other disease outbreak. CDC would provide\n" +
+                "         technical assistance to cities, states, or international partners\n" +
+                "         dealing with a zombie infestation. This assistance might include\n" +
+                "         consultation, lab testing and analysis, patient management and care,\n" +
+                "         tracking of contacts, and infection control (including isolation and\n" +
+                "         quarantine). It’s likely that an investigation of this scenario would\n" +
+                "         seek to accomplish several goals: determine the cause of the illness,\n" +
+                "         the source of the infection/virus/toxin, learn how it is transmitted\n" +
+                "         and how readily it is spread, how to break the cycle of transmission\n" +
+                "         and thus prevent further cases, and how patients can best be treated.\n" +
+                "         Not only would scientists be working to identify the cause and cure of\n" +
+                "         the zombie outbreak, but CDC and other federal agencies would send\n" +
+                "         medical teams and first responders to help those in affected areas\n" +
+                "         (I will be volunteering the young nameless disease detectives for\n" +
+                "         the field work).\n" +
+                "      </p>\n" +
+                "      <p>\n" +
+                "         To learn more about how you can prepare for and stay safe during an\n" +
+                "         emergency visit: http://emergency.cdc.gov/\n" +
+                "      </p>\n" +
+                "   </div>\n" +
+                "</body>\n";
     }
 }

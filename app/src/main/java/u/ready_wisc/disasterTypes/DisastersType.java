@@ -45,8 +45,9 @@ public class DisastersType extends AppCompatActivity {
         setContentView(R.layout.activity_disaster_info_layout);
 
 
-
-        String[] disasterList = {"Tornado", "Thunderstorms", "Winter Storm", "Extreme Heat", "Flood", "Fire/Wildfire", "Power Outage", "Public Health Emergency", "Terrorism", "Bomb Threats"};
+        String[] disasterList = {"Tornado", "Thunderstorms", "Winter Storm", "Extreme Heat",
+                "Flood", "Fire/Wildfire", "Power Outage", "Public Health Emergency", "Terrorism",
+                "Bomb Threats", "Zombie Apocalypse"};
 
         final ListAdapter disasterAdapt = new myAdapter(this, disasterList);
 
@@ -108,6 +109,11 @@ public class DisastersType extends AppCompatActivity {
                     }
                     case "Extreme Heat": {
                         i.putExtra("infoType", "heat");
+                        startActivity(i);
+                        break;
+                    }
+                    case "Zombie Apocalypse": {
+                        i.putExtra("infoType", "zombie");
                         startActivity(i);
                         break;
                     }
