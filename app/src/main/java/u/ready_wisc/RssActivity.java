@@ -38,7 +38,7 @@ public class RssActivity extends AppCompatActivity {
     TextView textView;
     Button getDesc;
     String link;
-    String countyName;
+    //String countyName;
     String desc;
     String title;
 
@@ -56,7 +56,7 @@ public class RssActivity extends AppCompatActivity {
 
         getDesc = (Button) findViewById(R.id.getDesc);
         Intent intent = getIntent();
-        countyName = intent.getStringExtra("county");
+        //countyName = intent.getStringExtra("county");
         desc = intent.getStringExtra("desc");
         link = intent.getStringExtra("link");
         title = intent.getStringExtra("title");

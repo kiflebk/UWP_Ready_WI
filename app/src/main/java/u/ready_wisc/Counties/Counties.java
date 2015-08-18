@@ -34,7 +34,7 @@ public class Counties {
 
     //constructor that runs all of the parsing
     private Counties(Context ct) {
-        this.context = ct;
+        context = ct;
         int id = context.getResources().getIdentifier("counties", "raw", context.getPackageName());
         InputStream is = context.getResources().openRawResource(id);
         parseFile(is);

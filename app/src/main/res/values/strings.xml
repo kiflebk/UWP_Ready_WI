@@ -58,25 +58,13 @@
     <string name="menu_checklist_edit">Edit Mode</string>
     <string name="title_activity_rss">Alerts and Warnings</string>
     <string name="title_activity_county_picker">CountyPicker</string>
-    <string name="hello_world">Hello world!</string>
     <string name="supplyType">Supply Type</string>
     <string name="DisasterPlan">Disaster Plan</string>
     <string name="cancel">Cancel</string>
     <string name="okay">Okay</string>
     <string name="RuInsured">Your Insurance Deductible</string>
-    <string name="title_activity_poop">Poop</string>
-    <string name="title_activity_sanitation_supp">SanitationSupp</string>
-    <string name="title_activity_essentials">Essentials</string>
-    <string name="title_activity_water">Water</string>
-    <string name="title_activity_food">Food</string>
-    <string name="title_activity_first_aid">FirstAid</string>
-    <string name="title_activity_bedding">Bedding</string>
-    <string name="title_activity_prep_web_view">Be Prepared</string>
     <string name="title_activity_info_display">InfoDisplay</string>
     <string name="change_county">Change County</string>
-
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="addpic">Add Picture</string>
     <string name="primary">Primary</string>
     <string name="additional">Additional</string>

@@ -21,7 +21,6 @@ public class PushbotsHandler extends BroadcastReceiver {
     }
 
     private static final String TAG = "customHandler";
-    private Intent service;
 
     @Override
     public void onReceive(Context context, Intent intent) {
