@@ -23,7 +23,7 @@ package u.ready_wisc.Emergency_Main;
 
 //This class builds damageReports
 //Then calls a post method that will send
-//the data to the sever as a HTTP GET.
+//the data to the sever as a HTTP Post.
 
 
 import android.app.DatePickerDialog;
@@ -482,7 +482,7 @@ public class DamageReports extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Please estimate a damage cost.", Toast.LENGTH_LONG).show();
             } else if (loss_percent.getText().toString() == null || loss_percent.getText().toString().matches("")) {
                 Toast.makeText(getApplicationContext(), "Please estimate a loss percentage.", Toast.LENGTH_LONG).show();
-                //TODO uncomment
+                //TODO uncomment/add photo check
 //                }
 //                else if (encodedString == null || encodedString.equals("")) {
 //                    Toast.makeText(getApplicationContext(), "Please take a picture.", Toast.LENGTH_LONG).show();

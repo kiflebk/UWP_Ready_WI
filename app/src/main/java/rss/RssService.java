@@ -104,22 +104,23 @@ public class RssService extends IntentService {
             String jsonStr = httpRequest();
             // Checks if the json isn't empty
             if (!jsonStr.equals("[]")) {
-                Log.e("Alert Test", jsonStr);
-                // WisDOT produces an extra set of brackets, which are stripped here
-                jsonStr = jsonStr.substring(1, jsonStr.length()-1);
-                JSONObject wisDOT = new JSONObject(jsonStr);
-                JSONArray counties = wisDOT.getJSONArray("CountyNames");
-                Boolean alertCheck = false;
-                for (int i = 0; i < counties.length(); i++) {
-                    if (counties.get(i).equals(countyName)) {
-                        alertCheck = true;
+                // Goes through every county alert
+                JSONArray allAlerts = new JSONArray(jsonStr);
+                for (int i = 0; i < allAlerts.length(); i++) {
+                    JSONObject wisDOT = allAlerts.getJSONObject(i);
+                    JSONArray counties = wisDOT.getJSONArray("CountyNames");
+                    Boolean alertCheck = false;
+                    for (int j = 0; j < counties.length(); j++) {
+                        if (counties.get(j).equals(countyName)) {
+                            alertCheck = true;
+                        }
                     }
-                }
-                if (alertCheck) {
-                    String message = wisDOT.getString("Message");
-                    rssItems.add(new RssItem("Road Alert: " + message, "", ""));
-                } else {
-                    rssItems.add(new RssItem("No road alerts.", "" , ""));
+                    if (alertCheck) {
+                        String message = wisDOT.getString("Message");
+                        rssItems.add(new RssItem("Road Alert: " + message, "", ""));
+                    } else {
+                        rssItems.add(new RssItem("No road alerts.", "" , ""));
+                    }
                 }
             } else {
                 rssItems.add(new RssItem("No road alerts.", "" , ""));
@@ -133,6 +134,7 @@ public class RssService extends IntentService {
     }
 
     //The actual HTTP request for the json string
+    //TODO make this an async task
     public String httpRequest () throws IOException {
         DefaultHttpClient httpClient = new DefaultHttpClient();
         HttpGet httpGet = new HttpGet(Config.WISDOT_URL);

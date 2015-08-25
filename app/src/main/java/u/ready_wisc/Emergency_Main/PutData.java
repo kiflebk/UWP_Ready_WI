@@ -55,7 +55,7 @@ public class PutData implements Runnable {
         try {
 
             // Sends JSON object to the damage report URL
-            //TODO Change the type of entity from string to "multipart"
+            //TODO Change the type of entity from string to "multipart" to add pics
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(Config.DAMAGE_REPORT_URL);
             StringEntity se = new StringEntity(mainJSON);
@@ -64,6 +64,7 @@ public class PutData implements Runnable {
 
             // As the system currently works, the two responses from the server are:
             // 1 - pass, 0 - fail
+            //TODO get validation for successful post requests
             HttpResponse response = httpclient.execute(httppost);
             HttpEntity entity = response.getEntity();
             //dataAccepted = EntityUtils.toString(entity);
