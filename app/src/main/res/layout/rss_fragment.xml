@@ -14,13 +14,14 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:background="@drawable/gradient_grey"
+            android:background="#ff7d807f"
             android:gravity="center"
             android:text=" Alerts and Warnings for \n null county"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#fffffff0"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:minHeight="50dp"/>
 
         <ListView
             android:id="@+id/listView"
