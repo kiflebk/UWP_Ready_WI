@@ -43,11 +43,13 @@ import u.ready_wisc.Counties.Counties;
 import u.ready_wisc.Counties.CountyActivity;
 import u.ready_wisc.Emergency_Main.FileDownloader;
 import u.ready_wisc.Emergency_Main.PutData;
+import u.ready_wisc.LocationHandling.LocationService;
 
 public class SplashActivity extends Activity {
 
     public static final String PREFS_NAME = "MyPrefsFile";
     public static String county = "";
+    public static String state = "";
 
     static ReportsDatabaseHelper mDatabaseHelper;
     static VolunteerDBHelper vDBHelper;
@@ -60,10 +62,17 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
+
+        // Loads in the county from the preferences
+        LocationService.requestLocation(this);
+
+
+
         Counties.getInstance(this);
         // Loads in the county from the preferences
         settings = getSharedPreferences(PREFS_NAME, 0);
         county = settings.getString("county", "");
+        state = settings.getString("state", "");
         if (!county.isEmpty()) {
             //set global primary county
             Config.countyPrim = Counties.ALL.get(county);
@@ -74,11 +83,11 @@ public class SplashActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (!county.isEmpty()) {
-                    Intent intent = new Intent(SplashActivity.this, MenuActivity.class);
+                if (county.isEmpty() || !state.equals("Wisconsin")) {
+                    Intent intent = new Intent(SplashActivity.this, CountyActivity.class);
                     SplashActivity.this.startActivity(intent);
                 } else {
-                    Intent intent = new Intent(SplashActivity.this, CountyActivity.class);
+                    Intent intent = new Intent(SplashActivity.this, MenuActivity.class);
                     SplashActivity.this.startActivity(intent);
                 }
                 splashClose = true;

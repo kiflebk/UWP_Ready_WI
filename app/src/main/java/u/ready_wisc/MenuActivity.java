@@ -65,6 +65,7 @@ import u.ready_wisc.Counties.Counties;
 import u.ready_wisc.Counties.County;
 import u.ready_wisc.Counties.CountyActivity;
 import u.ready_wisc.Emergency_Main.Emergency;
+import u.ready_wisc.LocationHandling.LocationService;
 import u.ready_wisc.disasterTypes.DisastersType;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
@@ -321,6 +322,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     //save county options from the shared preferences
     public void setCounties() {
+        LocationService.requestLocation(this);
+
         primaryCounty = settings.getString("county", "");
         additionalCounties = settings.getStringSet("counties", null);
         setTitle();
