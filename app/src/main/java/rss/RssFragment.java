@@ -85,7 +85,7 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
         // If a current RSS fragment isn't loaded, the RSS feed is read in and
         // a new fragment is created and placed in the container.
         if (view == null) {
-            view = inflater.inflate(R.layout.fragment_layout, container, false);
+            view = inflater.inflate(R.layout.rss_fragment, container, false);
             progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
             listView = (ListView) view.findViewById(R.id.listView);
             textView = (TextView) view.findViewById(R.id.awText);

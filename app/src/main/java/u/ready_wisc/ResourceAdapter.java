@@ -68,13 +68,13 @@ public class ResourceAdapter extends ArrayAdapter<ResourceItem> {
         String iconType = resourceList.get(position).getType();
         switch (iconType.toLowerCase()) {
             case "hospital":
-                resourceIcon.setImageResource(R.drawable.reshosp75);
+                resourceIcon.setImageResource(R.drawable.resources_hospital_75);
                 break;
             case "sheriff":
-                resourceIcon.setImageResource(R.drawable.resheriff75);
+                resourceIcon.setImageResource(R.drawable.resources_sheriff_75);
                 break;
             case "fire":
-                resourceIcon.setImageResource(R.drawable.resfire75);
+                resourceIcon.setImageResource(R.drawable.resources_fire_75);
                 break;
         }
 

@@ -28,6 +28,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -52,7 +53,6 @@ public class ResourcesActivity extends AppCompatActivity {
 
         // Retrieve widgets
         final ListView resourcesListView = (ListView) findViewById(R.id.resourcesListView);
-        final Spinner resourceSpinner = (Spinner) findViewById(R.id.resourceSpinner);
 
         Intent i = getIntent();
         county = i.getStringExtra("county");
@@ -68,57 +68,56 @@ public class ResourcesActivity extends AppCompatActivity {
             }
         });
 
-        resourceList = rDBHelper.getDataFromCounty(county); // Retrieve resources from database based on county and add them to an array
+        // Retrieve resources from database based on county and add them to an array
+        resourceList = rDBHelper.getDataFromCounty(county);
 
         // Set ListView to display the data retrieved from the database using specific adapter
         ResourceAdapter adapter = new ResourceAdapter(this, resourceList);
         resourcesListView.setAdapter(adapter);
 
-        // When a resource type is selected in the spinner, display only those resources
-        resourceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        ImageButton hospitalButton = (ImageButton) findViewById(R.id.hospitalButton);
+        ImageButton sheriffButton = (ImageButton) findViewById(R.id.sheriffButton);
+        ImageButton fireButton = (ImageButton) findViewById(R.id.fireButton);
+
+        hospitalButton.setOnClickListener(new AdapterView.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String resource = parent.getItemAtPosition(position).toString(); // Retrieve type
-                resourceList = rDBHelper.getDataFromType(county, resource); // Retrieve resources based on county and type
+            public void onClick(View v) {
+                String resource = "Hospital";
+                // Retrieve resources based on county and type
+                resourceList = rDBHelper.getDataFromType(county, resource);
 
                 // Set ListView to display the data retrieved from the database using specific adapter
                 ResourceAdapter adapter = new ResourceAdapter(ResourcesActivity.this, resourceList);
                 resourcesListView.setAdapter(adapter);
             }
+        });
 
+        sheriffButton.setOnClickListener(new AdapterView.OnClickListener() {
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onClick(View v) {
+                String resource = "Sheriff";
+                // Retrieve resources based on county and type
+                resourceList = rDBHelper.getDataFromType(county, resource);
+
+                // Set ListView to display the data retrieved from the database using specific adapter
+                ResourceAdapter adapter = new ResourceAdapter(ResourcesActivity.this, resourceList);
+                resourcesListView.setAdapter(adapter);
             }
         });
 
-        // Sets action to be carried out when resource item is clicked
-        // If usePhone is true, loads the dialer with the selected resource's number selected
-        // If usePhone is false, loads Google Maps with the resource's address searched
-        resourcesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        fireButton.setOnClickListener(new AdapterView.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onClick(View v) {
+                String resource = "Fire";
+                // Retrieve resources based on county and type
+                resourceList = rDBHelper.getDataFromType(county, resource);
 
-                ResourceItem clickedItem = (ResourceItem) parent.getItemAtPosition(position); // Get item
-
-                if(usePhone) {
-                    String phone = clickedItem.getPhone(); // Get phone number
-                    phone.replaceAll("[^0-9]", ""); // Format phone number
-
-                    // Create and start intent
-                    Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                    callIntent.setData(Uri.parse("tel:" + phone));
-                    startActivity(callIntent);
-                } else {
-                    String address = clickedItem.getAddress(); // Get address
-                    address.replaceAll("\\s", "+"); // Format address
-
-                    // Create and start intent
-                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + address));
-                    mapIntent.setPackage("com.google.android.apps.maps");
-                    startActivity(mapIntent);
-                }
+                // Set ListView to display the data retrieved from the database using specific adapter
+                ResourceAdapter adapter = new ResourceAdapter(ResourcesActivity.this, resourceList);
+                resourcesListView.setAdapter(adapter);
             }
         });
+
     }
 
     @Override

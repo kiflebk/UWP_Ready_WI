@@ -1,46 +1,45 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.kiflebk.readywisc.ResourcesActivity"
-    android:id="@+id/resActi">
+    android:layout_height="match_parent"
+                tools:context="com.example.kiflebk.readywisc.ResourcesActivity"
+    android:id="@+id/resourceLayout">
 
 
-
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Contacts:"
-        android:id="@+id/contactsText"
-        android:textSize="30dp"
+        android:id="@+id/resourceSelectorButtonsLayout"
+        android:layout_gravity="top"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/resourceText" />
+        android:layout_alignParentTop="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Resource:"
-        android:id="@+id/resourceText"
-        android:textSize="30dp"
-        android:gravity="center_vertical|center_horizontal"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-         />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hospitalButton"
+            android:src="@drawable/resources_hospital_75"
+            android:contentDescription="hospital icon"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"/>
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/resourceSpinner"
-        android:spinnerMode="dropdown"
-        android:entries="@array/resourceList"
-        android:layout_toEndOf="@+id/resourceText"
-        android:layout_above="@+id/contactsText"
-        android:layout_toRightOf="@+id/resourceText" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sheriffButton"
+            android:src="@drawable/resources_sheriff_75"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fireButton"
+            android:src="@drawable/resources_fire_75"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
     <ListView
         android:layout_width="wrap_content"
@@ -51,7 +50,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/contactsText" />
+        android:layout_below="@+id/resourceSelectorButtonsLayout"/>
 
     <LinearLayout
         android:orientation="horizontal"

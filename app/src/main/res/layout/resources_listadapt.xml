@@ -1,55 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@drawable/list_selector"
+    android:background="#e5ebee"
     android:id="@+id/rel">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/resourceIcon"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:maxHeight="75dp"
-        android:maxWidth="75dp"
-        android:minHeight="75dp"
-        android:minWidth="75dp"
-        android:src="@drawable/rw"
-        android:paddingRight="5dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Name"
-        android:id="@+id/resourceName"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/resourceIcon"
-        android:layout_toEndOf="@+id/resourceIcon"
-        android:textStyle="bold"
-        android:textSize="18dp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/resourceIcon"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:maxHeight="75dp"
+            android:maxWidth="75dp"
+            android:minHeight="75dp"
+            android:minWidth="75dp"
+            android:src="@drawable/rw"
+            android:paddingRight="5dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Address"
-        android:id="@+id/resourceAddress"
-        android:layout_below="@+id/resourceName"
-        android:layout_toRightOf="@+id/resourceIcon"
-        android:layout_toEndOf="@+id/resourceIcon"
-        android:textSize="15dp" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Phone"
-        android:id="@+id/resourcePhone"
-        android:layout_below="@+id/resourceAddress"
-        android:layout_toRightOf="@+id/resourceIcon"
-        android:layout_toEndOf="@+id/resourceIcon"
-        android:textSize="15dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Name"
+                android:id="@+id/resourceName"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/resourceIcon"
+                android:layout_toEndOf="@+id/resourceIcon"
+                android:textStyle="bold"
+                android:textSize="18dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address"
+                android:id="@+id/resourceAddress"
+                android:autoLink="map"
+                android:textSize="14dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone"
+                android:id="@+id/resourcePhone"
+                android:autoLink="phone"
+                android:textSize="14dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

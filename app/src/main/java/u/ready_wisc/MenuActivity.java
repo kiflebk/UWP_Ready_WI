@@ -270,6 +270,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
+        setCounties();
         IntentFilter filter = new IntentFilter(MessageService.ACTION);
         LocalBroadcastManager.getInstance(this).registerReceiver(messageStatus, filter);
         //start message service if not running
@@ -398,6 +399,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onRefresh() {
         settings.edit().putInt("pagerPosition", mPager.getCurrentItem()).apply();
+        setCounties();
         loadPager();
         new Handler().postDelayed(new Runnable() {
             @Override

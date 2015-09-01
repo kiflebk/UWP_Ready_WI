@@ -72,5 +72,9 @@
     <string name="done">Done</string>
     <string name="current_prim">Current Primary County: </string>
     <string name="clear_primary">Clear Primary</string>
+    <string name="be_prepared">Be Prepared</string>
+    <string name="Emergency">Emergency</string>
+    <string name="disaster_resources">Disaster Resources</string>
+    <string name="types_of_disasters">Types of Disasters</string>
 
 </resources>
