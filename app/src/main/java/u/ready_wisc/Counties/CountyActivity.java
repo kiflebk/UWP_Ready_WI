@@ -31,7 +31,6 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -51,6 +50,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -450,13 +450,15 @@ public class CountyActivity extends AppCompatActivity {
     //add additional county
     public void addAdditionalCounty(String name) {
         additionalCounties.add(name);
-        Snackbar.make(getCurrentFocus(), "Added Additional: " + name, Snackbar.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Added Additional: " + name, Toast.LENGTH_SHORT).show();
+        //Snackbar.make(getCurrentFocus(), "Added Additional: " + name, Snackbar.LENGTH_SHORT).show();
     }
 
     //remove additional county
     public void removeAdditionalCounty(String name) {
         additionalCounties.remove(name);
-        Snackbar.make(getCurrentFocus(), "Removed Additional: " + name, Snackbar.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Removed Additional: " + name, Toast.LENGTH_SHORT).show();
+//        Snackbar.make(getCurrentFocus(), "Removed Additional: " + name, Snackbar.LENGTH_SHORT).show();
     }
 
     //changes the primary checkboxes when a new primary is selected

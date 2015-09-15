@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,11 +59,13 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
     private String county;
     private Intent service;
     private View view;
+    private FragmentActivity activity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        activity = getActivity();
     }
 
     @Override
@@ -200,7 +203,7 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
             progressBar.setVisibility(View.GONE);
             List<RssItem> items = (List<RssItem>) resultData.getSerializable(RssService.ITEMS);
             //only use pushbots if primary county
-            SharedPreferences sp = getActivity().getSharedPreferences("MyPrefsFile", 0);
+            SharedPreferences sp = activity.getSharedPreferences("MyPrefsFile", 0);
             if (county.equals(sp.getString("county",""))) {
                 if (sp.contains("messages")) {
                     Set<String> messages = sp.getStringSet("messages", null);

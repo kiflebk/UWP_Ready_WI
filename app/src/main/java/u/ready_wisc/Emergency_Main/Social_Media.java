@@ -29,6 +29,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import u.ready_wisc.MediaItem;
 import u.ready_wisc.R;
@@ -49,76 +52,83 @@ public class Social_Media extends AppCompatActivity {
         setContentView(R.layout.activity_media);
         vdbHelper = new VolunteerDBHelper(this);
 
-        final MediaItem item = vdbHelper.getMediaData().get(0);
+        ArrayList<MediaItem> mediaData = vdbHelper.getMediaData();
 
-        facebookButt = (Button) findViewById(R.id.button2);
-        twitterButt = (Button) findViewById(R.id.button3);
+        if (mediaData.size() > 0) {
 
-        facebookButt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean haveF;
-                try {
-                    ApplicationInfo info = getPackageManager().getApplicationInfo("com.facebook.katana",0);
-                    haveF = true;
-                } catch (PackageManager.NameNotFoundException e){
-                    haveF = false;
-                }
-                if(haveF){
-                    // Strip all but page name and ID from url
-                    String fbString = item.getFacebook();
-                    fbString = fbString.substring(fbString.lastIndexOf("/") + 1);
+            final MediaItem item = mediaData.get(0);
 
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/" + fbString));
-                    startActivity(intent);
-                } else {
-                    // must add http:// prefix to url before it will open
-                    if (!item.getFacebook().equals(" ")) {
-                        Uri uri;
-                        if (!item.getFacebook().contains("http://") && !item.getFacebook().contains("https://")) {
-                            uri = Uri.parse("http://" + item.getFacebook());
-                        } else {
-                            uri = Uri.parse(item.getFacebook());
-                        }
-                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                        startActivity(intent);
+            facebookButt = (Button) findViewById(R.id.button2);
+            twitterButt = (Button) findViewById(R.id.button3);
+
+            facebookButt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    boolean haveF;
+                    try {
+                        ApplicationInfo info = getPackageManager().getApplicationInfo("com.facebook.katana", 0);
+                        haveF = true;
+                    } catch (PackageManager.NameNotFoundException e) {
+                        haveF = false;
                     }
-                }
-            }
-        });
+                    if (haveF) {
+                        // Strip all but page name and ID from url
+                        String fbString = item.getFacebook();
+                        fbString = fbString.substring(fbString.lastIndexOf("/") + 1);
 
-        twitterButt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean haveT;
-                try {
-                    ApplicationInfo info = getPackageManager().getApplicationInfo("com.twitter.android",0);
-                    haveT = true;
-                } catch (PackageManager.NameNotFoundException e){
-                    haveT = false;
-                }
-                if (!item.getTwitter().equals(" ")) {
-                    if(haveT){
-                        // Strip all but username from twitter url
-                        String twitString = item.getTwitter();
-                        twitString = twitString.substring(twitString.lastIndexOf("/") + 1);
-
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name=" + twitString));
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/" + fbString));
                         startActivity(intent);
                     } else {
-                        Uri uri;
                         // must add http:// prefix to url before it will open
-                        if (!item.getTwitter().contains("http://") && !item.getTwitter().contains("https://")) {
-                            uri = Uri.parse("http://" + item.getTwitter());
-                        } else {
-                            uri = Uri.parse(item.getTwitter());
+                        if (!item.getFacebook().equals(" ")) {
+                            Uri uri;
+                            if (!item.getFacebook().contains("http://") && !item.getFacebook().contains("https://")) {
+                                uri = Uri.parse("http://" + item.getFacebook());
+                            } else {
+                                uri = Uri.parse(item.getFacebook());
+                            }
+                            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                            startActivity(intent);
                         }
-                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                        startActivity(intent);
                     }
                 }
-            }
-        });
+            });
+
+            twitterButt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    boolean haveT;
+                    try {
+                        ApplicationInfo info = getPackageManager().getApplicationInfo("com.twitter.android", 0);
+                        haveT = true;
+                    } catch (PackageManager.NameNotFoundException e) {
+                        haveT = false;
+                    }
+                    if (!item.getTwitter().equals(" ")) {
+                        if (haveT) {
+                            // Strip all but username from twitter url
+                            String twitString = item.getTwitter();
+                            twitString = twitString.substring(twitString.lastIndexOf("/") + 1);
+
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name=" + twitString));
+                            startActivity(intent);
+                        } else {
+                            Uri uri;
+                            // must add http:// prefix to url before it will open
+                            if (!item.getTwitter().contains("http://") && !item.getTwitter().contains("https://")) {
+                                uri = Uri.parse("http://" + item.getTwitter());
+                            } else {
+                                uri = Uri.parse(item.getTwitter());
+                            }
+                            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                            startActivity(intent);
+                        }
+                    }
+                }
+            });
+        } else {
+            Toast.makeText(this, "No Social Media for this County", Toast.LENGTH_LONG ).show();
+        }
     }
 
 
