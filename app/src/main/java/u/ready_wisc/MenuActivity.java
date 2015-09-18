@@ -222,7 +222,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
 
-        //TODO add options menu
+        //TODO add options menu for about and other info
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
         actionBarMenu = menu;

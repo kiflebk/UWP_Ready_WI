@@ -30,7 +30,6 @@ import android.util.Log;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
@@ -134,7 +133,7 @@ public class RssService extends IntentService {
     }
 
     //The actual HTTP request for the json string
-    //TODO make this an async task
+    //TODO make this an async task to avoid any UI interruptions
     public String httpRequest () throws IOException {
         DefaultHttpClient httpClient = new DefaultHttpClient();
         HttpGet httpGet = new HttpGet(Config.WISDOT_URL);
