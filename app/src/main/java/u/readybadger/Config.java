@@ -29,7 +29,7 @@ public class Config {
         throw new AssertionError();
     }
 
-        public static final String RIVER_LINK = "http://water.weather.gov/ahps2/ahps_kml.php?state=wi&fcst_type=obs";
+    public static final String RIVER_LINK = "http://water.weather.gov/ahps2/ahps_kml.php?state=wi&fcst_type=obs";
 
     //        TODO URLs are for dev server, must be changed to new address if dev server is being used.
 //   public static final String DAMAGE_REPORT_URL = "http://www.joshuaolufs.com/php/query_damageReports_insert.php?";
@@ -38,7 +38,8 @@ public class Config {
 //
 //    public static final String SHELTER_UPDATE_URL = "http://www.joshuaolufs.com/php/query_Shelters_select.php?x=";
     // URL to the production server
-    public static final String DAMAGE_REPORT_URL = "http://joshuaolufs.com/projects/ReadyBadger/api/index.php/Damagereport/newreport";
+//    public static final String DAMAGE_REPORT_URL = "http://joshuaolufs.com/projects/ReadyBadger/api/index.php/Damagereport/newreport";
+    public static final String DAMAGE_REPORT_URL = "http://www.eagleweather.com/readyBadger//php/query_damageReports_insert.php?";
     public static final String DB_UPDATE_URL = "http://www.eagleweather.com/readyBadger//php/query_Contacts_select.php?x=";
     public static final String SHELTER_UPDATE_URL = "http://www.eagleweather.com/readyBadger//php/query_Shelters_select.php?x=";
     public static final String EMERGENCY_MAP_URL = "https://www.google.com/maps/search/emergency+";
