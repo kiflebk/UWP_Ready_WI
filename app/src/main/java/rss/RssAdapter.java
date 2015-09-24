@@ -28,7 +28,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import u.ready_wisc.R;
+import u.readybadger.R;
+
 
 
 // Adapter for RSS listview object

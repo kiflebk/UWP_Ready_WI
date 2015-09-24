@@ -29,9 +29,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import u.readybadger.R;
 
-import u.ready_wisc.R;
+import java.util.ArrayList;
 
 /**
  * Maps the activity_checklist.xml to the ChecklistRow objects.

@@ -8,37 +8,41 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="75dp"
         android:id="@+id/resourceSelectorButtonsLayout"
         android:layout_gravity="top"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:weightSum="3">
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:id="@+id/hospitalButton"
-            android:src="@drawable/resources_hospital_75"
+            android:src="@drawable/hospital_pic"
             android:contentDescription="hospital icon"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:scaleType="fitCenter" />
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:id="@+id/sheriffButton"
-            android:src="@drawable/resources_sheriff_75"
+            android:src="@drawable/police"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:scaleType="fitCenter" />
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:id="@+id/fireButton"
-            android:src="@drawable/resources_fire_75"
+            android:src="@drawable/firedept"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:scaleType="fitCenter" />
     </LinearLayout>
 
     <ListView

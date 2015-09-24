@@ -29,7 +29,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import u.ready_wisc.R;
+import u.readybadger.R;
 
 /**
  * The controller for the ChecklistCreateItemAdd.xml layout.

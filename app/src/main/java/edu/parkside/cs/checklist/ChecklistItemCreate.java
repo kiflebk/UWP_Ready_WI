@@ -32,7 +32,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import u.ready_wisc.R;
+import u.readybadger.R;
 
 /**
  * Class represents the controller for the Checklist Item Creation Activity.

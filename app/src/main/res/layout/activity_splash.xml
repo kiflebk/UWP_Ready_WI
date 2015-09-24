@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/splash"
+    android:background="@color/primary"
+    android:paddingTop="15dp">
+
+    <!--<ImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:id="@+id/wiImageView"-->
+        <!--android:layout_weight=".75"-->
+        <!--android:src="@drawable/ready"-->
+        <!--android:gravity="center_vertical|center_horizontal"-->
+        <!--android:scaleType="fitCenter"-->
+        <!--android:padding="10dp" />-->
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:indeterminateTint="@color/primary_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"/>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="287dp"
+        android:id="@+id/imageView"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/wi_logo"
+        android:layout_centerInParent="true"/>
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="75dp"
+        android:id="@+id/parksideView"
+        android:layout_below="@+id/imageView"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/app_factory_logo"
+        android:adjustViewBounds="false" />
+
+
+</RelativeLayout>

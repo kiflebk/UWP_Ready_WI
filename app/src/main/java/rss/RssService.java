@@ -44,9 +44,9 @@ import java.io.Serializable;
 import java.net.URL;
 import java.util.List;
 
-import u.ready_wisc.Config;
-import u.ready_wisc.Counties.Counties;
-import u.ready_wisc.Counties.County;
+import u.readybadger.Config;
+import u.readybadger.Counties.Counties;
+import u.readybadger.Counties.County;
 
 //RSS service reads the RSS feed and sends the data to be parsed
 public class RssService extends IntentService {
@@ -73,8 +73,7 @@ public class RssService extends IntentService {
             Log.d(SyncStateContract.Constants.DATA, "Service started");
             this.intent = intent;
             startRss();
-        }
-        else {
+        } else {
             //Toast.makeText(this,"County Error",Toast.LENGTH_SHORT).show();
         }
 
@@ -100,29 +99,23 @@ public class RssService extends IntentService {
     // Checks to see if there are any road conditions / alerts
     private List<RssItem> checkDOTAlerts(List<RssItem> rssItems) {
         try {
+            Boolean hasItem = false;
             String jsonStr = httpRequest();
-            // Checks if the json isn't empty
-            if (!jsonStr.equals("[]")) {
-                // Goes through every county alert
-                JSONArray allAlerts = new JSONArray(jsonStr);
-                for (int i = 0; i < allAlerts.length(); i++) {
-                    JSONObject wisDOT = allAlerts.getJSONObject(i);
-                    JSONArray counties = wisDOT.getJSONArray("CountyNames");
-                    Boolean alertCheck = false;
-                    for (int j = 0; j < counties.length(); j++) {
-                        if (counties.get(j).equals(countyName)) {
-                            alertCheck = true;
-                        }
-                    }
-                    if (alertCheck) {
+            // Goes through every county alert
+            JSONArray allAlerts = new JSONArray(jsonStr);
+            for (int i = 0; i < allAlerts.length(); i++) {
+                JSONObject wisDOT = allAlerts.getJSONObject(i);
+                JSONArray counties = wisDOT.getJSONArray("CountyNames");
+                for (int j = 0; j < counties.length(); j++) {
+                    if (counties.get(j).equals(countyName)) {
                         String message = wisDOT.getString("Message");
                         rssItems.add(new RssItem("Road Alert: " + message, "", ""));
-                    } else {
-                        rssItems.add(new RssItem("No road alerts.", "" , ""));
+                        hasItem = true;
                     }
                 }
-            } else {
-                rssItems.add(new RssItem("No road alerts.", "" , ""));
+            }
+            if (!hasItem) {
+                rssItems.add(new RssItem("No road alerts.", "", ""));
             }
 
         } catch (IOException | JSONException e) {
@@ -134,7 +127,7 @@ public class RssService extends IntentService {
 
     //The actual HTTP request for the json string
     //TODO make this an async task to avoid any UI interruptions
-    public String httpRequest () throws IOException {
+    public String httpRequest() throws IOException {
         DefaultHttpClient httpClient = new DefaultHttpClient();
         HttpGet httpGet = new HttpGet(Config.WISDOT_URL);
         HttpResponse httpResponse = httpClient.execute(httpGet);

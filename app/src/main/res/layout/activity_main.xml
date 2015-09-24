@@ -1,50 +1,212 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-    android:orientation="vertical"
-
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe_container"
     android:layout_width="match_parent"
-
     android:layout_height="match_parent">
 
-    <EditText
+    <LinearLayout
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText"
-        android:editable="true"
-        android:hint="Enter Name" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText2"
-        android:layout_gravity="center_horizontal"
-        android:hint="Enter E-mail" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primary"
+            android:orientation="vertical">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enter Data"
-        android:id="@+id/UpdateButton"
-        android:layout_gravity="center_horizontal" />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Update from Web"
-        android:id="@+id/getDBButton"
-        android:layout_gravity="center_horizontal" />
+                <android.support.v7.widget.CardView
+                    android:id="@+id/prepareButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="75dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:minHeight="50dp"
+                    android:minWidth="50dp"
+                    card_view:cardUseCompatPadding="false"
+                    card_view:cardBackgroundColor="#007704"
+                    card_view:cardCornerRadius="4dp"
+                    card_view:cardElevation="4dp">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Show Contents"
-        android:id="@+id/DisplayButton"
-        android:layout_gravity="center_horizontal" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:text="@string/be_prepared"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </android.support.v7.widget.CardView>
 
-    <ListView
+                <android.support.v7.widget.CardView
+                    android:id="@+id/reportDamageButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="75dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:minHeight="50dp"
+                    android:minWidth="50dp"
+                    android:text="@string/Emergency"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    card_view:cardUseCompatPadding="false"
+                    card_view:cardBackgroundColor="#800402"
+                    card_view:cardCornerRadius="4dp"
+                    card_view:cardElevation="4dp">
 
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/listView"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:text="@string/Emergency"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </android.support.v7.widget.CardView>
 
-</LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/disasterResourcesButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="75dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:minHeight="50dp"
+                    android:minWidth="50dp"
+                    card_view:cardUseCompatPadding="false"
+                    card_view:cardBackgroundColor="#001778"
+                    card_view:cardCornerRadius="4dp"
+                    card_view:cardElevation="4dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:text="@string/disaster_resources"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/typeDisasterButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="75dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:minHeight="50dp"
+                    android:minWidth="50dp"
+                    card_view:cardUseCompatPadding="false"
+                    card_view:cardBackgroundColor="#a17b00"
+                    card_view:cardCornerRadius="4dp"
+                    card_view:cardElevation="4dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:text="@string/types_of_disasters"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+        </LinearLayout>
+
+        <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1" />
+
+        <!-- Shadow-->
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="3dp"
+            android:background="@drawable/grad_bot" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:background="#ff7d807f"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/flashlightCard"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:minHeight="50dp"
+                android:minWidth="50dp"
+                android:padding="5dp"
+                card_view:cardBackgroundColor="@color/background"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="3dp">
+
+                <ImageButton
+                    android:id="@+id/FlashlightMenuButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:background="@color/transparent"
+                    android:padding="5dp"
+
+                    android:scaleType="centerInside"
+                    android:src="@drawable/lightbulb" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/soundCard"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:minHeight="50dp"
+                android:minWidth="50dp"
+                android:padding="5dp"
+                card_view:cardBackgroundColor="@color/background"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="3dp">
+
+                <ImageButton
+                    android:id="@+id/SOSMenubutton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:background="@color/transparent"
+                    android:padding="5dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/volume_low" />
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
+

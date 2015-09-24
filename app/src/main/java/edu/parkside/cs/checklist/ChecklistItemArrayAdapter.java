@@ -31,7 +31,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import u.ready_wisc.R;
+import u.readybadger.R;
+
 
 /**
  * Provides the mapping between the checklist_item_row.xml and checklist_item_row objects.

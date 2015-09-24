@@ -21,7 +21,6 @@
             android:layout_height="75dp"
             android:id="@+id/prepareMenuButton"
             android:layout_weight="1"
-            android:src="@drawable/list_icon"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"/>
 
@@ -30,7 +29,6 @@
             android:layout_height="75dp"
             android:id="@+id/emergencyMenuButton"
             android:layout_weight="1"
-            android:src="@drawable/disaster_icon"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"/>
 
@@ -40,7 +38,6 @@
             android:id="@+id/disasterMenuButton"
             android:layout_weight="1"
             android:adjustViewBounds="true"
-            android:src="@drawable/custom_icon"
             android:scaleType="centerInside"/>
 
         <ImageButton
@@ -49,7 +46,7 @@
             android:id="@+id/SOSMenubutton"
             android:layout_weight="1"
             android:adjustViewBounds="true"
-            android:src="@drawable/sos_icon"
+            android:src="@drawable/volume_low"
             android:scaleType="centerInside"/>
 
     </LinearLayout>

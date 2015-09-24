@@ -29,7 +29,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,12 +41,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import u.readybadger.R;
+
 import java.util.List;
 import java.util.Set;
 
-import u.ready_wisc.MenuActivity;
-import u.ready_wisc.R;
-import u.ready_wisc.RssActivity;
+import u.readybadger.MenuActivity;
+import u.readybadger.RssActivity;
 
 
 //Fragment is built to hold the RSS listview
@@ -59,13 +59,13 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
     private String county;
     private Intent service;
     private View view;
-    private FragmentActivity activity;
+    private MenuActivity activity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        activity = getActivity();
+        activity = (MenuActivity) getActivity();
     }
 
     @Override
@@ -94,7 +94,7 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
             textView = (TextView) view.findViewById(R.id.awText);
             textView.setText("Alerts and Warnings for\n" + county + " County");
             final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout)
-                    getActivity().findViewById(R.id.swipe_container);
+                    activity.findViewById(R.id.swipe_container);
             listView.setOnItemClickListener(this);
             listView.setOnScrollListener(new AbsListView.OnScrollListener() {
                 @Override
@@ -112,7 +112,7 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
                 startService();
             } else {
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(getActivity(), "Network Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, "Network Error", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -131,15 +131,14 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
     private void setPrevAndNext() {
         ImageButton leftArr = (ImageButton) view.findViewById(R.id.previousIcon);
         ImageButton rightArr = (ImageButton) view.findViewById(R.id.nextIcon);
-        final MenuActivity ma = (MenuActivity) getActivity();
         if (leftArr != null) {
             leftArr.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ma.movePager("prev");
+                    activity.movePager("prev");
                 }
             });
-            if (ma.hasLeftFragment(county)) {
+            if (activity.hasLeftFragment(county)) {
                 leftArr.setVisibility(View.VISIBLE);
             } else {
                 leftArr.setVisibility(View.GONE);
@@ -149,10 +148,10 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
             rightArr.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ma.movePager("next");
+                    activity.movePager("next");
                 }
             });
-            if (ma.hasRightFragment(county)) {
+            if (activity.hasRightFragment(county)) {
                 rightArr.setVisibility(View.VISIBLE);
             } else {
                 rightArr.setVisibility(View.GONE);
@@ -162,7 +161,7 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
 
     // RSS service is started
     public void startService() {
-        service = new Intent(getActivity(), RssService.class);
+        service = new Intent(activity, RssService.class);
         service.putExtra(RssService.RECEIVER, resultReceiver);
         service.putExtra("county", county);
         getActivity().startService(service);
@@ -178,7 +177,7 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
         String desc = item.getDesc();
         String title = item.getTitle();
 
-        Intent intent = new Intent(getActivity(), RssActivity.class);
+        Intent intent = new Intent(activity, RssActivity.class);
         intent.putExtra("county", county);
         intent.putExtra("link", link);
         intent.putExtra("desc", desc);
@@ -189,7 +188,7 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
     // returns true or false based on if device has an internet connection.
     public boolean isOnline() {
         ConnectivityManager cm =
-                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
@@ -216,10 +215,10 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
                 }
             }
             if (items != null) {
-                RssAdapter adapter = new RssAdapter(getActivity(), items);
+                RssAdapter adapter = new RssAdapter(activity, items);
                 listView.setAdapter(adapter);
             } else {
-                Toast.makeText(getActivity(), "An error occurred while downloading the feed.",
+                Toast.makeText(activity, "An error occurred while downloading the feed.",
                         Toast.LENGTH_LONG).show();
             }
             listView.setVisibility(View.VISIBLE);

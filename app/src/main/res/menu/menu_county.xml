@@ -14,6 +14,6 @@
         android:icon="@android:drawable/ic_menu_search"
         android:orderInCategory="200"
         android:title="@string/search"
-        app:showAsAction="collapseActionView|ifRoom"
-        app:actionViewClass="u.ready_wisc.Counties.ArrayAdapterSearchView"/>
+        app:showAsAction="collapseActionView|always"
+        app:actionViewClass="u.readybadger.Counties.ArrayAdapterSearchView"/>
 </menu>

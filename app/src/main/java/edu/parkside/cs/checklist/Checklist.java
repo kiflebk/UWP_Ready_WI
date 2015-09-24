@@ -27,7 +27,8 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import u.ready_wisc.R;
+import u.readybadger.R;
+
 
 /**
  * The checklist activity is the initial point for selection, creation, and deletion of

@@ -31,7 +31,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import u.ready_wisc.R;
+import u.readybadger.R;
 
 /**
  * Provides the detailed view of the selected item within the item table.

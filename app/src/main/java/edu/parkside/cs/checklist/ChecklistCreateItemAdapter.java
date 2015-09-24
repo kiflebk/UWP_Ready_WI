@@ -30,7 +30,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import u.ready_wisc.R;
+import u.readybadger.R;
 
 /**
  * @author David Krawchuk

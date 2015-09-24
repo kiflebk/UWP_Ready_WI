@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="u.ready_wisc" >
-
-    <uses-sdk android:minSdkVersion="11" />
-
+    package="u.readybadger" >
     <!-- Below are all permissions for the App -->
 
 
@@ -16,10 +13,10 @@
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
 
     <permission
-        android:name="u.ready_wisc.permission.C2D_MESSAGE"
+        android:name="u.readybadger.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="u.ready_wisc.permission.C2D_MESSAGE" />
+    <uses-permission android:name="u.readybadger.permission.C2D_MESSAGE" />
     <!-- This app has permission to register and receive dataf message. -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <!-- Above is used for push notifications permissions -->
@@ -38,7 +35,7 @@
     <application
         android:name=".AnalyticsApp"
         android:allowBackup="true"
-        android:icon="@drawable/alt_wi"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme" >
@@ -48,7 +45,7 @@
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyB1ScySQEMb9YbJBUwSFErwPl_c6L8oWJs" />
+            android:value="AIzaSyDskmS6fxmkKPnq5Kv4cg1MpZ_Jo2rBdOI" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -59,7 +56,8 @@
         <activity
             android:name=".SplashActivity"
             android:label="Ready Badger"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -67,13 +65,13 @@
             </intent-filter>
         </activity>
 
-        <!-- This is are REAL MAIN ACTIVITY EVERYONE -->
+        <!-- This is MAIN ACTIVITY  -->
         <activity
             android:name=".MenuActivity"
             android:label="Ready Badger"
             android:screenOrientation="portrait" >
             <intent-filter>
-                <action android:name="u.ready_wisc.MESSAGE" />
+                <action android:name="u.readybadger.MESSAGE" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -122,7 +120,7 @@
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="u.ready_wisc.Emergency_Main.Emergency" />
+                android:value="u.readybadger.Emergency_Main.Emergency" />
         </activity>
         <activity
             android:name=".Emergency_Main.RiverGauge"
@@ -130,7 +128,7 @@
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="u.ready_wisc.Emergency_Main.Emergency" />
+                android:value="u.readybadger.Emergency_Main.Emergency" />
         </activity>
 
         <!-- This is for when disaster resources is clicked in menu activity -->
@@ -141,7 +139,7 @@
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="u.ready_wisc.MenuActivity" />
+                android:value="u.readybadger.MenuActivity" />
         </activity>
 
         <!-- This activity is for the RSS FEED for weather/advisory alerts!!!!!!!!! -->
@@ -149,10 +147,10 @@
             android:name=".RssActivity"
             android:label="@string/title_activity_rss"
             android:parentActivityName=".MenuActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="u.ready_wisc.MenuActivity" />
+                android:value="u.readybadger.MenuActivity" />
         </activity>
 
         <!-- This is the be prepared activity aka checklists -->
@@ -252,7 +250,7 @@
                 <!-- Receives the registration id. -->
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-                <category android:name="u.ready_wisc" />
+                <category android:name="u.readybadger" />
             </intent-filter>
         </receiver>
         <receiver android:name=".PushbotsHandler" />
@@ -291,7 +289,7 @@
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="u.ready_wisc.disasterTypes.DisastersType" />
+                android:value="u.readybadger.disasterTypes.DisastersType" />
         </activity>
 
         <service android:name=".MessageService" />

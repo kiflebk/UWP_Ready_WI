@@ -33,9 +33,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import u.readybadger.R;
+
 import java.util.ArrayList;
 
-import u.ready_wisc.R;
 
 /**
  * Class represents the Checklist creation activity.
