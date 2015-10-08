@@ -28,11 +28,10 @@ import android.os.ResultReceiver;
 import android.provider.SyncStateContract;
 import android.util.Log;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,9 +41,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import u.readybadger.Config;
+import u.readybadger.Connectivity;
 import u.readybadger.Counties.Counties;
 import u.readybadger.Counties.County;
 
@@ -57,6 +58,7 @@ public class RssService extends IntentService {
     private static final String RSS_LINK = "https://alerts.weather.gov/cap/wwaatmget.php?x=";
     private String countyName;
     private Intent intent;
+    private boolean isOnline = false;
 
 
     public RssService() {
@@ -66,6 +68,7 @@ public class RssService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        isOnline = Connectivity.isOnline(this);
         countyName = intent.getStringExtra("county");
         County county = Counties.ALL.get(countyName);
         if (county != null) {
@@ -81,19 +84,25 @@ public class RssService extends IntentService {
 
     private void startRss() {
         List<RssItem> rssItems = null;
-        Log.d("RSS Link", RSS_LINK + RSS_SUFFIX);
-        try {
-            RssParser parser = new RssParser(countyName);
-            rssItems = parser.parse(getInputStream(RSS_LINK + RSS_SUFFIX));
-        } catch (XmlPullParserException | IOException e) {
-            Log.w(e.getMessage(), e);
+        if (isOnline) {
+            Log.d("RSS Link", RSS_LINK + RSS_SUFFIX);
+            try {
+                RssParser parser = new RssParser(countyName);
+                rssItems = parser.parse(getInputStream(RSS_LINK + RSS_SUFFIX));
+            } catch (XmlPullParserException | IOException e) {
+                Log.w(e.getMessage(), e);
+            }
+            // WisDOT Integration
+            checkDOTAlerts(rssItems);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(ITEMS, (Serializable) rssItems);
+            ResultReceiver receiver = intent.getParcelableExtra(RECEIVER);
+            receiver.send(0, bundle);
         }
-        // WisDOT Integration
-        checkDOTAlerts(rssItems);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(ITEMS, (Serializable) rssItems);
-        ResultReceiver receiver = intent.getParcelableExtra(RECEIVER);
-        receiver.send(0, bundle);
+        else {
+            rssItems = new ArrayList<>();
+            rssItems.add(new RssItem("CONNECTION ERROR", "", ""));
+        }
     }
 
     // Checks to see if there are any road conditions / alerts
@@ -126,14 +135,14 @@ public class RssService extends IntentService {
     }
 
     //The actual HTTP request for the json string
-    //TODO make this an async task to avoid any UI interruptions
     public String httpRequest() throws IOException {
-        DefaultHttpClient httpClient = new DefaultHttpClient();
-        HttpGet httpGet = new HttpGet(Config.WISDOT_URL);
-        HttpResponse httpResponse = httpClient.execute(httpGet);
-        HttpEntity httpEntity = httpResponse.getEntity();
-        String jsonStr = EntityUtils.toString(httpEntity);
-        return jsonStr;
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(Config.WISDOT_URL)
+                .build();
+
+        Response response = client.newCall(request).execute();
+        return response.body().string();
     }
 
     // opens URL stream to read RSS

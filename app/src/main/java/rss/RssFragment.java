@@ -20,11 +20,8 @@
 
 package rss;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
@@ -41,12 +38,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import u.readybadger.R;
-
 import java.util.List;
 import java.util.Set;
 
+import u.readybadger.Connectivity;
 import u.readybadger.MenuActivity;
+import u.readybadger.R;
 import u.readybadger.RssActivity;
 
 
@@ -60,12 +57,14 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
     private Intent service;
     private View view;
     private MenuActivity activity;
+    private boolean isOnline;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         activity = (MenuActivity) getActivity();
+        isOnline = Connectivity.isOnline(activity);
     }
 
     @Override
@@ -100,6 +99,7 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
                 @Override
                 public void onScrollStateChanged(AbsListView view, int scrollState) {
                 }
+
                 @Override
                 public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                     int topRowVerticalPosition =
@@ -108,7 +108,7 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
                     swipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
                 }
             });
-            if (isOnline()) {
+            if (isOnline) {
                 startService();
             } else {
                 progressBar.setVisibility(View.GONE);
@@ -183,14 +183,6 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
         intent.putExtra("desc", desc);
         intent.putExtra("title", title);
         startActivity(intent);
-    }
-
-    // returns true or false based on if device has an internet connection.
-    public boolean isOnline() {
-        ConnectivityManager cm =
-                (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
     // Once the RssService & Pushbot notification finishes its task, the result is sent to this

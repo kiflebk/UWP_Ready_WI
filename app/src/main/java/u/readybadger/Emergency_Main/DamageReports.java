@@ -26,26 +26,25 @@ package u.readybadger.Emergency_Main;
 //the data to the sever as a HTTP Post.
 
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.media.ThumbnailUtils;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
@@ -75,19 +74,22 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Calendar;
 
+import u.readybadger.Connectivity;
 import u.readybadger.R;
 import u.readybadger.ReportsDatabaseHelper;
 
-public class DamageReports extends AppCompatActivity {
+public class DamageReports extends AppCompatActivity
+        implements ActivityCompat.OnRequestPermissionsResultCallback {
 
+    private static final int PERMISSION_REQUEST_CAMERA = 2;
+    private static final String[] CAMERA_PERMS = {
+            Manifest.permission.CAMERA
+    };
     private static final int CAM_REQUEST = 1313;
     private static final int GALLERY_REQUEST = 4117;
     //the limit for damage photos
     private final int IMG_LIMIT = 3;
     private final String[] PICSOURCES = new String[]{"Camera", "Gallery"};
-    static LocationManager locationManager;
-    static Location loc;
-    static LocationListener locationListener;
     static ReportsDatabaseHelper mDatabaseHelper;
     //Variable declare.
     private static EditText dateEdit;
@@ -141,7 +143,7 @@ public class DamageReports extends AppCompatActivity {
         btnSubmit = (Button) findViewById(R.id.submitbutton);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
-        public void onClick(View v) {
+            public void onClick(View v) {
                 submitReport();
             }
         });
@@ -173,40 +175,6 @@ public class DamageReports extends AppCompatActivity {
 
         //This line is used to hide keyboard on startup.
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
-        //locationManager initialize
-        if (isOnline()) {
-            locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-
-            //Location settings with default methods.
-            locationListener = new LocationListener() {
-                @Override
-                public void onLocationChanged(Location location) {
-                    loc = location;
-                }
-
-                @Override
-                public void onStatusChanged(String provider, int status, Bundle extras) {
-
-                }
-
-                @Override
-                public void onProviderEnabled(String provider) {
-
-                }
-
-                @Override
-                public void onProviderDisabled(String provider) {
-
-                }
-            };
-
-            //Request location updates from the network (wifi or cell tower).
-            if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-            }
-            //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-        }
     }
 
     @Override
@@ -218,7 +186,7 @@ public class DamageReports extends AppCompatActivity {
     //builds and shows a chooser for camera or gallery
     private void showPictureSources() {
         if (imgCache.getImageCount() < IMG_LIMIT) {
-            MaterialDialog chooser = new MaterialDialog.Builder(DamageReports.this)
+            new MaterialDialog.Builder(DamageReports.this)
                     .title("Picture Source")
                     .items(PICSOURCES)
                     .itemsCallback(new MaterialDialog.ListCallback() {
@@ -226,8 +194,15 @@ public class DamageReports extends AppCompatActivity {
                         public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                             switch (which) {
                                 case 0:
-                                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                    startActivityForResult(cameraIntent, CAM_REQUEST);
+                                    //TODO ask for permission to use
+                                    if (canAccessCamera()) {
+                                        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                                            startActivityForResult(takePictureIntent, CAM_REQUEST);
+                                        }
+                                    } else {
+                                        requestCamera();
+                                    }
                                     break;
                                 case 1:
                                     Intent galleryIntent = new Intent(Intent.ACTION_PICK);
@@ -237,9 +212,8 @@ public class DamageReports extends AppCompatActivity {
                         }
                     })
                     .show();
-        }
-        else {
-            Toast.makeText(this,"Maximum Pictures Added!",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Maximum Pictures Added!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -328,7 +302,7 @@ public class DamageReports extends AppCompatActivity {
     }
 
     //a custom image view to put in the gallery
-    View myPhoto(Bitmap bm) {
+    private View myPhoto(Bitmap bm) {
         LinearLayout layout = new LinearLayout(getApplicationContext());
         layout.setLayoutParams(new ViewGroup.LayoutParams(360, 360));
         layout.setGravity(Gravity.CENTER);
@@ -395,14 +369,6 @@ public class DamageReports extends AppCompatActivity {
 
     }
 
-    // returns true or false based on if device has an internet connection.
-    public boolean isOnline() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
-    }
-
     public void encodeImagetoString() {
         new AsyncTask<Void, Void, String>() {
 
@@ -458,7 +424,6 @@ public class DamageReports extends AppCompatActivity {
 
     // Methods that handle submitting a damage report
     public void submitReport() {
-        boolean isConnected = isOnline();
         Log.e("Post Test", "Button Working");
 
         try {
@@ -495,7 +460,7 @@ public class DamageReports extends AppCompatActivity {
                 //String url = Config.DAMAGE_REPORT_URL + jObject.toString().replace('{', ' ').replace('}', ' ').replace(backspace, ' ').trim().replace('"', ' ').replace(" ", "").replace(':', '=').replace(',', '&');
 
                 // The JSON object is passed over to be sent
-                if (isConnected)
+                if (Connectivity.isOnline(this))
                     putDataToServer(jObject.toString());
                 else {
                     addUser(jObject.toString());
@@ -582,9 +547,12 @@ public class DamageReports extends AppCompatActivity {
             //TODO instead of encoding images, add them to the multipart entity
             //obj.put("encoded_image", encodedString.replace("/", "%2F").replace("+", "%2B").replace("\n", ""));
 
-            if (isOnline()) {
-                obj.put("longitude", (loc.getLongitude() + ""));
-                obj.put("latitude", (loc.getLatitude() + ""));
+            if (Connectivity.isOnline(this)) {
+                SharedPreferences settings = this.getSharedPreferences("MyPrefsFile", 0);
+                long lon = settings.getLong("lon", 0);
+                long lat = settings.getLong("lat", 0);
+                obj.put("longitude", (lon + ""));
+                obj.put("latitude", (lat + ""));
             }
             //TODO add else if for when network isn't reached
 
@@ -622,5 +590,29 @@ public class DamageReports extends AppCompatActivity {
     public void createWarning() {
         DialogFragment mFragment = new WarningDialog();
         mFragment.show(getFragmentManager(), "warning");
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == PERMISSION_REQUEST_CAMERA) {
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                startActivityForResult(takePictureIntent, CAM_REQUEST);
+            }
+        }
+    }
+
+    private boolean canAccessCamera() {
+        return (hasPermission(CAMERA_PERMS[0]));
+    }
+
+    private boolean hasPermission(String perm) {
+        return (PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(this, perm));
+    }
+
+    private void requestCamera() {
+        ActivityCompat.requestPermissions(this,
+                CAMERA_PERMS,
+                PERMISSION_REQUEST_CAMERA);
     }
 }

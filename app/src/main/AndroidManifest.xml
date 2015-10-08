@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="u.readybadger" >
+    package="u.readybadger">
     <!-- Below are all permissions for the App -->
-
-
     <!-- GCM connects to Google Services. -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- GCM requires a Google account. -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
-
-    <permission
-        android:name="u.readybadger.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
-
     <uses-permission android:name="u.readybadger.permission.C2D_MESSAGE" />
     <!-- This app has permission to register and receive dataf message. -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -26,19 +20,24 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <permission
+        android:name="u.readybadger.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
 
     <!-- Above are all permissions for the app -->
+
     <application
         android:name=".AnalyticsApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:screenOrientation="portrait"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <uses-feature
             android:glEsVersion="0x00020000"
             android:required="true" />
@@ -56,8 +55,7 @@
         <activity
             android:name=".SplashActivity"
             android:label="Ready Badger"
-            android:screenOrientation="portrait"
-            android:noHistory="true">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -69,7 +67,7 @@
         <activity
             android:name=".MenuActivity"
             android:label="Ready Badger"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="u.readybadger.MESSAGE" />
 
@@ -81,7 +79,7 @@
             android:name=".Counties.CountyActivity"
             android:label="County Picker"
             android:parentActivityName=".MenuActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
@@ -99,7 +97,7 @@
             android:name=".disasterTypes.DisastersType"
             android:label="Types Of Disasters"
             android:parentActivityName=".MenuActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
@@ -107,7 +105,7 @@
         <activity
             android:name=".Emergency_Main.Emergency"
             android:label="Emergency"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
@@ -117,7 +115,7 @@
         <activity
             android:name=".Emergency_Main.DamageReports"
             android:label="Damage Reports"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="u.readybadger.Emergency_Main.Emergency" />
@@ -125,7 +123,7 @@
         <activity
             android:name=".Emergency_Main.RiverGauge"
             android:label="River Levels"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="u.readybadger.Emergency_Main.Emergency" />
@@ -136,7 +134,7 @@
             android:name=".ResourcesActivity"
             android:label="Disaster Resources"
             android:parentActivityName=".MenuActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="u.readybadger.MenuActivity" />
@@ -159,7 +157,7 @@
             android:name=".BePrepared.Prep_Main"
             android:label="Prepare Now"
             android:parentActivityName=".MenuActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
@@ -168,7 +166,7 @@
             android:name=".BePrepared.Build_Kits"
             android:label="Prepare Now Rather Than Later"
             android:parentActivityName=".BePrepared.Prep_Main"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BePrepared.Prep_Main" />
@@ -177,7 +175,7 @@
             android:name=".BePrepared.Plan"
             android:label="Prepare Now Rather Than Later"
             android:parentActivityName=".BePrepared.Prep_Main"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BePrepared.Prep_Main" />
@@ -193,7 +191,7 @@
             android:name="edu.parkside.cs.checklist.ChecklistItemListView"
             android:label="@string/title_activity_checklist__item_list_view"
             android:parentActivityName="edu.parkside.cs.checklist.Checklist"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.parkside.cs.checklist.Checklist" />
@@ -204,7 +202,7 @@
             android:name="edu.parkside.cs.checklist.ChecklistCreate"
             android:label="@string/title_activity_checklist__kit__create"
             android:parentActivityName="edu.parkside.cs.checklist.Checklist"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.parkside.cs.checklist.Checklist" />
@@ -213,7 +211,7 @@
             android:name="edu.parkside.cs.checklist.ChecklistCreateItemAdd"
             android:label="@string/title_activity_checklist__create__item__add"
             android:parentActivityName="edu.parkside.cs.checklist.ChecklistCreate"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.parkside.cs.checklist.ChecklistCreate" />
@@ -224,7 +222,7 @@
             android:name="edu.parkside.cs.checklist.ChecklistItemCreate"
             android:label="@string/title_activity_checklist__item__create"
             android:parentActivityName="edu.parkside.cs.checklist.ChecklistItemListView"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.parkside.cs.checklist.ChecklistItemListView" />
@@ -233,7 +231,7 @@
             android:name="edu.parkside.cs.checklist.ChecklistItemDetail"
             android:label="@string/title_activity_checklist__item__detail"
             android:parentActivityName="edu.parkside.cs.checklist.ChecklistItemListView"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.parkside.cs.checklist.ChecklistItemListView" />
@@ -242,7 +240,7 @@
         <!-- Below is all used for push notifications -->
         <receiver
             android:name="com.pushbots.google.gcm.GCMBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
 
                 <!-- Receives the actual messages. -->
@@ -258,7 +256,7 @@
         <service android:name="com.pushbots.push.GCMIntentService" />
         <service
             android:name="org.openudid.OpenUDID_service"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="org.openudid.GETUDID" />
             </intent-filter>
@@ -269,35 +267,30 @@
             android:name=".Emergency_Main.Shelters"
             android:label="Shelters"
             android:parentActivityName=".Emergency_Main.Emergency"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Emergency_Main.Volunteer"
             android:label="Volunteer"
             android:parentActivityName=".Emergency_Main.Emergency"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Emergency_Main.Social_Media"
             android:label="Social Media"
             android:parentActivityName=".Emergency_Main.Emergency"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".disasterTypes.InfoDisplay"
             android:label="@string/title_activity_info_display"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="u.readybadger.disasterTypes.DisastersType" />
         </activity>
-
         <service android:name=".MessageService" />
         <service
             android:name=".LocationHandling.LocationService"
             android:enabled="true"
-            android:exported="true" >
-        </service>
+            android:exported="true"/>
     </application>
 
 </manifest>

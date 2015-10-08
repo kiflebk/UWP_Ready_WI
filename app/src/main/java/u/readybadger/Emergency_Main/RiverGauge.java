@@ -42,7 +42,6 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import u.readybadger.R;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -56,6 +55,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import u.readybadger.Config;
+import u.readybadger.R;
+
 /**
  * Created by nathaneisner on 7/7/15.
  */
@@ -63,12 +65,16 @@ public class RiverGauge extends AppCompatActivity {
     private GoogleMap map;
     private final HashMap<String, MarkerOptions> markerTypes = new HashMap<>();
     private List<Marker> markers = new ArrayList<>();
+    MaterialDialog materialDialog = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_river_gauge);
-
+        materialDialog = new MaterialDialog.Builder(RiverGauge.this)
+                .progress(true, 100)
+                .title("Loading River Information")
+                .build();
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
         map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -79,8 +85,13 @@ public class RiverGauge extends AppCompatActivity {
             }
         });
         setCamera();
-        String path = getFilesDir().getPath() + "/rivers.kml";
-        new DrawRiverInfo().execute(path);
+        final String path = getFilesDir().getPath() + "/rivers.kml";
+        new DownloadFile() {
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                new DrawRiverInfo().execute(path);
+            }
+        }.execute(Config.RIVER_LINK, "rivers.kml");
     }
 
     private void setCamera() {
@@ -108,15 +119,11 @@ public class RiverGauge extends AppCompatActivity {
     private class DrawRiverInfo extends AsyncTask<String, Void, Void> {
         private final String ns = null;
         private List<RiverItem> items = new ArrayList<>();
-        MaterialDialog materialDialog;
+
 
         @Override
         protected void onPreExecute() {
-            materialDialog = new MaterialDialog.Builder(RiverGauge.this)
-                    .progress(true, 100)
-                    .title("Loading River Information")
-                    .build();
-            materialDialog.show();
+
         }
 
         @Override
@@ -250,9 +257,34 @@ public class RiverGauge extends AppCompatActivity {
             markerOptions.title(riverItem.getName());
             markerOptions.position(riverItem.getLatLng());
             markerOptions.visible(true);
-            //snippet can be the desc in the future
-            //markerOptions.snippet(riverItem.getDesc());
+//            snippet can be the desc in the future
+            markerOptions.snippet(riverItem.getDesc());
             markers.add(map.addMarker(markerOptions));
         }
+    }
+
+    private class DownloadFile extends AsyncTask<String, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            materialDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            String fileUrl = strings[0];   // url
+            String fileName = strings[1]; //file name
+
+            File myFile = new File(getFilesDir(), fileName);
+
+            try {
+                myFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            FileDownloader.downloadFile(fileUrl, myFile);
+            Log.i("riverfile", "DL complete");
+            return null;
+        }
+
     }
 }

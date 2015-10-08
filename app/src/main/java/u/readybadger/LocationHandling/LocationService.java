@@ -1,3 +1,22 @@
+/*
+*
+*  Copyright 2015 University of Wisconsin - Parkside
+*
+*  Licensed under the Apache License, Version 2.0 (the "License");
+*  you may not use this file except in compliance with the License.
+*  You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+*  Unless required by applicable law or agreed to in writing, software
+*  distributed under the License is distributed on an "AS IS" BASIS,
+*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+*  See the License for the specific language governing permissions and
+*  limitations under the License.
+*
+*
+*/
+
 package u.readybadger.LocationHandling;
 
 import android.app.IntentService;
@@ -7,6 +26,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.IBinder;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -21,8 +41,8 @@ public class LocationService extends IntentService {
 
     private static final String TAG = LocationService.class.getSimpleName();
 
-    private static final String ACTION_LOCATION_UPDATED = "location updated";
-    private static final String ACTION_REQUEST_LOCATION = "request location";
+    public static final String ACTION_LOCATION_UPDATED = "location updated";
+    public static final String ACTION_REQUEST_LOCATION = "request location";
 
     private SharedPreferences settings;
 
@@ -75,11 +95,17 @@ public class LocationService extends IntentService {
             }
 
             // request new location
-            LocationRequest request = new LocationRequest().
-                    setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-            LocationServices.FusedLocationApi.requestLocationUpdates(
-                    googleApiClient, request, PendingIntent.getService(this, 0, updatedIntent, 0));
-
+            try {
+                LocationRequest request = new LocationRequest().
+                        setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+                LocationServices.FusedLocationApi.requestLocationUpdates(
+                        googleApiClient, request, PendingIntent.getService(this, 0, updatedIntent, 0));
+            } catch (Exception e) {
+                Log.e("Location", e.getMessage());
+            }
+            final Intent sendIntent = new Intent(ACTION_REQUEST_LOCATION);
+            sendIntent.putExtra("status", true);
+            LocalBroadcastManager.getInstance(this).sendBroadcast(sendIntent);
             // disconnect
             googleApiClient.disconnect();
         } else {
@@ -100,18 +126,25 @@ public class LocationService extends IntentService {
             String currentCity = rgc.getCity();
             String currentState = rgc.getState();
 
+
             settings = this.getSharedPreferences("MyPrefsFile", 0);
             SharedPreferences.Editor editor = settings.edit();
-            editor.putString("county", currentCounty);
-            editor.putString("city", currentCity);
-            editor.putString("state", currentState);
+            if (!currentCounty.isEmpty())
+                editor.putString("county", currentCounty);
+            if (!currentCity.isEmpty())
+                editor.putString("city", currentCity);
+            if (!currentState.isEmpty())
+                editor.putString("state", currentState);
+            editor.putLong("lat", (long) location.getLatitude());
+            editor.putLong("lon", (long) location.getLongitude());
             editor.apply();
 
-            Log.d(TAG, location.toString() + "\n address1: " + rgc.getAddress1() +
-                    "\n city: " + rgc.getCity()+
-                    "\n state: " + rgc.getState() +
-                    "\n zip " + rgc.getZIP() +
-                    "\n county: " + currentCounty);
+
+//            Log.d(TAG, location.toString() + "\n address1: " + rgc.getAddress1() +
+//                    "\n city: " + rgc.getCity() +
+//                    "\n state: " + rgc.getState() +
+//                    "\n zip " + rgc.getZIP() +
+//                    "\n county: " + currentCounty);
         }
     }
 

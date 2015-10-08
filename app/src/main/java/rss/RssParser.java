@@ -44,16 +44,19 @@ public class RssParser {
 
     // sets features of parser to match RSS XML and reads through inputStream to get all objects
     public List<RssItem> parse(InputStream inputStream) throws XmlPullParserException, IOException {
-        try {
-            XmlPullParser parser = Xml.newPullParser();
-            parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-            parser.setInput(inputStream, null);
-            parser.nextTag();
-            return readFeed(parser);
-        } finally {
-            if (inputStream != null)
-                inputStream.close();
+        if (inputStream != null) {
+            try {
+                XmlPullParser parser = Xml.newPullParser();
+                parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
+                parser.setInput(inputStream, null);
+                parser.nextTag();
+                return readFeed(parser);
+            } finally {
+                if (inputStream != null)
+                    inputStream.close();
+            }
         }
+        return null;
     }
 
     //Uses XML tags to separate data into proper categories

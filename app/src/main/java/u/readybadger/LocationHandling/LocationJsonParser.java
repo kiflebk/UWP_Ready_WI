@@ -2,11 +2,10 @@ package u.readybadger.LocationHandling;
 
 import android.util.Log;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,14 +26,8 @@ public class LocationJsonParser {
 
     public JSONObject getJsonFromURL(String url){
         try {
-            DefaultHttpClient httpClient= new DefaultHttpClient();
-            HttpGet httpPost = new HttpGet(url);
-            HttpResponse httpResponse = httpClient.execute(httpPost);
-            HttpEntity httpEntity = httpResponse.getEntity();
-            stream = httpEntity.getContent();
+            stream = httpResponse(url).body().byteStream();
         }catch(UnsupportedEncodingException e){
-            e.printStackTrace();
-        }catch(ClientProtocolException e){
             e.printStackTrace();
         }catch(IOException e){
             e.printStackTrace();
@@ -61,6 +54,21 @@ public class LocationJsonParser {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }
         return jsonObject;
+    }
+
+    /**
+     * Get Http Response
+     * @param url
+     * @return
+     * @throws IOException
+     */
+    private static Response httpResponse(String url) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        return client.newCall(request).execute();
     }
 }
 

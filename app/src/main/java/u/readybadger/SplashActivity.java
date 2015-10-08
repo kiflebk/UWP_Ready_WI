@@ -19,80 +19,95 @@
 
 package u.readybadger;
 
-import android.app.Activity;
+import android.Manifest;
 import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.IOException;
-
+import butterknife.ButterKnife;
 import u.readybadger.Counties.Counties;
 import u.readybadger.Counties.CountyActivity;
-import u.readybadger.Emergency_Main.FileDownloader;
 import u.readybadger.Emergency_Main.PutData;
 import u.readybadger.LocationHandling.LocationService;
 
-public class SplashActivity extends Activity {
+public class SplashActivity extends AppCompatActivity
+        implements ActivityCompat.OnRequestPermissionsResultCallback {
 
+    private boolean isOnline = false;
     public static final String PREFS_NAME = "MyPrefsFile";
     public static String county = "";
     public static String state = "";
-
+    private static final int PERMISSION_REQUEST_LOCATION = 0;
+    private static final String[] LOCATION_PERMS = {
+            Manifest.permission.ACCESS_FINE_LOCATION
+    };
     static ReportsDatabaseHelper mDatabaseHelper;
     static VolunteerDBHelper vDBHelper;
     static MyDatabaseHelper rDBHelper;
     boolean splashClose = false;
+    boolean recieved = false;
     SharedPreferences settings;
-//    private String notifMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        ButterKnife.bind(this);
+        getSupportActionBar().hide();
 
-        // Loads in the county from the preferences
-        LocationService.requestLocation(this);
+        IntentFilter filter = new IntentFilter(LocationService.ACTION_REQUEST_LOCATION);
+        LocalBroadcastManager.getInstance(this).registerReceiver(countyStatus, filter);
 
-
-
-        Counties.getInstance(this);
-        // Loads in the county from the preferences
-        settings = getSharedPreferences(PREFS_NAME, 0);
-        county = settings.getString("county", "");
-        state = settings.getString("state", "");
-        if (!county.isEmpty()) {
-            //set global primary county
-            Config.countyPrim = Counties.ALL.get(county);
+        if (canAccessLocation())
+            LocationService.requestLocation(this);
+        else {
+            requestLocation();
         }
-        //do db stuff on a new thread
-        new Thread(databaseHandler()).run();
-        int time = 2000;
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (county.isEmpty() || !state.equals("Wisconsin")) {
-                    Intent intent = new Intent(SplashActivity.this, CountyActivity.class);
-                    SplashActivity.this.startActivity(intent);
-                } else {
-                    Intent intent = new Intent(SplashActivity.this, MenuActivity.class);
-                    SplashActivity.this.startActivity(intent);
-                }
-                splashClose = true;
-            }
-        }, time);
+        isOnline = Connectivity.isOnline(this);
+        if (isOnline) {
+            new Thread(databaseHandler()).run();
+        }
+        Counties.getInstance(this);
+//        if (hasPermission(LOCATION_PERMS[0])) {
+//            int time = 2000;
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    // Loads in the county from the preferences
+//                    settings = getSharedPreferences(PREFS_NAME, 0);
+//                    county = settings.getString("county", "");
+//                    state = settings.getString("state", "");
+//                    if (!county.isEmpty()) {
+//                        //set global primary county
+//                        Config.countyPrim = Counties.ALL.get(county);
+//                    }
+//                    if (isOnline) {
+//                        new Thread(databaseHandler()).run();
+//                    }
+//                    if (county.isEmpty() || !state.equals("Wisconsin")) {
+//                        Intent intent = new Intent(SplashActivity.this, CountyActivity.class);
+//                        SplashActivity.this.startActivity(intent);
+//                    } else {
+//                        Intent intent = new Intent(SplashActivity.this, MenuActivity.class);
+//                        SplashActivity.this.startActivity(intent);
+//                    }
+//                    splashClose = true;
+//                }
+//            }, time);
+//        }
     }
 
     //handles all database updating
@@ -100,7 +115,7 @@ public class SplashActivity extends Activity {
         Runnable x = new Runnable() {
             @Override
             public void run() {
-                if (isOnline()) {
+                if (isOnline) {
                     mDatabaseHelper = new ReportsDatabaseHelper(SplashActivity.this);
                     vDBHelper = new VolunteerDBHelper(SplashActivity.this);
                     rDBHelper = new MyDatabaseHelper(SplashActivity.this);
@@ -108,8 +123,6 @@ public class SplashActivity extends Activity {
                     if (Config.countyPrim != null) {
                         dbUpdate();
                     }
-
-                    new DownloadFile().execute(Config.RIVER_LINK, "rivers.kml");
 
 
                     Cursor damageCur;
@@ -127,9 +140,12 @@ public class SplashActivity extends Activity {
 
                         mDatabaseHelper.onDowngrade(mDatabaseHelper.getReadableDatabase(), 0, 1);
                     }
-                }
+                } else
+                    Toast.makeText(SplashActivity.this, "Network Connectivity Error",
+                            Toast.LENGTH_SHORT).show();
             }
         };
+
         return x;
     }
 
@@ -142,36 +158,6 @@ public class SplashActivity extends Activity {
             Intent mServiceIntent = new Intent(getApplicationContext(), MessageService.class);
             startService(mServiceIntent);
         }
-    }
-
-    // returns true or false based on if device has an internet connection.
-    public boolean isOnline() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_splash_activity, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     //Method to send data to server via HTTP Post
@@ -297,23 +283,66 @@ public class SplashActivity extends Activity {
         return false;
     }
 
-    private class DownloadFile extends AsyncTask<String, Void, Void> {
-
+    //receiver to get loading status and loading amount
+    private BroadcastReceiver countyStatus = new BroadcastReceiver() {
         @Override
-        protected Void doInBackground(String... strings) {
-            String fileUrl = strings[0];   // url
-            String fileName = strings[1]; //file name
-
-            File myFile = new File(getFilesDir(), fileName);
-
-            try{
-                myFile.createNewFile();
-            }catch (IOException e){
-                e.printStackTrace();
+        public void onReceive(Context context, Intent intent) {
+            if (intent.hasExtra("status")) {
+                if (!recieved) {
+                    recieved = true;
+                    startActivity();
+                }
             }
-            FileDownloader.downloadFile(fileUrl, myFile);
-            Log.i("riverfile", "DL complete");
-            return null;
+        }
+    };
+
+    private void startActivity() {
+        int time = 2000;
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Loads in the county from the preferences
+                settings = getSharedPreferences(PREFS_NAME, 0);
+                county = settings.getString("county", "");
+                state = settings.getString("state", "");
+                if (!county.isEmpty()) {
+                    //set global primary county
+                    Config.countyPrim = Counties.ALL.get(county);
+                }
+                if (county.isEmpty() || !state.equals("Wisconsin")) {
+                    Intent intent = new Intent(SplashActivity.this, CountyActivity.class);
+                    SplashActivity.this.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(SplashActivity.this, MenuActivity.class);
+                    SplashActivity.this.startActivity(intent);
+                }
+                splashClose = true;
+            }
+        }, time);
+    }
+
+    private boolean canAccessLocation() {
+        return (hasPermission(LOCATION_PERMS[0]));
+    }
+
+    private boolean hasPermission(String perm) {
+        return (PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(this, perm));
+    }
+
+    private void requestLocation() {
+        ActivityCompat.requestPermissions(SplashActivity.this,
+                LOCATION_PERMS,
+                PERMISSION_REQUEST_LOCATION);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_LOCATION:
+                if (canAccessLocation()) {
+                    LocationService.requestLocation(this);
+                }
+                break;
         }
     }
 

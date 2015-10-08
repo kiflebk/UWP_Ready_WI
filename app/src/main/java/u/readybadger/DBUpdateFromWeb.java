@@ -22,22 +22,18 @@ package u.readybadger;
 
 import android.util.Log;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.ParseException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 /**
  * Created by piela_000 on 2/14/2015.  Class is used as a thread object to
@@ -64,30 +60,19 @@ public class DBUpdateFromWeb implements Runnable {
 
         String[][] ct_name = new String[3][5];
 
-        ArrayList<NameValuePair> nameValuePairs = new ArrayList<>();
-
         // here we try to create a new http client to connect to the .php database query
         try {
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpClient httpclient2 = new DefaultHttpClient();
-
             //the web end is set up with a php script to query the database
             //  asking for the info we need.  The url listed will display
             //the results in JSON format for java to read.
 
             Log.i("DB Update", Config.DB_UPDATE_URL + Config.countyPrim.getCode());
-            HttpPost httppost = new HttpPost(Config.DB_UPDATE_URL + Config.countyPrim.getCode());
-            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-            HttpResponse response = httpclient.execute(httppost);
-            HttpEntity entity = response.getEntity();
-            is = entity.getContent();
+            is = httpResponse(Config.DB_UPDATE_URL + Config.countyPrim.getCode())
+                    .body().byteStream();
 
             Log.i("DB Update", Config.SHELTER_UPDATE_URL + Config.countyPrim.getCode());
-            HttpPost httppost2 = new HttpPost(Config.SHELTER_UPDATE_URL + Config.countyPrim.getCode());
-            httppost2.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-            HttpResponse response2 = httpclient2.execute(httppost2);
-            HttpEntity entity2 = response2.getEntity();
-            is2 = entity2.getContent();
+            is2 = httpResponse(Config.SHELTER_UPDATE_URL + Config.countyPrim.getCode())
+                    .body().byteStream();
 
         } catch (Exception e) {
             Log.e("log_tag", "Error in http connection" + e.toString());
@@ -162,8 +147,6 @@ public class DBUpdateFromWeb implements Runnable {
         } catch (JSONException e1) {
             e1.printStackTrace();
             Log.e("DB Update", "Database Problem");
-        } catch (ParseException e1) {
-            e1.printStackTrace();
         }
     }
 
@@ -171,6 +154,21 @@ public class DBUpdateFromWeb implements Runnable {
     //run thread calls the helper which will update the SQLite db
     public void run() {
         updateLocalDB();
+    }
+
+    /**
+     * Get Http Response
+     * @param url
+     * @return
+     * @throws IOException
+     */
+    private static Response httpResponse(String url) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        return client.newCall(request).execute();
     }
 }
 

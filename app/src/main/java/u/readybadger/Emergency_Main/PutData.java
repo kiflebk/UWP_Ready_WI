@@ -22,12 +22,13 @@ package u.readybadger.Emergency_Main;
 
 import android.util.Log;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
+
+import java.io.IOException;
 
 import u.readybadger.Config;
 
@@ -35,7 +36,8 @@ import u.readybadger.Config;
 //Runnable object used to submit damage report to server using HTTP POST
 
 public class PutData implements Runnable {
-
+    public static final MediaType JSON
+            = MediaType.parse("application/json; charset=utf-8");
     // JSON object is created in DamageReports.java
     String mainJSON;
     String dataAccepted;
@@ -43,6 +45,17 @@ public class PutData implements Runnable {
     public PutData(String json) {
 
         mainJSON = json;
+    }
+
+    private static String post(String url, String json) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = RequestBody.create(JSON, json);
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
     }
 
     public String getDataAccepted() {
@@ -55,18 +68,7 @@ public class PutData implements Runnable {
 
             // Sends JSON object to the damage report URL
             //TODO Change the type of entity from string to "multipart" to add pics
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost(Config.DAMAGE_REPORT_URL);
-            StringEntity se = new StringEntity(mainJSON);
-            Log.e("Post Test", mainJSON);
-            httppost.setEntity(se);
-
-            // As the system currently works, the two responses from the server are:
-            // 1 - pass, 0 - fail
-            //TODO get validation for successful post requests
-            HttpResponse response = httpclient.execute(httppost);
-            HttpEntity entity = response.getEntity();
-            //dataAccepted = EntityUtils.toString(entity);
+            dataAccepted = post(Config.DAMAGE_REPORT_URL, mainJSON);
             Log.e("Post Test", dataAccepted);
 
         } catch (Exception e) {

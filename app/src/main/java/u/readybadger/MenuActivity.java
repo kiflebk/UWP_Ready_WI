@@ -28,11 +28,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.hardware.Camera;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -66,32 +67,37 @@ import u.readybadger.Counties.Counties;
 import u.readybadger.Counties.County;
 import u.readybadger.Counties.CountyActivity;
 import u.readybadger.Emergency_Main.Emergency;
+import u.readybadger.Emergency_Main.FlashLight;
 import u.readybadger.LocationHandling.LocationService;
 import u.readybadger.disasterTypes.DisastersType;
 
-public class MenuActivity extends AppCompatActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class MenuActivity extends AppCompatActivity implements View.OnClickListener,
+        SwipeRefreshLayout.OnRefreshListener, ActivityCompat.OnRequestPermissionsResultCallback {
+    private static final int PERMISSION_REQUEST_CAMERA = 2;
+    private static final String[] CAMERA_PERMS = {
+            android.Manifest.permission.CAMERA
+    };
     private CardView resourcesbutton, reportButton, checklistButton, disasterButton;
     private ImageButton sosMenuButton, flashlightButton;
     private ImageView nextFrag, prevFrag;
     private SwipeRefreshLayout swipeLayout;
     public static boolean isSosToneOn = false;
-    private boolean isFlashOn = false;
-    private Camera camera = null;
     Context context;
     public static MediaPlayer mp;
-    private PackageManager pm;
     private Menu actionBarMenu;
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
     private String primaryCounty;
     private Set<String> additionalCounties;
     private SharedPreferences settings;
+    private View mLayout;
 
     @Override
     //testing new branch
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mLayout = findViewById(R.id.swipe_container);
         settings = this.getSharedPreferences("MyPrefsFile", 0);
         // Google Analytics
         // copy these two lines along with the onStart() and onStop() methods below
@@ -107,7 +113,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         if (!isSosToneOn)
             mp = MediaPlayer.create(context, R.raw.sos_sound);
 
-        pm = context.getPackageManager();
         disasterButton = (CardView) findViewById(R.id.typeDisasterButton);
         resourcesbutton = (CardView) findViewById(R.id.disasterResourcesButton);
         reportButton = (CardView) findViewById(R.id.reportDamageButton);
@@ -187,39 +192,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             }
 
         } else if (v.getId() == (R.id.FlashlightMenuButton)) {
-            //check to see if device has a camera with flash
-            if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-
-                Log.e("err", "Device has no camera!");
-                //Return from the method, do nothing after this code block
-            }
-            // if camera has flash toggle on and off
-            else {
-                // boolean to check status of camera flash
-                if (!isFlashOn) {
-
-                    //if flash is off, toggle boolean to on and turn on flash
-                    isFlashOn = true;
-                    camera = Camera.open();
-                    Camera.Parameters parameters = camera.getParameters();
-                    parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-                    camera.setParameters(parameters);
-                    camera.startPreview();
-                    flashlightButton.setImageDrawable(ContextCompat.getDrawable(this,
-                            R.drawable.lightbulb_outline));
-
-                } else {
-
-                    //if flash is on turn boolean to false and turn off flash
-                    isFlashOn = false;
-                    camera.stopPreview();
-                    camera.release();
-                    camera = null;
-                    flashlightButton.setImageDrawable(ContextCompat.getDrawable(this,
-                            R.drawable.lightbulb));
-
-                }
-            }
+           handleFlashlight();
         }
     }
 
@@ -304,6 +277,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         super.onStop();
         GoogleAnalytics.getInstance(this).reportActivityStop(this);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(messageStatus);
+        FlashLight.getInstance(this).stop();
     }
 
     @Override
@@ -455,5 +429,55 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         return false;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == PERMISSION_REQUEST_CAMERA) {
+            handleFlashlight();
+        }
+    }
+
+    private boolean canAccessCamera() {
+        return (hasPermission(CAMERA_PERMS[0]));
+    }
+
+    private boolean hasPermission(String perm) {
+        return (PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(this, perm));
+    }
+
+    private void requestCamera() {
+        // Display a SnackBar with an explanation and a button to trigger the request.
+        Snackbar.make(mLayout, "Camera Permission Needed for Flashlight",
+                Snackbar.LENGTH_INDEFINITE)
+                .setAction("OK", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ActivityCompat.requestPermissions(MenuActivity.this,
+                                CAMERA_PERMS,
+                                PERMISSION_REQUEST_CAMERA);
+                    }
+                })
+                .show();
+    }
+
+    private void handleFlashlight() {
+        if (canAccessCamera()) {
+            // boolean to check status of camera flash
+            if (!FlashLight.getInstance(this).isOn()) {
+                //if flash is off, toggle boolean to on and turn on flash
+                FlashLight.getInstance(this).toggle();
+                flashlightButton.setImageDrawable(ContextCompat.getDrawable(this,
+                        R.drawable.lightbulb_outline));
+            } else {
+                //if flash is on turn boolean to false and turn off flash
+                FlashLight.getInstance(this).toggle();
+                flashlightButton.setImageDrawable(ContextCompat.getDrawable(this,
+                        R.drawable.lightbulb));
+            }
+        }
+        else {
+            requestCamera();
+        }
     }
 }

@@ -24,10 +24,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.hardware.Camera;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -38,15 +39,17 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-import u.readybadger.R;
 
 import u.readybadger.AnalyticsApp;
 import u.readybadger.Config;
+import u.readybadger.Connectivity;
 import u.readybadger.MenuActivity;
+import u.readybadger.R;
 import u.readybadger.myAdapter;
 
 /**
@@ -54,31 +57,31 @@ import u.readybadger.myAdapter;
  * <p/>
  * kjljl
  */
-public class Emergency extends AppCompatActivity {
-
-    //Set boolean flag when torch is turned on/off
-    private boolean isFlashOn = false;
-    //Create camera object to access flashlight
-    private Camera camera = null;
+public class Emergency extends AppCompatActivity implements
+        ActivityCompat.OnRequestPermissionsResultCallback {
+    private static final int PERMISSION_REQUEST_CAMERA = 2;
+    private static final String[] CAMERA_PERMS = {android.Manifest.permission.CAMERA};
     private String countyName;
+    private View mLayout;
+    private ImageView light;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disaster_info_layout);
-
+        mLayout = findViewById(R.id.content);
         // Google Analytics
         // copy these two lines along with the onStart() and onStop() methods below
         Tracker t = ((AnalyticsApp) getApplication()).getTracker();
         t.send(new HitBuilders.ScreenViewBuilder().build());
 
-        String[] disasterList = {"Emergency Map", "River Levels","Shelters", "Volunteer", "Report Damage", "Social Media", "Flashlight", "SOS Tone"};
+        String[] disasterList = {"Emergency Map", "River Levels", "Shelters", "Volunteer", "Report Damage", "Social Media", "Flashlight", "SOS Tone"};
 
         final ListAdapter disasterAdapt = new myAdapter(this, disasterList);
 
         final ListView theListView = (ListView) findViewById(R.id.disasterListView);
 
         SharedPreferences settings = getSharedPreferences("MyPrefsFile", 0);
-        countyName = settings.getString("county","");
+        countyName = settings.getString("county", "");
 
         theListView.setAdapter(disasterAdapt);
 
@@ -90,15 +93,20 @@ public class Emergency extends AppCompatActivity {
 
                 Context context = getApplicationContext();
                 PackageManager pm = context.getPackageManager();
-                ImageView image = (ImageView)view.findViewById(R.id.imageview1);
+                ImageView image = (ImageView) view.findViewById(R.id.imageview1);
                 if (x.equals("Report Damage")) {
                     Intent i = new Intent(Emergency.this, DamageReports.class);
                     Emergency.this.startActivity(i);
                 }
 
                 if (x.equals("River Levels")) {
-                    Intent i = new Intent(Emergency.this, RiverGauge.class);
-                    Emergency.this.startActivity(i);
+                    if (Connectivity.isOnline(Emergency.this)) {
+                        Intent i = new Intent(Emergency.this, RiverGauge.class);
+                        Emergency.this.startActivity(i);
+                    } else {
+                        Toast.makeText(Emergency.this, "Network Error - Could not load river levels",
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 if (x.equals("Emergency Map")) {
@@ -155,39 +163,8 @@ public class Emergency extends AppCompatActivity {
 
                 //flashlight toggles on off as pressed
                 if (x.equals("Flashlight")) {
-
-                    //check to see if device has a camera with flash
-                    if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-
-                        Log.e("err", "Device has no camera!");
-                        //Return from the method, do nothing after this code block
-                        return;
-                    }
-                    // if camera has flash toggle on and off
-                    else {
-                        // boolean to check status of camera flash
-                        if (!isFlashOn) {
-                            image.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),
-                                    R.drawable.lightbulb_outline));
-                            //if flash is off, toggle boolean to on and turn on flash
-                            isFlashOn = true;
-                            camera = Camera.open();
-                            Camera.Parameters parameters = camera.getParameters();
-                            parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-                            camera.setParameters(parameters);
-                            camera.startPreview();
-
-                        } else {
-                            image.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),
-                                    R.drawable.lightbulb));
-                            //if flash is on turn boolean to false and turn off flash
-                            isFlashOn = false;
-                            camera.stopPreview();
-                            camera.release();
-                            camera = null;
-
-                        }
-                    }
+                    light = image;
+                    handleFlashlight();
                 }
             }
         });
@@ -232,5 +209,53 @@ public class Emergency extends AppCompatActivity {
         GoogleAnalytics.getInstance(this).reportActivityStop(this);
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == PERMISSION_REQUEST_CAMERA) {
+            handleFlashlight();
+        }
+    }
+
+    private boolean canAccessCamera() {
+        return (hasPermission(CAMERA_PERMS[0]));
+    }
+
+    private boolean hasPermission(String perm) {
+        return (PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(this, perm));
+    }
+
+    private void requestCamera() {
+        // Display a SnackBar with an explanation and a button to trigger the request.
+        Snackbar.make(mLayout, "Camera Permission Needed for Flashlight",
+                Snackbar.LENGTH_INDEFINITE)
+                .setAction("OK", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ActivityCompat.requestPermissions(Emergency.this,
+                                CAMERA_PERMS,
+                                PERMISSION_REQUEST_CAMERA);
+                    }
+                })
+                .show();
+    }
+
+    private void handleFlashlight() {
+        if (canAccessCamera()) {
+            // boolean to check status of camera flash
+            if (!FlashLight.getInstance(this).isOn()) {
+                //if flash is off, toggle boolean to on and turn on flash
+                FlashLight.getInstance(this).toggle();
+                light.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),
+                        R.drawable.lightbulb_outline));
+            } else {
+                //if flash is on turn boolean to false and turn off flash
+                FlashLight.getInstance(this).toggle();
+                light.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),
+                        R.drawable.lightbulb));
+            }
+        } else {
+            requestCamera();
+        }
+    }
 }
 
