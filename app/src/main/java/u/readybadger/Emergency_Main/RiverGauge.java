@@ -25,7 +25,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -70,6 +69,8 @@ public class RiverGauge extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //ask for permission to write
+
         setContentView(R.layout.activity_river_gauge);
         materialDialog = new MaterialDialog.Builder(RiverGauge.this)
                 .progress(true, 100)
@@ -80,7 +81,7 @@ public class RiverGauge extends AppCompatActivity {
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-
+                //todo insert river graph display
                 return false;
             }
         });
@@ -172,7 +173,7 @@ public class RiverGauge extends AppCompatActivity {
                                 text = parser.getText();
                                 //download the icon at the url (href)
                                 //make folder if not there
-                                File folder = new File(Environment.getExternalStorageDirectory()
+                                File folder = new File(getApplicationContext().getFilesDir()
                                         + "/markers");
                                 File file;
                                 boolean success = true;
@@ -181,7 +182,7 @@ public class RiverGauge extends AppCompatActivity {
                                 }
                                 if (success) {
                                     //save the icon in the folder
-                                    file = new File(Environment.getExternalStorageDirectory()
+                                    file = new File(getApplicationContext().getFilesDir()
                                             + "/markers", id + ".png");
                                 } else {
                                     Log.e("RiverGauge", "SOMETHING WRONG WITH MARKER FILES");
@@ -253,13 +254,15 @@ public class RiverGauge extends AppCompatActivity {
     /* Draw all river markers on map */
     private void drawItems(List<RiverItem> list) {
         for (RiverItem riverItem : list) {
-            MarkerOptions markerOptions = markerTypes.get(riverItem.getStyle());
-            markerOptions.title(riverItem.getName());
-            markerOptions.position(riverItem.getLatLng());
-            markerOptions.visible(true);
+            if (riverItem != null) {
+                MarkerOptions markerOptions = markerTypes.get(riverItem.getStyle());
+                markerOptions.title(riverItem.getName());
+                markerOptions.position(riverItem.getLatLng());
+                markerOptions.visible(true);
 //            snippet can be the desc in the future
-            markerOptions.snippet(riverItem.getDesc());
-            markers.add(map.addMarker(markerOptions));
+                markerOptions.snippet(riverItem.getDesc());
+                markers.add(map.addMarker(markerOptions));
+            }
         }
     }
 

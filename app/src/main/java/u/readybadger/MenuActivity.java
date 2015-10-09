@@ -91,6 +91,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     private Set<String> additionalCounties;
     private SharedPreferences settings;
     private View mLayout;
+    private boolean lightClicked = false;
 
     @Override
     //testing new branch
@@ -192,7 +193,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             }
 
         } else if (v.getId() == (R.id.FlashlightMenuButton)) {
-           handleFlashlight();
+            lightClicked = true;
+            handleFlashlight();
         }
     }
 
@@ -200,7 +202,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
 
-        //TODO add options menu for about and other info
+        //TODO add options menu for about, help and settings
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
         actionBarMenu = menu;
@@ -463,20 +465,22 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     private void handleFlashlight() {
         if (canAccessCamera()) {
-            // boolean to check status of camera flash
-            if (!FlashLight.getInstance(this).isOn()) {
-                //if flash is off, toggle boolean to on and turn on flash
-                FlashLight.getInstance(this).toggle();
-                flashlightButton.setImageDrawable(ContextCompat.getDrawable(this,
-                        R.drawable.lightbulb_outline));
-            } else {
-                //if flash is on turn boolean to false and turn off flash
-                FlashLight.getInstance(this).toggle();
-                flashlightButton.setImageDrawable(ContextCompat.getDrawable(this,
-                        R.drawable.lightbulb));
+            if (lightClicked) {
+                // boolean to check status of camera flash
+                if (!FlashLight.getInstance(this).isOn()) {
+                    //if flash is off, toggle boolean to on and turn on flash
+                    FlashLight.getInstance(this).toggle();
+                    flashlightButton.setImageDrawable(ContextCompat.getDrawable(this,
+                            R.drawable.lightbulb_outline));
+                } else {
+                    //if flash is on turn boolean to false and turn off flash
+                    FlashLight.getInstance(this).toggle();
+                    flashlightButton.setImageDrawable(ContextCompat.getDrawable(this,
+                            R.drawable.lightbulb));
+                }
+                lightClicked = false;
             }
-        }
-        else {
+        } else {
             requestCamera();
         }
     }

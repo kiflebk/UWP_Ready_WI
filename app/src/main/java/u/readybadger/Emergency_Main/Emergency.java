@@ -64,6 +64,7 @@ public class Emergency extends AppCompatActivity implements
     private String countyName;
     private View mLayout;
     private ImageView light;
+    private boolean lightClicked = false;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -164,6 +165,7 @@ public class Emergency extends AppCompatActivity implements
                 //flashlight toggles on off as pressed
                 if (x.equals("Flashlight")) {
                     light = image;
+                    lightClicked = true;
                     handleFlashlight();
                 }
             }
@@ -241,17 +243,20 @@ public class Emergency extends AppCompatActivity implements
 
     private void handleFlashlight() {
         if (canAccessCamera()) {
-            // boolean to check status of camera flash
-            if (!FlashLight.getInstance(this).isOn()) {
-                //if flash is off, toggle boolean to on and turn on flash
-                FlashLight.getInstance(this).toggle();
-                light.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),
-                        R.drawable.lightbulb_outline));
-            } else {
-                //if flash is on turn boolean to false and turn off flash
-                FlashLight.getInstance(this).toggle();
-                light.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),
-                        R.drawable.lightbulb));
+            if (lightClicked) {
+                // boolean to check status of camera flash
+                if (!FlashLight.getInstance(this).isOn()) {
+                    //if flash is off, toggle boolean to on and turn on flash
+                    FlashLight.getInstance(this).toggle();
+                    light.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),
+                            R.drawable.lightbulb_outline));
+                } else {
+                    //if flash is on turn boolean to false and turn off flash
+                    FlashLight.getInstance(this).toggle();
+                    light.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),
+                            R.drawable.lightbulb));
+                }
+                lightClicked = false;
             }
         } else {
             requestCamera();

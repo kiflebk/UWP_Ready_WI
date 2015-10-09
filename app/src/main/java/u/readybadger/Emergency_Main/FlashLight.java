@@ -20,14 +20,15 @@
 package u.readybadger.Emergency_Main;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
 import android.util.Log;
 
 /**
- * A Simple flashlight controller to handle flashlight usage in SDK >= 14?
- *
+ * A Simple flashlight controller to handle flashlight usage in SDK >= 14 (maybe older too!)
+ * <p/>
  * ** NOTE PERMISSION MUST BE GRANTED IN API 23 BEFORE USAGE! **
  */
 @SuppressWarnings("deprecation")
@@ -48,24 +49,29 @@ public class FlashLight {
         return instance;
     }
 
+    /**
+     * To toggle the flash light's current state
+     */
     public void toggle() {
         if (instance != null) {
             if (isOn()) {
                 Log.i("Flashlight", "Turn Off");
                 control(false);
-                status = false;
             } else {
                 Log.i("Flashlight", "Turn On");
                 control(true);
-                status = true;
             }
         } else {
             Log.e("FlashLight", "Flashlight not INITIALIZED");
         }
     }
 
+    /**
+     * The main control of the flash light
+     * @param state the state that the flash will be in
+     */
     private void control(boolean state) {
-
+        //if Marshmallow use touch mode and camera manager
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             CameraManager cameraManager = (CameraManager) context
                     .getSystemService(Context.CAMERA_SERVICE);
@@ -81,16 +87,30 @@ public class FlashLight {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        //if anything else use old camera
         } else {
-            if (safeCameraOpen()) {
-                Camera.Parameters parameters = camera.getParameters();
-                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-                camera.setParameters(parameters);
-                camera.startPreview();
+            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
+                if (state) {
+                    safeCameraOpen();
+                    Camera.Parameters parameters = camera.getParameters();
+                    parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                    camera.setParameters(parameters);
+                    camera.startPreview();
+                } else {
+                    if (camera != null) {
+                        camera.stopPreview();
+                    }
+                    releaseCamera();
+                }
             }
         }
+        status = state;
     }
 
+    /**
+     * Safely opens camera
+     * @return The success of opening
+     */
     private boolean safeCameraOpen() {
         boolean qOpened = false;
 
@@ -106,6 +126,9 @@ public class FlashLight {
         return qOpened;
     }
 
+    /**
+     * Releases use of camera
+     */
     private void releaseCamera() {
         if (camera != null) {
             camera.release();
@@ -113,12 +136,20 @@ public class FlashLight {
         }
     }
 
+    /**
+     * Stops camera instance
+     */
     public void stop() {
         control(false);
+        releaseCamera();
         camera = null;
         instance = null;
     }
 
+    /**
+     * Light status
+     * @return status of flash light
+     */
     public boolean isOn() {
         return status;
     }

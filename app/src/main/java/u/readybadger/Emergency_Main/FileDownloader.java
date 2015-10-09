@@ -29,6 +29,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
+ * A Simple file downloader...must be ran outside of UI thread
  * Created by nathaneisner on 7/7/15.
  */
 public class FileDownloader {
